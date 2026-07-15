@@ -1,0 +1,12 @@
+{
+  "name": "alberotv-onetoro",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "scrape:onetoro": "node scrapers/onetoro.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.55.0"
+  }
+}
