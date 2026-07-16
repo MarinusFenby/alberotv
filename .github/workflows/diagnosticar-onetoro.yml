@@ -1,0 +1,168 @@
+name: Diagnosticar OneToro
+
+on:
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Crear script de diagnóstico
+        run: |
+          mkdir -p scrapers
+          cat > scrapers/onetoro-diagnostic.mjs <<'EOF'
+          import { chromium } from "playwright";
+          import fs from "node:fs/promises";
+
+          const URL = "https://festejos.onetoro.tv/content/ultimos-dos-festejos";
+
+          async function main() {
+            const browser = await chromium.launch({ headless: true });
+
+            const page = await browser.newPage({
+              viewport: { width: 1440, height: 1800 }
+            });
+
+            const responses = [];
+
+            page.on("response", async (response) => {
+              const request = response.request();
+              const resourceType = request.resourceType();
+              const contentType =
+                (response.headers()["content-type"] || "").toLowerCase();
+
+              if (
+                resourceType === "xhr" ||
+                resourceType === "fetch" ||
+                contentType.includes("application/json")
+              ) {
+                let body = "";
+
+                try {
+                  body = await response.text();
+                } catch {}
+
+                responses.push({
+                  url: response.url(),
+                  status: response.status(),
+                  resourceType,
+                  contentType,
+                  body: body.slice(0, 500000)
+                });
+              }
+            });
+
+            await page.goto(URL, {
+              waitUntil: "domcontentloaded",
+              timeout: 90000
+            });
+
+            await page.waitForTimeout(12000);
+
+            for (let i = 0; i < 6; i++) {
+              await page.mouse.wheel(0, 1200);
+              await page.waitForTimeout(1000);
+            }
+
+            const pageData = await page.evaluate(() => ({
+              title: document.title,
+              url: location.href,
+              bodyText: document.body?.innerText || "",
+              html: document.documentElement?.outerHTML || "",
+              scripts: [...document.scripts].map((script) => ({
+                src: script.src,
+                type: script.type,
+                text: script.src
+                  ? ""
+                  : (script.textContent || "").slice(0, 200000)
+              })),
+              links: [...document.querySelectorAll("a")].map((a) => ({
+                text: (a.innerText || "").trim(),
+                href: a.href
+              })),
+              iframes: [...document.querySelectorAll("iframe")].map(
+                (iframe) => iframe.src
+              )
+            }));
+
+            const frames = [];
+
+            for (const frame of page.frames()) {
+              let bodyText = "";
+              let html = "";
+
+              try {
+                bodyText = await frame.locator("body").innerText({
+                  timeout: 3000
+                });
+
+                html = await frame
+                  .locator("html")
+                  .evaluate((element) => element.outerHTML);
+              } catch {}
+
+              frames.push({
+                url: frame.url(),
+                bodyText: bodyText.slice(0, 500000),
+                html: html.slice(0, 1000000)
+              });
+            }
+
+            await fs.mkdir("data", { recursive: true });
+
+            await fs.writeFile(
+              "data/onetoro-network.json",
+              JSON.stringify(responses, null, 2)
+            );
+
+            await fs.writeFile(
+              "data/onetoro-page.json",
+              JSON.stringify(pageData, null, 2)
+            );
+
+            await fs.writeFile(
+              "data/onetoro-frames.json",
+              JSON.stringify(frames, null, 2)
+            );
+
+            await page.screenshot({
+              path: "data/onetoro-page.png",
+              fullPage: true
+            });
+
+            console.log("Respuestas de red:", responses.length);
+            console.log("Frames:", frames.length);
+            console.log("Longitud del texto:", pageData.bodyText.length);
+
+            await browser.close();
+          }
+
+          main().catch((error) => {
+            console.error(error);
+            process.exit(1);
+          });
+          EOF
+
+      - name: Instalar Playwright
+        run: |
+          npm install playwright
+          npx playwright install --with-deps chromium
+
+      - name: Ejecutar diagnóstico de OneToro
+        run: node scrapers/onetoro-diagnostic.mjs
+
+      - name: Guardar diagnóstico
+        uses: actions/upload-artifact@v4
+        with:
+          name: onetoro-diagnostico
+          path: data/
+          retention-days: 7
