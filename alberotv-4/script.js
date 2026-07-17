@@ -1,961 +1,536 @@
-const timeline = document.getElementById("timeline");
-const hint = document.getElementById("hint");
 
-const SPANISH_MONTHS = [
-  "enero", "febrero", "marzo", "abril", "mayo", "junio",
-  "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+const timeline = document.querySelector('#timeline');
+
+const months = [
+  'enero',
+  'febrero',
+  'marzo',
+  'abril',
+  'mayo',
+  'junio',
+  'julio',
+  'agosto',
+  'septiembre',
+  'octubre',
+  'noviembre',
+  'diciembre'
 ];
 
-const SPANISH_WEEKDAYS = [
-  "Domingo", "Lunes", "Martes", "Miércoles",
-  "Jueves", "Viernes", "Sábado"
+const week = [
+  'Domingo',
+  'Lunes',
+  'Martes',
+  'Miércoles',
+  'Jueves',
+  'Viernes',
+  'Sábado'
 ];
-
-function localDateKey(date) {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-
-  return `${y}-${m}-${d}`;
-}
-
-function parseISODateLocal(iso) {
-  const [y, m, d] = iso.split("-").map(Number);
-
-  return new Date(y, m - 1, d);
-}
-
-function formatDate(date) {
-  return `${date.getDate()} de ${SPANISH_MONTHS[date.getMonth()]}`;
-}
-
-function dayLabel(date, today) {
-  const diff = Math.round(
-    (date - today) / 86400000
-  );
-
-  if (diff === -1) return "AYER";
-  if (diff === 0) return "HOY";
-  if (diff === 1) return "MAÑANA";
-
-  if (diff < -1) return "ANTERIOR";
-
-  return "PRÓXIMO";
-}
-
-function statusForEvent(eventDate, today) {
-  const diff = Math.round(
-    (eventDate - today) / 86400000
-  );
-
-  if (diff < 0) return "Finalizado";
-  if (diff === 0) return "Hoy";
-
-  return "Próximo";
-}
-
-function categoryFromParticipants(participants = []) {
-
-  const joined = participants
-    .join(" ")
-    .toLowerCase();
-
-  if (joined.includes("novillada")) {
-    return "Novillada";
-  }
-
-  if (
-    joined.includes("rejones") ||
-    joined.includes("rejoneo")
-  ) {
-    return "Rejones";
-  }
-
-  return "Festejo taurino";
-}
-
-function cleanEventName(name = "") {
-
-  return name
-    .replace(
-      /\s*\(\d{2}\/\d{2}\/\d{4}\)\s*$/,
-      ""
-    )
-    .trim();
-}
-
-function transformOneToroEvent(event, today) {
-
-  const date = parseISODateLocal(event.date);
-
-  return {
-
-    time:
-      event.time ||
-      "Hora por confirmar",
-
-    category:
-      categoryFromParticipants(
-        event.participants
-      ),
-
-    title:
-      cleanEventName(event.name),
-
-    venue:
-      cleanEventName(event.name),
-
-    lineup:
-      (event.participants || [])
-        .join(" · ") ||
-      "Información por confirmar",
-
-    breeding: "",
-
-    channel:
-      event.channel ||
-      "OneToro",
-
-    status:
-      statusForEvent(
-        date,
-        today
-      ),
-
-    image:
-      event.image ||
-      null,
-
-    sourceUrl:
-      event.sourceUrl ||
-      null
-  };
-}
-
-function buildDays(events) {
-
-  const now = new Date();
-
-  const today = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate()
-  );
-
-  const byDate = new Map();
-
-  for (const event of events) {
-
-    if (!event?.date) {
-      continue;
-    }
-
-    if (!byDate.has(event.date)) {
-      byDate.set(
-        event.date,
-        []
-      );
-    }
-
-    byDate
-      .get(event.date)
-      .push(
-        transformOneToroEvent(
-          event,
-          today
-        )
-      );
-  }
-
-  /*
-   * Siempre mostramos:
-   *
-   * AYER
-   * HOY
-   * MAÑANA
-   *
-   * aunque no haya emisiones.
-   */
-
-  const requiredDates =
-    [-1, 0, 1].map(
-      offset => {
-
-        const d =
-          new Date(today);
-
-        d.setDate(
-          today.getDate() +
-          offset
-        );
-
-        return localDateKey(d);
-      }
-    );
-
-  /*
-   * Añadimos también todos
-   * los próximos días para los
-   * que OneToro tenga programación.
-   */
-
-  const allKeys = [
-    ...new Set([
-      ...requiredDates,
-      ...byDate.keys()
-    ])
-  ].sort();
-
-  return allKeys.map(
-    key => {
-
-      const date =
-        parseISODateLocal(key);
-
-      return {
-
-        key,
-
-        label:
-          dayLabel(
-            date,
-            today
-          ),
-
-        date:
-          formatDate(date),
-
-        weekday:
-          SPANISH_WEEKDAYS[
-            date.getDay()
-          ],
-
-        events:
-          byDate.get(key) ||
-          []
-      };
-    }
-  );
-}
-
-function renderDay(day, index) {
-
-  const article =
-    document.createElement(
-      "article"
-    );
-
-  article.className = "day";
-
-  article.dataset.index =
-    index;
-
-  article.dataset.date =
-    day.key;
-
-  const eventsHtml =
-    day.events.length
-
-      ? day.events
-          .map(
-            event => `
-
-              <article class="event">
-
-                <div class="event-time">
-                  ${event.time}
-                </div>
-
-                <div>
-
-                  <span class="badge">
-                    ${event.category.toUpperCase()}
-                  </span>
-
-                  <h3 class="event-title">
-                    ${event.title}
-                  </h3>
-
-                  ${
-                    event.venue
-                      ? `
-                        <p class="venue">
-                          ${event.venue}
-                        </p>
-                      `
-                      : ""
-                  }
-
-                  ${
-                    event.lineup
-                      ? `
-                        <p class="lineup">
-                          ${event.lineup}
-                        </p>
-                      `
-                      : ""
-                  }
-
-                  ${
-                    event.breeding
-                      ? `
-                        <p class="breeding">
-                          ${event.breeding}
-                        </p>
-                      `
-                      : ""
-                  }
-
-                  ${
-                    event.sourceUrl
-                      ? `
-                        <a
-                          class="event-link"
-                          href="${event.sourceUrl}"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Ver en OneToro
-                        </a>
-                      `
-                      : ""
-                  }
-
-                </div>
-
-                <div class="channel">
-
-                  ${event.channel}
-
-                  <small>
-                    ${event.status.toUpperCase()}
-                  </small>
-
-                </div>
-
-              </article>
-
-            `
-          )
-          .join("")
-
-      : `
-
-        <div class="empty-day">
-
-          <strong>
-            Sin emisiones programadas
-          </strong>
-
-          <span>
-            No hay festejos publicados
-            para este día.
-          </span>
-
-        </div>
-
-      `;
-
-  article.innerHTML = `
-
-    <header class="day-header">
-
-      <div class="day-kicker">
-        ${day.label}
-      </div>
-
-      <h2 class="day-date">
-        ${day.date}
-      </h2>
-
-      <div class="day-weekday">
-        ${day.weekday}
-      </div>
-
-    </header>
-
-    <div class="events">
-      ${eventsHtml}
-    </div>
-
-  `;
-
-  return article;
-}
 
 let cards = [];
+let activeIndex = 1;
 
-let activeIndex = 0;
-
-function centerCard(
-  index,
-  smooth = true
-) {
-
-  const card =
-    cards[index];
-
-  if (!card) {
-    return;
-  }
-
-  activeIndex =
-    index;
-
-  const targetLeft =
-
-    card.offsetLeft
-
-    - (
-      timeline.clientWidth /
-      2
-    )
-
-    + (
-      card.offsetWidth /
-      2
-    );
-
-  timeline.scrollTo({
-
-    left:
-      targetLeft,
-
-    behavior:
-      smooth
-        ? "smooth"
-        : "auto"
-
-  });
+function iso(date) {
+  return `${date.getFullYear()}-${String(
+    date.getMonth() + 1
+  ).padStart(2, '0')}-${String(
+    date.getDate()
+  ).padStart(2, '0')}`;
 }
 
 function updateVisuals() {
+  const timelineRect =
+    timeline.getBoundingClientRect();
 
   const center =
+    timelineRect.left +
+    timelineRect.width / 2;
 
-    timeline
-      .getBoundingClientRect()
-      .left
+  let closestIndex = 0;
+  let closestDistance = Infinity;
 
-    +
+  cards.forEach((card, index) => {
+    const rect =
+      card.getBoundingClientRect();
 
-    timeline.clientWidth /
-    2;
+    const cardCenter =
+      rect.left +
+      rect.width / 2;
+
+    const signedDistance =
+      cardCenter - center;
+
+    const distance =
+      Math.abs(signedDistance);
+
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestIndex = index;
+    }
+
+    const normalized =
+      Math.min(
+        distance /
+          Math.max(
+            timelineRect.width * 0.52,
+            1
+          ),
+        1
+      );
+
+    /*
+      Cuanto más cerca esté una tarjeta
+      del centro, más grande, clara y nítida.
+    */
+
+    const scale =
+      1 - normalized * 0.16;
+
+    const opacity =
+      1 - normalized * 0.60;
+
+    const blur =
+      normalized * 1.2;
+
+    /*
+      Las tarjetas que quedan atrás
+      aparecen algo más oscuras.
+    */
+
+    const brightnessLoss =
+      signedDistance < 0
+        ? 0.36
+        : 0.24;
+
+    const brightness =
+      1 -
+      normalized *
+        brightnessLoss;
+
+    card.style.transform =
+      `scale(${scale})`;
+
+    card.style.opacity =
+      opacity;
+
+    card.style.filter =
+      `blur(${blur}px) brightness(${brightness})`;
+  });
+
+  activeIndex =
+    closestIndex;
 
   cards.forEach(
     (card, index) => {
-
-      const rect =
-        card.getBoundingClientRect();
-
-      const cardCenter =
-
-        rect.left
-
-        +
-
-        rect.width /
-        2;
-
-      const signedDistance =
-
-        cardCenter -
-        center;
-
-      const distance =
-
-        Math.abs(
-          signedDistance
-        );
-
-      const normalized =
-
-        Math.min(
-
-          distance /
-
-          (
-            timeline.clientWidth *
-            0.65
-          ),
-
-          1
-
-        );
-
-      const scale =
-
-        1
-
-        -
-
-        normalized *
-        0.16;
-
-      const opacity =
-
-        1
-
-        -
-
-        normalized *
-        0.52;
-
-      const blur =
-
-        normalized *
-        1.8;
-
-      /*
-       * El pasado queda
-       * algo más oscuro.
-       *
-       * El futuro queda
-       * ligeramente menos apagado.
-       */
-
-      const sideDarkening =
-
-        signedDistance < 0
-
-          ? 0.40
-
-          : 0.28;
-
-      const brightness =
-
-        1
-
-        -
-
-        normalized *
-        sideDarkening;
-
-      card.style.transform =
-
-        `scale(${scale})`;
-
-      card.style.opacity =
-
-        opacity;
-
-      card.style.filter =
-
-        `blur(${blur}px) brightness(${brightness})`;
-
-      if (
-        distance <
-        rect.width *
-        0.28
-      ) {
-
-        activeIndex =
-          index;
-
-        card.classList.add(
-          "is-active"
-        );
-
-      } else {
-
-        card.classList.remove(
-          "is-active"
-        );
-
-      }
-
+      card.classList.toggle(
+        'active',
+        index === activeIndex
+      );
     }
   );
 }
 
-function setupInteractions() {
+function moveByOneDay(direction) {
+  if (!cards.length) return;
 
-  let ticking =
-    false;
-
-  timeline.addEventListener(
-    "scroll",
-    () => {
-
-      hint?.classList.add(
-        "hidden"
-      );
-
-      if (!ticking) {
-
-        requestAnimationFrame(
-          () => {
-
-            updateVisuals();
-
-            ticking =
-              false;
-
-          }
-        );
-
-        ticking =
-          true;
-      }
-
-    }
-  );
-
-  /*
-   * Convierte la rueda vertical
-   * del ratón en scroll horizontal.
-   */
-
-  timeline.addEventListener(
-
-    "wheel",
-
-    e => {
-
-      if (
-        Math.abs(e.deltaY) >
-        Math.abs(e.deltaX)
-      ) {
-
-        e.preventDefault();
-
-        timeline.scrollLeft +=
-          e.deltaY;
-
-      }
-
-    },
-
-    {
-      passive: false
-    }
-
-  );
-
-  document
-    .querySelector(
-      ".edge-arrow.left"
-    )
-    ?.addEventListener(
-      "click",
-      () => {
-
-        centerCard(
-
-          Math.max(
-            0,
-            activeIndex - 1
-          )
-
-        );
-
-      }
+  const nextIndex =
+    Math.max(
+      0,
+      Math.min(
+        cards.length - 1,
+        activeIndex + direction
+      )
     );
 
-  document
-    .querySelector(
-      ".edge-arrow.right"
-    )
-    ?.addEventListener(
-      "click",
-      () => {
+  const card =
+    cards[nextIndex];
 
-        centerCard(
+  const left =
+    card.offsetLeft -
+    timeline.clientWidth / 2 +
+    card.offsetWidth / 2;
 
-          Math.min(
-            cards.length - 1,
-            activeIndex + 1
-          )
-
-        );
-
-      }
-    );
-
-  timeline.addEventListener(
-    "keydown",
-    e => {
-
-      if (
-        e.key ===
-        "ArrowLeft"
-      ) {
-
-        centerCard(
-
-          Math.max(
-            0,
-            activeIndex - 1
-          )
-
-        );
-
-      }
-
-      if (
-        e.key ===
-        "ArrowRight"
-      ) {
-
-        centerCard(
-
-          Math.min(
-            cards.length - 1,
-            activeIndex + 1
-          )
-
-        );
-
-      }
-
-    }
-  );
-
-  /*
-   * Permite arrastrar
-   * la programación con
-   * el ratón o el dedo.
-   */
-
-  let isDragging =
-    false;
-
-  let startX =
-    0;
-
-  let startScroll =
-    0;
-
-  timeline.addEventListener(
-
-    "pointerdown",
-
-    e => {
-
-      isDragging =
-        true;
-
-      startX =
-        e.clientX;
-
-      startScroll =
-        timeline.scrollLeft;
-
-      timeline.setPointerCapture(
-        e.pointerId
-      );
-
-    }
-
-  );
-
-  timeline.addEventListener(
-
-    "pointermove",
-
-    e => {
-
-      if (!isDragging) {
-        return;
-      }
-
-      timeline.scrollLeft =
-
-        startScroll
-
-        -
-
-        (
-          e.clientX -
-          startX
-        );
-
-    }
-
-  );
-
-  timeline.addEventListener(
-
-    "pointerup",
-
-    () => {
-
-      isDragging =
-        false;
-
-      centerCard(
-        activeIndex
-      );
-
-    }
-
-  );
-
-  window.addEventListener(
-
-    "resize",
-
-    updateVisuals
-
-  );
+  timeline.scrollTo({
+    left: left,
+    behavior: 'smooth'
+  });
 }
 
-async function loadSchedule() {
+async function start() {
+
+  let events = [];
 
   try {
 
-    /*
-     * Cargamos el JSON generado
-     * automáticamente por el
-     * extractor de OneToro.
-     */
-
     const response =
       await fetch(
-
-        `data/onetoro.json?v=${Date.now()}`,
-
+        `data/onetoro.json?ts=${Date.now()}`,
         {
-          cache:
-            "no-store"
+          cache: 'no-store'
         }
-
       );
 
     if (!response.ok) {
-
       throw new Error(
-
-        `No se pudo cargar OneToro (${response.status})`
-
+        `HTTP ${response.status}`
       );
-
     }
 
     const data =
       await response.json();
 
-    const days =
-      buildDays(
-        data.events ||
-        []
-      );
-
-    timeline.innerHTML =
-      "";
-
-    days.forEach(
-
-      (day, i) =>
-
-        timeline.appendChild(
-
-          renderDay(
-            day,
-            i
-          )
-
-        )
-
-    );
-
-    cards = [
-
-      ...document.querySelectorAll(
-        ".day"
-      )
-
-    ];
-
-    /*
-     * Al abrir la web buscamos
-     * automáticamente HOY y lo
-     * colocamos en el centro.
-     */
-
-    const todayKey =
-      localDateKey(
-        new Date()
-      );
-
-    activeIndex =
-
-      Math.max(
-
-        0,
-
-        cards.findIndex(
-
-          card =>
-
-            card.dataset.date ===
-            todayKey
-
-        )
-
-      );
-
-    requestAnimationFrame(
-      () => {
-
-        centerCard(
-          activeIndex,
-          false
-        );
-
-        setTimeout(
-          updateVisuals,
-          40
-        );
-
-      }
-    );
+    events =
+      data.events || [];
 
   } catch (error) {
 
     console.error(
+      'No se pudo cargar la programación de OneToro',
       error
     );
 
-    timeline.innerHTML = `
+  }
 
-      <article
-        class="day is-active"
-      >
+  const now =
+    new Date();
 
-        <header
-          class="day-header"
-        >
+  now.setHours(
+    0,
+    0,
+    0,
+    0
+  );
 
-          <div
-            class="day-kicker"
-          >
-            ERROR
-          </div>
+  /*
+    Generamos desde ayer hasta
+    30 días en el futuro.
+  */
 
-          <h2
-            class="day-date"
-          >
-            Programación no disponible
-          </h2>
+  for (
+    let offset = -1;
+    offset <= 30;
+    offset++
+  ) {
 
-          <div
-            class="day-weekday"
-          >
-            No se han podido cargar
-            los datos de OneToro.
-          </div>
+    const d =
+      new Date(now);
 
-        </header>
+    d.setDate(
+      now.getDate() +
+      offset
+    );
 
-      </article>
+    const dateKey =
+      iso(d);
+
+    const dayEvents =
+      events.filter(
+        event =>
+          event.date ===
+          dateKey
+      );
+
+    const card =
+      document.createElement(
+        'article'
+      );
+
+    card.className =
+      'day';
+
+    card.dataset.offset =
+      offset;
+
+    const label =
+
+      offset === -1
+        ? 'AYER'
+
+        : offset === 0
+        ? 'HOY'
+
+        : offset === 1
+        ? 'MAÑANA'
+
+        : '';
+
+    /*
+      Si es HOY añadimos
+      la clase today-date.
+    */
+
+    const dateClass =
+      offset === 0
+        ? 'date today-date'
+        : 'date';
+
+    card.innerHTML = `
+
+      <div class="label">
+        ${label}
+      </div>
+
+      <div class="${dateClass}">
+        ${d.getDate()}
+        de
+        ${months[d.getMonth()]}
+      </div>
+
+      <div class="weekday">
+        ${week[d.getDay()]}
+      </div>
+
+      ${
+        dayEvents.length
+
+          ?
+
+          dayEvents
+            .map(
+              event => `
+
+                <div class="event">
+
+                  <div class="time">
+
+                    ${
+                      event.time ||
+                      'Hora por confirmar'
+                    }
+
+                  </div>
+
+                  <div class="event-info">
+
+                    <h2>
+
+                      ${
+                        (
+                          event.name ||
+                          'Festejo taurino'
+                        ).replace(
+                          /\s*\(\d{2}\/\d{2}\/\d{4}\)\s*$/,
+                          ''
+                        )
+                      }
+
+                    </h2>
+
+                    <div class="people">
+
+                      ${
+                        (
+                          event.participants ||
+                          []
+                        ).join(' · ')
+                      }
+
+                    </div>
+
+                    ${
+                      event.breeding
+
+                        ?
+
+                        `
+
+                          <div class="breeding">
+
+                            Ganadería:
+                            ${event.breeding}
+
+                          </div>
+
+                        `
+
+                        :
+
+                        ''
+                    }
+
+                  </div>
+
+                  <div class="channel">
+
+                    ${
+                      event.channel ||
+                      'OneToro'
+                    }
+
+                  </div>
+
+                </div>
+
+              `
+            )
+            .join('')
+
+          :
+
+          `
+
+            <div class="empty">
+
+              <b>
+                Sin emisiones programadas
+              </b>
+
+              <br>
+
+              No hay festejos publicados
+              para este día.
+
+            </div>
+
+          `
+      }
 
     `;
 
+    timeline.appendChild(
+      card
+    );
+
   }
+
+  cards = [
+    ...document.querySelectorAll(
+      '.day'
+    )
+  ];
+
+  const todayIndex =
+    cards.findIndex(
+      card =>
+        card.dataset.offset ===
+        '0'
+    );
+
+  activeIndex =
+    todayIndex >= 0
+      ? todayIndex
+      : 0;
+
+  /*
+    Colocamos HOY en el centro
+    al cargar la página.
+  */
+
+  requestAnimationFrame(
+    () => {
+
+      const todayCard =
+        cards[activeIndex];
+
+      if (todayCard) {
+
+        timeline.scrollLeft =
+
+          todayCard.offsetLeft -
+
+          timeline.clientWidth / 2 +
+
+          todayCard.offsetWidth / 2;
+
+      }
+
+      updateVisuals();
+
+    }
+  );
 
 }
 
-setupInteractions();
 
-loadSchedule();
+/*
+  Actualizamos tamaño, brillo y
+  posición continuamente mientras
+  desplazamos el carrusel.
+*/
+
+let ticking = false;
+
+timeline.addEventListener(
+  'scroll',
+  () => {
+
+    if (!ticking) {
+
+      requestAnimationFrame(
+        () => {
+
+          updateVisuals();
+
+          ticking = false;
+
+        }
+      );
+
+      ticking = true;
+
+    }
+
+  }
+);
+
+
+/*
+  Convierte la rueda vertical
+  del ratón en desplazamiento
+  horizontal continuo.
+*/
+
+timeline.addEventListener(
+  'wheel',
+
+  event => {
+
+    if (
+      Math.abs(event.deltaY) >
+      Math.abs(event.deltaX)
+    ) {
+
+      event.preventDefault();
+
+      timeline.scrollLeft +=
+        event.deltaY;
+
+    }
+
+  },
+
+  {
+    passive: false
+  }
+);
+
+
+/*
+  Las flechas siguen permitiendo
+  avanzar exactamente un día.
+*/
+
+document
+  .querySelector('.left')
+  .onclick = () => {
+
+    moveByOneDay(-1);
+
+  };
+
+
+document
+  .querySelector('.right')
+  .onclick = () => {
+
+    moveByOneDay(1);
+
+  };
+
+
+window.addEventListener(
+  'resize',
+  updateVisuals
+);
+
+
+start();
