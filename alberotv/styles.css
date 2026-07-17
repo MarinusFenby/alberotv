@@ -1,0 +1,528 @@
+/* ================================
+   ALBERO TV
+   ================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  background: #06111f;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+
+/* ================================
+   CABECERA
+   ================================ */
+
+.topbar {
+  height: 86px;
+  padding: 0 4vw;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #071727;
+
+  position: relative;
+  z-index: 20;
+}
+
+.brand {
+  font-size: 30px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -1px;
+}
+
+.brand span {
+  color: #59caff;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.nav-link,
+.menu-button {
+  border-radius: 999px;
+  padding: 11px 18px;
+
+  background: #12304f;
+  color: #dcefff;
+
+  font-weight: 700;
+
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.nav-link:hover,
+.menu-button:hover {
+  background: #19436d;
+  transform: translateY(-1px);
+}
+
+.menu-button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+
+
+/* ================================
+   CONTENEDOR PRINCIPAL
+   ================================ */
+
+main {
+  width: 100%;
+}
+
+.timeline-shell {
+  position: relative;
+
+  width: 100%;
+  min-height: calc(100vh - 145px);
+
+  display: flex;
+  align-items: center;
+}
+
+
+/* ================================
+   TIMELINE
+   ================================ */
+
+.timeline {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 4vw;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding:
+    42px
+    calc(50vw - 370px);
+
+  scrollbar-width: none;
+
+  /*
+    IMPORTANTE:
+    No usamos scroll-snap.
+    El movimiento queda completamente libre.
+  */
+
+  scroll-snap-type: none;
+
+  overscroll-behavior-x: contain;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.timeline::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* ================================
+   TARJETAS DE LOS DÍAS
+   ================================ */
+
+.day {
+  flex:
+    0
+    0
+    740px;
+
+  min-height: 650px;
+
+  padding:
+    38px
+    32px;
+
+  border-radius: 30px;
+
+  background: #0a2949;
+
+  opacity: 0.24;
+
+  filter: blur(1.5px);
+
+  /*
+    La escala se controla desde JavaScript
+    para que cambie progresivamente según
+    la posición de la tarjeta.
+  */
+
+  transform: scale(0.82);
+
+  transform-origin: center center;
+
+  transition:
+    background 220ms ease,
+    box-shadow 220ms ease;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+}
+
+
+/* ================================
+   TARJETA CENTRAL
+   ================================ */
+
+.day.active {
+  background:
+    linear-gradient(
+      155deg,
+      #277ed8,
+      #12518d
+    );
+
+  box-shadow:
+    0 25px 80px
+    rgba(0, 0, 0, 0.35);
+}
+
+
+/* ================================
+   CABECERA DE CADA DÍA
+   ================================ */
+
+.label {
+  min-height: 24px;
+
+  text-align: center;
+
+  color: #67d3ff;
+
+  font-size: 17px;
+  font-weight: 900;
+  font-style: italic;
+
+  letter-spacing: 2px;
+}
+
+.date {
+  margin: 10px 0 6px;
+
+  text-align: center;
+
+  font-size: 50px;
+  line-height: 1.05;
+
+  font-weight: 900;
+  font-style: italic;
+
+  transition:
+    color 200ms ease;
+}
+
+
+/*
+  FECHA DEL DÍA ACTUAL
+*/
+
+.date.today-date {
+  color: #ff3b30;
+}
+
+
+.weekday {
+  margin-bottom: 28px;
+
+  text-align: center;
+
+  font-size: 22px;
+  font-weight: 800;
+  font-style: italic;
+}
+
+
+/* ================================
+   EVENTOS
+   ================================ */
+
+.event {
+  display: grid;
+
+  grid-template-columns:
+    120px
+    minmax(0, 1fr)
+    120px;
+
+  gap: 20px;
+
+  align-items: center;
+
+  margin: 14px 0;
+
+  padding: 22px 24px;
+
+  background: #0b3a68;
+
+  border-radius: 20px;
+}
+
+.event h2 {
+  margin: 0;
+
+  font-size: 23px;
+  line-height: 1.15;
+
+  font-weight: 900;
+  font-style: italic;
+}
+
+.time {
+  font-size: 20px;
+  line-height: 1.15;
+
+  font-weight: 900;
+  font-style: italic;
+}
+
+.channel {
+  padding-left: 18px;
+
+  border-left:
+    1px solid
+    rgba(255, 255, 255, 0.22);
+
+  font-size: 20px;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.people {
+  margin-top: 8px;
+
+  color: #ffffff;
+
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+
+/* ================================
+   GANADERÍA
+   ================================ */
+
+.breeding {
+  margin-top: 8px;
+
+  color: #75d2ff;
+
+  font-size: 15px;
+  line-height: 1.35;
+
+  font-weight: 800;
+}
+
+.breeding::before {
+  content: "Ganadería: ";
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+}
+
+
+/* ================================
+   DÍA SIN PROGRAMACIÓN
+   ================================ */
+
+.empty {
+  padding:
+    90px
+    10px;
+
+  text-align: center;
+
+  color: #c8deef;
+
+  font-size: 19px;
+  line-height: 1.45;
+}
+
+.empty b {
+  font-size: 20px;
+}
+
+
+/* ================================
+   FLECHAS LATERALES
+   ================================ */
+
+.edge-arrow {
+  position: absolute;
+
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+
+  z-index: 10;
+
+  width: 58px;
+  height: 58px;
+
+  padding: 0;
+
+  border-radius: 50%;
+
+  background: #123b63;
+  color: #dcefff;
+
+  font-size: 38px;
+  line-height: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.edge-arrow:hover {
+  background: #1a527f;
+
+  transform:
+    translateY(-50%)
+    scale(1.06);
+}
+
+.edge-arrow.left {
+  left: 18px;
+}
+
+.edge-arrow.right {
+  right: 18px;
+}
+
+
+/* ================================
+   TEXTO INFERIOR
+   ================================ */
+
+.hint {
+  padding:
+    0
+    0
+    22px;
+
+  text-align: center;
+
+  color: #83a9c7;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (
+  max-width: 800px
+) {
+
+  .topbar {
+    height: 74px;
+    padding: 0 20px;
+  }
+
+  .brand {
+    font-size: 25px;
+  }
+
+  .nav-link {
+    display: none;
+  }
+
+  .timeline-shell {
+    min-height:
+      calc(
+        100vh - 125px
+      );
+  }
+
+  .timeline {
+    gap: 7vw;
+
+    padding:
+      25px
+      8vw;
+  }
+
+  .day {
+    flex-basis: 84vw;
+
+    min-height: 620px;
+
+    padding:
+      30px
+      22px;
+  }
+
+  .date {
+    font-size: 39px;
+  }
+
+  .event {
+    grid-template-columns:
+      1fr;
+
+    gap: 12px;
+  }
+
+  .channel {
+    padding-left: 0;
+
+    border-left: 0;
+
+    border-top:
+      1px solid
+      rgba(
+        255,
+        255,
+        255,
+        0.2
+      );
+
+    padding-top: 12px;
+  }
+
+  .edge-arrow {
+    display: none;
+  }
+
+}
