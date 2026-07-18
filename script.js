@@ -1,170 +1,122 @@
-const timeline = document.getElementById("timeline");
-const hint = document.getElementById("hint");
+const timeline = document.getElementById('timeline');
+const hint = document.getElementById('hint');
 
 const months = [
-  "enero",
-  "febrero",
-  "marzo",
-  "abril",
-  "mayo",
-  "junio",
-  "julio",
-  "agosto",
-  "septiembre",
-  "octubre",
-  "noviembre",
-  "diciembre"
+  'enero',
+  'febrero',
+  'marzo',
+  'abril',
+  'mayo',
+  'junio',
+  'julio',
+  'agosto',
+  'septiembre',
+  'octubre',
+  'noviembre',
+  'diciembre'
 ];
 
 const weekdays = [
-  "Domingo",
-  "Lunes",
-  "Martes",
-  "Miércoles",
-  "Jueves",
-  "Viernes",
-  "Sábado"
+  'Domingo',
+  'Lunes',
+  'Martes',
+  'Miércoles',
+  'Jueves',
+  'Viernes',
+  'Sábado'
 ];
 
 let cards = [];
+let activeIndex = 0;
 let isDragging = false;
 let dragStartX = 0;
 let dragStartScroll = 0;
 
-
-/* ==================================================
-   UTILIDADES
-   ================================================== */
-
 function toLocalISO(date) {
   return [
     date.getFullYear(),
-    String(date.getMonth() + 1).padStart(2, "0"),
-    String(date.getDate()).padStart(2, "0")
-  ].join("-");
+    String(date.getMonth() + 1).padStart(2, '0'),
+    String(date.getDate()).padStart(2, '0')
+  ].join('-');
 }
 
+function cleanEventName(name = '') {
+  return name
+    .replace(
+      /\s*\(\d{2}\/\d{2}\/\d{4}\)\s*$/,
+      ''
+    )
+    .trim();
+}
 
 function getDayLabel(offset) {
-  if (offset === -1) return "AYER";
-  if (offset === 0) return "HOY";
-  if (offset === 1) return "MAÑANA";
+  if (offset === -1) return 'AYER';
+  if (offset === 0) return 'HOY';
+  if (offset === 1) return 'MAÑANA';
 
-  return "";
+  return '';
 }
 
-
-function escapeHtml(value = "") {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+function getEventTime(event) {
+  return event.time || 'Hora por confirmar';
 }
 
+function getBreeding(event) {
+  if (event.breeding) {
+    return event.breeding;
+  }
 
-function formatParticipants(participants = []) {
-  return participants
-    .filter(Boolean)
-    .map(escapeHtml)
-    .join(" · ");
+  return '';
 }
-
-
-/* ==================================================
-   CREAR EVENTO
-   ================================================== */
 
 function buildEvent(event) {
-  const time =
-    event.time ||
-    "Hora por confirmar";
-
-  const type =
-    event.type ||
-    "Festejo taurino";
-
-  const location =
-    event.location ||
-    event.name ||
-    "";
-
-  const participants =
-    formatParticipants(
-      event.participants ||
-      []
-    );
-
   const breeding =
-    event.breeding ||
-    "";
-
-  const channel =
-    event.channel ||
-    "Canal por confirmar";
-
+    getBreeding(event);
 
   return `
     <article class="event">
 
       <div class="time">
-        ${escapeHtml(time)}
+        ${getEventTime(event)}
       </div>
 
+      <div>
 
-      <div class="event-content">
-
-        <div class="event-type">
-          ${escapeHtml(type)}
-        </div>
-
-
-        <h2 class="event-title">
-          ${escapeHtml(location)}
+        <h2>
+          ${cleanEventName(
+            event.name ||
+            'Festejo taurino'
+          )}
         </h2>
 
-
-        ${
-          participants
-            ? `
-              <div class="people">
-                ${participants}
-              </div>
-            `
-            : `
-              <div class="people pending">
-                Cartel por confirmar
-              </div>
-            `
-        }
-
+        <div class="people">
+          ${
+            (
+              event.participants ||
+              []
+            ).join(' · ')
+          }
+        </div>
 
         ${
           breeding
             ? `
               <div class="breeding">
-                ${escapeHtml(breeding)}
+                ${breeding}
               </div>
             `
-            : ""
+            : ''
         }
 
       </div>
 
-
       <div class="channel">
-        ${escapeHtml(channel)}
+        ${event.channel || 'OneToro'}
       </div>
 
     </article>
   `;
 }
-
-
-/* ==================================================
-   CREAR TARJETA DE DÍA
-   ================================================== */
 
 function buildDayCard(
   date,
@@ -173,46 +125,38 @@ function buildDayCard(
 ) {
   const card =
     document.createElement(
-      "article"
+      'article'
     );
 
-
-  const dateKey =
-    toLocalISO(date);
-
-
   card.className =
-    "day";
-
+    'day';
 
   card.dataset.offset =
-    String(offset);
-
+    offset;
 
   card.dataset.date =
-    dateKey;
+    toLocalISO(date);
 
+  const dayLabel =
+    getDayLabel(offset);
+
+  const dateClass =
+    offset === 0
+      ? 'date today-date'
+      : 'date';
 
   const dayEvents =
     events.filter(
       event =>
         event.date ===
-        dateKey
+        card.dataset.date
     );
-
-
-  const dateClass =
-    offset === 0
-      ? "date today-date"
-      : "date";
-
 
   card.innerHTML = `
 
     <div class="label">
-      ${getDayLabel(offset)}
+      ${dayLabel}
     </div>
-
 
     <div class="${dateClass}">
       ${date.getDate()}
@@ -220,164 +164,134 @@ function buildDayCard(
       ${months[date.getMonth()]}
     </div>
 
-
     <div class="weekday">
       ${weekdays[date.getDay()]}
     </div>
 
+    ${
+      dayEvents.length
+        ? dayEvents
+            .map(buildEvent)
+            .join('')
+        : `
+            <div class="empty">
 
-    <div class="events">
+              <b>
+                Sin emisiones programadas
+              </b>
 
-      ${
-        dayEvents.length
+              <br>
 
-          ? dayEvents
-              .map(buildEvent)
-              .join("")
+              No hay festejos publicados
+              para este día.
 
-          : `
-              <div class="empty">
-
-                <b>
-                  Sin emisiones programadas
-                </b>
-
-                <br>
-
-                No hay festejos publicados
-                para este día.
-
-              </div>
-            `
-      }
-
-    </div>
+            </div>
+          `
+    }
 
   `;
-
 
   return card;
 }
 
-
-/* ==================================================
-   EFECTO LUPA CENTRAL
-   ================================================== */
-
 function updateVisuals() {
-
   if (!cards.length) {
     return;
   }
 
-
   const timelineRect =
     timeline.getBoundingClientRect();
-
 
   const center =
     timelineRect.left +
     timelineRect.width / 2;
 
+  let closestIndex = 0;
+  let closestDistance =
+    Infinity;
 
   cards.forEach(
-    card => {
+    (card, index) => {
 
       const rect =
         card.getBoundingClientRect();
-
 
       const cardCenter =
         rect.left +
         rect.width / 2;
 
-
       const signedDistance =
         cardCenter -
         center;
-
 
       const distance =
         Math.abs(
           signedDistance
         );
 
+      if (
+        distance <
+        closestDistance
+      ) {
+
+        closestDistance =
+          distance;
+
+        closestIndex =
+          index;
+
+      }
 
       const normalized =
         Math.min(
-
           distance /
-
-          (
+          Math.max(
             timelineRect.width *
-            0.55
+              0.55,
+            1
           ),
-
           1
-
         );
 
-
       /*
-        Centro = escala 1
-
-        Cuanto más se aleja:
-        se hace más pequeña.
+        La transición es continua:
+        no hay saltos de tarjeta.
       */
 
       const scale =
         1 -
         normalized *
-        0.22;
-
-
-      /*
-        Cuanto más se aleja:
-        pierde visibilidad.
-      */
+          0.18;
 
       const opacity =
         1 -
         normalized *
-        0.62;
-
+          0.64;
 
       const blur =
         normalized *
-        1.2;
-
+          1.4;
 
       /*
         El pasado queda
-        algo más oscuro
-        que el futuro.
+        más oscuro que el futuro.
       */
 
       const brightnessLoss =
-
         signedDistance < 0
-
-          ? 0.42
-
-          : 0.28;
-
+          ? 0.40
+          : 0.26;
 
       const brightness =
-
         1 -
-
         normalized *
-
-        brightnessLoss;
-
+          brightnessLoss;
 
       card.style.transform =
         `scale(${scale})`;
 
-
       card.style.opacity =
-        String(opacity);
-
+        opacity;
 
       card.style.filter =
         `
@@ -385,61 +299,112 @@ function updateVisuals() {
           brightness(${brightness})
         `;
 
+    }
+  );
 
-      /*
-        La clase active solo
-        cambia fondo y sombra.
+  activeIndex =
+    closestIndex;
 
-        No mueve la cinta.
-      */
+  cards.forEach(
+    (card, index) => {
 
       card.classList.toggle(
-
-        "active",
-
-        normalized <
-          0.16
-
+        'active',
+        index === activeIndex
       );
 
     }
   );
 }
 
+function centerOnCard(
+  index,
+  smooth = true
+) {
+  const card =
+    cards[index];
 
-/* ==================================================
-   CARGAR PROGRAMACIÓN FUSIONADA
-   ================================================== */
+  if (!card) {
+    return;
+  }
+
+  const targetLeft =
+
+    card.offsetLeft
+
+    -
+
+    timeline.clientWidth /
+      2
+
+    +
+
+    card.offsetWidth /
+      2;
+
+  timeline.scrollTo({
+
+    left:
+      targetLeft,
+
+    behavior:
+      smooth
+        ? 'smooth'
+        : 'auto'
+
+  });
+}
+
+function moveOneDay(
+  direction
+) {
+  const nextIndex =
+
+    Math.max(
+
+      0,
+
+      Math.min(
+
+        cards.length -
+          1,
+
+        activeIndex +
+          direction
+
+      )
+
+    );
+
+  centerOnCard(
+    nextIndex,
+    true
+  );
+}
 
 async function loadEvents() {
-
   const response =
     await fetch(
 
-      `../data/programacion.json?ts=${Date.now()}`,
+      `../data/onetoro.json?ts=${Date.now()}`,
 
       {
         cache:
-          "no-store"
+          'no-store'
       }
 
     );
 
-
   if (!response.ok) {
 
     throw new Error(
-
-      `No se pudo cargar programacion.json: ${response.status}`
-
+      `No se pudo cargar OneToro: ${response.status}`
     );
 
   }
 
-
   const data =
     await response.json();
-
 
   return (
     data.events ||
@@ -447,40 +412,24 @@ async function loadEvents() {
   );
 }
 
-
-/* ==================================================
-   INICIAR WEB
-   ================================================== */
-
 async function init() {
-
   let events = [];
-
 
   try {
 
     events =
       await loadEvents();
 
-
-    console.log(
-      `AlberoTV: ${events.length} eventos cargados`
-    );
-
-
   } catch (error) {
 
     console.error(
-      "Error cargando la programación:",
       error
     );
 
   }
 
-
   const today =
     new Date();
-
 
   today.setHours(
     0,
@@ -489,18 +438,14 @@ async function init() {
     0
   );
 
-
   /*
-    Mostramos cinco días
-    anteriores y 90 días futuros.
-
-    Así podemos seguir navegando
-    por la programación completa.
+    Mostramos ayer y
+    los siguientes 45 días.
   */
 
   for (
-    let offset = -5;
-    offset <= 90;
+    let offset = -1;
+    offset <= 45;
     offset++
   ) {
 
@@ -509,27 +454,17 @@ async function init() {
         today
       );
 
-
     date.setDate(
-
       today.getDate() +
-
       offset
-
     );
-
 
     const card =
       buildDayCard(
-
         date,
-
         offset,
-
         events
-
       );
-
 
     timeline.appendChild(
       card
@@ -537,94 +472,74 @@ async function init() {
 
   }
 
-
   cards = [
 
     ...document.querySelectorAll(
-      ".day"
+      '.day'
     )
 
   ];
 
-
-  /*
-    Abrimos la web con HOY
-    colocado aproximadamente
-    en el centro.
-
-    Solo ocurre una vez al cargar.
-  */
-
-  const todayCard =
-
-    cards.find(
+  const todayIndex =
+    cards.findIndex(
 
       card =>
-
         card.dataset.offset ===
-        "0"
+        '0'
 
     );
 
+  activeIndex =
 
-  if (todayCard) {
+    todayIndex >= 0
 
-    timeline.scrollLeft =
+      ? todayIndex
 
-      todayCard.offsetLeft
+      : 0;
 
-      -
+  requestAnimationFrame(
+    () => {
 
-      timeline.clientWidth /
-        2
+      centerOnCard(
+        activeIndex,
+        false
+      );
 
-      +
+      updateVisuals();
 
-      todayCard.offsetWidth /
-        2;
-
-  }
-
-
-  updateVisuals();
+    }
+  );
 }
 
 
-/* ==================================================
+/* ================================
    SCROLL CONTINUO
-   ================================================== */
+   ================================ */
 
-let ticking =
-  false;
-
+let ticking = false;
 
 timeline.addEventListener(
 
-  "scroll",
+  'scroll',
 
   () => {
 
     hint?.classList.add(
-      "hidden"
+      'hidden'
     );
-
 
     if (!ticking) {
 
       requestAnimationFrame(
-
         () => {
 
           updateVisuals();
-
 
           ticking =
             false;
 
         }
-
       );
-
 
       ticking =
         true;
@@ -636,39 +551,37 @@ timeline.addEventListener(
 );
 
 
-/* ==================================================
-   TRACKPAD / RUEDA
-   ================================================== */
+/*
+  Trackpad y rueda:
+  movimiento horizontal libre.
+*/
 
 timeline.addEventListener(
 
-  "wheel",
+  'wheel',
 
   event => {
 
-    event.preventDefault();
+    if (
 
+      Math.abs(
+        event.deltaY
+      )
 
-    /*
-      Soporta:
+      >
 
-      - rueda tradicional
-      - trackpad horizontal
-      - trackpad vertical
-    */
+      Math.abs(
+        event.deltaX
+      )
 
-    const movement =
+    ) {
 
-      Math.abs(event.deltaX) >
-      Math.abs(event.deltaY)
+      event.preventDefault();
 
-        ? event.deltaX
+      timeline.scrollLeft +=
+        event.deltaY;
 
-        : event.deltaY;
-
-
-    timeline.scrollLeft +=
-      movement;
+    }
 
   },
 
@@ -680,33 +593,26 @@ timeline.addEventListener(
 );
 
 
-/* ==================================================
-   ARRASTRAR CON RATÓN
-   ================================================== */
+/* ================================
+   ARRASTRE CON RATÓN
+   ================================ */
 
 timeline.addEventListener(
 
-  "pointerdown",
+  'pointerdown',
 
   event => {
 
     isDragging =
       true;
 
-
     dragStartX =
       event.clientX;
-
 
     dragStartScroll =
       timeline.scrollLeft;
 
-
-    timeline.style.cursor =
-      "grabbing";
-
-
-    timeline.setPointerCapture?.(
+    timeline.setPointerCapture(
       event.pointerId
     );
 
@@ -717,21 +623,21 @@ timeline.addEventListener(
 
 timeline.addEventListener(
 
-  "pointermove",
+  'pointermove',
 
   event => {
 
-    if (!isDragging) {
+    if (
+      !isDragging
+    ) {
       return;
     }
-
 
     const movement =
 
       event.clientX -
 
       dragStartX;
-
 
     timeline.scrollLeft =
 
@@ -746,76 +652,64 @@ timeline.addEventListener(
 );
 
 
-function stopDragging() {
-
-  isDragging =
-    false;
-
-
-  timeline.style.cursor =
-    "grab";
-
-}
-
-
 timeline.addEventListener(
 
-  "pointerup",
+  'pointerup',
 
-  stopDragging
+  event => {
 
-);
+    isDragging =
+      false;
 
+    try {
 
-timeline.addEventListener(
+      timeline.releasePointerCapture(
+        event.pointerId
+      );
 
-  "pointercancel",
-
-  stopDragging
-
-);
-
-
-window.addEventListener(
-
-  "pointerup",
-
-  stopDragging
-
-);
-
-
-/* ==================================================
-   FLECHAS
-   ================================================== */
-
-document
-  .querySelector(
-    ".edge-arrow.left"
-  )
-  ?.addEventListener(
-
-    "click",
-
-    () => {
+    } catch {
 
       /*
-        Las flechas ya no saltan
-        exactamente un día.
-
-        Simplemente desplazan
-        la cinta suavemente.
+        No hacemos nada si
+        el pointer ya fue liberado.
       */
 
-      timeline.scrollBy({
+    }
 
-        left:
-          -420,
+  }
 
-        behavior:
-          "smooth"
+);
 
-      });
+
+timeline.addEventListener(
+
+  'pointercancel',
+
+  () => {
+
+    isDragging =
+      false;
+
+  }
+
+);
+
+
+/* ================================
+   FLECHAS
+   ================================ */
+
+document
+  .querySelector(
+    '.edge-arrow.left'
+  )
+  ?.addEventListener(
+
+    'click',
+
+    () => {
+
+      moveOneDay(-1);
 
     }
 
@@ -824,36 +718,57 @@ document
 
 document
   .querySelector(
-    ".edge-arrow.right"
+    '.edge-arrow.right'
   )
   ?.addEventListener(
 
-    "click",
+    'click',
 
     () => {
 
-      timeline.scrollBy({
-
-        left:
-          420,
-
-        behavior:
-          "smooth"
-
-      });
+      moveOneDay(1);
 
     }
 
   );
 
 
-/* ==================================================
-   AJUSTE DE VENTANA
-   ================================================== */
+/* ================================
+   TECLADO
+   ================================ */
+
+timeline.addEventListener(
+
+  'keydown',
+
+  event => {
+
+    if (
+      event.key ===
+      'ArrowLeft'
+    ) {
+
+      moveOneDay(-1);
+
+    }
+
+    if (
+      event.key ===
+      'ArrowRight'
+    ) {
+
+      moveOneDay(1);
+
+    }
+
+  }
+
+);
+
 
 window.addEventListener(
 
-  "resize",
+  'resize',
 
   () => {
 
@@ -863,9 +778,5 @@ window.addEventListener(
 
 );
 
-
-/* ==================================================
-   ARRANCAR
-   ================================================== */
 
 init();
