@@ -21,33 +21,89 @@ const MONTHS = {
 function clean(text = "") {
   return text
     .replace(/\u00a0/g, " ")
+    .replace(/&laquo;|&#171;/gi, "«")
+    .replace(/&raquo;|&#187;/gi, "»")
+    .replace(/&quot;/gi, '"')
+    .replace(/&amp;/gi, "&")
     .replace(/\s+/g, " ")
     .trim();
 }
 
-function normalizeChannel(text = "") {
+function cleanBreeding(text = "") {
+  return clean(text)
+    .replace(/^[«»"'“”]+/, "")
+    .replace(/[«»"'“”]+$/, "")
+    .trim();
+}
+
+function cleanParticipant(text = "") {
+  return clean(text)
+    .replace(
+      /[.。]?\s*🔗.*$/i,
+      ""
+    )
+    .replace(
+      /\s*\(Pulsa aquí.*$/i,
+      ""
+    )
+    .replace(
+      /\s*o también\s*\(Pulsa aquí.*$/i,
+      ""
+    )
+    .replace(
+      /\s*que tomará la alternativa.*$/i,
+      ""
+    )
+    .replace(/[.。]+$/, "")
+    .trim();
+}
+
+function isJunkParticipant(text = "") {
   const value = text.toLowerCase();
 
-  if (value.includes("onetoro")) {
+  return (
+    !text ||
+    value.startsWith("acceder a la emisión") ||
+    value.startsWith("pulsa aquí") ||
+    value.includes("emisión en directo") ||
+    value.includes("emisión en ppv")
+  );
+}
+
+function normalizeChannel(text = "") {
+  const value =
+    text.toLowerCase();
+
+  if (
+    value.includes("onetoro")
+  ) {
     return "OneToro";
   }
 
-  if (value.includes("canal sur")) {
+  if (
+    value.includes("canal sur")
+  ) {
     return "Canal Sur";
   }
 
   if (
-    value.includes("castilla la mancha") ||
+    value.includes(
+      "castilla la mancha"
+    ) ||
     value.includes("cmm")
   ) {
     return "CMM";
   }
 
-  if (value.includes("telemadrid")) {
+  if (
+    value.includes("telemadrid")
+  ) {
     return "Telemadrid";
   }
 
-  if (value.includes("à punt")) {
+  if (
+    value.includes("à punt")
+  ) {
     return "À Punt";
   }
 
@@ -71,20 +127,25 @@ function normalizeChannel(text = "") {
 }
 
 function parseDate(text = "") {
-  const match = text.match(
-    /(?:lunes|martes|miércoles|miercoles|jueves|viernes|sábado|sabado|domingo)\s+(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)\s+de\s+(\d{4})/i
-  );
+  const match =
+    text.match(
+      /(?:lunes|martes|miércoles|miercoles|jueves|viernes|sábado|sabado|domingo)\s+(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)\s+de\s+(\d{4})/i
+    );
 
   if (!match) {
     return null;
   }
 
   const day =
-    match[1].padStart(2, "0");
+    match[1].padStart(
+      2,
+      "0"
+    );
 
   const month =
     MONTHS[
-      match[2].toLowerCase()
+      match[2]
+        .toLowerCase()
     ];
 
   const year =
@@ -146,7 +207,9 @@ function extractType(text = "") {
     "Concurso de Recortadores"
   ];
 
-  for (const type of types) {
+  for (
+    const type of types
+  ) {
     if (
       text
         .toLowerCase()
@@ -158,25 +221,47 @@ function extractType(text = "") {
     }
   }
 
+  /*
+    Algunos eventos se describen
+    como circuitos de novilladas
+    sin incluir literalmente
+    "Novillada con picadores".
+  */
+
+  if (
+    /circuito de novilladas con picadores/i
+      .test(text)
+  ) {
+    return "Novillada con picadores";
+  }
+
   return "Festejo taurino";
 }
 
 function extractBreeding(text = "") {
+  /*
+    Capturamos hasta "para",
+    "cartel por confirmar",
+    un punto o un enlace.
+  */
+
   const patterns = [
-    /Toros de ([^.]+?) para[:\s]/i,
-    /Novillos de ([^.]+?) para[:\s]/i,
-    /Reses de ([^.]+?) para[:\s]/i
+    /Toros de\s+(.+?)(?=\s+para\b|\.?\s*Cartel por confirmar|\.?\s*🔗|$)/i,
+    /Novillos de\s+(.+?)(?=\s+para\b|\.?\s*Cartel por confirmar|\.?\s*🔗|$)/i,
+    /Reses de\s+(.+?)(?=\s+para\b|\.?\s*Cartel por confirmar|\.?\s*🔗|$)/i
   ];
 
   for (
-    const pattern
-    of patterns
+    const pattern of patterns
   ) {
     const match =
       text.match(pattern);
 
-    if (match) {
-      return clean(
+    if (
+      match &&
+      match[1]
+    ) {
+      return cleanBreeding(
         match[1]
       );
     }
@@ -188,23 +273,85 @@ function extractBreeding(text = "") {
 function extractParticipants(
   text = ""
 ) {
+  /*
+    Cortamos el texto antes
+    de los enlaces de emisión.
+  */
+
+  const withoutLinks =
+    text.split("🔗")[0];
+
+  /*
+    Si pone Cartel por confirmar,
+    no devolvemos falsos participantes.
+  */
+
+  if (
+    /Cartel por confirmar/i
+      .test(withoutLinks)
+  ) {
+    return [];
+  }
+
   const match =
-    text.match(
-      /\bpara:\s*(.+?)(?:\.\s*\(|\.$|$)/i
+    withoutLinks.match(
+      /\bpara:\s*(.+)$/i
     ) ||
-    text.match(
-      /\bpara\s+(.+?)(?:\.\s*\(|\.$|$)/i
+    withoutLinks.match(
+      /\bpara\s+(.+)$/i
     );
 
   if (!match) {
     return [];
   }
 
-  return clean(match[1])
-    .replace(/\sy\s/g, ", ")
+  let participantsText =
+    clean(match[1]);
+
+  /*
+    Eliminamos notas posteriores
+    que no son nombres.
+  */
+
+  participantsText =
+    participantsText
+      .replace(
+        /\s*,?\s*que tomará la alternativa.*$/i,
+        ""
+      )
+      .replace(
+        /\s*\(Por una cuestión de derechos.*$/i,
+        ""
+      )
+      .trim();
+
+  /*
+    Normalizamos conjunciones.
+    Ojo: también existe "e" en portugués.
+  */
+
+  participantsText =
+    participantsText
+      .replace(
+        /\s+y\s+/gi,
+        ", "
+      )
+      .replace(
+        /\s+e\s+/gi,
+        ", "
+      );
+
+  return participantsText
     .split(",")
-    .map(clean)
-    .filter(Boolean);
+    .map(
+      cleanParticipant
+    )
+    .filter(
+      participant =>
+        !isJunkParticipant(
+          participant
+        )
+    );
 }
 
 function splitEntries(
@@ -214,10 +361,14 @@ function splitEntries(
     .split(
       /(?=(?:Lunes|Martes|Miércoles|Miercoles|Jueves|Viernes|Sábado|Sabado|Domingo)\s+\d{1,2}\s+de\s+)/i
     )
-    .map(clean)
+    .map(
+      clean
+    )
     .filter(
       block =>
-        parseDate(block)
+        parseDate(
+          block
+        )
     );
 }
 
@@ -245,28 +396,44 @@ async function main() {
   const plainText =
     clean(
       html
+
         .replace(
           /<script[\s\S]*?<\/script>/gi,
           " "
         )
+
         .replace(
           /<style[\s\S]*?<\/style>/gi,
           " "
         )
+
         .replace(
           /<[^>]+>/g,
           " "
         )
+
         .replace(
-          /&nbsp;/g,
+          /&nbsp;/gi,
           " "
         )
+
         .replace(
-          /&amp;/g,
+          /&amp;/gi,
           "&"
         )
+
         .replace(
-          /&#8211;|&ndash;/g,
+          /&laquo;|&#171;/gi,
+          "«"
+        )
+
+        .replace(
+          /&raquo;|&#187;/gi,
+          "»"
+        )
+
+        .replace(
+          /&#8211;|&ndash;/gi,
           "-"
         )
     );
@@ -278,51 +445,55 @@ async function main() {
 
   const events =
     blocks
-      .map(block => ({
-        source:
-          "El Muletazo",
 
-        date:
-          parseDate(
+      .map(
+        block => ({
+          source:
+            "El Muletazo",
+
+          date:
+            parseDate(
+              block
+            ),
+
+          time:
+            parseTime(
+              block
+            ),
+
+          channel:
+            normalizeChannel(
+              block
+            ),
+
+          location:
+            extractLocation(
+              block
+            ),
+
+          type:
+            extractType(
+              block
+            ),
+
+          breeding:
+            extractBreeding(
+              block
+            ),
+
+          participants:
+            extractParticipants(
+              block
+            ),
+
+          sourceUrl:
+            SOURCE_URL,
+
+          sourceText:
             block
-          ),
+        })
+      )
 
-        time:
-          parseTime(
-            block
-          ),
-
-        channel:
-          normalizeChannel(
-            block
-          ),
-
-        location:
-          extractLocation(
-            block
-          ),
-
-        type:
-          extractType(
-            block
-          ),
-
-        breeding:
-          extractBreeding(
-            block
-          ),
-
-        participants:
-          extractParticipants(
-            block
-          ),
-
-        sourceUrl:
-          SOURCE_URL,
-
-        sourceText:
-          block
-      }))
       .filter(
         event =>
           event.date &&
@@ -346,17 +517,20 @@ async function main() {
   await fs.mkdir(
     "data",
     {
-      recursive: true
+      recursive:
+        true
     }
   );
 
   await fs.writeFile(
     "data/elmuletazo.json",
+
     JSON.stringify(
       output,
       null,
       2
     ),
+
     "utf8"
   );
 
@@ -367,7 +541,14 @@ async function main() {
 
 main().catch(
   error => {
-    console.error(error);
-    process.exit(1);
+
+    console.error(
+      error
+    );
+
+    process.exit(
+      1
+    );
+
   }
 );
