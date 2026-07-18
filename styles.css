@@ -1,6 +1,5 @@
 /* ================================
    ALBERO TV
-   DISEÑO PRINCIPAL
    ================================ */
 
 * {
@@ -16,25 +15,9 @@ body {
 }
 
 body {
-  background:
-    radial-gradient(
-      circle at 50% 10%,
-      rgba(24, 88, 150, 0.20),
-      transparent 35%
-    ),
-    linear-gradient(
-      180deg,
-      #071522 0%,
-      #06111f 100%
-    );
-
+  background: #06111f;
   color: #ffffff;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
+  font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden;
 }
 
@@ -45,138 +28,66 @@ body {
 
 .topbar {
   height: 86px;
-
-  padding:
-    0
-    4vw;
+  padding: 0 4vw;
 
   display: flex;
-
   align-items: center;
+  justify-content: space-between;
 
-  justify-content:
-    space-between;
-
-  background:
-    rgba(
-      5,
-      20,
-      35,
-      0.92
-    );
-
-  border-bottom:
-    1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.06
-    );
-
-  backdrop-filter:
-    blur(18px);
+  background: #071727;
 
   position: relative;
-
   z-index: 20;
 }
 
-
 .brand {
-  font-size: 31px;
-
+  font-size: 30px;
   font-weight: 900;
-
   font-style: italic;
-
-  letter-spacing:
-    -1px;
+  letter-spacing: -1px;
 }
-
 
 .brand span {
-  color:
-    #59caff;
+  color: #59caff;
 }
-
 
 .nav {
   display: flex;
-
   align-items: center;
-
   gap: 10px;
 }
 
-
 button {
   border: 0;
-
   cursor: pointer;
-
-  font-family:
-    inherit;
+  font-family: inherit;
 }
-
 
 .nav-link,
 .menu-button {
-  border-radius:
-    999px;
+  border-radius: 999px;
+  padding: 11px 18px;
 
-  padding:
-    11px
-    18px;
+  background: #12304f;
+  color: #dcefff;
 
-  background:
-    #12304f;
-
-  color:
-    #dcefff;
-
-  font-weight:
-    700;
+  font-weight: 700;
 
   transition:
-    background
-    180ms
-    ease,
-    transform
-    180ms
-    ease;
+    background 180ms ease,
+    transform 180ms ease;
 }
-
 
 .nav-link:hover,
 .menu-button:hover {
-  background:
-    #19436d;
-
-  transform:
-    translateY(
-      -1px
-    );
+  background: #19436d;
+  transform: translateY(-1px);
 }
 
-
 .menu-button {
-  width:
-    44px;
-
-  height:
-    44px;
-
-  padding:
-    0;
-
-  display: flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
 }
 
 
@@ -188,93 +99,53 @@ main {
   width: 100%;
 }
 
-
 .timeline-shell {
-  position:
-    relative;
+  position: relative;
 
-  width:
-    100%;
+  width: 100%;
+  min-height: calc(100vh - 145px);
 
-  min-height:
-    calc(
-      100vh - 145px
-    );
-
-  display:
-    flex;
-
-  align-items:
-    center;
+  display: flex;
+  align-items: center;
 }
 
 
 /* ================================
    TIMELINE
-   CINTA HORIZONTAL CONTINUA
    ================================ */
 
 .timeline {
-  width:
-    100%;
+  width: 100%;
 
-  display:
-    flex;
+  display: flex;
+  align-items: center;
 
-  align-items:
-    center;
+  gap: 4vw;
 
-  gap:
-    28px;
-
-  overflow-x:
-    auto;
-
-  overflow-y:
-    hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   padding:
-    44px
-    calc(
-      50vw - 280px
-    );
+    42px
+    calc(50vw - 370px);
 
-  scrollbar-width:
-    none;
+  scrollbar-width: none;
 
   /*
     IMPORTANTE:
-    No hay scroll snap.
-    El movimiento es libre,
-    continuo y píxel a píxel.
+    No usamos scroll-snap.
+    El movimiento queda completamente libre.
   */
 
-  scroll-snap-type:
-    none;
+  scroll-snap-type: none;
 
-  scroll-behavior:
-    auto;
+  overscroll-behavior-x: contain;
 
-  overscroll-behavior-x:
-    contain;
-
-  -webkit-overflow-scrolling:
-    touch;
-
-  cursor:
-    grab;
+  -webkit-overflow-scrolling: touch;
 }
-
-
-.timeline:active {
-  cursor:
-    grabbing;
-}
-
 
 .timeline::-webkit-scrollbar {
-  display:
-    none;
+  display: none;
 }
 
 
@@ -286,81 +157,35 @@ main {
   flex:
     0
     0
-    560px;
+    740px;
 
-  min-height:
-    650px;
+  min-height: 650px;
 
   padding:
-    36px
-    30px;
+    38px
+    32px;
 
-  border-radius:
-    28px;
+  border-radius: 30px;
 
-  background:
-    linear-gradient(
-      180deg,
-      rgba(
-        17,
-        58,
-        99,
-        0.88
-      ),
-      rgba(
-        6,
-        33,
-        61,
-        0.90
-      )
-    );
+  background: #0a2949;
 
-  border:
-    1px solid
-    rgba(
-      88,
-      178,
-      255,
-      0.14
-    );
+  opacity: 0.24;
+
+  filter: blur(1.5px);
 
   /*
-    JavaScript modifica
-    escala, opacidad y brillo
-    continuamente según
-    la distancia al centro.
+    La escala se controla desde JavaScript
+    para que cambie progresivamente según
+    la posición de la tarjeta.
   */
 
-  transform:
-    scale(
-      0.82
-    );
+  transform: scale(0.82);
 
-  transform-origin:
-    center
-    center;
-
-  opacity:
-    0.25;
-
-  filter:
-    blur(
-      1.4px
-    )
-    brightness(
-      0.72
-    );
+  transform-origin: center center;
 
   transition:
-    background
-    220ms
-    ease,
-    border-color
-    220ms
-    ease,
-    box-shadow
-    220ms
-    ease;
+    background 220ms ease,
+    box-shadow 220ms ease;
 
   will-change:
     transform,
@@ -370,45 +195,20 @@ main {
 
 
 /* ================================
-   TARJETA CERCA DEL CENTRO
+   TARJETA CENTRAL
    ================================ */
 
 .day.active {
   background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(
-        57,
-        143,
-        255,
-        0.44
-      ),
-      transparent 38%
-    ),
     linear-gradient(
       155deg,
       #277ed8,
       #12518d
     );
 
-  border-color:
-    rgba(
-      91,
-      194,
-      255,
-      0.55
-    );
-
   box-shadow:
-    0
-    28px
-    90px
-    rgba(
-      0,
-      0,
-      0,
-      0.34
-    );
+    0 25px 80px
+    rgba(0, 0, 0, 0.35);
 }
 
 
@@ -417,88 +217,52 @@ main {
    ================================ */
 
 .label {
-  min-height:
-    24px;
+  min-height: 24px;
 
-  text-align:
-    center;
+  text-align: center;
 
-  color:
-    #67d3ff;
+  color: #67d3ff;
 
-  font-size:
-    17px;
+  font-size: 17px;
+  font-weight: 900;
+  font-style: italic;
 
-  font-weight:
-    900;
-
-  font-style:
-    italic;
-
-  letter-spacing:
-    2px;
+  letter-spacing: 2px;
 }
-
 
 .date {
-  margin:
-    10px
-    0
-    6px;
+  margin: 10px 0 6px;
 
-  text-align:
-    center;
+  text-align: center;
 
-  font-size:
-    50px;
+  font-size: 50px;
+  line-height: 1.05;
 
-  line-height:
-    1.05;
-
-  font-weight:
-    900;
-
-  font-style:
-    italic;
-
-  letter-spacing:
-    -1px;
-
-  color:
-    #ffffff;
+  font-weight: 900;
+  font-style: italic;
 
   transition:
-    color
-    180ms
-    ease;
+    color 200ms ease;
 }
 
 
-/* ================================
-   FECHA DE HOY
-   ================================ */
+/*
+  FECHA DEL DÍA ACTUAL
+*/
 
 .date.today-date {
-  color:
-    #ff3b30;
+  color: #ff3b30;
 }
 
 
 .weekday {
-  margin-bottom:
-    28px;
+  margin-bottom: 28px;
 
-  text-align:
-    center;
+  text-align: center;
 
-  font-size:
-    22px;
-
-  font-weight:
-    800;
-
-  font-style:
-    italic;
+  font-size: 22px;
+  font-weight: 800;
+  font-style: italic;
 }
 
 
@@ -507,141 +271,63 @@ main {
    ================================ */
 
 .event {
-  display:
-    grid;
+  display: grid;
 
   grid-template-columns:
-    115px
-    minmax(
-      0,
-      1fr
-    )
-    115px;
+    120px
+    minmax(0, 1fr)
+    120px;
 
-  gap:
-    18px;
+  gap: 20px;
 
-  align-items:
-    center;
+  align-items: center;
 
-  margin:
-    14px
-    0;
+  margin: 14px 0;
 
-  padding:
-    22px
-    22px;
+  padding: 22px 24px;
 
-  background:
-    rgba(
-      5,
-      45,
-      82,
-      0.88
-    );
+  background: #0b3a68;
 
-  border:
-    1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.06
-    );
-
-  border-radius:
-    18px;
-
-  backdrop-filter:
-    blur(
-      10px
-    );
+  border-radius: 20px;
 }
-
 
 .event h2 {
-  margin:
-    0;
+  margin: 0;
 
-  font-size:
-    22px;
+  font-size: 23px;
+  line-height: 1.15;
 
-  line-height:
-    1.15;
-
-  font-weight:
-    900;
-
-  font-style:
-    italic;
+  font-weight: 900;
+  font-style: italic;
 }
-
 
 .time {
-  font-size:
-    19px;
+  font-size: 20px;
+  line-height: 1.15;
 
-  line-height:
-    1.2;
-
-  font-weight:
-    900;
-
-  font-style:
-    italic;
-
-  color:
-    #ffffff;
+  font-weight: 900;
+  font-style: italic;
 }
 
-
 .channel {
-  padding-left:
-    16px;
+  padding-left: 18px;
 
   border-left:
     1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.20
-    );
+    rgba(255, 255, 255, 0.22);
 
-  font-size:
-    19px;
-
-  line-height:
-    1.2;
-
-  text-align:
-    center;
-
-  font-weight:
-    900;
-
-  font-style:
-    italic;
+  font-size: 20px;
+  font-weight: 900;
+  font-style: italic;
 }
 
-
 .people {
-  margin-top:
-    9px;
+  margin-top: 8px;
 
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      0.92
-    );
+  color: #ffffff;
 
-  font-size:
-    15px;
-
-  line-height:
-    1.4;
+  font-size: 15px;
+  line-height: 1.4;
 }
 
 
@@ -650,20 +336,20 @@ main {
    ================================ */
 
 .breeding {
-  margin-top:
-    9px;
+  margin-top: 8px;
 
-  color:
-    #75d2ff;
+  color: #75d2ff;
 
-  font-size:
-    15px;
+  font-size: 15px;
+  line-height: 1.35;
 
-  line-height:
-    1.35;
+  font-weight: 800;
+}
 
-  font-weight:
-    800;
+.breeding::before {
+  content: "Ganadería: ";
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
 }
 
 
@@ -676,23 +362,16 @@ main {
     90px
     10px;
 
-  text-align:
-    center;
+  text-align: center;
 
-  color:
-    #c8deef;
+  color: #c8deef;
 
-  font-size:
-    19px;
-
-  line-height:
-    1.45;
+  font-size: 19px;
+  line-height: 1.45;
 }
 
-
 .empty b {
-  font-size:
-    20px;
+  font-size: 20px;
 }
 
 
@@ -701,107 +380,51 @@ main {
    ================================ */
 
 .edge-arrow {
-  position:
-    absolute;
+  position: absolute;
 
-  top:
-    50%;
+  top: 50%;
 
   transform:
-    translateY(
-      -50%
-    );
+    translateY(-50%);
 
-  z-index:
-    10;
+  z-index: 10;
 
-  width:
-    58px;
+  width: 58px;
+  height: 58px;
 
-  height:
-    58px;
+  padding: 0;
 
-  padding:
-    0;
+  border-radius: 50%;
 
-  border-radius:
-    50%;
+  background: #123b63;
+  color: #dcefff;
 
-  background:
-    rgba(
-      18,
-      59,
-      99,
-      0.92
-    );
+  font-size: 38px;
+  line-height: 1;
 
-  color:
-    #dcefff;
-
-  font-size:
-    38px;
-
-  line-height:
-    1;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  box-shadow:
-    0
-    10px
-    30px
-    rgba(
-      0,
-      0,
-      0,
-      0.25
-    );
-
-  backdrop-filter:
-    blur(
-      12px
-    );
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   transition:
-    background
-    180ms
-    ease,
-    transform
-    180ms
-    ease;
+    background 180ms ease,
+    transform 180ms ease;
 }
-
 
 .edge-arrow:hover {
-  background:
-    #1a527f;
+  background: #1a527f;
 
   transform:
-    translateY(
-      -50%
-    )
-    scale(
-      1.06
-    );
+    translateY(-50%)
+    scale(1.06);
 }
-
 
 .edge-arrow.left {
-  left:
-    18px;
+  left: 18px;
 }
 
-
 .edge-arrow.right {
-  right:
-    18px;
+  right: 18px;
 }
 
 
@@ -815,28 +438,12 @@ main {
     0
     22px;
 
-  text-align:
-    center;
+  text-align: center;
 
-  color:
-    #83a9c7;
+  color: #83a9c7;
 
-  font-size:
-    16px;
-
-  font-weight:
-    700;
-
-  transition:
-    opacity
-    220ms
-    ease;
-}
-
-
-.hint.hidden {
-  opacity:
-    0;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 
@@ -845,88 +452,62 @@ main {
    ================================ */
 
 @media (
-  max-width:
-    800px
+  max-width: 800px
 ) {
 
   .topbar {
-    height:
-      74px;
-
-    padding:
-      0
-      20px;
+    height: 74px;
+    padding: 0 20px;
   }
-
 
   .brand {
-    font-size:
-      25px;
+    font-size: 25px;
   }
-
 
   .nav-link {
-    display:
-      none;
+    display: none;
   }
-
 
   .timeline-shell {
     min-height:
       calc(
-        100vh -
-        125px
+        100vh - 125px
       );
   }
 
-
   .timeline {
-    gap:
-      18px;
+    gap: 7vw;
 
     padding:
       25px
       8vw;
   }
 
-
   .day {
-    flex-basis:
-      78vw;
+    flex-basis: 84vw;
 
-    min-height:
-      600px;
+    min-height: 620px;
 
     padding:
       30px
       22px;
   }
 
-
   .date {
-    font-size:
-      39px;
+    font-size: 39px;
   }
-
 
   .event {
     grid-template-columns:
       1fr;
 
-    gap:
-      12px;
+    gap: 12px;
   }
 
-
   .channel {
-    padding-left:
-      0;
+    padding-left: 0;
 
-    padding-top:
-      12px;
-
-    border-left:
-      0;
+    border-left: 0;
 
     border-top:
       1px solid
@@ -934,17 +515,14 @@ main {
         255,
         255,
         255,
-        0.20
+        0.2
       );
 
-    text-align:
-      left;
+    padding-top: 12px;
   }
 
-
   .edge-arrow {
-    display:
-      none;
+    display: none;
   }
 
 }
