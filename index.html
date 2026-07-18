@@ -1,1 +1,105 @@
-<!doctype html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Albero TV</title><link rel="stylesheet" href="styles.css"></head><body><header class="topbar"><div class="brand">ALBERO <span>TV</span></div><nav><button>Calendario</button><button>Canales</button><button>Favoritos</button><button>☰</button></nav></header><main><section class="shell"><button class="arrow left">‹</button><div id="timeline" class="timeline"></div><button class="arrow right">›</button></section><div class="hint">← &nbsp; Desliza para explorar &nbsp; →</div></main><script src="script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#06111f"
+  >
+
+  <title>Albero TV</title>
+
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
+</head>
+
+<body>
+
+  <header class="topbar">
+
+    <div class="brand">
+      ALBERO <span>TV</span>
+    </div>
+
+    <nav
+      class="nav"
+      aria-label="Navegación principal"
+    >
+
+      <button class="nav-link">
+        Calendario
+      </button>
+
+      <button class="nav-link">
+        Canales
+      </button>
+
+      <button class="nav-link">
+        Favoritos
+      </button>
+
+      <button
+        class="menu-button"
+        aria-label="Abrir menú"
+      >
+        ☰
+      </button>
+
+    </nav>
+
+  </header>
+
+
+  <main>
+
+    <section class="timeline-shell">
+
+      <button
+        class="edge-arrow left"
+        aria-label="Día anterior"
+      >
+        ‹
+      </button>
+
+
+      <div
+        class="timeline"
+        id="timeline"
+        tabindex="0"
+        aria-label="Programación por días"
+      >
+      </div>
+
+
+      <button
+        class="edge-arrow right"
+        aria-label="Día siguiente"
+      >
+        ›
+      </button>
+
+    </section>
+
+
+    <div
+      class="hint"
+      id="hint"
+    >
+      ← &nbsp; Desliza para explorar &nbsp; →
+    </div>
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
