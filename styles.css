@@ -1,24 +1,366 @@
-*{box-sizing:border-box}body{margin:0;background:#06111f;color:#fff;font-family:Arial,sans-serif;overflow-x:hidden}.topbar{height:86px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;background:#071727}.brand{font-size:30px;font-weight:900;font-style:italic}.brand span{color:#59caff}nav{display:flex;gap:10px}button{border:0;border-radius:999px;padding:10px 16px;background:#12304f;color:#dcefff;font-weight:700}.shell{position:relative;min-height:calc(100vh - 145px);display:flex;align-items:center}.timeline{display:flex;align-items:center;gap:4vw;width:100%;overflow-x:auto;scroll-snap-type:x mandatory;padding:35px calc(50vw - 370px);scrollbar-width:none}.timeline::-webkit-scrollbar{display:none}.day{flex:0 0 740px;min-height:650px;padding:38px 32px;border-radius:30px;background:#0a2949;opacity:.25;filter:blur(1.5px);transform:scale(.82);transition:.35s;scroll-snap-align:center}.day.active{background:linear-gradient(155deg,#277ed8,#12518d);opacity:1;filter:none;transform:scale(1)}.label{text-align:center;color:#67d3ff;font-weight:900;font-style:italic;letter-spacing:2px}.date{text-align:center;font-size:50px;font-weight:900;font-style:italic;margin:10px}.weekday{text-align:center;font-size:22px;font-weight:800;font-style:italic;margin-bottom:28px}.event{display:grid;grid-template-columns:100px 1fr 120px;gap:20px;align-items:center;background:#0b3a68;border-radius:20px;padding:24px;margin:14px 0}.event h2{margin:0;font-size:24px;font-style:italic}.time,.channel{font-size:22px;font-weight:900;font-style:italic}.channel{border-left:1px solid #ffffff33;padding-left:15px}.people{margin-top:8px}.empty{text-align:center;padding:80px 10px;color:#c8deef;font-size:19px}.arrow{position:absolute;z-index:5;width:56px;height:56px;padding:0;font-size:38px}.left{left:18px}.right{right:18px}.hint{text-align:center;color:#83a9c7;padding-bottom:20px;font-weight:700}@media(max-width:800px){nav button:not(:last-child){display:none}.timeline{padding:25px 8vw}.day{flex-basis:84vw}.event{grid-template-columns:1fr}.channel{border:0;padding:0}.arrow{display:none}}
+/* ================================
+   ALBERO TV
+   DISEÑO PRINCIPAL
+   ================================ */
 
- /* ===== ALBEROTV · SCROLL FLUIDO + FECHA DE HOY ===== */
-
-/* Quitamos el efecto de salto por tarjetas */
-.timeline {
-  scroll-snap-type: none !important;
-  scroll-behavior: auto;
-  overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
+* {
+  box-sizing: border-box;
 }
 
-/* Las tarjetas ya no fuerzan el encaje al centro */
-.day {
-  scroll-snap-align: none !important;
-  transform-origin: center center;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(24, 88, 150, 0.20),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      #071522 0%,
+      #06111f 100%
+    );
+
+  color: #ffffff;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  overflow-x: hidden;
+}
+
+
+/* ================================
+   CABECERA
+   ================================ */
+
+.topbar {
+  height: 86px;
+
+  padding:
+    0
+    4vw;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    space-between;
+
+  background:
+    rgba(
+      5,
+      20,
+      35,
+      0.92
+    );
+
+  border-bottom:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.06
+    );
+
+  backdrop-filter:
+    blur(18px);
+
+  position: relative;
+
+  z-index: 20;
+}
+
+
+.brand {
+  font-size: 31px;
+
+  font-weight: 900;
+
+  font-style: italic;
+
+  letter-spacing:
+    -1px;
+}
+
+
+.brand span {
+  color:
+    #59caff;
+}
+
+
+.nav {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+button {
+  border: 0;
+
+  cursor: pointer;
+
+  font-family:
+    inherit;
+}
+
+
+.nav-link,
+.menu-button {
+  border-radius:
+    999px;
+
+  padding:
+    11px
+    18px;
+
+  background:
+    #12304f;
+
+  color:
+    #dcefff;
+
+  font-weight:
+    700;
 
   transition:
-    background 260ms ease,
-    border-color 260ms ease,
-    box-shadow 260ms ease;
+    background
+    180ms
+    ease,
+    transform
+    180ms
+    ease;
+}
+
+
+.nav-link:hover,
+.menu-button:hover {
+  background:
+    #19436d;
+
+  transform:
+    translateY(
+      -1px
+    );
+}
+
+
+.menu-button {
+  width:
+    44px;
+
+  height:
+    44px;
+
+  padding:
+    0;
+
+  display: flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+}
+
+
+/* ================================
+   CONTENEDOR PRINCIPAL
+   ================================ */
+
+main {
+  width: 100%;
+}
+
+
+.timeline-shell {
+  position:
+    relative;
+
+  width:
+    100%;
+
+  min-height:
+    calc(
+      100vh - 145px
+    );
+
+  display:
+    flex;
+
+  align-items:
+    center;
+}
+
+
+/* ================================
+   TIMELINE
+   CINTA HORIZONTAL CONTINUA
+   ================================ */
+
+.timeline {
+  width:
+    100%;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    28px;
+
+  overflow-x:
+    auto;
+
+  overflow-y:
+    hidden;
+
+  padding:
+    44px
+    calc(
+      50vw - 280px
+    );
+
+  scrollbar-width:
+    none;
+
+  /*
+    IMPORTANTE:
+    No hay scroll snap.
+    El movimiento es libre,
+    continuo y píxel a píxel.
+  */
+
+  scroll-snap-type:
+    none;
+
+  scroll-behavior:
+    auto;
+
+  overscroll-behavior-x:
+    contain;
+
+  -webkit-overflow-scrolling:
+    touch;
+
+  cursor:
+    grab;
+}
+
+
+.timeline:active {
+  cursor:
+    grabbing;
+}
+
+
+.timeline::-webkit-scrollbar {
+  display:
+    none;
+}
+
+
+/* ================================
+   TARJETAS DE LOS DÍAS
+   ================================ */
+
+.day {
+  flex:
+    0
+    0
+    560px;
+
+  min-height:
+    650px;
+
+  padding:
+    36px
+    30px;
+
+  border-radius:
+    28px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(
+        17,
+        58,
+        99,
+        0.88
+      ),
+      rgba(
+        6,
+        33,
+        61,
+        0.90
+      )
+    );
+
+  border:
+    1px solid
+    rgba(
+      88,
+      178,
+      255,
+      0.14
+    );
+
+  /*
+    JavaScript modifica
+    escala, opacidad y brillo
+    continuamente según
+    la distancia al centro.
+  */
+
+  transform:
+    scale(
+      0.82
+    );
+
+  transform-origin:
+    center
+    center;
+
+  opacity:
+    0.25;
+
+  filter:
+    blur(
+      1.4px
+    )
+    brightness(
+      0.72
+    );
+
+  transition:
+    background
+    220ms
+    ease,
+    border-color
+    220ms
+    ease,
+    box-shadow
+    220ms
+    ease;
 
   will-change:
     transform,
@@ -26,22 +368,583 @@
     filter;
 }
 
-/* Tarjeta que ocupa la posición central */
+
+/* ================================
+   TARJETA CERCA DEL CENTRO
+   ================================ */
+
 .day.active {
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(
+        57,
+        143,
+        255,
+        0.44
+      ),
+      transparent 38%
+    ),
+    linear-gradient(
+      155deg,
+      #277ed8,
+      #12518d
+    );
+
+  border-color:
+    rgba(
+      91,
+      194,
+      255,
+      0.55
+    );
+
   box-shadow:
-    0 24px 80px
-    rgba(0, 0, 0, 0.30);
+    0
+    28px
+    90px
+    rgba(
+      0,
+      0,
+      0,
+      0.34
+    );
 }
 
-/* La fecha del día actual aparece en rojo */
-.today-date {
-  color: #ff3b30;
+
+/* ================================
+   CABECERA DE CADA DÍA
+   ================================ */
+
+.label {
+  min-height:
+    24px;
+
+  text-align:
+    center;
+
+  color:
+    #67d3ff;
+
+  font-size:
+    17px;
+
+  font-weight:
+    900;
+
+  font-style:
+    italic;
+
+  letter-spacing:
+    2px;
 }
 
-/* Campo preparado para mostrar la ganadería */
+
+.date {
+  margin:
+    10px
+    0
+    6px;
+
+  text-align:
+    center;
+
+  font-size:
+    50px;
+
+  line-height:
+    1.05;
+
+  font-weight:
+    900;
+
+  font-style:
+    italic;
+
+  letter-spacing:
+    -1px;
+
+  color:
+    #ffffff;
+
+  transition:
+    color
+    180ms
+    ease;
+}
+
+
+/* ================================
+   FECHA DE HOY
+   ================================ */
+
+.date.today-date {
+  color:
+    #ff3b30;
+}
+
+
+.weekday {
+  margin-bottom:
+    28px;
+
+  text-align:
+    center;
+
+  font-size:
+    22px;
+
+  font-weight:
+    800;
+
+  font-style:
+    italic;
+}
+
+
+/* ================================
+   EVENTOS
+   ================================ */
+
+.event {
+  display:
+    grid;
+
+  grid-template-columns:
+    115px
+    minmax(
+      0,
+      1fr
+    )
+    115px;
+
+  gap:
+    18px;
+
+  align-items:
+    center;
+
+  margin:
+    14px
+    0;
+
+  padding:
+    22px
+    22px;
+
+  background:
+    rgba(
+      5,
+      45,
+      82,
+      0.88
+    );
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.06
+    );
+
+  border-radius:
+    18px;
+
+  backdrop-filter:
+    blur(
+      10px
+    );
+}
+
+
+.event h2 {
+  margin:
+    0;
+
+  font-size:
+    22px;
+
+  line-height:
+    1.15;
+
+  font-weight:
+    900;
+
+  font-style:
+    italic;
+}
+
+
+.time {
+  font-size:
+    19px;
+
+  line-height:
+    1.2;
+
+  font-weight:
+    900;
+
+  font-style:
+    italic;
+
+  color:
+    #ffffff;
+}
+
+
+.channel {
+  padding-left:
+    16px;
+
+  border-left:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.20
+    );
+
+  font-size:
+    19px;
+
+  line-height:
+    1.2;
+
+  text-align:
+    center;
+
+  font-weight:
+    900;
+
+  font-style:
+    italic;
+}
+
+
+.people {
+  margin-top:
+    9px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.92
+    );
+
+  font-size:
+    15px;
+
+  line-height:
+    1.4;
+}
+
+
+/* ================================
+   GANADERÍA
+   ================================ */
+
 .breeding {
-  margin-top: 10px;
-  color: #78c8ff;
-  font-weight: 700;
-  font-size: 15px;
+  margin-top:
+    9px;
+
+  color:
+    #75d2ff;
+
+  font-size:
+    15px;
+
+  line-height:
+    1.35;
+
+  font-weight:
+    800;
+}
+
+
+/* ================================
+   DÍA SIN PROGRAMACIÓN
+   ================================ */
+
+.empty {
+  padding:
+    90px
+    10px;
+
+  text-align:
+    center;
+
+  color:
+    #c8deef;
+
+  font-size:
+    19px;
+
+  line-height:
+    1.45;
+}
+
+
+.empty b {
+  font-size:
+    20px;
+}
+
+
+/* ================================
+   FLECHAS LATERALES
+   ================================ */
+
+.edge-arrow {
+  position:
+    absolute;
+
+  top:
+    50%;
+
+  transform:
+    translateY(
+      -50%
+    );
+
+  z-index:
+    10;
+
+  width:
+    58px;
+
+  height:
+    58px;
+
+  padding:
+    0;
+
+  border-radius:
+    50%;
+
+  background:
+    rgba(
+      18,
+      59,
+      99,
+      0.92
+    );
+
+  color:
+    #dcefff;
+
+  font-size:
+    38px;
+
+  line-height:
+    1;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  box-shadow:
+    0
+    10px
+    30px
+    rgba(
+      0,
+      0,
+      0,
+      0.25
+    );
+
+  backdrop-filter:
+    blur(
+      12px
+    );
+
+  transition:
+    background
+    180ms
+    ease,
+    transform
+    180ms
+    ease;
+}
+
+
+.edge-arrow:hover {
+  background:
+    #1a527f;
+
+  transform:
+    translateY(
+      -50%
+    )
+    scale(
+      1.06
+    );
+}
+
+
+.edge-arrow.left {
+  left:
+    18px;
+}
+
+
+.edge-arrow.right {
+  right:
+    18px;
+}
+
+
+/* ================================
+   TEXTO INFERIOR
+   ================================ */
+
+.hint {
+  padding:
+    0
+    0
+    22px;
+
+  text-align:
+    center;
+
+  color:
+    #83a9c7;
+
+  font-size:
+    16px;
+
+  font-weight:
+    700;
+
+  transition:
+    opacity
+    220ms
+    ease;
+}
+
+
+.hint.hidden {
+  opacity:
+    0;
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (
+  max-width:
+    800px
+) {
+
+  .topbar {
+    height:
+      74px;
+
+    padding:
+      0
+      20px;
+  }
+
+
+  .brand {
+    font-size:
+      25px;
+  }
+
+
+  .nav-link {
+    display:
+      none;
+  }
+
+
+  .timeline-shell {
+    min-height:
+      calc(
+        100vh -
+        125px
+      );
+  }
+
+
+  .timeline {
+    gap:
+      18px;
+
+    padding:
+      25px
+      8vw;
+  }
+
+
+  .day {
+    flex-basis:
+      78vw;
+
+    min-height:
+      600px;
+
+    padding:
+      30px
+      22px;
+  }
+
+
+  .date {
+    font-size:
+      39px;
+  }
+
+
+  .event {
+    grid-template-columns:
+      1fr;
+
+    gap:
+      12px;
+  }
+
+
+  .channel {
+    padding-left:
+      0;
+
+    padding-top:
+      12px;
+
+    border-left:
+      0;
+
+    border-top:
+      1px solid
+      rgba(
+        255,
+        255,
+        255,
+        0.20
+      );
+
+    text-align:
+      left;
+  }
+
+
+  .edge-arrow {
+    display:
+      none;
+  }
+
 }
