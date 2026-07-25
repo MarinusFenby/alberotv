@@ -5,10 +5,10 @@ import path from "node:path";
 /* =========================================================
    ALBERO TV — PROGRAMAS TAURINOS
 
-   Comprueba las guías oficiales de:
+   Busca en las guías oficiales:
 
-   - Toros para Todos — Canal Sur
-   - Tendido Cero — RTVE / La 2
+   - Toros para Todos — Canal Sur Televisión
+   - Tendido Cero — La 2 de RTVE
    - Grana y Oro — CyLTV
 
    Genera:
@@ -17,88 +17,119 @@ import path from "node:path";
    ========================================================= */
 
 
-const OUTPUT_FILE = path.resolve(
-  process.cwd(),
-  "data",
-  "programas-taurinos.json"
-);
+const SCRAPER_VERSION =
+  "2026-07-25-v3";
+
+
+const OUTPUT_FILE =
+  path.resolve(
+    process.cwd(),
+    "data",
+    "programas-taurinos.json"
+  );
+
+
+const TIME_ZONE =
+  "Europe/Madrid";
 
 
 const USER_AGENT =
-  "Mozilla/5.0 (compatible; AlberoTV/1.0; +https://github.com/)";
+  "Mozilla/5.0 (X11; Linux x86_64) " +
+  "AppleWebKit/537.36 (KHTML, like Gecko) " +
+  "Chrome/126.0.0.0 Safari/537.36";
 
 
 const PROGRAMS = [
   {
-    id: "toros-para-todos",
-    name: "Toros para Todos",
-    channel: "Canal Sur Televisión",
-    source: "Canal Sur",
-    guideUrl:
-      "https://www.canalsur.es/television/directo-television/",
-    programUrl:
+    id:
+      "toros-para-todos",
+
+    title:
+      "Toros para Todos",
+
+    source:
+      "Canal Sur",
+
+    channel:
+      "Canal Sur Televisión",
+
+    guideUrls: [
+      "https://www.canalsur.es/guia-programacion/canal-sur-television-79/",
+      "https://www.canalsur.es/guia-programacion/"
+    ],
+
+    sourceUrl:
       "https://www.canalsur.es/television/toros-para-todos/",
-    watchUrl:
+
+    eventUrl:
       "https://www.canalsur.es/television/directo-television/"
   },
 
   {
-    id: "tendido-cero",
-    name: "Tendido Cero",
-    channel: "La 2",
-    source: "RTVE",
-    guideUrl:
-      "https://www.rtve.es/play/guia-tve/",
-    programUrl:
+    id:
+      "tendido-cero",
+
+    title:
+      "Tendido Cero",
+
+    source:
+      "RTVE",
+
+    channel:
+      "La 2",
+
+    guideUrls: [
+      "https://www.rtve.es/play/guia-tve/"
+    ],
+
+    sourceUrl:
       "https://www.rtve.es/play/videos/tendido-cero/",
-    watchUrl:
+
+    eventUrl:
       "https://www.rtve.es/play/videos/directo/la-2/"
   },
 
   {
-    id: "grana-y-oro",
-    name: "Grana y Oro",
-    channel: "La 7 CyLTV",
-    source: "CyLTV",
-    guideUrl:
-      "https://www.cyltv.es/guiatv",
-    programUrl:
+    id:
+      "grana-y-oro",
+
+    title:
+      "Grana y Oro",
+
+    source:
+      "CyLTV",
+
+    channel:
+      "CyLTV",
+
+    guideUrls: [
+      "https://www.cyltv.es/guiatv"
+    ],
+
+    sourceUrl:
       "https://www.cyltv.es/granayoro",
-    watchUrl:
+
+    eventUrl:
       "https://www.cyltv.es/directo"
   }
 ];
 
 
 /* =========================================================
-   UTILIDADES
+   TEXTO
    ========================================================= */
-
-
-function normalizeWhitespace(value = "") {
-  return String(value)
-    .replace(/\u00a0/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-
-function normalizeText(value = "") {
-  return normalizeWhitespace(value)
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-}
 
 
 function decodeHtmlEntities(value = "") {
   const entities = {
     amp: "&",
-    quot: '"',
+    quot: "\"",
     apos: "'",
     lt: "<",
     gt: ">",
     nbsp: " ",
+    ndash: "–",
+    mdash: "—",
     aacute: "á",
     eacute: "é",
     iacute: "í",
@@ -116,80 +147,149 @@ function decodeHtmlEntities(value = "") {
   return String(value)
     .replace(
       /&#x([0-9a-f]+);/gi,
-      (_, hexadecimal) =>
+      (_, value) =>
         String.fromCodePoint(
-          Number.parseInt(hexadecimal, 16)
+          Number.parseInt(value, 16)
         )
     )
     .replace(
       /&#([0-9]+);/g,
-      (_, decimal) =>
+      (_, value) =>
         String.fromCodePoint(
-          Number.parseInt(decimal, 10)
+          Number.parseInt(value, 10)
         )
     )
     .replace(
       /&([a-zA-Z]+);/g,
-      (match, entity) =>
+      (match, name) =>
         Object.prototype.hasOwnProperty.call(
           entities,
-          entity
+          name
         )
-          ? entities[entity]
+          ? entities[name]
           : match
     );
 }
 
 
-function stripHtml(html = "") {
-  return normalizeWhitespace(
-    decodeHtmlEntities(
-      String(html)
-        .replace(
-          /<script\b[^>]*>[\s\S]*?<\/script>/gi,
-          " "
-        )
-        .replace(
-          /<style\b[^>]*>[\s\S]*?<\/style>/gi,
-          " "
-        )
-        .replace(
-          /<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi,
-          " "
-        )
-        .replace(
-          /<br\s*\/?>/gi,
-          "\n"
-        )
-        .replace(
-          /<\/p>/gi,
-          "\n"
-        )
-        .replace(
-          /<\/div>/gi,
-          "\n"
-        )
-        .replace(
-          /<[^>]+>/g,
-          " "
-        )
-    )
+function htmlToText(html = "") {
+  return decodeHtmlEntities(
+    String(html)
+      .replace(
+        /<!--[\s\S]*?-->/g,
+        " "
+      )
+      .replace(
+        /<style\b[^>]*>[\s\S]*?<\/style>/gi,
+        " "
+      )
+      .replace(
+        /<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi,
+        " "
+      )
+      .replace(
+        /<svg\b[^>]*>[\s\S]*?<\/svg>/gi,
+        " "
+      )
+      .replace(
+        /<script\b[^>]*>[\s\S]*?<\/script>/gi,
+        " "
+      )
+      .replace(
+        /<br\s*\/?>/gi,
+        "\n"
+      )
+      .replace(
+        /<\/(?:div|p|li|article|section|h1|h2|h3|h4|tr)>/gi,
+        "\n"
+      )
+      .replace(
+        /<[^>]+>/g,
+        " "
+      )
+  )
+    .replace(/\u00a0/g, " ")
+    .replace(/[ \t]+/g, " ")
+    .replace(/\s*\n\s*/g, "\n")
+    .replace(/\n{2,}/g, "\n")
+    .trim();
+}
+
+
+function normalizeText(value = "") {
+  return String(value)
+    .toLocaleLowerCase("es")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+
+function escapeRegExp(value = "") {
+  return String(value).replace(
+    /[.*+?^${}()|[\]\\]/g,
+    "\\$&"
   );
 }
 
 
-function todayISO() {
-  const now = new Date();
-
+function unique(values = []) {
   return [
-    now.getFullYear(),
-    String(
-      now.getMonth() + 1
-    ).padStart(2, "0"),
-    String(
-      now.getDate()
-    ).padStart(2, "0")
-  ].join("-");
+    ...new Set(
+      values.filter(Boolean)
+    )
+  ];
+}
+
+
+/* =========================================================
+   FECHA ESPAÑOLA
+   ========================================================= */
+
+
+function getSpainDateISO() {
+  const formatter =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:
+          TIME_ZONE,
+
+        year:
+          "numeric",
+
+        month:
+          "2-digit",
+
+        day:
+          "2-digit"
+      }
+    );
+
+  const parts =
+    formatter.formatToParts(
+      new Date()
+    );
+
+  const values = {};
+
+  for (const part of parts) {
+    if (
+      part.type === "year" ||
+      part.type === "month" ||
+      part.type === "day"
+    ) {
+      values[part.type] =
+        part.value;
+    }
+  }
+
+  return (
+    `${values.year}-` +
+    `${values.month}-` +
+    `${values.day}`
+  );
 }
 
 
@@ -199,367 +299,670 @@ function todayISO() {
 
 
 async function fetchPage(url) {
-  const response = await fetch(
-    url,
-    {
-      redirect: "follow",
+  const response =
+    await fetch(
+      url,
+      {
+        redirect:
+          "follow",
 
-      headers: {
-        "user-agent": USER_AGENT,
-        accept:
-          "text/html,application/xhtml+xml," +
-          "application/xml;q=0.9,*/*;q=0.8",
-        "accept-language":
-          "es-ES,es;q=0.9,en;q=0.7"
-      },
+        headers: {
+          "user-agent":
+            USER_AGENT,
 
-      signal:
-        AbortSignal.timeout(30000)
-    }
-  );
+          accept:
+            "text/html,application/xhtml+xml," +
+            "application/xml;q=0.9,*/*;q=0.8",
+
+          "accept-language":
+            "es-ES,es;q=0.9,en;q=0.6",
+
+          "cache-control":
+            "no-cache",
+
+          pragma:
+            "no-cache"
+        },
+
+        signal:
+          AbortSignal.timeout(
+            30000
+          )
+      }
+    );
 
   if (!response.ok) {
     throw new Error(
-      `HTTP ${response.status}`
+      `HTTP ${response.status}: ${url}`
     );
   }
 
+  const html =
+    await response.text();
+
   return {
-    html: await response.text(),
-    finalUrl: response.url
+    finalUrl:
+      response.url,
+
+    text:
+      htmlToText(html),
+
+    htmlLength:
+      html.length
+  };
+}
+
+
+async function fetchProgramGuide(
+  program
+) {
+  const errors = [];
+
+  for (
+    const url
+    of program.guideUrls
+  ) {
+    try {
+      const page =
+        await fetchPage(url);
+
+      const normalizedPage =
+        normalizeText(page.text);
+
+      const normalizedTitle =
+        normalizeText(program.title);
+
+      if (
+        normalizedPage.includes(
+          normalizedTitle
+        )
+      ) {
+        return page;
+      }
+
+      errors.push(
+        `${url}: título no encontrado`
+      );
+    } catch (error) {
+      errors.push(
+        `${url}: ${error.message}`
+      );
+    }
+  }
+
+  throw new Error(
+    errors.join(" | ")
+  );
+}
+
+
+/* =========================================================
+   HORAS
+
+   Se buscan únicamente horas muy próximas al título.
+
+   Formatos admitidos:
+
+   13:10 Toros para todos
+   13.30 Toros para todos
+   13:30-14:20 Tendido Cero
+   Grana y Oro 15:25
+   ========================================================= */
+
+
+function normalizeTime(
+  hour,
+  minute
+) {
+  const numericHour =
+    Number(hour);
+
+  const numericMinute =
+    Number(minute);
+
+  if (
+    numericHour < 0 ||
+    numericHour > 23 ||
+    numericMinute < 0 ||
+    numericMinute > 59
+  ) {
+    return "";
+  }
+
+  return (
+    String(numericHour).padStart(2, "0") +
+    ":" +
+    String(numericMinute).padStart(2, "0")
+  );
+}
+
+
+function timeToMinutes(time = "") {
+  const match =
+    String(time).match(
+      /^(\d{2}):(\d{2})$/
+    );
+
+  if (!match) {
+    return 9999;
+  }
+
+  return (
+    Number(match[1]) * 60 +
+    Number(match[2])
+  );
+}
+
+
+function extractTimes(
+  pageText,
+  programTitle
+) {
+  const normalizedPage =
+    normalizeText(pageText);
+
+  const normalizedTitle =
+    normalizeText(programTitle);
+
+  const escapedTitle =
+    escapeRegExp(
+      normalizedTitle
+    );
+
+  const times = [];
+
+
+  /*
+    Hora situada antes del título:
+
+    13:30 Tendido Cero
+    13:30-14:20 Tendido Cero
+  */
+
+  const beforePattern =
+    new RegExp(
+      `(?:^|[^\\d])` +
+      `([01]?\\d|2[0-3])[:.]([0-5]\\d)` +
+      `(?:\\s*[-–—]\\s*` +
+      `(?:[01]?\\d|2[0-3])[:.][0-5]\\d)?` +
+      `\\s*${escapedTitle}`,
+      "gi"
+    );
+
+  for (
+    const match
+    of normalizedPage.matchAll(
+      beforePattern
+    )
+  ) {
+    const time =
+      normalizeTime(
+        match[1],
+        match[2]
+      );
+
+    if (time) {
+      times.push(time);
+    }
+  }
+
+
+  /*
+    Hora situada después del título:
+
+    Grana y Oro 15:25
+    Tendido Cero, a las 13:30
+  */
+
+  const afterPattern =
+    new RegExp(
+      `${escapedTitle}` +
+      `\\s*(?:,?\\s*a\\s+las\\s+)?` +
+      `([01]?\\d|2[0-3])[:.]([0-5]\\d)`,
+      "gi"
+    );
+
+  for (
+    const match
+    of normalizedPage.matchAll(
+      afterPattern
+    )
+  ) {
+    const time =
+      normalizeTime(
+        match[1],
+        match[2]
+      );
+
+    if (time) {
+      times.push(time);
+    }
+  }
+
+
+  /*
+    Comprobación adicional por contexto.
+
+    Solo revisa 45 caracteres antes y después
+    de cada aparición del título.
+  */
+
+  let searchFrom = 0;
+
+  while (
+    searchFrom <
+    normalizedPage.length
+  ) {
+    const position =
+      normalizedPage.indexOf(
+        normalizedTitle,
+        searchFrom
+      );
+
+    if (position === -1) {
+      break;
+    }
+
+    const before =
+      normalizedPage.slice(
+        Math.max(
+          0,
+          position - 45
+        ),
+        position
+      );
+
+    const beforeMatch =
+      before.match(
+        /([01]?\d|2[0-3])[:.]([0-5]\d)(?:\s*[-–—]\s*(?:[01]?\d|2[0-3])[:.][0-5]\d)?\s*$/
+      );
+
+    if (beforeMatch) {
+      const time =
+        normalizeTime(
+          beforeMatch[1],
+          beforeMatch[2]
+        );
+
+      if (time) {
+        times.push(time);
+      }
+    }
+
+    const after =
+      normalizedPage.slice(
+        position +
+          normalizedTitle.length,
+        position +
+          normalizedTitle.length +
+          45
+      );
+
+    const afterMatch =
+      after.match(
+        /^\s*(?:,?\s*a\s+las\s+)?([01]?\d|2[0-3])[:.]([0-5]\d)/
+      );
+
+    if (afterMatch) {
+      const time =
+        normalizeTime(
+          afterMatch[1],
+          afterMatch[2]
+        );
+
+      if (time) {
+        times.push(time);
+      }
+    }
+
+    searchFrom =
+      position +
+      normalizedTitle.length;
+  }
+
+
+  return unique(times).sort(
+    (timeA, timeB) =>
+      timeToMinutes(timeA) -
+      timeToMinutes(timeB)
+  );
+}
+
+
+/* =========================================================
+   CREAR EVENTO
+   ========================================================= */
+
+
+function createEvent({
+  program,
+  date,
+  time
+}) {
+  return {
+    id:
+      `${program.id}-${date}-${time.replace(":", "")}`,
+
+    source:
+      program.source,
+
+    title:
+      program.title,
+
+    type:
+      "Programa taurino",
+
+    contentType:
+      "programa",
+
+    date,
+
+    time,
+
+    channel:
+      program.channel,
+
+    location:
+      "Televisión",
+
+    breeding:
+      "",
+
+    participants:
+      [],
+
+    sourceUrl:
+      program.sourceUrl,
+
+    eventUrl:
+      program.eventUrl
   };
 }
 
 
 /* =========================================================
-   EXTRAER HORA CERCA DEL NOMBRE DEL PROGRAMA
+   PROCESAR PROGRAMA
    ========================================================= */
 
 
-function extractTimeNearProgram(
-  pageText,
-  programName
+async function processProgram(
+  program,
+  date
 ) {
-  const normalizedPage =
-    normalizeText(pageText);
-
-  const normalizedName =
-    normalizeText(programName);
-
-  const programPosition =
-    normalizedPage.indexOf(
-      normalizedName
-    );
-
-  if (programPosition === -1) {
-    return "";
-  }
-
-  const start =
-    Math.max(
-      0,
-      programPosition - 120
-    );
-
-  const end =
-    Math.min(
-      normalizedPage.length,
-      programPosition + 180
-    );
-
-  const context =
-    normalizedPage.slice(
-      start,
-      end
-    );
-
-  /*
-    Primero buscamos una hora situada inmediatamente
-    antes del nombre del programa.
-  */
-
-  const beforeProgram =
-    normalizedPage.slice(
-      start,
-      programPosition
-    );
-
-  const timesBefore =
-    [
-      ...beforeProgram.matchAll(
-        /\b([01]?\d|2[0-3])[:.]([0-5]\d)\b/g
-      )
-    ];
-
-  if (timesBefore.length) {
-    const lastTime =
-      timesBefore[
-        timesBefore.length - 1
-      ];
-
-    return (
-      String(lastTime[1]).padStart(2, "0") +
-      ":" +
-      lastTime[2]
-    );
-  }
-
-  /*
-    Si no existe delante, buscamos después.
-  */
-
-  const timeAfter =
-    context.match(
-      /\b([01]?\d|2[0-3])[:.]([0-5]\d)\b/
-    );
-
-  if (timeAfter) {
-    return (
-      String(timeAfter[1]).padStart(2, "0") +
-      ":" +
-      timeAfter[2]
-    );
-  }
-
-  return "";
-}
-
-
-/* =========================================================
-   PROCESAR UN PROGRAMA
-   ========================================================= */
-
-
-async function checkProgram(program) {
   console.log("");
   console.log(
-    `Buscando: ${program.name}`
-  );
-
-  console.log(
-    `Guía: ${program.guideUrl}`
+    `Buscando ${program.title}...`
   );
 
   try {
-    const {
-      html,
-      finalUrl
-    } =
-      await fetchPage(
-        program.guideUrl
+    const page =
+      await fetchProgramGuide(
+        program
       );
 
-    const pageText =
-      stripHtml(html);
-
-    const found =
-      normalizeText(pageText).includes(
-        normalizeText(program.name)
+    const times =
+      extractTimes(
+        page.text,
+        program.title
       );
 
-    const time =
-      found
-        ? extractTimeNearProgram(
-            pageText,
-            program.name
-          )
-        : "";
+    console.log(
+      `Página: ${page.finalUrl}`
+    );
 
-    if (found) {
+    console.log(
+      `Tamaño HTML: ${page.htmlLength}`
+    );
+
+    if (!times.length) {
       console.log(
-        `ENCONTRADO: ${program.name}`
+        `Título encontrado, pero sin hora: ${program.title}`
       );
 
-      console.log(
-        `Hora detectada: ${
-          time ||
-          "no encontrada"
-        }`
-      );
-    } else {
-      console.log(
-        `NO ENCONTRADO: ${program.name}`
-      );
+      return {
+        diagnostic: {
+          program:
+            program.title,
+
+          source:
+            program.source,
+
+          finalUrl:
+            page.finalUrl,
+
+          present:
+            true,
+
+          times:
+            [],
+
+          eventsCreated:
+            0,
+
+          warning:
+            "El título aparece en la guía, pero no se encontró una hora próxima."
+        },
+
+        events:
+          []
+      };
     }
 
-    return {
-      id:
-        `${program.id}-${todayISO()}`,
-
-      source:
-        program.source,
-
-      title:
-        program.name,
-
-      type:
-        "Programa taurino",
-
-      contentType:
-        "programa",
-
-      date:
-        todayISO(),
-
-      time:
-        time ||
-        "Hora por confirmar",
-
-      channel:
-        program.channel,
-
-      location:
-        "Televisión",
-
-      breeding:
-        "",
-
-      participants:
-        [],
-
-      found,
-
-      guideUrl:
-        finalUrl,
-
-      sourceUrl:
-        program.programUrl,
-
-      eventUrl:
-        program.watchUrl
-    };
-  } catch (error) {
-    console.error(
-      `ERROR: ${error.message}`
+    console.log(
+      `Horas encontradas: ${times.join(", ")}`
     );
 
     return {
-      id:
-        `${program.id}-${todayISO()}`,
+      diagnostic: {
+        program:
+          program.title,
 
-      source:
-        program.source,
+        source:
+          program.source,
 
-      title:
-        program.name,
+        finalUrl:
+          page.finalUrl,
 
-      type:
-        "Programa taurino",
+        present:
+          true,
 
-      contentType:
-        "programa",
+        times,
 
-      date:
-        todayISO(),
+        eventsCreated:
+          times.length
+      },
 
-      time:
-        "Hora por confirmar",
+      events:
+        times.map(
+          time =>
+            createEvent({
+              program,
+              date,
+              time
+            })
+        )
+    };
+  } catch (error) {
+    console.log(
+      `No encontrado: ${program.title}`
+    );
 
-      channel:
-        program.channel,
+    console.log(
+      error.message
+    );
 
-      location:
-        "Televisión",
+    return {
+      diagnostic: {
+        program:
+          program.title,
 
-      breeding:
-        "",
+        source:
+          program.source,
 
-      participants:
-        [],
+        requestedUrls:
+          program.guideUrls,
 
-      found:
-        false,
+        present:
+          false,
 
-      error:
-        error.message,
+        times:
+          [],
 
-      guideUrl:
-        program.guideUrl,
+        eventsCreated:
+          0,
 
-      sourceUrl:
-        program.programUrl,
+        error:
+          error.message
+      },
 
-      eventUrl:
-        program.watchUrl
+      events:
+        []
     };
   }
 }
 
 
 /* =========================================================
-   FUNCIÓN PRINCIPAL
+   ELIMINAR DUPLICADOS
+   ========================================================= */
+
+
+function deduplicateEvents(
+  events
+) {
+  const map =
+    new Map();
+
+  for (const event of events) {
+    const key =
+      [
+        event.date,
+        event.time,
+        normalizeText(event.title),
+        normalizeText(event.channel)
+      ].join("|");
+
+    if (!map.has(key)) {
+      map.set(
+        key,
+        event
+      );
+    }
+  }
+
+  return [
+    ...map.values()
+  ].sort(
+    (eventA, eventB) =>
+      eventA.date.localeCompare(
+        eventB.date
+      ) ||
+      timeToMinutes(eventA.time) -
+        timeToMinutes(eventB.time)
+  );
+}
+
+
+/* =========================================================
+   PRINCIPAL
    ========================================================= */
 
 
 async function main() {
   console.log(
-    "AlberoTV — Comprobación de programas taurinos"
+    "======================================"
   );
 
-  const results = [];
+  console.log(
+    "ALBERO TV — PROGRAMAS TAURINOS"
+  );
+
+  console.log(
+    `Versión: ${SCRAPER_VERSION}`
+  );
+
+  console.log(
+    "======================================"
+  );
+
+  const date =
+    getSpainDateISO();
+
+  console.log(
+    `Fecha España: ${date}`
+  );
+
+  const diagnostics = [];
+  const collectedEvents = [];
 
   for (
-    const program of PROGRAMS
+    const program
+    of PROGRAMS
   ) {
     const result =
-      await checkProgram(program);
+      await processProgram(
+        program,
+        date
+      );
 
-    results.push(result);
+    diagnostics.push(
+      result.diagnostic
+    );
+
+    collectedEvents.push(
+      ...result.events
+    );
 
     await new Promise(
       resolve =>
         setTimeout(
           resolve,
-          500
+          600
         )
     );
   }
 
-  const foundPrograms =
-    results.filter(
-      program =>
-        program.found
+  const events =
+    deduplicateEvents(
+      collectedEvents
     );
 
   const output = {
+    scraperVersion:
+      SCRAPER_VERSION,
+
     source:
       "Programas taurinos",
 
     updatedAt:
       new Date().toISOString(),
 
+    timeZone:
+      TIME_ZONE,
+
+    date,
+
     checked:
-      results.length,
+      PROGRAMS.length,
 
-    found:
-      foundPrograms.length,
+    programsPresent:
+      diagnostics.filter(
+        item =>
+          item.present
+      ).length,
 
-    /*
-      En esta primera prueba guardamos todos los resultados,
-      incluso los no encontrados, para poder diagnosticarlos.
-    */
+    programsWithTime:
+      diagnostics.filter(
+        item =>
+          item.eventsCreated > 0
+      ).length,
 
-    programs:
-      results,
+    emissionsFound:
+      events.length,
 
-    /*
-      Esta será posteriormente la lista que se incorporará
-      a programacion.json.
-    */
+    diagnostics,
 
-    events:
-      foundPrograms.map(
-        program => {
-          const {
-            found,
-            error,
-            guideUrl,
-            ...event
-          } = program;
-
-          return event;
-        }
-      )
+    events
   };
 
   await fs.mkdir(
@@ -567,7 +970,8 @@ async function main() {
       OUTPUT_FILE
     ),
     {
-      recursive: true
+      recursive:
+        true
     }
   );
 
@@ -583,23 +987,38 @@ async function main() {
 
   console.log("");
   console.log(
-    "Comprobación terminada"
+    "======================================"
   );
 
   console.log(
-    `${foundPrograms.length} de ${results.length} programas encontrados`
+    "RESULTADO"
   );
 
   console.log(
-    `Archivo creado: ${OUTPUT_FILE}`
+    "======================================"
+  );
+
+  console.log(
+    `Programas presentes: ${output.programsPresent}`
+  );
+
+  console.log(
+    `Programas con hora: ${output.programsWithTime}`
+  );
+
+  console.log(
+    `Emisiones creadas: ${output.emissionsFound}`
+  );
+
+  console.log(
+    `Archivo: ${OUTPUT_FILE}`
   );
 }
 
 
 main().catch(error => {
-  console.error("");
   console.error(
-    "Error fatal:"
+    "ERROR FATAL:"
   );
 
   console.error(error);
