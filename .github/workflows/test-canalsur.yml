@@ -1,0 +1,42 @@
+name: Probar Canal Sur
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-canalsur:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Ejecutar scraper de Canal Sur
+        run: node scrapers/canalsur.mjs
+
+      - name: Mostrar resultado
+        run: |
+          echo "Contenido de data/canalsur.json:"
+          cat data/canalsur.json
+
+      - name: Guardar resultado en GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add data/canalsur.json
+
+          if git diff --cached --quiet; then
+            echo "No hay cambios que guardar."
+          else
+            git commit -m "Actualizar programación de Canal Sur"
+            git push
+          fi
