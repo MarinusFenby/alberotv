@@ -1,96 +1,26 @@
 {
-  "scraperVersion": "2026-07-25-v3",
+  "scraperVersion": "2026-07-25-v5-corto",
   "source": "Programas taurinos",
-  "updatedAt": "2026-07-25T16:32:21.073Z",
+  "updatedAt": "2026-07-25T17:05:55.331Z",
   "timeZone": "Europe/Madrid",
   "date": "2026-07-25",
-  "checked": 3,
-  "programsPresent": 2,
-  "programsWithTime": 2,
-  "emissionsFound": 6,
+  "checked": 1,
+  "programsPresent": 1,
+  "programsWithTime": 1,
+  "emissionsFound": 1,
   "diagnostics": [
     {
       "program": "Toros para Todos",
       "source": "Canal Sur",
-      "finalUrl": "https://www.canalsur.es/guia-programacion/canal-sur-television-79/",
+      "guideUrl": "https://www.canalsur.es/guia-programacion/canal-sur-television-79/",
       "present": true,
       "times": [
         "13:05"
       ],
       "eventsCreated": 1
-    },
-    {
-      "program": "Tendido Cero",
-      "source": "RTVE",
-      "requestedUrls": [
-        "https://www.rtve.es/play/guia-tve/"
-      ],
-      "present": false,
-      "times": [],
-      "eventsCreated": 0,
-      "error": "https://www.rtve.es/play/guia-tve/: título no encontrado"
-    },
-    {
-      "program": "Grana y Oro",
-      "source": "CyLTV",
-      "finalUrl": "https://www.cyltv.es/guiatv",
-      "present": true,
-      "times": [
-        "05:20",
-        "10:59",
-        "12:48",
-        "15:25",
-        "20:55"
-      ],
-      "eventsCreated": 5
     }
   ],
   "events": [
-    {
-      "id": "grana-y-oro-2026-07-25-0520",
-      "source": "CyLTV",
-      "title": "Grana y Oro",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "date": "2026-07-25",
-      "time": "05:20",
-      "channel": "CyLTV",
-      "location": "Televisión",
-      "breeding": "",
-      "participants": [],
-      "sourceUrl": "https://www.cyltv.es/granayoro",
-      "eventUrl": "https://www.cyltv.es/directo"
-    },
-    {
-      "id": "grana-y-oro-2026-07-25-1059",
-      "source": "CyLTV",
-      "title": "Grana y Oro",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "date": "2026-07-25",
-      "time": "10:59",
-      "channel": "CyLTV",
-      "location": "Televisión",
-      "breeding": "",
-      "participants": [],
-      "sourceUrl": "https://www.cyltv.es/granayoro",
-      "eventUrl": "https://www.cyltv.es/directo"
-    },
-    {
-      "id": "grana-y-oro-2026-07-25-1248",
-      "source": "CyLTV",
-      "title": "Grana y Oro",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "date": "2026-07-25",
-      "time": "12:48",
-      "channel": "CyLTV",
-      "location": "Televisión",
-      "breeding": "",
-      "participants": [],
-      "sourceUrl": "https://www.cyltv.es/granayoro",
-      "eventUrl": "https://www.cyltv.es/directo"
-    },
     {
       "id": "toros-para-todos-2026-07-25-1305",
       "source": "Canal Sur",
@@ -105,36 +35,6 @@
       "participants": [],
       "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
       "eventUrl": "https://www.canalsur.es/television/directo-television/"
-    },
-    {
-      "id": "grana-y-oro-2026-07-25-1525",
-      "source": "CyLTV",
-      "title": "Grana y Oro",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "date": "2026-07-25",
-      "time": "15:25",
-      "channel": "CyLTV",
-      "location": "Televisión",
-      "breeding": "",
-      "participants": [],
-      "sourceUrl": "https://www.cyltv.es/granayoro",
-      "eventUrl": "https://www.cyltv.es/directo"
-    },
-    {
-      "id": "grana-y-oro-2026-07-25-2055",
-      "source": "CyLTV",
-      "title": "Grana y Oro",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "date": "2026-07-25",
-      "time": "20:55",
-      "channel": "CyLTV",
-      "location": "Televisión",
-      "breeding": "",
-      "participants": [],
-      "sourceUrl": "https://www.cyltv.es/granayoro",
-      "eventUrl": "https://www.cyltv.es/directo"
     }
   ]
 }
