@@ -27,9 +27,12 @@ const weekdays = [
 ];
 
 let cards = [];
+
 let isDragging = false;
 let dragStartX = 0;
-let dragStartScroll = 0;
+let dragStartScrollLeft = 0;
+
+let animationFrameRequested = false;
 
 
 /* ==================================================
@@ -46,9 +49,17 @@ function toLocalISO(date) {
 
 
 function getDayLabel(offset) {
-  if (offset === -1) return "AYER";
-  if (offset === 0) return "HOY";
-  if (offset === 1) return "MAÑANA";
+  if (offset === -1) {
+    return "AYER";
+  }
+
+  if (offset === 0) {
+    return "HOY";
+  }
+
+  if (offset === 1) {
+    return "MAÑANA";
+  }
 
   return "";
 }
@@ -92,8 +103,7 @@ function buildEvent(event) {
 
   const participants =
     formatParticipants(
-      event.participants ||
-      []
+      event.participants || []
     );
 
   const breeding =
@@ -202,11 +212,14 @@ function buildDayCard(date, offset, events) {
           event.date === dateKey
       )
       .sort(
-        (a, b) =>
-          String(a.time || "99:99")
-            .localeCompare(
-              String(b.time || "99:99")
+        (eventA, eventB) =>
+          String(
+            eventA.time || "99:99"
+          ).localeCompare(
+            String(
+              eventB.time || "99:99"
             )
+          )
       );
 
   const dateClass =
@@ -260,7 +273,7 @@ function buildDayCard(date, offset, events) {
 
 
 /* ==================================================
-   EFECTO LUPA CENTRAL
+   EFECTO DE CINTA CONTINUA Y LUPA CENTRAL
    ================================================== */
 
 function updateVisuals() {
@@ -271,56 +284,96 @@ function updateVisuals() {
   const timelineRect =
     timeline.getBoundingClientRect();
 
-  const center =
+  const viewportCenter =
     timelineRect.left +
     timelineRect.width / 2;
 
   cards.forEach(card => {
-    const rect =
+    const cardRect =
       card.getBoundingClientRect();
 
     const cardCenter =
-      rect.left +
-      rect.width / 2;
+      cardRect.left +
+      cardRect.width / 2;
 
     const signedDistance =
-      cardCenter - center;
+      cardCenter -
+      viewportCenter;
 
-    const distance =
+    const absoluteDistance =
       Math.abs(signedDistance);
 
-    const normalized =
-      Math.min(
-        distance /
-          Math.max(
-            timelineRect.width * 0.55,
-            1
-          ),
+    /*
+      Esta distancia define hasta dónde
+      se aprecia el efecto de lupa.
+    */
+
+    const influenceDistance =
+      Math.max(
+        timelineRect.width * 0.58,
         1
       );
 
+    const normalizedDistance =
+      Math.min(
+        absoluteDistance /
+          influenceDistance,
+        1
+      );
+
+    /*
+      En el centro:
+      escala = 1
+
+      En los extremos:
+      escala aproximada = 0,78
+    */
+
     const scale =
       1 -
-      normalized * 0.22;
+      normalizedDistance * 0.22;
+
+    /*
+      En el centro:
+      opacidad = 1
+
+      En los extremos:
+      opacidad aproximada = 0,34
+    */
 
     const opacity =
       1 -
-      normalized * 0.62;
+      normalizedDistance * 0.66;
 
     const blur =
-      normalized * 1.2;
+      normalizedDistance * 1.3;
 
-    const brightnessLoss =
+    /*
+      El pasado, a la izquierda,
+      queda ligeramente más oscuro
+      que el futuro.
+    */
+
+    const brightnessReduction =
       signedDistance < 0
-        ? 0.42
-        : 0.28;
+        ? 0.43
+        : 0.30;
 
     const brightness =
       1 -
-      normalized * brightnessLoss;
+      normalizedDistance *
+        brightnessReduction;
+
+    /*
+      Elevamos ligeramente la tarjeta
+      cuando se acerca al centro.
+    */
+
+    const lift =
+      normalizedDistance * 8;
 
     card.style.transform =
-      `scale(${scale})`;
+      `translateY(${lift}px) scale(${scale})`;
 
     card.style.opacity =
       String(opacity);
@@ -330,18 +383,29 @@ function updateVisuals() {
 
     card.classList.toggle(
       "active",
-      normalized < 0.16
+      normalizedDistance < 0.15
     );
+  });
+}
+
+
+function requestVisualUpdate() {
+  if (animationFrameRequested) {
+    return;
+  }
+
+  animationFrameRequested = true;
+
+  requestAnimationFrame(() => {
+    updateVisuals();
+
+    animationFrameRequested = false;
   });
 }
 
 
 /* ==================================================
    CARGAR PROGRAMACIÓN
-
-   La web está ahora en la raíz,
-   por eso la ruta correcta es:
-   data/programacion.json
    ================================================== */
 
 async function loadEvents() {
@@ -367,7 +431,7 @@ async function loadEvents() {
 
 
 /* ==================================================
-   MOSTRAR ERROR EN LA WEB
+   MOSTRAR ERROR
    ================================================== */
 
 function showLoadingError(error) {
@@ -377,7 +441,7 @@ function showLoadingError(error) {
   );
 
   timeline.innerHTML = `
-    <article class="day active">
+    <article class="day active error-card">
 
       <div class="label">
         ERROR
@@ -416,6 +480,7 @@ async function init() {
     );
   } catch (error) {
     showLoadingError(error);
+
     return;
   }
 
@@ -428,6 +493,11 @@ async function init() {
     0,
     0
   );
+
+  /*
+    Cinco días anteriores
+    y noventa días futuros.
+  */
 
   for (
     let offset = -5;
@@ -452,7 +522,9 @@ async function init() {
   }
 
   cards = [
-    ...document.querySelectorAll(".day")
+    ...document.querySelectorAll(
+      ".day"
+    )
   ];
 
   const todayCard =
@@ -460,6 +532,14 @@ async function init() {
       card =>
         card.dataset.offset === "0"
     );
+
+  /*
+    HOY se centra únicamente
+    al abrir la web.
+
+    Después el movimiento queda
+    completamente libre.
+  */
 
   requestAnimationFrame(() => {
     if (todayCard) {
@@ -475,10 +555,8 @@ async function init() {
 
 
 /* ==================================================
-   SCROLL CONTINUO
+   SCROLL HORIZONTAL CONTINUO
    ================================================== */
-
-let ticking = false;
 
 timeline.addEventListener(
   "scroll",
@@ -487,35 +565,79 @@ timeline.addEventListener(
       "hidden"
     );
 
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateVisuals();
-        ticking = false;
-      });
-
-      ticking = true;
-    }
+    requestVisualUpdate();
+  },
+  {
+    passive: true
   }
 );
 
 
 /* ==================================================
-   TRACKPAD Y RUEDA
+   RUEDA Y TRACKPAD
+
+   Vertical:
+   desplaza la página normalmente.
+
+   Horizontal:
+   desplaza la cinta de días.
+
+   Shift + rueda:
+   desplaza horizontalmente.
    ================================================== */
 
 timeline.addEventListener(
   "wheel",
   event => {
+    const horizontalMovement =
+      Math.abs(event.deltaX);
+
+    const verticalMovement =
+      Math.abs(event.deltaY);
+
+    /*
+      Trackpad horizontal real.
+    */
+
+    const isHorizontalGesture =
+      horizontalMovement >
+      verticalMovement * 1.15;
+
+    /*
+      Ratón convencional:
+      Shift + rueda vertical
+      desplaza la cinta.
+    */
+
+    const isShiftWheel =
+      event.shiftKey &&
+      verticalMovement > 0;
+
+    if (
+      !isHorizontalGesture &&
+      !isShiftWheel
+    ) {
+      /*
+        No hacemos preventDefault.
+
+        El navegador puede mover
+        la página arriba o abajo.
+      */
+
+      return;
+    }
+
     event.preventDefault();
 
     const movement =
-      Math.abs(event.deltaX) >
-      Math.abs(event.deltaY)
-        ? event.deltaX
-        : event.deltaY;
+      isShiftWheel
+        ? event.deltaY
+        : event.deltaX;
 
     timeline.scrollLeft +=
       movement;
+
+    requestVisualUpdate();
   },
   {
     passive: false
@@ -524,22 +646,35 @@ timeline.addEventListener(
 
 
 /* ==================================================
-   ARRASTRAR CON EL RATÓN
+   ARRASTRAR LA CINTA CON EL RATÓN
    ================================================== */
 
 timeline.addEventListener(
   "pointerdown",
   event => {
+    /*
+      Solo iniciamos el arrastre
+      con el botón principal.
+    */
+
+    if (
+      event.pointerType === "mouse" &&
+      event.button !== 0
+    ) {
+      return;
+    }
+
     isDragging = true;
 
     dragStartX =
       event.clientX;
 
-    dragStartScroll =
+    dragStartScrollLeft =
       timeline.scrollLeft;
 
-    timeline.style.cursor =
-      "grabbing";
+    timeline.classList.add(
+      "is-dragging"
+    );
 
     timeline.setPointerCapture?.(
       event.pointerId
@@ -560,17 +695,40 @@ timeline.addEventListener(
       dragStartX;
 
     timeline.scrollLeft =
-      dragStartScroll -
+      dragStartScrollLeft -
       movement;
+
+    requestVisualUpdate();
   }
 );
 
 
-function stopDragging() {
+function stopDragging(event) {
+  if (!isDragging) {
+    return;
+  }
+
   isDragging = false;
 
-  timeline.style.cursor =
-    "grab";
+  timeline.classList.remove(
+    "is-dragging"
+  );
+
+  if (
+    event?.pointerId !==
+    undefined
+  ) {
+    try {
+      timeline.releasePointerCapture?.(
+        event.pointerId
+      );
+    } catch {
+      /*
+        No hacemos nada si el navegador
+        ya liberó el puntero.
+      */
+    }
+  }
 }
 
 
@@ -586,14 +744,23 @@ timeline.addEventListener(
 );
 
 
-window.addEventListener(
-  "pointerup",
-  stopDragging
+timeline.addEventListener(
+  "pointerleave",
+  event => {
+    if (
+      event.pointerType === "mouse"
+    ) {
+      stopDragging(event);
+    }
+  }
 );
 
 
 /* ==================================================
    FLECHAS
+
+   Desplazan la cinta una distancia,
+   pero no centran ninguna tarjeta.
    ================================================== */
 
 document
@@ -604,7 +771,7 @@ document
     "click",
     () => {
       timeline.scrollBy({
-        left: -420,
+        left: -380,
         behavior: "smooth"
       });
     }
@@ -619,17 +786,25 @@ document
     "click",
     () => {
       timeline.scrollBy({
-        left: 420,
+        left: 380,
         behavior: "smooth"
       });
     }
   );
 
 
+/* ==================================================
+   AJUSTE DE VENTANA
+   ================================================== */
+
 window.addEventListener(
   "resize",
-  updateVisuals
+  requestVisualUpdate
 );
 
+
+/* ==================================================
+   ARRANCAR
+   ================================================== */
 
 init();
