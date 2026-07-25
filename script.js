@@ -86,6 +86,125 @@ function formatParticipants(participants = []) {
 }
 
 
+/*
+  Convierte un texto a minúsculas
+  y elimina tildes.
+
+  Esto permite reconocer de igual forma:
+
+  "Corrida de toros"
+  "CORRIDA DE TOROS"
+  "corrida de toros"
+*/
+
+function normalizeText(value = "") {
+  return String(value)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
+
+/* ==================================================
+   CLASIFICACIÓN DEL TIPO DE FESTEJO
+   ================================================== */
+
+function getTypeClass(type = "") {
+  const normalizedType = normalizeText(type);
+
+  /*
+    El orden es importante.
+
+    Por ejemplo, "corrida de rejones"
+    contiene la palabra "corrida",
+    pero debe clasificarse como rejones.
+  */
+
+  if (
+    normalizedType.includes("rejones") ||
+    normalizedType.includes("rejoneo") ||
+    normalizedType.includes("rejoneadores")
+  ) {
+    return "type-rejones";
+  }
+
+  if (
+    normalizedType.includes("novillada con picadores") ||
+    normalizedType.includes("novillada picada") ||
+    normalizedType.includes("novillos con picadores")
+  ) {
+    return "type-novillada-picadores";
+  }
+
+  if (
+    normalizedType.includes("novillada sin picadores") ||
+    normalizedType.includes("novillada sin caballos") ||
+    normalizedType.includes("novillos sin picadores")
+  ) {
+    return "type-novillada-sin-picadores";
+  }
+
+  if (
+    normalizedType.includes("novillada")
+  ) {
+    return "type-novillada";
+  }
+
+  if (
+    normalizedType.includes("festival")
+  ) {
+    return "type-festival";
+  }
+
+  if (
+    normalizedType.includes("recortes") ||
+    normalizedType.includes("recortadores") ||
+    normalizedType.includes("concurso de recortes")
+  ) {
+    return "type-recortes";
+  }
+
+  if (
+    normalizedType.includes("clase practica") ||
+    normalizedType.includes("clase práctica")
+  ) {
+    return "type-clase-practica";
+  }
+
+  if (
+    normalizedType.includes("becerrada") ||
+    normalizedType.includes("becerros")
+  ) {
+    return "type-becerrada";
+  }
+
+  if (
+    normalizedType.includes("tentadero") ||
+    normalizedType.includes("tienta")
+  ) {
+    return "type-tentadero";
+  }
+
+  if (
+    normalizedType.includes("mixta") ||
+    normalizedType.includes("mixto")
+  ) {
+    return "type-mixta";
+  }
+
+  if (
+    normalizedType.includes("corrida de toros") ||
+    normalizedType.includes("corrida") ||
+    normalizedType.includes("toros")
+  ) {
+    return "type-corrida";
+  }
+
+  return "type-other";
+}
+
+
 /* ==================================================
    CREAR EVENTO
    ================================================== */
@@ -98,6 +217,9 @@ function buildEvent(event) {
   const type =
     event.type ||
     "Festejo taurino";
+
+  const typeClass =
+    getTypeClass(type);
 
   const location =
     event.location ||
@@ -119,6 +241,7 @@ function buildEvent(event) {
 
   const eventUrl =
     event.eventUrl ||
+    event.sourceUrl ||
     "";
 
   return `
@@ -136,7 +259,7 @@ function buildEvent(event) {
 
       </div>
 
-      <div class="event-type">
+      <div class="event-type ${typeClass}">
         ${escapeHtml(type)}
       </div>
 
@@ -177,7 +300,7 @@ function buildEvent(event) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Ver emisión
+              Más información
             </a>
           `
           : ""
@@ -265,8 +388,8 @@ function buildDayCard(date, offset, events) {
                 </b>
 
                 <span>
-                  No hay festejos publicados
-                  para este día.
+                  No hay festejos televisados
+                  publicados para este día.
                 </span>
 
               </div>
@@ -286,6 +409,65 @@ function buildDayCard(date, offset, events) {
 
 
 /* ==================================================
+   CALCULAR EL TAMAÑO MÁXIMO DE LA TARJETA CENTRAL
+
+   La tarjeta central nunca puede superar
+   la altura disponible de la pantalla.
+   ================================================== */
+
+function getMaximumCenterScale() {
+  if (!timeline || !cards.length) {
+    return 1;
+  }
+
+  const timelineRect =
+    timeline.getBoundingClientRect();
+
+  const referenceCard =
+    cards[0];
+
+  const cardHeight =
+    referenceCard.offsetHeight;
+
+  if (!cardHeight) {
+    return 1;
+  }
+
+  /*
+    Dejamos un margen de seguridad arriba y abajo
+    para que la tarjeta nunca toque ni sobrepase
+    los límites visibles.
+  */
+
+  const safetyMargin =
+    window.innerWidth <= 800
+      ? 24
+      : 38;
+
+  const availableHeight =
+    timelineRect.height -
+    safetyMargin;
+
+  const maximumScaleThatFits =
+    availableHeight /
+    cardHeight;
+
+  /*
+    En pantallas grandes puede crecer hasta 1.18.
+    En pantallas bajas crecerá menos automáticamente.
+  */
+
+  return Math.max(
+    1,
+    Math.min(
+      1.18,
+      maximumScaleThatFits
+    )
+  );
+}
+
+
+/* ==================================================
    EFECTO DE CINTA Y LUPA CENTRAL
    ================================================== */
 
@@ -301,6 +483,14 @@ function updateVisuals() {
     timelineRect.left +
     timelineRect.width / 2;
 
+  const centerScale =
+    getMaximumCenterScale();
+
+  const sideScale =
+    window.innerWidth <= 800
+      ? 0.72
+      : 0.64;
+
   let closestCard = null;
   let closestIndex = 0;
   let closestDistance = Infinity;
@@ -309,9 +499,19 @@ function updateVisuals() {
     const cardRect =
       card.getBoundingClientRect();
 
+    /*
+      Eliminamos el efecto de la escala anterior
+      para calcular correctamente el centro real.
+
+      offsetLeft representa la posición de la tarjeta
+      dentro de la cinta antes de transformarla.
+    */
+
     const cardCenter =
-      cardRect.left +
-      cardRect.width / 2;
+      timelineRect.left +
+      card.offsetLeft -
+      timeline.scrollLeft +
+      card.offsetWidth / 2;
 
     const signedDistance =
       cardCenter -
@@ -334,14 +534,9 @@ function updateVisuals() {
         index;
     }
 
-    /*
-      El efecto empieza a reducirse
-      según la distancia al centro.
-    */
-
     const influenceDistance =
       Math.max(
-        timelineRect.width * 0.46,
+        timelineRect.width * 0.45,
         1
       );
 
@@ -353,30 +548,28 @@ function updateVisuals() {
       );
 
     /*
-      Día central: 1.22
-      Días laterales: 0.62
+      El tamaño central se calcula según
+      la altura real disponible.
+
+      De esta forma nunca queda cortado.
     */
 
     const scale =
-      1.22 -
-      normalizedDistance * 0.60;
-
-    /*
-      Día central: completamente visible.
-      Días laterales: mucho más discretos.
-    */
+      centerScale -
+      normalizedDistance *
+        (centerScale - sideScale);
 
     const opacity =
       1 -
-      normalizedDistance * 0.72;
+      normalizedDistance * 0.70;
 
     const blur =
-      normalizedDistance * 1.8;
+      normalizedDistance * 1.6;
 
     const brightnessReduction =
       signedDistance < 0
-        ? 0.52
-        : 0.40;
+        ? 0.50
+        : 0.38;
 
     const brightness =
       1 -
@@ -384,12 +577,20 @@ function updateVisuals() {
         brightnessReduction;
 
     /*
-      Las tarjetas laterales bajan
-      ligeramente y la central sube.
+      La tarjeta central queda verticalmente centrada.
+
+      Los laterales bajan ligeramente,
+      pero menos que antes para evitar cortes.
     */
 
+    const maximumVerticalOffset =
+      window.innerWidth <= 800
+        ? 15
+        : 25;
+
     const verticalOffset =
-      normalizedDistance * 42;
+      normalizedDistance *
+      maximumVerticalOffset;
 
     card.style.transform =
       `
@@ -601,8 +802,7 @@ async function init() {
     );
 
   /*
-    HOY se centra solo una vez
-    al abrir la aplicación.
+    HOY se centra únicamente al abrir.
   */
 
   requestAnimationFrame(() => {
@@ -645,7 +845,7 @@ timeline.addEventListener(
 
    Vertical:
    mueve únicamente el contenido
-   del día que está en el centro.
+   del día situado en el centro.
    ================================================== */
 
 timeline.addEventListener(
@@ -680,12 +880,6 @@ timeline.addEventListener(
 
       return;
     }
-
-    /*
-      Movimiento vertical:
-      solo desplazamos la lista
-      interna del día central.
-    */
 
     if (
       verticalMovement > 0 &&
@@ -723,11 +917,6 @@ timeline.addEventListener(
     ) {
       return;
     }
-
-    /*
-      No iniciamos el arrastre horizontal
-      al pulsar un enlace.
-    */
 
     if (
       event.target.closest(
@@ -832,9 +1021,6 @@ timeline.addEventListener(
 
 /* ==================================================
    FLECHAS
-
-   Desplazan la banda.
-   No saltan exactamente un día.
    ================================================== */
 
 document
@@ -928,7 +1114,9 @@ timeline.addEventListener(
 
 
 /* ==================================================
-   AJUSTE DE VENTANA
+   AJUSTE AL CAMBIAR EL TAMAÑO DE LA VENTANA
+
+   Recalcula el tamaño máximo de la tarjeta central.
    ================================================== */
 
 window.addEventListener(
