@@ -1,198 +1,267 @@
-const timeline = document.getElementById('timeline');
-const hint = document.getElementById('hint');
+const timeline = document.getElementById("timeline");
+const hint = document.getElementById("hint");
 
 const months = [
-  'enero',
-  'febrero',
-  'marzo',
-  'abril',
-  'mayo',
-  'junio',
-  'julio',
-  'agosto',
-  'septiembre',
-  'octubre',
-  'noviembre',
-  'diciembre'
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre"
 ];
 
 const weekdays = [
-  'Domingo',
-  'Lunes',
-  'Martes',
-  'Miércoles',
-  'Jueves',
-  'Viernes',
-  'Sábado'
+  "Domingo",
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado"
 ];
 
 let cards = [];
-let activeIndex = 0;
 let isDragging = false;
 let dragStartX = 0;
 let dragStartScroll = 0;
 
+
+/* ==================================================
+   UTILIDADES
+   ================================================== */
+
 function toLocalISO(date) {
   return [
     date.getFullYear(),
-    String(date.getMonth() + 1).padStart(2, '0'),
-    String(date.getDate()).padStart(2, '0')
-  ].join('-');
+    String(date.getMonth() + 1).padStart(2, "0"),
+    String(date.getDate()).padStart(2, "0")
+  ].join("-");
 }
 
-function cleanEventName(name = '') {
-  return name
-    .replace(
-      /\s*\(\d{2}\/\d{2}\/\d{4}\)\s*$/,
-      ''
-    )
-    .trim();
-}
 
 function getDayLabel(offset) {
-  if (offset === -1) return 'AYER';
-  if (offset === 0) return 'HOY';
-  if (offset === 1) return 'MAÑANA';
+  if (offset === -1) return "AYER";
+  if (offset === 0) return "HOY";
+  if (offset === 1) return "MAÑANA";
 
-  return '';
+  return "";
 }
 
-function getEventTime(event) {
-  return event.time || 'Hora por confirmar';
+
+function escapeHtml(value = "") {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
-function getBreeding(event) {
-  if (event.breeding) {
-    return event.breeding;
-  }
 
-  return '';
+function formatParticipants(participants = []) {
+  return participants
+    .filter(Boolean)
+    .map(escapeHtml)
+    .join(" · ");
 }
+
+
+/* ==================================================
+   CREAR EVENTO
+   ================================================== */
 
 function buildEvent(event) {
+  const time =
+    event.time ||
+    "Hora por confirmar";
+
+  const type =
+    event.type ||
+    "Festejo taurino";
+
+  const location =
+    event.location ||
+    event.name ||
+    "Localidad por confirmar";
+
+  const participants =
+    formatParticipants(
+      event.participants ||
+      []
+    );
+
   const breeding =
-    getBreeding(event);
+    event.breeding ||
+    "";
+
+  const channel =
+    event.channel ||
+    "Canal por confirmar";
+
+  const eventUrl =
+    event.eventUrl ||
+    "";
 
   return `
     <article class="event">
 
       <div class="time">
-        ${getEventTime(event)}
+        ${escapeHtml(time)}
       </div>
 
-      <div>
+      <div class="event-content">
 
-        <h2>
-          ${cleanEventName(
-            event.name ||
-            'Festejo taurino'
-          )}
+        <div class="event-type">
+          ${escapeHtml(type)}
+        </div>
+
+        <h2 class="event-title">
+          ${escapeHtml(location)}
         </h2>
 
-        <div class="people">
-          ${
-            (
-              event.participants ||
-              []
-            ).join(' · ')
-          }
-        </div>
+        ${
+          participants
+            ? `
+              <div class="people">
+                ${participants}
+              </div>
+            `
+            : `
+              <div class="people pending">
+                Cartel por confirmar
+              </div>
+            `
+        }
 
         ${
           breeding
             ? `
               <div class="breeding">
-                ${breeding}
+                ${escapeHtml(breeding)}
               </div>
             `
-            : ''
+            : ""
+        }
+
+        ${
+          eventUrl
+            ? `
+              <a
+                class="event-link"
+                href="${escapeHtml(eventUrl)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ver emisión
+              </a>
+            `
+            : ""
         }
 
       </div>
 
       <div class="channel">
-        ${event.channel || 'OneToro'}
+        ${escapeHtml(channel)}
       </div>
 
     </article>
   `;
 }
 
-function buildDayCard(
-  date,
-  offset,
-  events
-) {
+
+/* ==================================================
+   CREAR TARJETA DEL DÍA
+   ================================================== */
+
+function buildDayCard(date, offset, events) {
   const card =
-    document.createElement(
-      'article'
-    );
+    document.createElement("article");
 
-  card.className =
-    'day';
-
-  card.dataset.offset =
-    offset;
-
-  card.dataset.date =
+  const dateKey =
     toLocalISO(date);
 
-  const dayLabel =
-    getDayLabel(offset);
+  card.className =
+    "day";
+
+  card.dataset.offset =
+    String(offset);
+
+  card.dataset.date =
+    dateKey;
+
+  const dayEvents =
+    events
+      .filter(
+        event =>
+          event.date === dateKey
+      )
+      .sort(
+        (a, b) =>
+          String(a.time || "99:99")
+            .localeCompare(
+              String(b.time || "99:99")
+            )
+      );
 
   const dateClass =
     offset === 0
-      ? 'date today-date'
-      : 'date';
-
-  const dayEvents =
-    events.filter(
-      event =>
-        event.date ===
-        card.dataset.date
-    );
+      ? "date today-date"
+      : "date";
 
   card.innerHTML = `
 
     <div class="label">
-      ${dayLabel}
+      ${getDayLabel(offset)}
     </div>
 
     <div class="${dateClass}">
-      ${date.getDate()}
-      de
-      ${months[date.getMonth()]}
+      ${date.getDate()} de ${months[date.getMonth()]}
     </div>
 
     <div class="weekday">
       ${weekdays[date.getDay()]}
     </div>
 
-    ${
-      dayEvents.length
-        ? dayEvents
-            .map(buildEvent)
-            .join('')
-        : `
-            <div class="empty">
+    <div class="events">
 
-              <b>
-                Sin emisiones programadas
-              </b>
+      ${
+        dayEvents.length
+          ? dayEvents
+              .map(buildEvent)
+              .join("")
+          : `
+              <div class="empty">
 
-              <br>
+                <b>
+                  Sin emisiones programadas
+                </b>
 
-              No hay festejos publicados
-              para este día.
+                <br>
 
-            </div>
-          `
-    }
+                No hay festejos publicados
+                para este día.
+
+              </div>
+            `
+      }
+
+    </div>
 
   `;
 
   return card;
 }
+
+
+/* ==================================================
+   EFECTO LUPA CENTRAL
+   ================================================== */
 
 function updateVisuals() {
   if (!cards.length) {
@@ -206,226 +275,148 @@ function updateVisuals() {
     timelineRect.left +
     timelineRect.width / 2;
 
-  let closestIndex = 0;
-  let closestDistance =
-    Infinity;
+  cards.forEach(card => {
+    const rect =
+      card.getBoundingClientRect();
 
-  cards.forEach(
-    (card, index) => {
+    const cardCenter =
+      rect.left +
+      rect.width / 2;
 
-      const rect =
-        card.getBoundingClientRect();
+    const signedDistance =
+      cardCenter - center;
 
-      const cardCenter =
-        rect.left +
-        rect.width / 2;
+    const distance =
+      Math.abs(signedDistance);
 
-      const signedDistance =
-        cardCenter -
-        center;
-
-      const distance =
-        Math.abs(
-          signedDistance
-        );
-
-      if (
-        distance <
-        closestDistance
-      ) {
-
-        closestDistance =
-          distance;
-
-        closestIndex =
-          index;
-
-      }
-
-      const normalized =
-        Math.min(
-          distance /
+    const normalized =
+      Math.min(
+        distance /
           Math.max(
-            timelineRect.width *
-              0.55,
+            timelineRect.width * 0.55,
             1
           ),
-          1
-        );
-
-      /*
-        La transición es continua:
-        no hay saltos de tarjeta.
-      */
-
-      const scale =
-        1 -
-        normalized *
-          0.18;
-
-      const opacity =
-        1 -
-        normalized *
-          0.64;
-
-      const blur =
-        normalized *
-          1.4;
-
-      /*
-        El pasado queda
-        más oscuro que el futuro.
-      */
-
-      const brightnessLoss =
-        signedDistance < 0
-          ? 0.40
-          : 0.26;
-
-      const brightness =
-        1 -
-        normalized *
-          brightnessLoss;
-
-      card.style.transform =
-        `scale(${scale})`;
-
-      card.style.opacity =
-        opacity;
-
-      card.style.filter =
-        `
-          blur(${blur}px)
-          brightness(${brightness})
-        `;
-
-    }
-  );
-
-  activeIndex =
-    closestIndex;
-
-  cards.forEach(
-    (card, index) => {
-
-      card.classList.toggle(
-        'active',
-        index === activeIndex
+        1
       );
 
-    }
-  );
-}
+    const scale =
+      1 -
+      normalized * 0.22;
 
-function centerOnCard(
-  index,
-  smooth = true
-) {
-  const card =
-    cards[index];
+    const opacity =
+      1 -
+      normalized * 0.62;
 
-  if (!card) {
-    return;
-  }
+    const blur =
+      normalized * 1.2;
 
-  const targetLeft =
+    const brightnessLoss =
+      signedDistance < 0
+        ? 0.42
+        : 0.28;
 
-    card.offsetLeft
+    const brightness =
+      1 -
+      normalized * brightnessLoss;
 
-    -
+    card.style.transform =
+      `scale(${scale})`;
 
-    timeline.clientWidth /
-      2
+    card.style.opacity =
+      String(opacity);
 
-    +
+    card.style.filter =
+      `blur(${blur}px) brightness(${brightness})`;
 
-    card.offsetWidth /
-      2;
-
-  timeline.scrollTo({
-
-    left:
-      targetLeft,
-
-    behavior:
-      smooth
-        ? 'smooth'
-        : 'auto'
-
+    card.classList.toggle(
+      "active",
+      normalized < 0.16
+    );
   });
 }
 
-function moveOneDay(
-  direction
-) {
-  const nextIndex =
 
-    Math.max(
+/* ==================================================
+   CARGAR PROGRAMACIÓN
 
-      0,
-
-      Math.min(
-
-        cards.length -
-          1,
-
-        activeIndex +
-          direction
-
-      )
-
-    );
-
-  centerOnCard(
-    nextIndex,
-    true
-  );
-}
+   La web está ahora en la raíz,
+   por eso la ruta correcta es:
+   data/programacion.json
+   ================================================== */
 
 async function loadEvents() {
   const response =
     await fetch(
-
-      `../data/onetoro.json?ts=${Date.now()}`,
-
+      `data/programacion.json?ts=${Date.now()}`,
       {
-        cache:
-          'no-store'
+        cache: "no-store"
       }
-
     );
 
   if (!response.ok) {
-
     throw new Error(
-      `No se pudo cargar OneToro: ${response.status}`
+      `No se pudo cargar programacion.json: ${response.status}`
     );
-
   }
 
   const data =
     await response.json();
 
-  return (
-    data.events ||
-    []
-  );
+  return data.events || [];
 }
+
+
+/* ==================================================
+   MOSTRAR ERROR EN LA WEB
+   ================================================== */
+
+function showLoadingError(error) {
+  console.error(
+    "Error cargando la programación:",
+    error
+  );
+
+  timeline.innerHTML = `
+    <article class="day active">
+
+      <div class="label">
+        ERROR
+      </div>
+
+      <div class="date">
+        Programación no disponible
+      </div>
+
+      <div class="weekday">
+        No se ha podido cargar programacion.json
+      </div>
+
+      <div class="empty">
+        Revisa la actualización automática de AlberoTV.
+      </div>
+
+    </article>
+  `;
+}
+
+
+/* ==================================================
+   INICIAR WEB
+   ================================================== */
 
 async function init() {
   let events = [];
 
   try {
-
     events =
       await loadEvents();
 
-  } catch (error) {
-
-    console.error(
-      error
+    console.log(
+      `AlberoTV: ${events.length} eventos cargados`
     );
-
+  } catch (error) {
+    showLoadingError(error);
+    return;
   }
 
   const today =
@@ -438,173 +429,108 @@ async function init() {
     0
   );
 
-  /*
-    Mostramos ayer y
-    los siguientes 45 días.
-  */
-
   for (
-    let offset = -1;
-    offset <= 45;
+    let offset = -5;
+    offset <= 90;
     offset++
   ) {
-
     const date =
-      new Date(
-        today
-      );
+      new Date(today);
 
     date.setDate(
       today.getDate() +
       offset
     );
 
-    const card =
+    timeline.appendChild(
       buildDayCard(
         date,
         offset,
         events
-      );
-
-    timeline.appendChild(
-      card
+      )
     );
-
   }
 
   cards = [
-
-    ...document.querySelectorAll(
-      '.day'
-    )
-
+    ...document.querySelectorAll(".day")
   ];
 
-  const todayIndex =
-    cards.findIndex(
-
+  const todayCard =
+    cards.find(
       card =>
-        card.dataset.offset ===
-        '0'
-
+        card.dataset.offset === "0"
     );
 
-  activeIndex =
-
-    todayIndex >= 0
-
-      ? todayIndex
-
-      : 0;
-
-  requestAnimationFrame(
-    () => {
-
-      centerOnCard(
-        activeIndex,
-        false
-      );
-
-      updateVisuals();
-
+  requestAnimationFrame(() => {
+    if (todayCard) {
+      timeline.scrollLeft =
+        todayCard.offsetLeft -
+        timeline.clientWidth / 2 +
+        todayCard.offsetWidth / 2;
     }
-  );
+
+    updateVisuals();
+  });
 }
 
 
-/* ================================
+/* ==================================================
    SCROLL CONTINUO
-   ================================ */
+   ================================================== */
 
 let ticking = false;
 
 timeline.addEventListener(
-
-  'scroll',
-
+  "scroll",
   () => {
-
     hint?.classList.add(
-      'hidden'
+      "hidden"
     );
 
     if (!ticking) {
+      requestAnimationFrame(() => {
+        updateVisuals();
+        ticking = false;
+      });
 
-      requestAnimationFrame(
-        () => {
-
-          updateVisuals();
-
-          ticking =
-            false;
-
-        }
-      );
-
-      ticking =
-        true;
-
+      ticking = true;
     }
-
   }
-
 );
 
 
-/*
-  Trackpad y rueda:
-  movimiento horizontal libre.
-*/
+/* ==================================================
+   TRACKPAD Y RUEDA
+   ================================================== */
 
 timeline.addEventListener(
-
-  'wheel',
-
+  "wheel",
   event => {
+    event.preventDefault();
 
-    if (
+    const movement =
+      Math.abs(event.deltaX) >
+      Math.abs(event.deltaY)
+        ? event.deltaX
+        : event.deltaY;
 
-      Math.abs(
-        event.deltaY
-      )
-
-      >
-
-      Math.abs(
-        event.deltaX
-      )
-
-    ) {
-
-      event.preventDefault();
-
-      timeline.scrollLeft +=
-        event.deltaY;
-
-    }
-
+    timeline.scrollLeft +=
+      movement;
   },
-
   {
-    passive:
-      false
+    passive: false
   }
-
 );
 
 
-/* ================================
-   ARRASTRE CON RATÓN
-   ================================ */
+/* ==================================================
+   ARRASTRAR CON EL RATÓN
+   ================================================== */
 
 timeline.addEventListener(
-
-  'pointerdown',
-
+  "pointerdown",
   event => {
-
-    isDragging =
-      true;
+    isDragging = true;
 
     dragStartX =
       event.clientX;
@@ -612,170 +538,97 @@ timeline.addEventListener(
     dragStartScroll =
       timeline.scrollLeft;
 
-    timeline.setPointerCapture(
+    timeline.style.cursor =
+      "grabbing";
+
+    timeline.setPointerCapture?.(
       event.pointerId
     );
-
   }
-
 );
 
 
 timeline.addEventListener(
-
-  'pointermove',
-
+  "pointermove",
   event => {
-
-    if (
-      !isDragging
-    ) {
+    if (!isDragging) {
       return;
     }
 
     const movement =
-
       event.clientX -
-
       dragStartX;
 
     timeline.scrollLeft =
-
-      dragStartScroll
-
-      -
-
+      dragStartScroll -
       movement;
-
   }
+);
 
+
+function stopDragging() {
+  isDragging = false;
+
+  timeline.style.cursor =
+    "grab";
+}
+
+
+timeline.addEventListener(
+  "pointerup",
+  stopDragging
 );
 
 
 timeline.addEventListener(
-
-  'pointerup',
-
-  event => {
-
-    isDragging =
-      false;
-
-    try {
-
-      timeline.releasePointerCapture(
-        event.pointerId
-      );
-
-    } catch {
-
-      /*
-        No hacemos nada si
-        el pointer ya fue liberado.
-      */
-
-    }
-
-  }
-
-);
-
-
-timeline.addEventListener(
-
-  'pointercancel',
-
-  () => {
-
-    isDragging =
-      false;
-
-  }
-
-);
-
-
-/* ================================
-   FLECHAS
-   ================================ */
-
-document
-  .querySelector(
-    '.edge-arrow.left'
-  )
-  ?.addEventListener(
-
-    'click',
-
-    () => {
-
-      moveOneDay(-1);
-
-    }
-
-  );
-
-
-document
-  .querySelector(
-    '.edge-arrow.right'
-  )
-  ?.addEventListener(
-
-    'click',
-
-    () => {
-
-      moveOneDay(1);
-
-    }
-
-  );
-
-
-/* ================================
-   TECLADO
-   ================================ */
-
-timeline.addEventListener(
-
-  'keydown',
-
-  event => {
-
-    if (
-      event.key ===
-      'ArrowLeft'
-    ) {
-
-      moveOneDay(-1);
-
-    }
-
-    if (
-      event.key ===
-      'ArrowRight'
-    ) {
-
-      moveOneDay(1);
-
-    }
-
-  }
-
+  "pointercancel",
+  stopDragging
 );
 
 
 window.addEventListener(
+  "pointerup",
+  stopDragging
+);
 
-  'resize',
 
-  () => {
+/* ==================================================
+   FLECHAS
+   ================================================== */
 
-    updateVisuals();
+document
+  .querySelector(
+    ".edge-arrow.left"
+  )
+  ?.addEventListener(
+    "click",
+    () => {
+      timeline.scrollBy({
+        left: -420,
+        behavior: "smooth"
+      });
+    }
+  );
 
-  }
 
+document
+  .querySelector(
+    ".edge-arrow.right"
+  )
+  ?.addEventListener(
+    "click",
+    () => {
+      timeline.scrollBy({
+        left: 420,
+        behavior: "smooth"
+      });
+    }
+  );
+
+
+window.addEventListener(
+  "resize",
+  updateVisuals
 );
 
 
