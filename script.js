@@ -27,10 +27,13 @@ const weekdays = [
 ];
 
 let cards = [];
+let activeCard = null;
+let activeIndex = 0;
 
 let isDragging = false;
 let dragStartX = 0;
 let dragStartScrollLeft = 0;
+let dragMoved = false;
 
 let animationFrameRequested = false;
 
@@ -121,64 +124,64 @@ function buildEvent(event) {
   return `
     <article class="event">
 
-      <div class="time">
-        ${escapeHtml(time)}
-      </div>
+      <div class="event-topline">
 
-      <div class="event-content">
-
-        <div class="event-type">
-          ${escapeHtml(type)}
+        <div class="time">
+          ${escapeHtml(time)}
         </div>
 
-        <h2 class="event-title">
-          ${escapeHtml(location)}
-        </h2>
-
-        ${
-          participants
-            ? `
-              <div class="people">
-                ${participants}
-              </div>
-            `
-            : `
-              <div class="people pending">
-                Cartel por confirmar
-              </div>
-            `
-        }
-
-        ${
-          breeding
-            ? `
-              <div class="breeding">
-                ${escapeHtml(breeding)}
-              </div>
-            `
-            : ""
-        }
-
-        ${
-          eventUrl
-            ? `
-              <a
-                class="event-link"
-                href="${escapeHtml(eventUrl)}"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Ver emisión
-              </a>
-            `
-            : ""
-        }
+        <div class="channel">
+          ${escapeHtml(channel)}
+        </div>
 
       </div>
 
-      <div class="channel">
-        ${escapeHtml(channel)}
+      <div class="event-type">
+        ${escapeHtml(type)}
       </div>
+
+      <h2 class="event-title">
+        ${escapeHtml(location)}
+      </h2>
+
+      ${
+        participants
+          ? `
+            <div class="people">
+              ${participants}
+            </div>
+          `
+          : `
+            <div class="people pending">
+              Cartel por confirmar
+            </div>
+          `
+      }
+
+      ${
+        breeding
+          ? `
+            <div class="breeding">
+              ${escapeHtml(breeding)}
+            </div>
+          `
+          : ""
+      }
+
+      ${
+        eventUrl
+          ? `
+            <a
+              class="event-link"
+              href="${escapeHtml(eventUrl)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver emisión
+            </a>
+          `
+          : ""
+      }
 
     </article>
   `;
@@ -229,16 +232,22 @@ function buildDayCard(date, offset, events) {
 
   card.innerHTML = `
 
-    <div class="label">
-      ${getDayLabel(offset)}
-    </div>
+    <div class="day-header">
 
-    <div class="${dateClass}">
-      ${date.getDate()} de ${months[date.getMonth()]}
-    </div>
+      <div class="label">
+        ${getDayLabel(offset)}
+      </div>
 
-    <div class="weekday">
-      ${weekdays[date.getDay()]}
+      <div class="${dateClass}">
+        ${date.getDate()}
+        de
+        ${months[date.getMonth()]}
+      </div>
+
+      <div class="weekday">
+        ${weekdays[date.getDay()]}
+      </div>
+
     </div>
 
     <div class="events">
@@ -255,15 +264,19 @@ function buildDayCard(date, offset, events) {
                   Sin emisiones programadas
                 </b>
 
-                <br>
-
-                No hay festejos publicados
-                para este día.
+                <span>
+                  No hay festejos publicados
+                  para este día.
+                </span>
 
               </div>
             `
       }
 
+    </div>
+
+    <div class="day-scroll-indicator">
+      Desplaza para ver el día completo
     </div>
 
   `;
@@ -273,7 +286,7 @@ function buildDayCard(date, offset, events) {
 
 
 /* ==================================================
-   EFECTO DE CINTA CONTINUA Y LUPA CENTRAL
+   EFECTO DE CINTA Y LUPA CENTRAL
    ================================================== */
 
 function updateVisuals() {
@@ -288,7 +301,11 @@ function updateVisuals() {
     timelineRect.left +
     timelineRect.width / 2;
 
-  cards.forEach(card => {
+  let closestCard = null;
+  let closestIndex = 0;
+  let closestDistance = Infinity;
+
+  cards.forEach((card, index) => {
     const cardRect =
       card.getBoundingClientRect();
 
@@ -303,14 +320,28 @@ function updateVisuals() {
     const absoluteDistance =
       Math.abs(signedDistance);
 
+    if (
+      absoluteDistance <
+      closestDistance
+    ) {
+      closestDistance =
+        absoluteDistance;
+
+      closestCard =
+        card;
+
+      closestIndex =
+        index;
+    }
+
     /*
-      Esta distancia define hasta dónde
-      se aprecia el efecto de lupa.
+      El efecto empieza a reducirse
+      según la distancia al centro.
     */
 
     const influenceDistance =
       Math.max(
-        timelineRect.width * 0.58,
+        timelineRect.width * 0.46,
         1
       );
 
@@ -322,42 +353,30 @@ function updateVisuals() {
       );
 
     /*
-      En el centro:
-      escala = 1
-
-      En los extremos:
-      escala aproximada = 0,78
+      Día central: 1.22
+      Días laterales: 0.62
     */
 
     const scale =
-      1 -
-      normalizedDistance * 0.22;
+      1.22 -
+      normalizedDistance * 0.60;
 
     /*
-      En el centro:
-      opacidad = 1
-
-      En los extremos:
-      opacidad aproximada = 0,34
+      Día central: completamente visible.
+      Días laterales: mucho más discretos.
     */
 
     const opacity =
       1 -
-      normalizedDistance * 0.66;
+      normalizedDistance * 0.72;
 
     const blur =
-      normalizedDistance * 1.3;
-
-    /*
-      El pasado, a la izquierda,
-      queda ligeramente más oscuro
-      que el futuro.
-    */
+      normalizedDistance * 1.8;
 
     const brightnessReduction =
       signedDistance < 0
-        ? 0.43
-        : 0.30;
+        ? 0.52
+        : 0.40;
 
     const brightness =
       1 -
@@ -365,25 +384,57 @@ function updateVisuals() {
         brightnessReduction;
 
     /*
-      Elevamos ligeramente la tarjeta
-      cuando se acerca al centro.
+      Las tarjetas laterales bajan
+      ligeramente y la central sube.
     */
 
-    const lift =
-      normalizedDistance * 8;
+    const verticalOffset =
+      normalizedDistance * 42;
 
     card.style.transform =
-      `translateY(${lift}px) scale(${scale})`;
+      `
+        translateY(${verticalOffset}px)
+        scale(${scale})
+      `;
 
     card.style.opacity =
       String(opacity);
 
     card.style.filter =
-      `blur(${blur}px) brightness(${brightness})`;
+      `
+        blur(${blur}px)
+        brightness(${brightness})
+      `;
+
+    card.style.zIndex =
+      String(
+        Math.round(
+          100 -
+          normalizedDistance * 90
+        )
+      );
+  });
+
+  activeCard =
+    closestCard;
+
+  activeIndex =
+    closestIndex;
+
+  cards.forEach(card => {
+    const isActive =
+      card === activeCard;
 
     card.classList.toggle(
       "active",
-      normalizedDistance < 0.15
+      isActive
+    );
+
+    card.setAttribute(
+      "aria-current",
+      isActive
+        ? "date"
+        : "false"
     );
   });
 }
@@ -394,12 +445,14 @@ function requestVisualUpdate() {
     return;
   }
 
-  animationFrameRequested = true;
+  animationFrameRequested =
+    true;
 
   requestAnimationFrame(() => {
     updateVisuals();
 
-    animationFrameRequested = false;
+    animationFrameRequested =
+      false;
   });
 }
 
@@ -443,20 +496,34 @@ function showLoadingError(error) {
   timeline.innerHTML = `
     <article class="day active error-card">
 
-      <div class="label">
-        ERROR
+      <div class="day-header">
+
+        <div class="label">
+          ERROR
+        </div>
+
+        <div class="date">
+          Programación no disponible
+        </div>
+
+        <div class="weekday">
+          No se ha podido cargar
+          programacion.json
+        </div>
+
       </div>
 
-      <div class="date">
-        Programación no disponible
-      </div>
+      <div class="events">
 
-      <div class="weekday">
-        No se ha podido cargar programacion.json
-      </div>
+        <div class="empty">
 
-      <div class="empty">
-        Revisa la actualización automática de AlberoTV.
+          <b>
+            Revisa la actualización
+            automática de AlberoTV.
+          </b>
+
+        </div>
+
       </div>
 
     </article>
@@ -534,11 +601,8 @@ async function init() {
     );
 
   /*
-    HOY se centra únicamente
-    al abrir la web.
-
-    Después el movimiento queda
-    completamente libre.
+    HOY se centra solo una vez
+    al abrir la aplicación.
   */
 
   requestAnimationFrame(() => {
@@ -576,14 +640,12 @@ timeline.addEventListener(
 /* ==================================================
    RUEDA Y TRACKPAD
 
-   Vertical:
-   desplaza la página normalmente.
-
    Horizontal:
-   desplaza la cinta de días.
+   mueve la cinta.
 
-   Shift + rueda:
-   desplaza horizontalmente.
+   Vertical:
+   mueve únicamente el contenido
+   del día que está en el centro.
    ================================================== */
 
 timeline.addEventListener(
@@ -595,49 +657,52 @@ timeline.addEventListener(
     const verticalMovement =
       Math.abs(event.deltaY);
 
-    /*
-      Trackpad horizontal real.
-    */
-
     const isHorizontalGesture =
       horizontalMovement >
-      verticalMovement * 1.15;
-
-    /*
-      Ratón convencional:
-      Shift + rueda vertical
-      desplaza la cinta.
-    */
+      verticalMovement * 1.05;
 
     const isShiftWheel =
       event.shiftKey &&
       verticalMovement > 0;
 
     if (
-      !isHorizontalGesture &&
-      !isShiftWheel
+      isHorizontalGesture ||
+      isShiftWheel
     ) {
-      /*
-        No hacemos preventDefault.
+      event.preventDefault();
 
-        El navegador puede mover
-        la página arriba o abajo.
-      */
+      timeline.scrollLeft +=
+        isShiftWheel
+          ? event.deltaY
+          : event.deltaX;
+
+      requestVisualUpdate();
 
       return;
     }
 
-    event.preventDefault();
+    /*
+      Movimiento vertical:
+      solo desplazamos la lista
+      interna del día central.
+    */
 
-    const movement =
-      isShiftWheel
-        ? event.deltaY
-        : event.deltaX;
+    if (
+      verticalMovement > 0 &&
+      activeCard
+    ) {
+      const eventsContainer =
+        activeCard.querySelector(
+          ".events"
+        );
 
-    timeline.scrollLeft +=
-      movement;
+      if (eventsContainer) {
+        event.preventDefault();
 
-    requestVisualUpdate();
+        eventsContainer.scrollTop +=
+          event.deltaY;
+      }
+    }
   },
   {
     passive: false
@@ -652,11 +717,6 @@ timeline.addEventListener(
 timeline.addEventListener(
   "pointerdown",
   event => {
-    /*
-      Solo iniciamos el arrastre
-      con el botón principal.
-    */
-
     if (
       event.pointerType === "mouse" &&
       event.button !== 0
@@ -664,7 +724,24 @@ timeline.addEventListener(
       return;
     }
 
-    isDragging = true;
+    /*
+      No iniciamos el arrastre horizontal
+      al pulsar un enlace.
+    */
+
+    if (
+      event.target.closest(
+        "a, button"
+      )
+    ) {
+      return;
+    }
+
+    isDragging =
+      true;
+
+    dragMoved =
+      false;
 
     dragStartX =
       event.clientX;
@@ -694,6 +771,14 @@ timeline.addEventListener(
       event.clientX -
       dragStartX;
 
+    if (
+      Math.abs(movement) >
+      4
+    ) {
+      dragMoved =
+        true;
+    }
+
     timeline.scrollLeft =
       dragStartScrollLeft -
       movement;
@@ -708,7 +793,8 @@ function stopDragging(event) {
     return;
   }
 
-  isDragging = false;
+  isDragging =
+    false;
 
   timeline.classList.remove(
     "is-dragging"
@@ -724,8 +810,8 @@ function stopDragging(event) {
       );
     } catch {
       /*
-        No hacemos nada si el navegador
-        ya liberó el puntero.
+        El navegador puede haber
+        liberado ya el puntero.
       */
     }
   }
@@ -744,23 +830,11 @@ timeline.addEventListener(
 );
 
 
-timeline.addEventListener(
-  "pointerleave",
-  event => {
-    if (
-      event.pointerType === "mouse"
-    ) {
-      stopDragging(event);
-    }
-  }
-);
-
-
 /* ==================================================
    FLECHAS
 
-   Desplazan la cinta una distancia,
-   pero no centran ninguna tarjeta.
+   Desplazan la banda.
+   No saltan exactamente un día.
    ================================================== */
 
 document
@@ -771,7 +845,7 @@ document
     "click",
     () => {
       timeline.scrollBy({
-        left: -380,
+        left: -260,
         behavior: "smooth"
       });
     }
@@ -786,11 +860,71 @@ document
     "click",
     () => {
       timeline.scrollBy({
-        left: 380,
+        left: 260,
         behavior: "smooth"
       });
     }
   );
+
+
+/* ==================================================
+   TECLADO
+   ================================================== */
+
+timeline.addEventListener(
+  "keydown",
+  event => {
+    if (
+      event.key === "ArrowLeft"
+    ) {
+      event.preventDefault();
+
+      timeline.scrollBy({
+        left: -180,
+        behavior: "smooth"
+      });
+    }
+
+    if (
+      event.key === "ArrowRight"
+    ) {
+      event.preventDefault();
+
+      timeline.scrollBy({
+        left: 180,
+        behavior: "smooth"
+      });
+    }
+
+    if (
+      event.key === "ArrowDown" &&
+      activeCard
+    ) {
+      event.preventDefault();
+
+      activeCard
+        .querySelector(".events")
+        ?.scrollBy({
+          top: 100,
+          behavior: "smooth"
+        });
+    }
+
+    if (
+      event.key === "ArrowUp" &&
+      activeCard
+    ) {
+      event.preventDefault();
+
+      activeCard
+        .querySelector(".events")
+        ?.scrollBy({
+          top: -100,
+          behavior: "smooth"
+        });
+    }
+  }
+);
 
 
 /* ==================================================
