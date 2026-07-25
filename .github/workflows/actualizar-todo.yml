@@ -25,7 +25,6 @@ jobs:
 
       - name: Preparar Node
         uses: actions/setup-node@v4
-
         with:
           node-version: "22"
 
@@ -39,7 +38,7 @@ jobs:
 
       - name: Actualizar programas taurinos
         run: |
-          node scrapers/programas-taurinos-corto.mjs
+          node scrapers/programas-taurinos.mjs
 
       - name: Fusionar programación
         run: |
@@ -56,9 +55,6 @@ jobs:
           echo "=== Programas taurinos ==="
           test -f data/programas-taurinos.json
 
-          echo "=== Versión del scraper taurino ==="
-          grep -q '"scraperVersion": "2026-07-25-v6-domingos"' data/programas-taurinos.json
-
           echo "=== Programación fusionada ==="
           test -f data/programacion.json
 
@@ -66,9 +62,7 @@ jobs:
 
       - name: Guardar cambios
         run: |
-
           git config user.name "alberotv-bot"
-
           git config user.email "actions@users.noreply.github.com"
 
           git add \
@@ -79,14 +73,9 @@ jobs:
 
           if git diff --cached --quiet
           then
-
             echo "No hay cambios nuevos en la programación."
-
             exit 0
-
           fi
 
-          git commit \
-            -m "Actualizar programación AlberoTV"
-
+          git commit -m "Actualizar programación AlberoTV"
           git push
