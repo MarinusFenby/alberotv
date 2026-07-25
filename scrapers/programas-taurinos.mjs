@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const VERSION = "2026-07-25-v5-corto";
+const VERSION = "2026-07-25-v6-domingos";
 
 const GUIDE_URL =
   "https://www.canalsur.es/guia-programacion/canal-sur-television-79/";
@@ -14,6 +14,12 @@ const OUTPUT_FILE = path.resolve(
 
 const TITLE = "Toros para Todos";
 
+/*
+  Número de domingos que aparecerán en AlberoTV.
+  12 domingos son aproximadamente tres meses.
+*/
+const NUMBER_OF_SUNDAYS = 12;
+
 function cleanHtml(html) {
   return String(html)
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
@@ -21,6 +27,8 @@ function cleanHtml(html) {
     .replace(/<[^>]+>/g, " ")
     .replace(/&nbsp;/gi, " ")
     .replace(/&amp;/gi, "&")
+    .replace(/&#39;/gi, "'")
+    .replace(/&quot;/gi, '"')
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -29,7 +37,9 @@ function normalize(text) {
   return String(text)
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function getSpainDate() {
@@ -56,40 +66,142 @@ function getSpainDate() {
   return `${values.year}-${values.month}-${values.day}`;
 }
 
-function findTime(text) {
-  const normalizedText = normalize(text);
-  const normalizedTitle = normalize(TITLE);
+function parseLocalDate(isoDate) {
+  const [year, month, day] = isoDate
+    .split("-")
+    .map(Number);
 
-  const titlePosition = normalizedText.indexOf(normalizedTitle);
+  return new Date(
+    year,
+    month - 1,
+    day,
+    12,
+    0,
+    0,
+    0
+  );
+}
+
+function formatLocalDate(date) {
+  const year = date.getFullYear();
+
+  const month = String(
+    date.getMonth() + 1
+  ).padStart(2, "0");
+
+  const day = String(
+    date.getDate()
+  ).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+/*
+  Devuelve el próximo domingo.
+
+  Si el scraper se ejecuta un domingo,
+  utiliza ese mismo domingo.
+*/
+function getNextSunday(isoDate) {
+  const date = parseLocalDate(isoDate);
+  const weekday = date.getDay();
+
+  const daysUntilSunday =
+    weekday === 0
+      ? 0
+      : 7 - weekday;
+
+  date.setDate(
+    date.getDate() + daysUntilSunday
+  );
+
+  return date;
+}
+
+function getUpcomingSundays(
+  startDate,
+  numberOfSundays
+) {
+  const firstSunday =
+    getNextSunday(startDate);
+
+  const dates = [];
+
+  for (
+    let index = 0;
+    index < numberOfSundays;
+    index += 1
+  ) {
+    const date =
+      new Date(firstSunday);
+
+    date.setDate(
+      firstSunday.getDate() +
+      index * 7
+    );
+
+    dates.push(
+      formatLocalDate(date)
+    );
+  }
+
+  return dates;
+}
+
+function findTime(text) {
+  const normalizedText =
+    normalize(text);
+
+  const normalizedTitle =
+    normalize(TITLE);
+
+  const titlePosition =
+    normalizedText.indexOf(
+      normalizedTitle
+    );
 
   if (titlePosition === -1) {
     return "";
   }
 
-  const nearbyText = normalizedText.slice(
-    Math.max(0, titlePosition - 80),
-    titlePosition + normalizedTitle.length + 80
-  );
+  const nearbyText =
+    normalizedText.slice(
+      Math.max(
+        0,
+        titlePosition - 120
+      ),
+      titlePosition +
+        normalizedTitle.length +
+        120
+    );
 
-  const timeBefore = nearbyText.match(
-    /([01]?\d|2[0-3])[:.]([0-5]\d)(?=[^0-9]{0,50}toros para todos)/
-  );
+  const timeBefore =
+    nearbyText.match(
+      /([01]?\d|2[0-3])[:.]([0-5]\d)(?=[^0-9]{0,60}toros para todos)/
+    );
 
   if (timeBefore) {
     return (
-      String(timeBefore[1]).padStart(2, "0") +
+      String(timeBefore[1]).padStart(
+        2,
+        "0"
+      ) +
       ":" +
       timeBefore[2]
     );
   }
 
-  const timeAfter = nearbyText.match(
-    /toros para todos[^0-9]{0,50}([01]?\d|2[0-3])[:.]([0-5]\d)/
-  );
+  const timeAfter =
+    nearbyText.match(
+      /toros para todos[^0-9]{0,60}([01]?\d|2[0-3])[:.]([0-5]\d)/
+    );
 
   if (timeAfter) {
     return (
-      String(timeAfter[1]).padStart(2, "0") +
+      String(timeAfter[1]).padStart(
+        2,
+        "0"
+      ) +
       ":" +
       timeAfter[2]
     );
@@ -98,13 +210,62 @@ function findTime(text) {
   return "";
 }
 
+function createEvent(date, time) {
+  return {
+    id:
+      `toros-para-todos-${date}-` +
+      time.replace(":", ""),
+
+    source:
+      "Canal Sur",
+
+    title:
+      TITLE,
+
+    type:
+      "Programa taurino",
+
+    contentType:
+      "programa",
+
+    date,
+
+    time,
+
+    channel:
+      "Canal Sur Televisión",
+
+    location:
+      "Televisión",
+
+    breeding:
+      "",
+
+    participants:
+      [],
+
+    sourceUrl:
+      "https://www.canalsur.es/television/toros-para-todos/",
+
+    eventUrl:
+      "https://www.canalsur.es/television/directo-television/"
+  };
+}
+
 async function main() {
-  const response = await fetch(GUIDE_URL, {
-    headers: {
-      "user-agent": "Mozilla/5.0",
-      "accept-language": "es-ES,es;q=0.9"
-    }
-  });
+  const response =
+    await fetch(
+      GUIDE_URL,
+      {
+        headers: {
+          "user-agent":
+            "Mozilla/5.0",
+
+          "accept-language":
+            "es-ES,es;q=0.9"
+        }
+      }
+    );
 
   if (!response.ok) {
     throw new Error(
@@ -112,59 +273,109 @@ async function main() {
     );
   }
 
-  const html = await response.text();
-  const text = cleanHtml(html);
+  const html =
+    await response.text();
 
-  const date = getSpainDate();
-  const present = normalize(text).includes(normalize(TITLE));
-  const time = present ? findTime(text) : "";
+  const text =
+    cleanHtml(html);
 
-  const events = [];
+  const runDate =
+    getSpainDate();
 
-  if (time) {
-    events.push({
-      id:
-        `toros-para-todos-${date}-` +
-        time.replace(":", ""),
+  const present =
+    normalize(text).includes(
+      normalize(TITLE)
+    );
 
-      source: "Canal Sur",
-      title: "Toros para Todos",
-      type: "Programa taurino",
-      contentType: "programa",
-      date,
-      time,
-      channel: "Canal Sur Televisión",
-      location: "Televisión",
-      breeding: "",
-      participants: [],
+  const detectedTime =
+    present
+      ? findTime(text)
+      : "";
 
-      sourceUrl:
-        "https://www.canalsur.es/television/toros-para-todos/",
+  /*
+    Si encuentra el programa pero no consigue
+    extraer la hora, utiliza provisionalmente 13:05.
+  */
+  const time =
+    detectedTime ||
+    (
+      present
+        ? "13:05"
+        : ""
+    );
 
-      eventUrl:
-        "https://www.canalsur.es/television/directo-television/"
-    });
-  }
+  const sundayDates =
+    present && time
+      ? getUpcomingSundays(
+          runDate,
+          NUMBER_OF_SUNDAYS
+        )
+      : [];
+
+  const events =
+    sundayDates.map(
+      date =>
+        createEvent(
+          date,
+          time
+        )
+    );
 
   const output = {
-    scraperVersion: VERSION,
-    source: "Programas taurinos",
-    updatedAt: new Date().toISOString(),
-    timeZone: "Europe/Madrid",
-    date,
-    checked: 1,
-    programsPresent: present ? 1 : 0,
-    programsWithTime: time ? 1 : 0,
-    emissionsFound: events.length,
+    scraperVersion:
+      VERSION,
+
+    source:
+      "Programas taurinos",
+
+    updatedAt:
+      new Date().toISOString(),
+
+    timeZone:
+      "Europe/Madrid",
+
+    date:
+      runDate,
+
+    checked:
+      1,
+
+    programsPresent:
+      present ? 1 : 0,
+
+    programsWithTime:
+      time ? 1 : 0,
+
+    emissionsFound:
+      events.length,
 
     diagnostics: [
       {
-        program: TITLE,
-        source: "Canal Sur",
-        guideUrl: GUIDE_URL,
+        program:
+          TITLE,
+
+        source:
+          "Canal Sur",
+
+        guideUrl:
+          GUIDE_URL,
+
         present,
-        times: time ? [time] : [],
-        eventsCreated: events.length
+
+        detectedTime:
+          detectedTime || null,
+
+        finalTime:
+          time || null,
+
+        recurringDay:
+          "domingo",
+
+        dates:
+          sundayDates,
+
+        eventsCreated:
+          events.length
       }
     ],
 
@@ -173,23 +384,68 @@ async function main() {
 
   await fs.mkdir(
     path.dirname(OUTPUT_FILE),
-    { recursive: true }
+    {
+      recursive: true
+    }
   );
 
   await fs.writeFile(
     OUTPUT_FILE,
-    JSON.stringify(output, null, 2) + "\n",
+    JSON.stringify(
+      output,
+      null,
+      2
+    ) + "\n",
     "utf8"
   );
 
-  console.log(`Versión: ${VERSION}`);
-  console.log(`Encontrado: ${present ? "sí" : "no"}`);
-  console.log(`Hora: ${time || "no encontrada"}`);
-  console.log(`Eventos: ${events.length}`);
+  console.log(
+    `Versión: ${VERSION}`
+  );
+
+  console.log(
+    `Encontrado: ${
+      present
+        ? "sí"
+        : "no"
+    }`
+  );
+
+  console.log(
+    `Hora detectada: ${
+      detectedTime ||
+      "no encontrada"
+    }`
+  );
+
+  console.log(
+    `Hora utilizada: ${
+      time ||
+      "ninguna"
+    }`
+  );
+
+  console.log(
+    `Domingos creados: ${events.length}`
+  );
+
+  for (const event of events) {
+    console.log(
+      `${event.date} · ` +
+      `${event.time} · ` +
+      `${event.title}`
+    );
+  }
 }
 
 main().catch(error => {
-  console.error("ERROR:");
-  console.error(error);
+  console.error(
+    "ERROR:"
+  );
+
+  console.error(
+    error
+  );
+
   process.exit(1);
 });
