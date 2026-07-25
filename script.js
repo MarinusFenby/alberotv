@@ -1,3 +1,4 @@
+
 const timeline = document.getElementById("timeline");
 const hint = document.getElementById("hint");
 
@@ -86,17 +87,6 @@ function formatParticipants(participants = []) {
 }
 
 
-/*
-  Convierte un texto a minúsculas
-  y elimina tildes.
-
-  Esto permite reconocer de igual forma:
-
-  "Corrida de toros"
-  "CORRIDA DE TOROS"
-  "corrida de toros"
-*/
-
 function normalizeText(value = "") {
   return String(value)
     .toLowerCase()
@@ -106,20 +96,20 @@ function normalizeText(value = "") {
 }
 
 
+function isProgram(event = {}) {
+  return (
+    normalizeText(event.contentType) === "programa" ||
+    normalizeText(event.type).includes("programa taurino")
+  );
+}
+
+
 /* ==================================================
    CLASIFICACIÓN DEL TIPO DE FESTEJO
    ================================================== */
 
 function getTypeClass(type = "") {
   const normalizedType = normalizeText(type);
-
-  /*
-    El orden es importante.
-
-    Por ejemplo, "corrida de rejones"
-    contiene la palabra "corrida",
-    pero debe clasificarse como rejones.
-  */
 
   if (
     normalizedType.includes("rejones") ||
@@ -206,10 +196,92 @@ function getTypeClass(type = "") {
 
 
 /* ==================================================
-   CREAR EVENTO
+   CREAR PROGRAMA TAURINO
    ================================================== */
 
-function buildEvent(event) {
+function buildProgram(event) {
+  const time =
+    event.time ||
+    "Hora por confirmar";
+
+  const title =
+    event.title ||
+    event.name ||
+    "Programa taurino";
+
+  const channel =
+    event.channel ||
+    event.source ||
+    "Canal por confirmar";
+
+  const eventUrl =
+    event.eventUrl ||
+    event.sourceUrl ||
+    "";
+
+  return `
+    <article class="event program-event">
+
+      <div class="program-heading">
+
+        <span
+          class="program-icon"
+          aria-hidden="true"
+        >
+          📺
+        </span>
+
+        <span class="program-label">
+          PROGRAMA TAURINO
+        </span>
+
+      </div>
+
+      <div class="event-topline program-topline">
+
+        <div class="time">
+          ${escapeHtml(time)}
+        </div>
+
+        <div class="channel">
+          ${escapeHtml(channel)}
+        </div>
+
+      </div>
+
+      <h2 class="event-title program-title">
+        ${escapeHtml(title)}
+      </h2>
+
+      <div class="program-description">
+        Actualidad y contenidos del mundo taurino
+      </div>
+
+      ${
+        eventUrl
+          ? `
+            <a
+              class="event-link program-link"
+              href="${escapeHtml(eventUrl)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver emisión
+            </a>
+          `
+          : ""
+      }
+
+    </article>
+  `;
+}
+
+
+/* ==================================================
+   CREAR FESTEJO
+   ================================================== */
+
+function buildBullfightingEvent(event) {
   const time =
     event.time ||
     "Hora por confirmar";
@@ -245,7 +317,7 @@ function buildEvent(event) {
     "";
 
   return `
-    <article class="event">
+    <article class="event bullfighting-event">
 
       <div class="event-topline">
 
@@ -312,6 +384,19 @@ function buildEvent(event) {
 
 
 /* ==================================================
+   CREAR EVENTO SEGÚN SU CONTENIDO
+   ================================================== */
+
+function buildEvent(event) {
+  if (isProgram(event)) {
+    return buildProgram(event);
+  }
+
+  return buildBullfightingEvent(event);
+}
+
+
+/* ==================================================
    CREAR TARJETA DEL DÍA
    ================================================== */
 
@@ -338,14 +423,35 @@ function buildDayCard(date, offset, events) {
           event.date === dateKey
       )
       .sort(
-        (eventA, eventB) =>
-          String(
-            eventA.time || "99:99"
+        (eventA, eventB) => {
+          const timeComparison =
+            String(
+              eventA.time || "99:99"
+            ).localeCompare(
+              String(
+                eventB.time || "99:99"
+              )
+            );
+
+          if (timeComparison !== 0) {
+            return timeComparison;
+          }
+
+          return String(
+            eventA.title ||
+            eventA.name ||
+            eventA.location ||
+            ""
           ).localeCompare(
             String(
-              eventB.time || "99:99"
-            )
-          )
+              eventB.title ||
+              eventB.name ||
+              eventB.location ||
+              ""
+            ),
+            "es"
+          );
+        }
       );
 
   const dateClass =
@@ -388,8 +494,8 @@ function buildDayCard(date, offset, events) {
                 </b>
 
                 <span>
-                  No hay festejos televisados
-                  publicados para este día.
+                  No hay festejos ni programas
+                  taurinos publicados para este día.
                 </span>
 
               </div>
@@ -410,9 +516,6 @@ function buildDayCard(date, offset, events) {
 
 /* ==================================================
    CALCULAR EL TAMAÑO MÁXIMO DE LA TARJETA CENTRAL
-
-   La tarjeta central nunca puede superar
-   la altura disponible de la pantalla.
    ================================================== */
 
 function getMaximumCenterScale() {
@@ -433,12 +536,6 @@ function getMaximumCenterScale() {
     return 1;
   }
 
-  /*
-    Dejamos un margen de seguridad arriba y abajo
-    para que la tarjeta nunca toque ni sobrepase
-    los límites visibles.
-  */
-
   const safetyMargin =
     window.innerWidth <= 800
       ? 24
@@ -451,11 +548,6 @@ function getMaximumCenterScale() {
   const maximumScaleThatFits =
     availableHeight /
     cardHeight;
-
-  /*
-    En pantallas grandes puede crecer hasta 1.18.
-    En pantallas bajas crecerá menos automáticamente.
-  */
 
   return Math.max(
     1,
@@ -496,17 +588,6 @@ function updateVisuals() {
   let closestDistance = Infinity;
 
   cards.forEach((card, index) => {
-    const cardRect =
-      card.getBoundingClientRect();
-
-    /*
-      Eliminamos el efecto de la escala anterior
-      para calcular correctamente el centro real.
-
-      offsetLeft representa la posición de la tarjeta
-      dentro de la cinta antes de transformarla.
-    */
-
     const cardCenter =
       timelineRect.left +
       card.offsetLeft -
@@ -543,21 +624,14 @@ function updateVisuals() {
     const normalizedDistance =
       Math.min(
         absoluteDistance /
-          influenceDistance,
+        influenceDistance,
         1
       );
-
-    /*
-      El tamaño central se calcula según
-      la altura real disponible.
-
-      De esta forma nunca queda cortado.
-    */
 
     const scale =
       centerScale -
       normalizedDistance *
-        (centerScale - sideScale);
+      (centerScale - sideScale);
 
     const opacity =
       1 -
@@ -574,14 +648,7 @@ function updateVisuals() {
     const brightness =
       1 -
       normalizedDistance *
-        brightnessReduction;
-
-    /*
-      La tarjeta central queda verticalmente centrada.
-
-      Los laterales bajan ligeramente,
-      pero menos que antes para evitar cortes.
-    */
+      brightnessReduction;
 
     const maximumVerticalOffset =
       window.innerWidth <= 800
@@ -744,7 +811,7 @@ async function init() {
       await loadEvents();
 
     console.log(
-      `AlberoTV: ${events.length} eventos cargados`
+      `AlberoTV: ${events.length} elementos cargados`
     );
   } catch (error) {
     showLoadingError(error);
@@ -761,11 +828,6 @@ async function init() {
     0,
     0
   );
-
-  /*
-    Cinco días anteriores
-    y noventa días futuros.
-  */
 
   for (
     let offset = -5;
@@ -801,10 +863,6 @@ async function init() {
         card.dataset.offset === "0"
     );
 
-  /*
-    HOY se centra únicamente al abrir.
-  */
-
   requestAnimationFrame(() => {
     if (todayCard) {
       timeline.scrollLeft =
@@ -839,13 +897,6 @@ timeline.addEventListener(
 
 /* ==================================================
    RUEDA Y TRACKPAD
-
-   Horizontal:
-   mueve la cinta.
-
-   Vertical:
-   mueve únicamente el contenido
-   del día situado en el centro.
    ================================================== */
 
 timeline.addEventListener(
@@ -999,8 +1050,8 @@ function stopDragging(event) {
       );
     } catch {
       /*
-        El navegador puede haber
-        liberado ya el puntero.
+        El navegador puede haber liberado
+        ya el puntero.
       */
     }
   }
@@ -1115,8 +1166,6 @@ timeline.addEventListener(
 
 /* ==================================================
    AJUSTE AL CAMBIAR EL TAMAÑO DE LA VENTANA
-
-   Recalcula el tamaño máximo de la tarjeta central.
    ================================================== */
 
 window.addEventListener(
