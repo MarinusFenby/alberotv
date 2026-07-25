@@ -1,6 +1,6 @@
 /* ==================================================
    ALBERO TV
-   CINTA CONTINUA CON LUPA CENTRAL
+   CINTA CONTINUA CON TARJETA CENTRAL ADAPTABLE
    ================================================== */
 
 * {
@@ -206,9 +206,6 @@ main {
 
 /* ==================================================
    CINTA CONTINUA
-
-   Tarjetas estrechas y cercanas,
-   no ventanas de pantalla completa.
    ================================================== */
 
 .timeline {
@@ -229,11 +226,10 @@ main {
   overflow-y: hidden;
 
   padding:
-    34px
+    20px
     calc(
       50vw - 160px
-    )
-    30px;
+    );
 
   scrollbar-width: none;
 
@@ -267,10 +263,12 @@ main {
 
 
 /* ==================================================
-   DÍA
+   TARJETA DEL DÍA
 
-   Todos ocupan 320 px en la cinta.
-   El tamaño visual cambia por JavaScript.
+   Su altura base siempre cabe en la pantalla.
+
+   JavaScript calcula cuánto puede crecer
+   la tarjeta central sin quedar cortada.
    ================================================== */
 
 .day {
@@ -285,13 +283,13 @@ main {
 
   height:
     min(
-      650px,
+      590px,
       calc(
-        100vh - 150px
+        100% - 82px
       )
     );
 
-  min-height: 430px;
+  min-height: 390px;
 
   display: flex;
 
@@ -330,7 +328,7 @@ main {
   transform-origin:
     center center;
 
-  opacity: 0.28;
+  opacity: 0.30;
 
   filter:
     blur(1.5px)
@@ -360,7 +358,7 @@ main {
 
 
 /* ==================================================
-   DÍA CENTRAL
+   TARJETA CENTRAL
    ================================================== */
 
 .day.active {
@@ -391,13 +389,13 @@ main {
 
   box-shadow:
     0
-    32px
-    110px
+    25px
+    80px
     rgba(
       0,
       0,
       0,
-      0.48
+      0.45
     );
 }
 
@@ -410,9 +408,9 @@ main {
   flex-shrink: 0;
 
   padding:
-    22px
     20px
-    16px;
+    20px
+    15px;
 
   background:
     linear-gradient(
@@ -466,7 +464,7 @@ main {
 
   color: #ffffff;
 
-  font-size: 30px;
+  font-size: 29px;
 
   line-height: 1.05;
 
@@ -500,9 +498,6 @@ main {
 
 /* ==================================================
    CONTENIDO VERTICAL DEL DÍA
-
-   Solo esta zona se desplaza
-   arriba y abajo.
    ================================================== */
 
 .events {
@@ -573,7 +568,6 @@ main {
   flex-shrink: 0;
 
   padding:
-    14px
     14px;
 
   border:
@@ -653,38 +647,201 @@ main {
 }
 
 
+/* ==================================================
+   ETIQUETA DEL TIPO DE FESTEJO
+   ================================================== */
+
 .event-type {
   display: inline-flex;
+
+  align-items: center;
+
+  width: fit-content;
+
+  max-width: 100%;
 
   margin-bottom: 8px;
 
   padding:
-    4px
-    7px;
+    5px
+    9px;
 
-  border-radius: 6px;
-
-  background:
-    rgba(
-      24,
-      123,
-      225,
-      0.94
-    );
+  border-radius: 7px;
 
   color: #ffffff;
 
   font-size: 9px;
 
-  line-height: 1;
+  line-height: 1.15;
 
   font-weight: 900;
 
   text-transform: uppercase;
 
   letter-spacing: 0.25px;
+
+  overflow-wrap: anywhere;
+
+  box-shadow:
+    0
+    3px
+    9px
+    rgba(
+      0,
+      0,
+      0,
+      0.18
+    );
 }
 
+
+/*
+  CORRIDA DE TOROS
+  Rosa con letras blancas
+*/
+
+.event-type.type-corrida {
+  background: #e83e8c;
+
+  color: #ffffff;
+}
+
+
+/*
+  NOVILLADA CON PICADORES
+  Naranja
+*/
+
+.event-type.type-novillada-picadores {
+  background: #f28c28;
+
+  color: #ffffff;
+}
+
+
+/*
+  NOVILLADA SIN PICADORES
+  Amarillo mostaza
+*/
+
+.event-type.type-novillada-sin-picadores {
+  background: #d9a514;
+
+  color: #ffffff;
+}
+
+
+/*
+  NOVILLADA GENÉRICA
+  Ámbar
+*/
+
+.event-type.type-novillada {
+  background: #c97816;
+
+  color: #ffffff;
+}
+
+
+/*
+  REJONES
+  Morado
+*/
+
+.event-type.type-rejones {
+  background: #8e44ad;
+
+  color: #ffffff;
+}
+
+
+/*
+  FESTIVAL
+  Verde
+*/
+
+.event-type.type-festival {
+  background: #299b63;
+
+  color: #ffffff;
+}
+
+
+/*
+  CONCURSO DE RECORTES
+  Rojo
+*/
+
+.event-type.type-recortes {
+  background: #d63b3b;
+
+  color: #ffffff;
+}
+
+
+/*
+  CLASE PRÁCTICA
+  Azul claro
+*/
+
+.event-type.type-clase-practica {
+  background: #258bc4;
+
+  color: #ffffff;
+}
+
+
+/*
+  BECERRADA
+  Turquesa
+*/
+
+.event-type.type-becerrada {
+  background: #138f8f;
+
+  color: #ffffff;
+}
+
+
+/*
+  TENTADERO
+  Marrón
+*/
+
+.event-type.type-tentadero {
+  background: #96623c;
+
+  color: #ffffff;
+}
+
+
+/*
+  FESTEJO MIXTO
+  Granate
+*/
+
+.event-type.type-mixta {
+  background: #9b3e58;
+
+  color: #ffffff;
+}
+
+
+/*
+  OTROS FESTEJOS
+  Gris azulado
+*/
+
+.event-type.type-other {
+  background: #60758a;
+
+  color: #ffffff;
+}
+
+
+/* ==================================================
+   INFORMACIÓN DEL EVENTO
+   ================================================== */
 
 .event-title {
   margin: 0;
@@ -1000,6 +1157,57 @@ main {
 
 
 /* ==================================================
+   PANTALLAS CON POCA ALTURA
+
+   Se reduce la tarjeta base antes de aplicar
+   el aumento de la tarjeta central.
+   ================================================== */
+
+@media (
+  max-height: 760px
+) and (
+  min-width: 801px
+) {
+
+  .day {
+    height:
+      calc(
+        100% - 66px
+      );
+
+    min-height: 350px;
+  }
+
+
+  .day-header {
+    padding:
+      15px
+      18px
+      12px;
+  }
+
+
+  .date {
+    font-size: 25px;
+  }
+
+
+  .events {
+    padding:
+      10px
+      12px
+      15px;
+  }
+
+
+  .event {
+    padding: 11px;
+  }
+
+}
+
+
+/* ==================================================
    MÓVIL
    ================================================== */
 
@@ -1038,11 +1246,10 @@ main {
     gap: 8px;
 
     padding:
-      24px
+      12px
       calc(
         50vw - 135px
-      )
-      22px;
+      );
   }
 
 
@@ -1053,10 +1260,10 @@ main {
 
     height:
       calc(
-        100vh - 142px
+        100% - 54px
       );
 
-    min-height: 390px;
+    min-height: 350px;
 
     border-radius: 20px;
   }
@@ -1064,14 +1271,14 @@ main {
 
   .day-header {
     padding:
-      18px
       16px
-      13px;
+      16px
+      12px;
   }
 
 
   .date {
-    font-size: 26px;
+    font-size: 25px;
   }
 
 
@@ -1084,14 +1291,12 @@ main {
     padding:
       11px
       11px
-      18px;
+      17px;
   }
 
 
   .event {
-    padding:
-      12px
-      12px;
+    padding: 12px;
   }
 
 
