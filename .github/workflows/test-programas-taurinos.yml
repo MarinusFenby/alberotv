@@ -13,11 +13,24 @@ jobs:
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+
+      - name: Comprobar versión del scraper
+        run: |
+          echo "Rama actual:"
+          git branch --show-current
+
+          echo "Último commit:"
+          git log -1 --oneline
+
+          echo "Versión encontrada en el scraper:"
+          grep "2026-07-25-v4-toros-para-todos" scrapers/programas-taurinos.mjs
 
       - name: Ejecutar comprobador
         run: node scrapers/programas-taurinos.mjs
@@ -37,6 +50,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No hay cambios que guardar."
           else
-            git commit -m "Comprobar programas taurinos"
-            git push
+            git commit -m "Actualizar Toros para Todos"
+            git push origin main
           fi
