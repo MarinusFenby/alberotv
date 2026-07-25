@@ -1,324 +1,140 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-
-const SCRAPER_VERSION = "2026-07-25-v4-toros-para-todos";
-
-const OUTPUT_FILE = path.resolve(
-  process.cwd(),
-  "data",
-  "programas-taurinos.json"
-);
-
-const TIME_ZONE = "Europe/Madrid";
-
-const USER_AGENT =
-  "Mozilla/5.0 (X11; Linux x86_64) " +
-  "AppleWebKit/537.36 (KHTML, like Gecko) " +
-  "Chrome/126.0.0.0 Safari/537.36";
-
-const PROGRAM = {
-  id: "toros-para-todos",
-  title: "Toros para Todos",
-  source: "Canal Sur",
-  channel: "Canal Sur Televisión",
-  guideUrl:
-    "https://www.canalsur.es/guia-programacion/canal-sur-television-79/",
-  sourceUrl:
-    "https://www.canalsur.es/television/toros-para-todos/",
-  eventUrl:
-    "https://www.canalsur.es/television/directo-television/"
-};
-
-function decodeHtmlEntities(value = "") {
-  const entities = {
-    amp: "&",
-    quot: "\"",
-    apos: "'",
-    lt: "<",
-    gt: ">",
-    nbsp: " ",
-    ndash: "–",
-    mdash: "—",
-    aacute: "á",
-    eacute: "é",
-    iacute: "í",
-    oacute: "ó",
-    uacute: "ú",
-    ntilde: "ñ",
-    Aacute: "Á",
-    Eacute: "É",
-    Iacute: "Í",
-    Oacute: "Ó",
-    Uacute: "Ú",
-    Ntilde: "Ñ"
-  };
-
-  return String(value)
-    .replace(/&#x([0-9a-f]+);/gi, (_, number) =>
-      String.fromCodePoint(Number.parseInt(number, 16))
-    )
-    .replace(/&#([0-9]+);/g, (_, number) =>
-      String.fromCodePoint(Number.parseInt(number, 10))
-    )
-    .replace(/&([a-zA-Z]+);/g, (match, name) =>
-      Object.prototype.hasOwnProperty.call(entities, name)
-        ? entities[name]
-        : match
-    );
-}
-
-function htmlToText(html = "") {
-  return decodeHtmlEntities(
-    String(html)
-      .replace(/<!--[\s\S]*?-->/g, " ")
-      .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
-      .replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi, " ")
-      .replace(/<svg\b[^>]*>[\s\S]*?<\/svg>/gi, " ")
-      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
-      .replace(/<br\s*\/?>/gi, "\n")
-      .replace(
-        /<\/(?:div|p|li|article|section|h1|h2|h3|h4|tr)>/gi,
-        "\n"
-      )
-      .replace(/<[^>]+>/g, " ")
-  )
-    .replace(/\u00a0/g, " ")
-    .replace(/[ \t]+/g, " ")
-    .replace(/\s*\n\s*/g, "\n")
-    .replace(/\n{2,}/g, "\n")
-    .trim();
-}
-
-function normalizeText(value = "") {
-  return String(value)
-    .toLocaleLowerCase("es")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function getSpainDateISO() {
-  const formatter = new Intl.DateTimeFormat("en-CA", {
-    timeZone: TIME_ZONE,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit"
-  });
-
-  const parts = formatter.formatToParts(new Date());
-  const values = {};
-
-  for (const part of parts) {
-    if (
-      part.type === "year" ||
-      part.type === "month" ||
-      part.type === "day"
-    ) {
-      values[part.type] = part.value;
-    }
-  }
-
-  return `${values.year}-${values.month}-${values.day}`;
-}
-
-function normalizeTime(hour, minute) {
-  const numericHour = Number(hour);
-  const numericMinute = Number(minute);
-
-  if (
-    numericHour < 0 ||
-    numericHour > 23 ||
-    numericMinute < 0 ||
-    numericMinute > 59
-  ) {
-    return "";
-  }
-
-  return (
-    String(numericHour).padStart(2, "0") +
-    ":" +
-    String(numericMinute).padStart(2, "0")
-  );
-}
-
-function extractTime(pageText, programTitle) {
-  const normalizedPage = normalizeText(pageText);
-  const normalizedTitle = normalizeText(programTitle);
-
-  let searchFrom = 0;
-
-  while (searchFrom < normalizedPage.length) {
-    const position = normalizedPage.indexOf(
-      normalizedTitle,
-      searchFrom
-    );
-
-    if (position === -1) {
-      break;
-    }
-
-    const before = normalizedPage.slice(
-      Math.max(0, position - 50),
-      position
-    );
-
-    const beforeMatch = before.match(
-      /([01]?\d|2[0-3])[:.]([0-5]\d)(?:\s*[-–—]\s*(?:[01]?\d|2[0-3])[:.][0-5]\d)?\s*$/
-    );
-
-    if (beforeMatch) {
-      const time = normalizeTime(
-        beforeMatch[1],
-        beforeMatch[2]
-      );
-
-      if (time) {
-        return time;
-      }
-    }
-
-    const after = normalizedPage.slice(
-      position + normalizedTitle.length,
-      position + normalizedTitle.length + 50
-    );
-
-    const afterMatch = after.match(
-      /^\s*(?:,?\s*a\s+las\s+)?([01]?\d|2[0-3])[:.]([0-5]\d)/
-    );
-
-    if (afterMatch) {
-      const time = normalizeTime(
-        afterMatch[1],
-        afterMatch[2]
-      );
-
-      if (time) {
-        return time;
-      }
-    }
-
-    searchFrom = position + normalizedTitle.length;
-  }
-
-  return "";
-}
-
-async function fetchGuide() {
-  const response = await fetch(PROGRAM.guideUrl, {
-    redirect: "follow",
-    headers: {
-      "user-agent": USER_AGENT,
-      accept:
-        "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-      "accept-language": "es-ES,es;q=0.9,en;q=0.6",
-      "cache-control": "no-cache",
-      pragma: "no-cache"
-    },
-    signal: AbortSignal.timeout(30000)
-  });
-
-  if (!response.ok) {
-    throw new Error(
-      `HTTP ${response.status}: ${PROGRAM.guideUrl}`
-    );
-  }
-
-  const html = await response.text();
-
-  return {
-    finalUrl: response.url,
-    htmlLength: html.length,
-    text: htmlToText(html)
-  };
-}
-
-function createEvent(date, time) {
-  return {
-    id: `${PROGRAM.id}-${date}-${time.replace(":", "")}`,
-    source: PROGRAM.source,
-    title: PROGRAM.title,
-    type: "Programa taurino",
-    contentType: "programa",
-    date,
-    time,
-    channel: PROGRAM.channel,
-    location: "Televisión",
-    breeding: "",
-    participants: [],
-    sourceUrl: PROGRAM.sourceUrl,
-    eventUrl: PROGRAM.eventUrl
-  };
-}
-
-async function main() {
-  console.log("======================================");
-  console.log("ALBERO TV — TOROS PARA TODOS");
-  console.log(`Versión: ${SCRAPER_VERSION}`);
-  console.log("======================================");
-
-  const date = getSpainDateISO();
-  const page = await fetchGuide();
-
-  const normalizedPage = normalizeText(page.text);
-  const normalizedTitle = normalizeText(PROGRAM.title);
-
-  const present = normalizedPage.includes(normalizedTitle);
-  const time = present
-    ? extractTime(page.text, PROGRAM.title)
-    : "";
-
-  const events = time
-    ? [createEvent(date, time)]
-    : [];
-
-  const diagnostics = [
+{
+  "scraperVersion": "2026-07-25-v3",
+  "source": "Programas taurinos",
+  "updatedAt": "2026-07-25T16:28:48.527Z",
+  "timeZone": "Europe/Madrid",
+  "date": "2026-07-25",
+  "checked": 3,
+  "programsPresent": 2,
+  "programsWithTime": 2,
+  "emissionsFound": 6,
+  "diagnostics": [
     {
-      program: PROGRAM.title,
-      source: PROGRAM.source,
-      finalUrl: page.finalUrl,
-      present,
-      times: time ? [time] : [],
-      eventsCreated: events.length,
-      warning:
-        present && !time
-          ? "El título aparece en la guía, pero no se encontró una hora próxima."
-          : undefined
+      "program": "Toros para Todos",
+      "source": "Canal Sur",
+      "finalUrl": "https://www.canalsur.es/guia-programacion/canal-sur-television-79/",
+      "present": true,
+      "times": [
+        "13:05"
+      ],
+      "eventsCreated": 1
+    },
+    {
+      "program": "Tendido Cero",
+      "source": "RTVE",
+      "requestedUrls": [
+        "https://www.rtve.es/play/guia-tve/"
+      ],
+      "present": false,
+      "times": [],
+      "eventsCreated": 0,
+      "error": "https://www.rtve.es/play/guia-tve/: título no encontrado"
+    },
+    {
+      "program": "Grana y Oro",
+      "source": "CyLTV",
+      "finalUrl": "https://www.cyltv.es/guiatv",
+      "present": true,
+      "times": [
+        "05:20",
+        "10:59",
+        "12:48",
+        "15:25",
+        "20:55"
+      ],
+      "eventsCreated": 5
     }
-  ];
-
-  const output = {
-    scraperVersion: SCRAPER_VERSION,
-    source: "Programas taurinos",
-    updatedAt: new Date().toISOString(),
-    timeZone: TIME_ZONE,
-    date,
-    checked: 1,
-    programsPresent: present ? 1 : 0,
-    programsWithTime: time ? 1 : 0,
-    emissionsFound: events.length,
-    diagnostics,
-    events
-  };
-
-  await fs.mkdir(path.dirname(OUTPUT_FILE), {
-    recursive: true
-  });
-
-  await fs.writeFile(
-    OUTPUT_FILE,
-    JSON.stringify(output, null, 2) + "\n",
-    "utf8"
-  );
-
-  console.log(`Programa encontrado: ${present ? "sí" : "no"}`);
-  console.log(`Hora: ${time || "no encontrada"}`);
-  console.log(`Eventos creados: ${events.length}`);
-  console.log(`Archivo: ${OUTPUT_FILE}`);
+  ],
+  "events": [
+    {
+      "id": "grana-y-oro-2026-07-25-0520",
+      "source": "CyLTV",
+      "title": "Grana y Oro",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "date": "2026-07-25",
+      "time": "05:20",
+      "channel": "CyLTV",
+      "location": "Televisión",
+      "breeding": "",
+      "participants": [],
+      "sourceUrl": "https://www.cyltv.es/granayoro",
+      "eventUrl": "https://www.cyltv.es/directo"
+    },
+    {
+      "id": "grana-y-oro-2026-07-25-1059",
+      "source": "CyLTV",
+      "title": "Grana y Oro",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "date": "2026-07-25",
+      "time": "10:59",
+      "channel": "CyLTV",
+      "location": "Televisión",
+      "breeding": "",
+      "participants": [],
+      "sourceUrl": "https://www.cyltv.es/granayoro",
+      "eventUrl": "https://www.cyltv.es/directo"
+    },
+    {
+      "id": "grana-y-oro-2026-07-25-1248",
+      "source": "CyLTV",
+      "title": "Grana y Oro",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "date": "2026-07-25",
+      "time": "12:48",
+      "channel": "CyLTV",
+      "location": "Televisión",
+      "breeding": "",
+      "participants": [],
+      "sourceUrl": "https://www.cyltv.es/granayoro",
+      "eventUrl": "https://www.cyltv.es/directo"
+    },
+    {
+      "id": "toros-para-todos-2026-07-25-1305",
+      "source": "Canal Sur",
+      "title": "Toros para Todos",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "date": "2026-07-25",
+      "time": "13:05",
+      "channel": "Canal Sur Televisión",
+      "location": "Televisión",
+      "breeding": "",
+      "participants": [],
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "eventUrl": "https://www.canalsur.es/television/directo-television/"
+    },
+    {
+      "id": "grana-y-oro-2026-07-25-1525",
+      "source": "CyLTV",
+      "title": "Grana y Oro",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "date": "2026-07-25",
+      "time": "15:25",
+      "channel": "CyLTV",
+      "location": "Televisión",
+      "breeding": "",
+      "participants": [],
+      "sourceUrl": "https://www.cyltv.es/granayoro",
+      "eventUrl": "https://www.cyltv.es/directo"
+    },
+    {
+      "id": "grana-y-oro-2026-07-25-2055",
+      "source": "CyLTV",
+      "title": "Grana y Oro",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "date": "2026-07-25",
+      "time": "20:55",
+      "channel": "CyLTV",
+      "location": "Televisión",
+      "breeding": "",
+      "participants": [],
+      "sourceUrl": "https://www.cyltv.es/granayoro",
+      "eventUrl": "https://www.cyltv.es/directo"
+    }
+  ]
 }
-
-main().catch(error => {
-  console.error("ERROR FATAL:");
-  console.error(error);
-  process.exitCode = 1;
-});
