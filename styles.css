@@ -264,11 +264,6 @@ main {
 
 /* ==================================================
    TARJETA DEL DÍA
-
-   Su altura base siempre cabe en la pantalla.
-
-   JavaScript calcula cuánto puede crecer
-   la tarjeta central sin quedar cortada.
    ================================================== */
 
 .day {
@@ -561,7 +556,7 @@ main {
 
 
 /* ==================================================
-   EVENTO
+   EVENTO GENERAL
    ================================================== */
 
 .event {
@@ -648,6 +643,297 @@ main {
 
 
 /* ==================================================
+   PROGRAMA TAURINO
+   ================================================== */
+
+.program-event {
+  position: relative;
+
+  overflow: hidden;
+
+  padding:
+    15px;
+
+  border:
+    1px solid
+    rgba(
+      160,
+      227,
+      255,
+      0.68
+    );
+
+  background:
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(
+        255,
+        255,
+        255,
+        0.32
+      ),
+      transparent 34%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(
+        95,
+        196,
+        244,
+        0.96
+      ),
+      rgba(
+        32,
+        127,
+        194,
+        0.98
+      )
+    );
+
+  box-shadow:
+    0
+    12px
+    30px
+    rgba(
+      1,
+      24,
+      46,
+      0.30
+    );
+}
+
+
+.program-event::after {
+  content: "";
+
+  position: absolute;
+
+  right: -32px;
+
+  bottom: -42px;
+
+  width: 110px;
+
+  height: 110px;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.17
+    );
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+
+.program-heading {
+  position: relative;
+
+  z-index: 1;
+
+  margin-bottom: 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+
+.program-icon {
+  width: 29px;
+
+  height: 29px;
+
+  flex-shrink: 0;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.38
+    );
+
+  border-radius: 9px;
+
+  background:
+    rgba(
+      3,
+      45,
+      83,
+      0.28
+    );
+
+  font-size: 16px;
+
+  line-height: 1;
+}
+
+
+.program-label {
+  color: #ffffff;
+
+  font-size: 10px;
+
+  line-height: 1.2;
+
+  font-weight: 900;
+
+  font-style: italic;
+
+  letter-spacing: 1.2px;
+}
+
+
+.program-topline {
+  position: relative;
+
+  z-index: 1;
+
+  margin-bottom: 10px;
+
+  padding-bottom: 10px;
+
+  border-bottom:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.20
+    );
+}
+
+
+.program-event .time {
+  font-size: 18px;
+}
+
+
+.program-event .channel {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.90
+    );
+}
+
+
+.program-title {
+  position: relative;
+
+  z-index: 1;
+
+  margin-top: 0;
+
+  font-size: 21px;
+
+  line-height: 1.08;
+
+  letter-spacing: -0.35px;
+}
+
+
+.program-description {
+  position: relative;
+
+  z-index: 1;
+
+  margin-top: 8px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.82
+    );
+
+  font-size: 12px;
+
+  line-height: 1.4;
+}
+
+
+.program-link {
+  position: relative;
+
+  z-index: 1;
+
+  margin-top: 13px;
+
+  padding:
+    8px
+    12px;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.36
+    );
+
+  border-radius: 999px;
+
+  background:
+    rgba(
+      1,
+      45,
+      82,
+      0.26
+    );
+
+  color: #ffffff;
+
+  font-size: 11px;
+
+  line-height: 1;
+
+  font-weight: 900;
+
+  text-decoration: none;
+
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+
+.program-link:hover {
+  background:
+    rgba(
+      1,
+      45,
+      82,
+      0.48
+    );
+
+  text-decoration: none;
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* ==================================================
    ETIQUETA DEL TIPO DE FESTEJO
    ================================================== */
 
@@ -695,22 +981,12 @@ main {
 }
 
 
-/*
-  CORRIDA DE TOROS
-  Rosa con letras blancas
-*/
-
 .event-type.type-corrida {
   background: #e83e8c;
 
   color: #ffffff;
 }
 
-
-/*
-  NOVILLADA CON PICADORES
-  Naranja
-*/
 
 .event-type.type-novillada-picadores {
   background: #f28c28;
@@ -719,22 +995,12 @@ main {
 }
 
 
-/*
-  NOVILLADA SIN PICADORES
-  Amarillo mostaza
-*/
-
 .event-type.type-novillada-sin-picadores {
   background: #d9a514;
 
   color: #ffffff;
 }
 
-
-/*
-  NOVILLADA GENÉRICA
-  Ámbar
-*/
 
 .event-type.type-novillada {
   background: #c97816;
@@ -743,22 +1009,12 @@ main {
 }
 
 
-/*
-  REJONES
-  Morado
-*/
-
 .event-type.type-rejones {
   background: #8e44ad;
 
   color: #ffffff;
 }
 
-
-/*
-  FESTIVAL
-  Verde
-*/
 
 .event-type.type-festival {
   background: #299b63;
@@ -767,22 +1023,12 @@ main {
 }
 
 
-/*
-  CONCURSO DE RECORTES
-  Rojo
-*/
-
 .event-type.type-recortes {
   background: #d63b3b;
 
   color: #ffffff;
 }
 
-
-/*
-  CLASE PRÁCTICA
-  Azul claro
-*/
 
 .event-type.type-clase-practica {
   background: #258bc4;
@@ -791,22 +1037,12 @@ main {
 }
 
 
-/*
-  BECERRADA
-  Turquesa
-*/
-
 .event-type.type-becerrada {
   background: #138f8f;
 
   color: #ffffff;
 }
 
-
-/*
-  TENTADERO
-  Marrón
-*/
 
 .event-type.type-tentadero {
   background: #96623c;
@@ -815,22 +1051,12 @@ main {
 }
 
 
-/*
-  FESTEJO MIXTO
-  Granate
-*/
-
 .event-type.type-mixta {
   background: #9b3e58;
 
   color: #ffffff;
 }
 
-
-/*
-  OTROS FESTEJOS
-  Gris azulado
-*/
 
 .event-type.type-other {
   background: #60758a;
@@ -1158,9 +1384,6 @@ main {
 
 /* ==================================================
    PANTALLAS CON POCA ALTURA
-
-   Se reduce la tarjeta base antes de aplicar
-   el aumento de la tarjeta central.
    ================================================== */
 
 @media (
@@ -1202,6 +1425,11 @@ main {
 
   .event {
     padding: 11px;
+  }
+
+
+  .program-title {
+    font-size: 19px;
   }
 
 }
@@ -1297,6 +1525,25 @@ main {
 
   .event {
     padding: 12px;
+  }
+
+
+  .program-heading {
+    margin-bottom: 10px;
+  }
+
+
+  .program-icon {
+    width: 27px;
+
+    height: 27px;
+
+    font-size: 14px;
+  }
+
+
+  .program-title {
+    font-size: 19px;
   }
 
 
