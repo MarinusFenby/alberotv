@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
 
   <meta
@@ -25,37 +26,43 @@
 
   <header class="topbar">
 
-    <a
-      class="brand"
-      href="#"
-      aria-label="Albero TV"
-    >
-      <span class="brand-name">ALBERO</span>
-      <span class="brand-tv">TV</span>
-    </a>
+    <div class="topbar-inner">
 
-    <nav
-      class="category-nav"
-      aria-label="Categorías de la programación"
-    >
-      <div
-        class="category-list"
-        id="category-list"
-        aria-live="polite"
+      <a
+        class="brand"
+        href="#"
+        aria-label="Albero TV"
       >
-      </div>
-    </nav>
+        <span class="brand-albero">ALBERO</span>
+        <span class="brand-tv">TV</span>
+      </a>
+
+
+      <nav
+        class="category-nav"
+        aria-label="Categorías de la programación"
+      >
+        <div
+          class="category-list"
+          id="category-list"
+          aria-live="polite"
+        >
+        </div>
+      </nav>
+
+    </div>
 
   </header>
 
 
-  <main>
+  <main class="main-content">
 
     <section class="timeline-shell">
 
       <button
         class="edge-arrow left"
-        aria-label="Día anterior"
+        type="button"
+        aria-label="Ver día anterior"
       >
         ‹
       </button>
@@ -65,14 +72,15 @@
         class="timeline"
         id="timeline"
         tabindex="0"
-        aria-label="Programación por días"
+        aria-label="Programación taurina por días"
       >
       </div>
 
 
       <button
         class="edge-arrow right"
-        aria-label="Día siguiente"
+        type="button"
+        aria-label="Ver día siguiente"
       >
         ›
       </button>
@@ -83,6 +91,7 @@
     <div
       class="hint"
       id="hint"
+      aria-hidden="true"
     >
       ← &nbsp; Desliza para explorar &nbsp; →
     </div>
@@ -93,4 +102,5 @@
   <script src="script.js"></script>
 
 </body>
+
 </html>
