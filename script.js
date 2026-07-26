@@ -107,6 +107,118 @@ function isProgram(event = {}) {
 
 
 /* ==================================================
+   HORARIO LOCAL DEL USUARIO
+   Origen de las emisiones: Europe/Madrid
+   ================================================== */
+
+const SOURCE_TIME_ZONE = "Europe/Madrid";
+const USER_TIME_ZONE = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+
+function hasValidEventTime(event = {}) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(String(event.date || "")) && /^\d{1,2}:\d{2}$/.test(String(event.time || ""));
+}
+
+function getTimeZoneOffsetMilliseconds(date, timeZone) {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23"
+  }).formatToParts(date);
+  const values = {};
+  parts.forEach(part => {
+    if (part.type !== "literal") values[part.type] = Number(part.value);
+  });
+  return Date.UTC(values.year, values.month - 1, values.day, values.hour, values.minute, values.second) - date.getTime();
+}
+
+function madridDateTimeToUtc(dateKey, timeValue) {
+  const [year, month, day] = dateKey.split("-").map(Number);
+  const [hour, minute] = timeValue.split(":").map(Number);
+  const initialGuess = new Date(Date.UTC(year, month - 1, day, hour, minute, 0));
+  let utcMilliseconds = initialGuess.getTime();
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const offset = getTimeZoneOffsetMilliseconds(new Date(utcMilliseconds), SOURCE_TIME_ZONE);
+    const corrected = initialGuess.getTime() - offset;
+    if (Math.abs(corrected - utcMilliseconds) < 1000) {
+      utcMilliseconds = corrected;
+      break;
+    }
+    utcMilliseconds = corrected;
+  }
+  return new Date(utcMilliseconds);
+}
+
+function getDatePartsInTimeZone(date, timeZone) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(date);
+  const values = {};
+  parts.forEach(part => {
+    if (part.type !== "literal") values[part.type] = part.value;
+  });
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
+function getDayDifferenceLabel(sourceDateKey, localDateKey) {
+  const sourceDate = new Date(`${sourceDateKey}T00:00:00Z`);
+  const localDate = new Date(`${localDateKey}T00:00:00Z`);
+  const difference = Math.round((localDate.getTime() - sourceDate.getTime()) / 86400000);
+  if (difference === 1) return "+1 día";
+  if (difference === -1) return "−1 día";
+  if (difference > 1) return `+${difference} días`;
+  if (difference < -1) return `−${Math.abs(difference)} días`;
+  return "";
+}
+
+function getEventTimePresentation(event = {}) {
+  if (!hasValidEventTime(event)) {
+    return { main: event.time || "Hora por confirmar", original: "", dayShift: "", title: "" };
+  }
+  const instant = madridDateTimeToUtc(event.date, event.time);
+  const localTime = new Intl.DateTimeFormat("es-ES", {
+    timeZone: USER_TIME_ZONE,
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23"
+  }).format(instant);
+  const localDateKey = getDatePartsInTimeZone(instant, USER_TIME_ZONE);
+  const dayShift = getDayDifferenceLabel(event.date, localDateKey);
+  const zoneName = new Intl.DateTimeFormat("es-ES", {
+    timeZone: USER_TIME_ZONE,
+    timeZoneName: "long"
+  }).formatToParts(instant).find(part => part.type === "timeZoneName")?.value || USER_TIME_ZONE;
+  return {
+    main: localTime,
+    original: event.time,
+    dayShift,
+    title: `Hora local: ${localTime}${dayShift ? ` (${dayShift})` : ""}. Hora en España: ${event.time}. ${zoneName}.`
+  };
+}
+
+function buildTimeMarkup(event = {}) {
+  const presentation = getEventTimePresentation(event);
+  if (!presentation.original) {
+    return `<div class="time">${escapeHtml(presentation.main)}</div>`;
+  }
+  return `
+    <div class="time time-local" title="${escapeHtml(presentation.title)}" tabindex="0" aria-label="${escapeHtml(presentation.title)}">
+      <span class="time-main">${escapeHtml(presentation.main)}</span>
+      ${presentation.dayShift ? `<span class="time-day-shift">${escapeHtml(presentation.dayShift)}</span>` : ""}
+      <span class="time-origin">España: ${escapeHtml(presentation.original)}</span>
+    </div>
+  `;
+}
+
+
+/* ==================================================
    CATEGORÍAS DE LA CABECERA
    ================================================== */
 
@@ -191,22 +303,11 @@ function scrollToCategory(categoryKey) {
     behavior: "smooth"
   });
 
-  categoryList
-    .querySelectorAll(".category-pill")
-    .forEach(button => {
-      button.classList.toggle(
-        "selected",
-        button.dataset.category === categoryKey
-      );
-    });
 }
 
 
 function renderCategoryNavigation(events = []) {
-  if (!categoryList) {
-    return;
-  }
-
+  if (!categoryList) return;
   const categoryDefinitions = [
     { key: "corridas", icon: "🐂", label: "CORRIDAS" },
     { key: "rejones", icon: "🐎", label: "REJONES" },
@@ -214,40 +315,35 @@ function renderCategoryNavigation(events = []) {
     { key: "recortes", icon: "🤸", label: "RECORTES" },
     { key: "programas", icon: "📺", label: "PROGRAMAS" }
   ];
+  const categoryCounts = events.reduce((counts, event) => {
+    const category = getHeaderCategory(event);
+    if (Object.prototype.hasOwnProperty.call(counts, category)) counts[category] += 1;
+    return counts;
+  }, { corridas: 0, rejones: 0, novilladas: 0, recortes: 0, programas: 0 });
+  const visibleCategories = categoryDefinitions.filter(category => categoryCounts[category.key] > 0);
+  categoryList.innerHTML = visibleCategories.map(category => `
+    <button class="category-pill ${category.key}" type="button" data-category="${category.key}" aria-label="Ir al próximo contenido de ${category.label.toLowerCase()}. ${categoryCounts[category.key]} elementos.">
+      <span class="category-icon" aria-hidden="true">${category.icon}</span>
+      <span class="category-name">${category.label}</span>
+      <span class="category-count" aria-hidden="true">${categoryCounts[category.key]}</span>
+    </button>
+  `).join("");
+  categoryList.querySelectorAll(".category-pill").forEach(button => {
+    button.addEventListener("click", () => scrollToCategory(button.dataset.category));
+  });
+}
 
-  const availableCategories = new Set(
-    events.map(getHeaderCategory)
+function updateActiveCategories() {
+  if (!activeCard || !categoryList) return;
+  const activeDate = activeCard.dataset.date;
+  const categoriesForActiveDay = new Set(
+    loadedEvents.filter(event => event.date === activeDate).map(getHeaderCategory)
   );
-
-  const visibleCategories = categoryDefinitions.filter(
-    category => availableCategories.has(category.key)
-  );
-
-  categoryList.innerHTML = visibleCategories
-    .map(
-      category => `
-        <button
-          class="category-pill ${category.key}"
-          type="button"
-          data-category="${category.key}"
-          aria-label="Ir al próximo contenido de ${category.label.toLowerCase()}"
-        >
-          <span class="category-icon" aria-hidden="true">
-            ${category.icon}
-          </span>
-          <span>${category.label}</span>
-        </button>
-      `
-    )
-    .join("");
-
-  categoryList
-    .querySelectorAll(".category-pill")
-    .forEach(button => {
-      button.addEventListener("click", () => {
-        scrollToCategory(button.dataset.category);
-      });
-    });
+  categoryList.querySelectorAll(".category-pill").forEach(button => {
+    const isActive = categoriesForActiveDay.has(button.dataset.category);
+    button.classList.toggle("active-category", isActive);
+    button.setAttribute("aria-pressed", isActive ? "true" : "false");
+  });
 }
 
 
@@ -347,10 +443,6 @@ function getTypeClass(type = "") {
    ================================================== */
 
 function buildProgram(event) {
-  const time =
-    event.time ||
-    "Hora por confirmar";
-
   const title =
     event.title ||
     event.name ||
@@ -386,9 +478,7 @@ function buildProgram(event) {
 
       <div class="event-topline program-topline">
 
-        <div class="time">
-          ${escapeHtml(time)}
-        </div>
+        ${buildTimeMarkup(event)}
 
         <div class="channel">
           ${escapeHtml(channel)}
@@ -429,10 +519,6 @@ function buildProgram(event) {
    ================================================== */
 
 function buildBullfightingEvent(event) {
-  const time =
-    event.time ||
-    "Hora por confirmar";
-
   const type =
     event.type ||
     "Festejo taurino";
@@ -468,9 +554,7 @@ function buildBullfightingEvent(event) {
 
       <div class="event-topline">
 
-        <div class="time">
-          ${escapeHtml(time)}
-        </div>
+        ${buildTimeMarkup(event)}
 
         <div class="channel">
           ${escapeHtml(channel)}
@@ -555,7 +639,9 @@ function buildDayCard(date, offset, events) {
     toLocalISO(date);
 
   card.className =
-    "day";
+    offset === 0
+      ? "day today"
+      : "day";
 
   card.dataset.offset =
     String(offset);
@@ -601,11 +687,6 @@ function buildDayCard(date, offset, events) {
         }
       );
 
-  const dateClass =
-    offset === 0
-      ? "date today-date"
-      : "date";
-
   card.innerHTML = `
 
     <div class="day-header">
@@ -614,10 +695,10 @@ function buildDayCard(date, offset, events) {
         ${getDayLabel(offset)}
       </div>
 
-      <div class="${dateClass}">
+      <div class="date">
         ${date.getDate()}
         de
-        ${months[date.getMonth()]}
+        ${months[date.getMonth()].toUpperCase()}
       </div>
 
       <div class="weekday">
@@ -852,6 +933,8 @@ function updateVisuals() {
         : "false"
     );
   });
+
+  updateActiveCategories();
 }
 
 
