@@ -619,6 +619,7 @@ function getBroadcastPresentation(event = {}) {
     String(
       event.channel ||
       event.broadcastChannel ||
+      event.source ||
       ""
     ).trim();
 
@@ -668,105 +669,116 @@ function getBroadcastPresentation(event = {}) {
 }
 
 
-function getChannelLogoMarkup(channelName = "") {
+const CHANNEL_LOGOS = [
+  {
+    matches: ["onetoro", "one toro"],
+    src: "assets/channels/onetoro.png",
+    alt: "OneToro"
+  },
+  {
+    matches: ["canal sur", "canal sur 1", "canal sur andalucia"],
+    src: "assets/channels/canal-sur.png",
+    alt: "Canal Sur"
+  },
+  {
+    matches: ["cmm", "castilla-la mancha", "castilla la mancha", "castilla de mancha"],
+    src: "assets/channels/cmm.png",
+    alt: "Castilla-La Mancha Media"
+  },
+  {
+    matches: ["telemadrid", "tele madrid"],
+    src: "assets/channels/telemadrid.png",
+    alt: "Telemadrid"
+  },
+  {
+    matches: ["aragon tv", "aragón tv", "atv"],
+    src: "assets/channels/aragon-tv.png",
+    alt: "Aragón TV"
+  },
+  {
+    matches: ["la 1", "tve 1", "tve1"],
+    src: "assets/channels/tve-1.png",
+    alt: "La 1"
+  },
+  {
+    matches: ["la 2", "tve 2", "tve2"],
+    src: "assets/channels/tve-2.png",
+    alt: "La 2"
+  }
+];
+
+
+function getChannelLogoData(channelName = "") {
   const normalized =
     normalizeText(channelName);
 
-  if (
-    normalized.includes("onetoro") ||
-    normalized.includes("one toro")
-  ) {
-    return `
-      <span class="channel-logo channel-logo-onetoro" role="img" aria-label="OneToro">
-        <svg viewBox="0 0 132 34" aria-hidden="true">
-          <rect x="1" y="1" width="130" height="32" rx="8"></rect>
-          <path d="M18 22c3-7 8-10 14-10 5 0 9 2 12 6-4-2-7-2-10 0-2 1-4 4-5 7-4-2-8-3-11-3z"></path>
-          <text x="50" y="22">ONE TORO</text>
-        </svg>
-      </span>
-    `;
+  return CHANNEL_LOGOS.find(channel =>
+    channel.matches.some(match =>
+      normalized === normalizeText(match) ||
+      normalized.includes(normalizeText(match))
+    )
+  ) || null;
+}
+
+
+function getChannelInitials(channelName = "") {
+  const words =
+    String(channelName)
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
+
+  if (!words.length) {
+    return "TV";
   }
 
-  if (
-    normalized.includes("canal sur") ||
-    normalized === "csur"
-  ) {
-    return `
-      <span class="channel-logo channel-logo-canalsur" role="img" aria-label="Canal Sur">
-        <svg viewBox="0 0 128 34" aria-hidden="true">
-          <rect x="1" y="1" width="126" height="32" rx="8"></rect>
-          <circle cx="20" cy="17" r="7"></circle>
-          <path d="M20 5v4M20 25v4M8 17h4M28 17h4M11.5 8.5l3 3M25.5 22.5l3 3M28.5 8.5l-3 3M14.5 22.5l-3 3"></path>
-          <text x="38" y="22">CANAL SUR</text>
-        </svg>
-      </span>
-    `;
+  if (words.length === 1) {
+    return words[0]
+      .slice(0, 3)
+      .toUpperCase();
   }
 
-  if (
-    normalized === "cmm" ||
-    normalized.includes("castilla-la mancha") ||
-    normalized.includes("castilla la mancha")
-  ) {
-    return `
-      <span class="channel-logo channel-logo-cmm" role="img" aria-label="CMM">
-        <svg viewBox="0 0 92 34" aria-hidden="true">
-          <rect x="1" y="1" width="90" height="32" rx="8"></rect>
-          <text x="15" y="23">CMM</text>
-        </svg>
-      </span>
-    `;
-  }
+  return words
+    .slice(0, 3)
+    .map(word => word[0])
+    .join("")
+    .toUpperCase();
+}
 
-  if (
-    normalized.includes("telemadrid") ||
-    normalized.includes("tele madrid")
-  ) {
-    return `
-      <span class="channel-logo channel-logo-telemadrid" role="img" aria-label="Telemadrid">
-        <svg viewBox="0 0 136 34" aria-hidden="true">
-          <rect x="1" y="1" width="134" height="32" rx="8"></rect>
-          <path d="M20 8l2.5 6.2 6.5.5-5 4.2 1.6 6.4-5.6-3.5-5.6 3.5 1.6-6.4-5-4.2 6.5-.5z"></path>
-          <text x="37" y="22">TELEMADRID</text>
-        </svg>
-      </span>
-    `;
-  }
 
-  if (
-    normalized.includes("aragon tv") ||
-    normalized.includes("aragón tv") ||
-    normalized === "atv"
-  ) {
-    return `
-      <span class="channel-logo channel-logo-aragontv" role="img" aria-label="Aragón TV">
-        <svg viewBox="0 0 120 34" aria-hidden="true">
-          <rect x="1" y="1" width="118" height="32" rx="8"></rect>
-          <path d="M12 24L22 8l10 16h-6l-4-7-4 7z"></path>
-          <text x="39" y="22">ARAGÓN TV</text>
-        </svg>
-      </span>
-    `;
-  }
+function getChannelLogoMarkup(channelName = "") {
+  const logo =
+    getChannelLogoData(channelName);
 
-  if (
-    normalized.includes("rtve") ||
-    normalized.includes("la 2") ||
-    normalized.includes("tve")
-  ) {
+  if (logo) {
     return `
-      <span class="channel-logo channel-logo-rtve" role="img" aria-label="${escapeHtml(channelName)}">
-        <svg viewBox="0 0 105 34" aria-hidden="true">
-          <rect x="1" y="1" width="103" height="32" rx="8"></rect>
-          <text x="14" y="22">${escapeHtml(channelName || "RTVE")}</text>
-        </svg>
+      <span
+        class="channel-logo-circle"
+        title="${escapeHtml(logo.alt)}"
+        aria-label="${escapeHtml(logo.alt)}"
+      >
+        <img
+          src="${escapeHtml(logo.src)}"
+          alt="${escapeHtml(logo.alt)}"
+          loading="lazy"
+          onerror="this.closest('.channel-logo-circle').classList.add('logo-missing'); this.remove();"
+        >
+        <span class="channel-logo-fallback" aria-hidden="true">
+          ${escapeHtml(getChannelInitials(logo.alt))}
+        </span>
       </span>
     `;
   }
 
   return `
-    <span class="channel-logo channel-logo-generic" role="img" aria-label="${escapeHtml(channelName)}">
-      <span>${escapeHtml(channelName)}</span>
+    <span
+      class="channel-logo-circle channel-logo-generic"
+      title="${escapeHtml(channelName)}"
+      aria-label="${escapeHtml(channelName)}"
+    >
+      <span class="channel-logo-fallback">
+        ${escapeHtml(getChannelInitials(channelName))}
+      </span>
     </span>
   `;
 }
@@ -778,16 +790,49 @@ function buildBroadcastMarkup(event = {}) {
 
   if (!broadcast.confirmed) {
     return `
-      <div class="broadcast-status broadcast-unconfirmed">
-        <span class="broadcast-muted-dot" aria-hidden="true"></span>
-        <span>${escapeHtml(broadcast.label)}</span>
+      <div
+        class="channel-logo-circle channel-logo-unconfirmed"
+        title="Sin emisión confirmada"
+        aria-label="Sin emisión confirmada"
+      >
+        <span aria-hidden="true">?</span>
       </div>
     `;
   }
 
+  return getChannelLogoMarkup(
+    broadcast.label
+  );
+}
+
+
+function buildEventHeaderMarkup(event = {}) {
+  const broadcast =
+    getBroadcastPresentation(event);
+
   return `
-    <div class="broadcast-status broadcast-confirmed">
-      ${getChannelLogoMarkup(broadcast.label)}
+    <div class="event-compact-header">
+      <div class="event-header-information">
+        <div class="event-topline">
+          ${buildTimeMarkup(event)}
+        </div>
+
+        ${buildTemporalStatusMarkup(event)}
+
+        ${
+          broadcast.confirmed
+            ? ""
+            : `
+              <div class="broadcast-unconfirmed-label">
+                Sin emisión confirmada
+              </div>
+            `
+        }
+      </div>
+
+      <div class="event-header-channel">
+        ${buildBroadcastMarkup(event)}
+      </div>
     </div>
   `;
 }
@@ -809,28 +854,54 @@ function injectAlberoEnhancementStyles() {
     "alberotv-live-enhancements";
 
   style.textContent = `
+    .event-compact-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      margin: 0 0 15px;
+      padding: 0 0 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    .event-header-information {
+      min-width: 0;
+    }
+
+    .event-header-channel {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      align-self: center;
+    }
+
+    .event-compact-header .event-topline {
+      margin: 0;
+    }
+
     .event-status {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       width: fit-content;
       max-width: 100%;
-      margin: 9px 0 5px;
-      padding: 7px 10px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.065);
-      font-size: 0.69rem;
+      margin: 7px 0 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      font-size: 0.68rem;
       font-weight: 850;
-      line-height: 1;
+      line-height: 1.2;
       letter-spacing: 0.045em;
       white-space: nowrap;
     }
 
     .event-status-light {
-      width: 8px;
-      height: 8px;
-      flex: 0 0 8px;
+      width: 7px;
+      height: 7px;
+      flex: 0 0 7px;
       border-radius: 50%;
       background: currentColor;
       box-shadow: 0 0 0 0 currentColor;
@@ -846,19 +917,15 @@ function injectAlberoEnhancementStyles() {
 
     .event-status-future,
     .event-status-upcoming {
-      color: rgba(255, 255, 255, 0.72);
+      color: rgba(255, 255, 255, 0.66);
     }
 
     .event-status-starting-soon {
       color: #ffb052;
-      border-color: rgba(255, 176, 82, 0.28);
-      background: rgba(255, 176, 82, 0.09);
     }
 
     .event-status-live {
       color: #ff595f;
-      border-color: rgba(255, 89, 95, 0.4);
-      background: rgba(255, 89, 95, 0.12);
     }
 
     .event-status-live .event-status-light {
@@ -866,119 +933,79 @@ function injectAlberoEnhancementStyles() {
     }
 
     .event-status-finished {
-      color: rgba(255, 255, 255, 0.42);
-      background: rgba(255, 255, 255, 0.035);
+      color: rgba(255, 255, 255, 0.38);
     }
 
-    .broadcast-status {
-      display: flex;
-      align-items: center;
-      width: fit-content;
-      min-height: 28px;
-      margin: 5px 0 7px;
-    }
-
-    .broadcast-unconfirmed {
-      gap: 7px;
-      color: rgba(255, 255, 255, 0.42);
-      font-size: 0.69rem;
-      font-weight: 650;
-      letter-spacing: 0.01em;
-    }
-
-    .broadcast-muted-dot {
-      width: 5px;
-      height: 5px;
-      flex: 0 0 5px;
-      border-radius: 50%;
-      background: currentColor;
-    }
-
-    .channel-logo {
+    .channel-logo-circle {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      height: 27px;
-      max-width: 145px;
+      width: 46px;
+      height: 46px;
+      flex: 0 0 46px;
       overflow: hidden;
-      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow:
+        0 7px 18px rgba(0, 0, 0, 0.18),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.035);
     }
 
-    .channel-logo svg {
+    .channel-logo-circle img {
       display: block;
-      width: auto;
-      height: 27px;
-      overflow: visible;
+      width: 72%;
+      height: 72%;
+      object-fit: contain;
+      object-position: center;
     }
 
-    .channel-logo svg rect {
-      fill: rgba(255, 255, 255, 0.94);
-      stroke: rgba(255, 255, 255, 0.12);
-    }
-
-    .channel-logo svg text {
+    .channel-logo-fallback {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 5px;
+      color: #17304e;
       font-family: Arial, Helvetica, sans-serif;
-      font-size: 11px;
+      font-size: 0.66rem;
       font-weight: 900;
-      letter-spacing: 0.35px;
-      dominant-baseline: middle;
-      fill: #10233f;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      text-align: center;
     }
 
-    .channel-logo-onetoro svg path {
-      fill: #d41225;
+    .channel-logo-generic .channel-logo-fallback,
+    .channel-logo-circle.logo-missing .channel-logo-fallback {
+      display: flex;
     }
 
-    .channel-logo-canalsur svg circle {
-      fill: none;
-      stroke: #0b8f55;
-      stroke-width: 2.2;
-    }
-
-    .channel-logo-canalsur svg path {
-      fill: none;
-      stroke: #0b8f55;
-      stroke-width: 1.6;
-      stroke-linecap: round;
-    }
-
-    .channel-logo-cmm svg rect {
-      fill: #ef2f4f;
-    }
-
-    .channel-logo-cmm svg text {
-      fill: #ffffff;
-      font-size: 16px;
-      letter-spacing: 1px;
-    }
-
-    .channel-logo-telemadrid svg path {
-      fill: #1c8bd1;
-    }
-
-    .channel-logo-aragontv svg path {
-      fill: #e8a300;
-    }
-
-    .channel-logo-rtve svg rect {
-      fill: #1e74bb;
-    }
-
-    .channel-logo-rtve svg text {
-      fill: #ffffff;
-      font-size: 12px;
-    }
-
-    .channel-logo-generic {
-      min-height: 27px;
-      padding: 0 10px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.08);
-      color: rgba(255, 255, 255, 0.84);
-      font-size: 0.68rem;
+    .channel-logo-unconfirmed {
+      width: 38px;
+      height: 38px;
+      flex-basis: 38px;
+      border-style: dashed;
+      background: rgba(255, 255, 255, 0.045);
+      color: rgba(255, 255, 255, 0.34);
+      box-shadow: none;
+      font-size: 0.84rem;
       font-weight: 800;
-      letter-spacing: 0.025em;
-      white-space: nowrap;
+    }
+
+    .broadcast-unconfirmed-label {
+      margin-top: 6px;
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 0.62rem;
+      font-weight: 650;
+      line-height: 1.2;
+      letter-spacing: 0.015em;
+    }
+
+    .event:has(.event-status-live) .channel-logo-circle:not(.channel-logo-unconfirmed) {
+      border-color: rgba(255, 89, 95, 0.82);
+      animation: alberotv-channel-live-ring 1.45s ease-in-out infinite;
     }
 
     @keyframes alberotv-live-light {
@@ -1000,32 +1027,55 @@ function injectAlberoEnhancementStyles() {
       }
     }
 
+    @keyframes alberotv-channel-live-ring {
+      0%,
+      100% {
+        box-shadow:
+          0 0 0 0 rgba(255, 89, 95, 0.42),
+          0 7px 18px rgba(0, 0, 0, 0.18);
+      }
+
+      50% {
+        box-shadow:
+          0 0 0 6px rgba(255, 89, 95, 0),
+          0 7px 18px rgba(0, 0, 0, 0.18);
+      }
+    }
+
     @media (max-width: 800px) {
+      .event-compact-header {
+        gap: 11px;
+        margin-bottom: 13px;
+        padding-bottom: 12px;
+      }
+
       .event-status {
-        margin-top: 7px;
-        padding: 6px 8px;
-        font-size: 0.62rem;
+        margin-top: 6px;
+        font-size: 0.61rem;
         letter-spacing: 0.035em;
       }
 
-      .channel-logo,
-      .channel-logo svg {
-        height: 25px;
+      .channel-logo-circle {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
       }
 
-      .broadcast-status {
-        min-height: 25px;
+      .channel-logo-unconfirmed {
+        width: 34px;
+        height: 34px;
+        flex-basis: 34px;
       }
 
-      .broadcast-unconfirmed {
-        font-size: 0.64rem;
+      .broadcast-unconfirmed-label {
+        font-size: 0.58rem;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .event-status-live .event-status-light {
+      .event-status-live .event-status-light,
+      .event:has(.event-status-live) .channel-logo-circle:not(.channel-logo-unconfirmed) {
         animation: none;
-        box-shadow: 0 0 7px 2px rgba(255, 89, 95, 0.35);
       }
     }
   `;
@@ -1294,14 +1344,7 @@ function buildProgram(event) {
 
       </div>
 
-      <div class="event-topline program-topline">
-
-        ${buildTimeMarkup(event)}
-
-      </div>
-
-      ${buildTemporalStatusMarkup(event)}
-      ${buildBroadcastMarkup(event)}
+      ${buildEventHeaderMarkup(event)}
 
       <h2 class="event-title program-title">
         ${escapeHtml(title)}
@@ -1369,14 +1412,7 @@ function buildBullfightingEvent(event) {
   return `
     <article class="event bullfighting-event">
 
-      <div class="event-topline">
-
-        ${buildTimeMarkup(event)}
-
-      </div>
-
-      ${buildTemporalStatusMarkup(event)}
-      ${buildBroadcastMarkup(event)}
+      ${buildEventHeaderMarkup(event)}
 
       <div class="event-type ${typeClass}">
         ${escapeHtml(type)}
