@@ -1,3 +1,4 @@
+
 const timeline = document.getElementById("timeline");
 const hint = document.getElementById("hint");
 const categoryList = document.getElementById("category-list");
@@ -37,6 +38,7 @@ let dragStartScrollLeft = 0;
 let dragMoved = false;
 
 let animationFrameRequested = false;
+let loadedEvents = [];
 
 
 /* ==================================================
@@ -149,17 +151,68 @@ function getHeaderCategory(event = {}) {
 }
 
 
+function scrollToCategory(categoryKey) {
+  const todayKey = toLocalISO(new Date());
+
+  const matchingEvent = loadedEvents
+    .filter(event => getHeaderCategory(event) === categoryKey)
+    .sort((eventA, eventB) => {
+      const dateComparison = String(eventA.date || "").localeCompare(
+        String(eventB.date || "")
+      );
+
+      if (dateComparison !== 0) {
+        return dateComparison;
+      }
+
+      return String(eventA.time || "99:99").localeCompare(
+        String(eventB.time || "99:99")
+      );
+    })
+    .find(event => String(event.date || "") >= todayKey);
+
+  if (!matchingEvent) {
+    return;
+  }
+
+  const targetCard = cards.find(
+    card => card.dataset.date === matchingEvent.date
+  );
+
+  if (!targetCard) {
+    return;
+  }
+
+  timeline.scrollTo({
+    left:
+      targetCard.offsetLeft -
+      timeline.clientWidth / 2 +
+      targetCard.offsetWidth / 2,
+    behavior: "smooth"
+  });
+
+  categoryList
+    .querySelectorAll(".category-pill")
+    .forEach(button => {
+      button.classList.toggle(
+        "selected",
+        button.dataset.category === categoryKey
+      );
+    });
+}
+
+
 function renderCategoryNavigation(events = []) {
   if (!categoryList) {
     return;
   }
 
   const categoryDefinitions = [
-    { key: "corridas", label: "CORRIDAS" },
-    { key: "novilladas", label: "NOVILLADAS" },
-    { key: "rejones", label: "REJONES" },
-    { key: "recortes", label: "RECORTES" },
-    { key: "programas", label: "PROGRAMAS" }
+    { key: "corridas", icon: "🐂", label: "CORRIDAS" },
+    { key: "rejones", icon: "🐎", label: "REJONES" },
+    { key: "novilladas", icon: "🐂", label: "NOVILLADAS" },
+    { key: "recortes", icon: "🤸", label: "RECORTES" },
+    { key: "programas", icon: "📺", label: "PROGRAMAS" }
   ];
 
   const availableCategories = new Set(
@@ -173,12 +226,28 @@ function renderCategoryNavigation(events = []) {
   categoryList.innerHTML = visibleCategories
     .map(
       category => `
-        <span class="category-pill ${category.key}">
-          ${category.label}
-        </span>
+        <button
+          class="category-pill ${category.key}"
+          type="button"
+          data-category="${category.key}"
+          aria-label="Ir al próximo contenido de ${category.label.toLowerCase()}"
+        >
+          <span class="category-icon" aria-hidden="true">
+            ${category.icon}
+          </span>
+          <span>${category.label}</span>
+        </button>
       `
     )
     .join("");
+
+  categoryList
+    .querySelectorAll(".category-pill")
+    .forEach(button => {
+      button.addEventListener("click", () => {
+        scrollToCategory(button.dataset.category);
+      });
+    });
 }
 
 
@@ -887,6 +956,8 @@ async function init() {
   try {
     events =
       await loadEvents();
+
+    loadedEvents = events;
 
     console.log(
       `AlberoTV: ${events.length} elementos cargados`
