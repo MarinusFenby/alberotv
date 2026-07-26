@@ -1,4 +1,3 @@
-alert("SCRIPT CARGADO");
 const timeline = document.getElementById("timeline");
 const hint = document.getElementById("hint");
 const categoryList = document.getElementById("category-list");
@@ -39,6 +38,7 @@ let dragMoved = false;
 
 let animationFrameRequested = false;
 let loadedEvents = [];
+let eventStatusTimer = null;
 
 
 /* ==================================================
@@ -215,6 +215,470 @@ function buildTimeMarkup(event = {}) {
       <span class="time-origin">España: ${escapeHtml(presentation.original)}</span>
     </div>
   `;
+}
+
+
+/* ==================================================
+   CUENTA ATRÁS Y ESTADO DE EMISIÓN
+   ================================================== */
+
+function getEstimatedDurationMinutes(event = {}) {
+  if (Number(event.durationMinutes) > 0) {
+    return Number(event.durationMinutes);
+  }
+
+  if (isProgram(event)) {
+    return 60;
+  }
+
+  const type = normalizeText(event.type);
+
+  if (
+    type.includes("recortes") ||
+    type.includes("recortadores")
+  ) {
+    return 120;
+  }
+
+  if (
+    type.includes("tentadero") ||
+    type.includes("tienta") ||
+    type.includes("clase practica")
+  ) {
+    return 90;
+  }
+
+  return 150;
+}
+
+
+function getEventStartInstant(event = {}) {
+  if (!hasValidEventTime(event)) {
+    return null;
+  }
+
+  return madridDateTimeToUtc(
+    event.date,
+    event.time
+  );
+}
+
+
+function getTemporalStatus(event = {}, now = new Date()) {
+  const startInstant =
+    getEventStartInstant(event);
+
+  if (!startInstant) {
+    return null;
+  }
+
+  const durationMinutes =
+    getEstimatedDurationMinutes(event);
+
+  const endInstant =
+    new Date(
+      startInstant.getTime() +
+      durationMinutes * 60000
+    );
+
+  const millisecondsUntilStart =
+    startInstant.getTime() -
+    now.getTime();
+
+  const minutesUntilStart =
+    Math.max(
+      0,
+      Math.ceil(
+        millisecondsUntilStart /
+        60000
+      )
+    );
+
+  if (millisecondsUntilStart > 0) {
+    if (minutesUntilStart <= 15) {
+      return {
+        key: "starting-soon",
+        label: `Comienza en ${minutesUntilStart} min`
+      };
+    }
+
+    if (minutesUntilStart < 60) {
+      return {
+        key: "upcoming",
+        label: `Empieza en ${minutesUntilStart} min`
+      };
+    }
+
+    const hours =
+      Math.floor(
+        minutesUntilStart /
+        60
+      );
+
+    const remainingMinutes =
+      minutesUntilStart %
+      60;
+
+    return {
+      key: "upcoming",
+      label:
+        remainingMinutes > 0
+          ? `Empieza en ${hours} h ${remainingMinutes} min`
+          : `Empieza en ${hours} h`
+    };
+  }
+
+  if (now.getTime() < endInstant.getTime()) {
+    return {
+      key: "live",
+      label: "EN DIRECTO"
+    };
+  }
+
+  return {
+    key: "finished",
+    label: "FINALIZADO"
+  };
+}
+
+
+function buildTemporalStatusMarkup(event = {}) {
+  const status =
+    getTemporalStatus(event);
+
+  const startInstant =
+    getEventStartInstant(event);
+
+  if (!status || !startInstant) {
+    return "";
+  }
+
+  return `
+    <div
+      class="event-status event-status-${status.key}"
+      data-event-start="${escapeHtml(startInstant.toISOString())}"
+      data-event-duration="${escapeHtml(getEstimatedDurationMinutes(event))}"
+      role="status"
+      aria-live="polite"
+    >
+      <span class="event-status-dot" aria-hidden="true"></span>
+      <span class="event-status-text">${escapeHtml(status.label)}</span>
+    </div>
+  `;
+}
+
+
+function updateTemporalStatuses() {
+  const now =
+    new Date();
+
+  document
+    .querySelectorAll(".event-status")
+    .forEach(element => {
+      const startInstant =
+        new Date(
+          element.dataset.eventStart
+        );
+
+      const durationMinutes =
+        Number(
+          element.dataset.eventDuration
+        );
+
+      if (
+        Number.isNaN(startInstant.getTime()) ||
+        !Number.isFinite(durationMinutes)
+      ) {
+        return;
+      }
+
+      const fakeEvent = {
+        date: "2000-01-01",
+        time: "00:00",
+        durationMinutes
+      };
+
+      const endInstant =
+        new Date(
+          startInstant.getTime() +
+          durationMinutes * 60000
+        );
+
+      const millisecondsUntilStart =
+        startInstant.getTime() -
+        now.getTime();
+
+      const minutesUntilStart =
+        Math.max(
+          0,
+          Math.ceil(
+            millisecondsUntilStart /
+            60000
+          )
+        );
+
+      let status;
+
+      if (millisecondsUntilStart > 0) {
+        if (minutesUntilStart <= 15) {
+          status = {
+            key: "starting-soon",
+            label: `Comienza en ${minutesUntilStart} min`
+          };
+        } else if (minutesUntilStart < 60) {
+          status = {
+            key: "upcoming",
+            label: `Empieza en ${minutesUntilStart} min`
+          };
+        } else {
+          const hours =
+            Math.floor(
+              minutesUntilStart /
+              60
+            );
+
+          const remainingMinutes =
+            minutesUntilStart %
+            60;
+
+          status = {
+            key: "upcoming",
+            label:
+              remainingMinutes > 0
+                ? `Empieza en ${hours} h ${remainingMinutes} min`
+                : `Empieza en ${hours} h`
+          };
+        }
+      } else if (now.getTime() < endInstant.getTime()) {
+        status = {
+          key: "live",
+          label: "EN DIRECTO"
+        };
+      } else {
+        status = {
+          key: "finished",
+          label: "FINALIZADO"
+        };
+      }
+
+      element.className =
+        `event-status event-status-${status.key}`;
+
+      const text =
+        element.querySelector(
+          ".event-status-text"
+        );
+
+      if (text) {
+        text.textContent =
+          status.label;
+      }
+    });
+}
+
+
+function startTemporalStatusUpdates() {
+  if (eventStatusTimer) {
+    clearInterval(
+      eventStatusTimer
+    );
+  }
+
+  updateTemporalStatuses();
+
+  eventStatusTimer =
+    setInterval(
+      updateTemporalStatuses,
+      30000
+    );
+}
+
+
+function getBroadcastPresentation(event = {}) {
+  const rawChannel =
+    String(
+      event.channel ||
+      event.broadcastChannel ||
+      ""
+    ).trim();
+
+  const normalizedChannel =
+    normalizeText(rawChannel);
+
+  const confirmedByFlag =
+    event.televised === true ||
+    event.isTelevised === true ||
+    event.broadcastConfirmed === true;
+
+  const explicitlyUnconfirmed =
+    event.televised === false ||
+    event.isTelevised === false ||
+    event.broadcastConfirmed === false;
+
+  const genericValues = [
+    "",
+    "canal por confirmar",
+    "por confirmar",
+    "sin confirmar",
+    "no confirmado",
+    "ninguno"
+  ];
+
+  const hasNamedChannel =
+    !genericValues.includes(
+      normalizedChannel
+    );
+
+  if (
+    explicitlyUnconfirmed ||
+    (!confirmedByFlag && !hasNamedChannel)
+  ) {
+    return {
+      confirmed: false,
+      label: "Sin emisión confirmada"
+    };
+  }
+
+  return {
+    confirmed: true,
+    label: rawChannel || "Emisión confirmada"
+  };
+}
+
+
+function buildBroadcastMarkup(event = {}) {
+  const broadcast =
+    getBroadcastPresentation(event);
+
+  return `
+    <div class="broadcast-status ${broadcast.confirmed ? "broadcast-confirmed" : "broadcast-unconfirmed"}">
+      <span class="broadcast-icon" aria-hidden="true">
+        ${broadcast.confirmed ? "📺" : "—"}
+      </span>
+      <span>${escapeHtml(broadcast.label)}</span>
+    </div>
+  `;
+}
+
+
+function injectAlberoEnhancementStyles() {
+  if (
+    document.getElementById(
+      "alberotv-live-enhancements"
+    )
+  ) {
+    return;
+  }
+
+  const style =
+    document.createElement("style");
+
+  style.id =
+    "alberotv-live-enhancements";
+
+  style.textContent = `
+    .event-status,
+    .broadcast-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      max-width: 100%;
+      border-radius: 999px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .event-status {
+      margin: 10px 0 5px;
+      padding: 7px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .event-status-dot {
+      width: 8px;
+      height: 8px;
+      flex: 0 0 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .event-status-upcoming {
+      color: #72d69b;
+    }
+
+    .event-status-starting-soon {
+      color: #ffb052;
+    }
+
+    .event-status-live {
+      color: #ff5d62;
+      border-color: rgba(255, 93, 98, 0.35);
+      background: rgba(255, 93, 98, 0.12);
+    }
+
+    .event-status-live .event-status-dot {
+      animation: alberotv-live-pulse 1.35s ease-in-out infinite;
+    }
+
+    .event-status-finished {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .broadcast-status {
+      margin: 6px 0 8px;
+      padding: 0;
+      font-size: 0.78rem;
+    }
+
+    .broadcast-confirmed {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .broadcast-unconfirmed {
+      color: rgba(255, 255, 255, 0.52);
+      font-weight: 700;
+    }
+
+    @keyframes alberotv-live-pulse {
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.35;
+        transform: scale(0.72);
+      }
+    }
+
+    @media (max-width: 800px) {
+      .event-status {
+        margin-top: 8px;
+        padding: 6px 9px;
+        font-size: 0.66rem;
+      }
+
+      .broadcast-status {
+        font-size: 0.73rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .event-status-live .event-status-dot {
+        animation: none;
+      }
+    }
+  `;
+
+  document.head.appendChild(
+    style
+  );
 }
 
 
@@ -480,11 +944,10 @@ function buildProgram(event) {
 
         ${buildTimeMarkup(event)}
 
-        <div class="channel">
-          ${escapeHtml(channel)}
-        </div>
-
       </div>
+
+      ${buildTemporalStatusMarkup(event)}
+      ${buildBroadcastMarkup(event)}
 
       <h2 class="event-title program-title">
         ${escapeHtml(title)}
@@ -556,11 +1019,10 @@ function buildBullfightingEvent(event) {
 
         ${buildTimeMarkup(event)}
 
-        <div class="channel">
-          ${escapeHtml(channel)}
-        </div>
-
       </div>
+
+      ${buildTemporalStatusMarkup(event)}
+      ${buildBroadcastMarkup(event)}
 
       <div class="event-type ${typeClass}">
         ${escapeHtml(type)}
@@ -1034,6 +1496,8 @@ function showLoadingError(error) {
    ================================================== */
 
 async function init() {
+  injectAlberoEnhancementStyles();
+
   let events = [];
 
   try {
@@ -1106,6 +1570,7 @@ async function init() {
     }
 
     updateVisuals();
+    startTemporalStatusUpdates();
   });
 }
 
@@ -1405,6 +1870,20 @@ timeline.addEventListener(
 window.addEventListener(
   "resize",
   requestVisualUpdate
+);
+
+
+/* ==================================================
+   ACTUALIZAR AL VOLVER A LA PESTAÑA
+   ================================================== */
+
+document.addEventListener(
+  "visibilitychange",
+  () => {
+    if (!document.hidden) {
+      updateTemporalStatuses();
+    }
+  }
 );
 
 
