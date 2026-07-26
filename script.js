@@ -38,7 +38,6 @@ let dragMoved = false;
 
 let animationFrameRequested = false;
 let loadedEvents = [];
-let eventStatusTimer = null;
 
 
 /* ==================================================
@@ -215,137 +214,6 @@ function buildTimeMarkup(event = {}) {
       <span class="time-origin">España: ${escapeHtml(presentation.original)}</span>
     </div>
   `;
-}
-
-
-/* ==================================================
-   ESTADO TEMPORAL DEL EVENTO
-   "Empieza en..." · "Comienza en..." · "EN DIRECTO"
-   ================================================== */
-
-function getEstimatedDurationMinutes(event = {}) {
-  if (isProgram(event)) return 60;
-  const type = normalizeText(event.type);
-  if (type.includes("recortes") || type.includes("recortadores")) return 120;
-  if (type.includes("tentadero") || type.includes("tienta") || type.includes("clase practica")) return 90;
-  return 150;
-}
-
-function getEventStartInstant(event = {}) {
-  if (!hasValidEventTime(event)) return null;
-  return madridDateTimeToUtc(event.date, event.time);
-}
-
-function calculateTemporalStatus(startInstant, durationMinutes, now = new Date()) {
-  const endInstant = new Date(startInstant.getTime() + durationMinutes * 60000);
-  const millisecondsUntilStart = startInstant.getTime() - now.getTime();
-  const minutesUntilStart = Math.ceil(millisecondsUntilStart / 60000);
-
-  if (millisecondsUntilStart > 0) {
-    if (minutesUntilStart <= 15) {
-      return { key: "starting-soon", label: `Comienza en ${minutesUntilStart} min`, ariaLabel: `Comienza en ${minutesUntilStart} minutos` };
-    }
-    if (minutesUntilStart < 60) {
-      return { key: "upcoming", label: `Empieza en ${minutesUntilStart} min`, ariaLabel: `Empieza en ${minutesUntilStart} minutos` };
-    }
-    const hours = Math.floor(minutesUntilStart / 60);
-    const remainingMinutes = minutesUntilStart % 60;
-    return {
-      key: "upcoming",
-      label: remainingMinutes > 0 ? `Empieza en ${hours} h ${remainingMinutes} min` : `Empieza en ${hours} h`,
-      ariaLabel: remainingMinutes > 0 ? `Empieza en ${hours} horas y ${remainingMinutes} minutos` : `Empieza en ${hours} horas`
-    };
-  }
-
-  if (now.getTime() < endInstant.getTime()) {
-    return { key: "live", label: "EN DIRECTO", ariaLabel: "Evento en directo" };
-  }
-
-  return { key: "finished", label: "FINALIZADO", ariaLabel: "Evento finalizado" };
-}
-
-function getEventTemporalStatus(event = {}, now = new Date()) {
-  const startInstant = getEventStartInstant(event);
-  if (!startInstant) return null;
-  const durationMinutes = Number(event.durationMinutes) > 0 ? Number(event.durationMinutes) : getEstimatedDurationMinutes(event);
-  return calculateTemporalStatus(startInstant, durationMinutes, now);
-}
-
-function buildEventStatusMarkup(event = {}) {
-  const status = getEventTemporalStatus(event);
-  const startInstant = getEventStartInstant(event);
-  if (!status || !startInstant) return "";
-  const durationMinutes = Number(event.durationMinutes) > 0 ? Number(event.durationMinutes) : getEstimatedDurationMinutes(event);
-
-  return `
-    <div
-      class="event-status event-status-${status.key}"
-      data-event-start="${escapeHtml(startInstant.toISOString())}"
-      data-event-duration="${escapeHtml(durationMinutes)}"
-      role="status"
-      aria-live="polite"
-      aria-label="${escapeHtml(status.ariaLabel)}"
-    >
-      <span class="event-status-dot" aria-hidden="true"></span>
-      <span class="event-status-text">${escapeHtml(status.label)}</span>
-    </div>
-  `;
-}
-
-function updateEventStatuses() {
-  const now = new Date();
-  document.querySelectorAll(".event-status").forEach(element => {
-    const startInstant = new Date(element.dataset.eventStart || "");
-    const durationMinutes = Number(element.dataset.eventDuration);
-    if (Number.isNaN(startInstant.getTime()) || !Number.isFinite(durationMinutes) || durationMinutes <= 0) return;
-    const status = calculateTemporalStatus(startInstant, durationMinutes, now);
-    element.className = `event-status event-status-${status.key}`;
-    element.setAttribute("aria-label", status.ariaLabel);
-    const textElement = element.querySelector(".event-status-text");
-    if (textElement) textElement.textContent = status.label;
-  });
-}
-
-function startEventStatusUpdates() {
-  if (eventStatusTimer) clearInterval(eventStatusTimer);
-  updateEventStatuses();
-  eventStatusTimer = setInterval(updateEventStatuses, 30000);
-}
-
-function injectEventStatusStyles() {
-  if (document.getElementById("alberotv-event-status-styles")) return;
-  const style = document.createElement("style");
-  style.id = "alberotv-event-status-styles";
-  style.textContent = `
-    .event-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      width: fit-content;
-      max-width: 100%;
-      margin: 10px 0 4px;
-      padding: 7px 11px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08);
-      font-size: 0.72rem;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-    .event-status-dot { width: 8px; height: 8px; flex: 0 0 8px; border-radius: 50%; background: currentColor; }
-    .event-status-upcoming { color: #72d69b; }
-    .event-status-starting-soon { color: #ffb052; }
-    .event-status-live { color: #ff5d62; border-color: rgba(255, 93, 98, 0.36); background: rgba(255, 93, 98, 0.12); }
-    .event-status-live .event-status-dot { animation: alberotv-live-pulse 1.35s ease-in-out infinite; }
-    .event-status-finished { color: rgba(255, 255, 255, 0.58); }
-    @keyframes alberotv-live-pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.72); } }
-    @media (max-width: 800px) { .event-status { margin-top: 8px; padding: 6px 9px; font-size: 0.66rem; } }
-    @media (prefers-reduced-motion: reduce) { .event-status-live .event-status-dot { animation: none; } }
-  `;
-  document.head.appendChild(style);
 }
 
 
@@ -617,8 +485,6 @@ function buildProgram(event) {
 
       </div>
 
-      ${buildEventStatusMarkup(event)}
-
       <h2 class="event-title program-title">
         ${escapeHtml(title)}
       </h2>
@@ -694,8 +560,6 @@ function buildBullfightingEvent(event) {
         </div>
 
       </div>
-
-      ${buildEventStatusMarkup(event)}
 
       <div class="event-type ${typeClass}">
         ${escapeHtml(type)}
@@ -1169,8 +1033,6 @@ function showLoadingError(error) {
    ================================================== */
 
 async function init() {
-  injectEventStatusStyles();
-
   let events = [];
 
   try {
@@ -1243,7 +1105,6 @@ async function init() {
     }
 
     updateVisuals();
-    startEventStatusUpdates();
   });
 }
 
@@ -1544,19 +1405,6 @@ window.addEventListener(
   "resize",
   requestVisualUpdate
 );
-
-
-/* ==================================================
-   ACTUALIZAR AL VOLVER A LA PESTAÑA
-   ================================================== */
-
-document.addEventListener("visibilitychange", () => {
-  if (!document.hidden) updateEventStatuses();
-});
-
-window.addEventListener("beforeunload", () => {
-  if (eventStatusTimer) clearInterval(eventStatusTimer);
-});
 
 
 /* ==================================================
