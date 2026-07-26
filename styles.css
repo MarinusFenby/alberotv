@@ -1,31 +1,30 @@
 /* ==================================================
    ALBERO TV
-   CINTA CONTINUA CON TARJETA CENTRAL ADAPTABLE
+   DISEÑO GENERAL
    ================================================== */
 
 * {
   box-sizing: border-box;
 }
 
-
 html,
 body {
-  margin: 0;
-
   width: 100%;
-
   height: 100%;
-
+  margin: 0;
   overflow: hidden;
 }
 
+html {
+  background: #06111f;
+}
 
 body {
   background:
     radial-gradient(
-      circle at 50% 8%,
-      rgba(26, 103, 175, 0.20),
-      transparent 36%
+      circle at 50% 5%,
+      rgba(29, 112, 190, 0.22),
+      transparent 38%
     ),
     linear-gradient(
       180deg,
@@ -41,6 +40,12 @@ body {
     sans-serif;
 }
 
+button {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
 
 /* ==================================================
    CABECERA
@@ -48,29 +53,25 @@ body {
 
 .topbar {
   position: relative;
+  z-index: 1000;
 
-  z-index: 50;
-
+  width: 100%;
   height: 82px;
 
   padding:
-    0
-    4vw;
+    env(safe-area-inset-top)
+    34px
+    0;
 
   display: flex;
-
   align-items: center;
-
-  justify-content: space-between;
-
-  gap: 24px;
 
   background:
     rgba(
       5,
       20,
       35,
-      0.96
+      0.97
     );
 
   border-bottom:
@@ -79,95 +80,326 @@ body {
       255,
       255,
       255,
-      0.06
+      0.07
+    );
+
+  box-shadow:
+    0
+    8px
+    28px
+    rgba(
+      0,
+      0,
+      0,
+      0.18
     );
 
   backdrop-filter:
-    blur(18px);
+    blur(20px);
+
+  -webkit-backdrop-filter:
+    blur(20px);
 }
 
+
+.topbar-inner {
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 32px;
+}
+
+
+/* ==================================================
+   LOGO
+   ================================================== */
 
 .brand {
   flex-shrink: 0;
 
-  font-size: 31px;
+  display: inline-flex;
+  align-items: center;
 
+  color: inherit;
+
+  font-size: 31px;
   line-height: 1;
 
   font-weight: 900;
-
   font-style: italic;
 
-  letter-spacing: -1px;
+  letter-spacing: -1.8px;
+
+  text-decoration: none;
+
+  transform:
+    skewX(-4deg);
 }
 
 
-.brand span {
-  color: #59caff;
+.brand-albero,
+.brand-tv {
+  display: inline-block;
 }
 
 
-.nav {
+/*
+   Dos colores sólidos, sin degradado:
+   ALBERO rosa y TV amarillo.
+*/
+
+.brand-albero {
+  color: #f23891;
+
+  text-shadow:
+    0
+    1px
+    0
+    rgba(
+      255,
+      255,
+      255,
+      0.08
+    );
+}
+
+
+.brand-tv {
+  margin-left: 1px;
+
+  color: #ffd62f;
+
+  text-shadow:
+    0
+    0
+    7px
+    rgba(
+      255,
+      214,
+      47,
+      0.42
+    ),
+    0
+    0
+    16px
+    rgba(
+      255,
+      214,
+      47,
+      0.18
+    );
+}
+
+
+/* ==================================================
+   NAVEGACIÓN DE CATEGORÍAS
+   ================================================== */
+
+.category-nav {
+  flex: 1;
+  min-width: 0;
+
+  overflow: hidden;
+}
+
+
+.category-list {
+  width: 100%;
+
   display: flex;
-
   align-items: center;
 
-  gap: 10px;
+  gap: 9px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding:
+    4px
+    4px
+    4px
+    0;
+
+  scrollbar-width: none;
+
+  -webkit-overflow-scrolling:
+    touch;
+
+  overscroll-behavior-x:
+    contain;
 }
 
 
-button {
-  border: 0;
-
-  font: inherit;
-
-  cursor: pointer;
+.category-list::-webkit-scrollbar {
+  display: none;
 }
 
 
-.nav-link,
-.menu-button {
-  min-height: 42px;
+.category-pill {
+  flex-shrink: 0;
+
+  min-height: 39px;
+
+  padding:
+    9px
+    15px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.09
+    );
 
   border-radius: 999px;
 
-  padding:
-    10px
-    17px;
+  background:
+    rgba(
+      17,
+      49,
+      80,
+      0.96
+    );
 
-  background: #12304f;
+  color: #e7f4ff;
 
-  color: #dcefff;
+  font-size: 12px;
+  line-height: 1;
 
-  font-size: 14px;
+  font-weight: 900;
+  font-style: italic;
 
-  font-weight: 700;
+  letter-spacing: 0.1px;
+
+  white-space: nowrap;
+
+  box-shadow:
+    0
+    4px
+    12px
+    rgba(
+      0,
+      0,
+      0,
+      0.15
+    );
+
+  user-select: none;
 
   transition:
     background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
     transform 180ms ease;
 }
 
 
-.nav-link:hover,
-.menu-button:hover {
-  background: #19436d;
+.category-pill:hover {
+  border-color:
+    rgba(
+      104,
+      211,
+      255,
+      0.38
+    );
+
+  background: #173f67;
+
+  color: #ffffff;
+
+  box-shadow:
+    0
+    7px
+    18px
+    rgba(
+      0,
+      0,
+      0,
+      0.22
+    );
 
   transform:
     translateY(-1px);
 }
 
 
-.menu-button {
-  width: 42px;
+/* Colores discretos por categoría */
 
-  padding: 0;
+.category-pill.corridas {
+  border-color:
+    rgba(
+      242,
+      56,
+      145,
+      0.32
+    );
+}
 
-  display: flex;
 
-  align-items: center;
+.category-pill.rejones {
+  border-color:
+    rgba(
+      166,
+      101,
+      213,
+      0.34
+    );
+}
 
-  justify-content: center;
+
+.category-pill.novilladas {
+  border-color:
+    rgba(
+      255,
+      174,
+      52,
+      0.35
+    );
+}
+
+
+.category-pill.recortes {
+  border-color:
+    rgba(
+      238,
+      78,
+      78,
+      0.34
+    );
+}
+
+
+.category-pill.programas {
+  border-color:
+    rgba(
+      74,
+      179,
+      235,
+      0.37
+    );
+}
+
+
+.category-pill.otros {
+  border-color:
+    rgba(
+      150,
+      174,
+      195,
+      0.30
+    );
 }
 
 
@@ -175,16 +407,18 @@ button {
    CONTENIDO PRINCIPAL
    ================================================== */
 
+.main-content,
 main {
   width: 100%;
 
   height:
     calc(
-      100vh - 82px
+      100dvh - 82px
     );
 
-  display: flex;
+  min-height: 0;
 
+  display: flex;
   flex-direction: column;
 
   overflow: hidden;
@@ -195,7 +429,6 @@ main {
   position: relative;
 
   flex: 1;
-
   min-height: 0;
 
   width: 100%;
@@ -212,21 +445,18 @@ main {
   position: relative;
 
   width: 100%;
-
   height: 100%;
 
   display: flex;
-
   align-items: center;
 
   gap: 12px;
 
   overflow-x: auto;
-
   overflow-y: hidden;
 
   padding:
-    20px
+    18px
     calc(
       50vw - 160px
     );
@@ -234,7 +464,6 @@ main {
   scrollbar-width: none;
 
   scroll-snap-type: none;
-
   scroll-behavior: auto;
 
   overscroll-behavior:
@@ -252,7 +481,6 @@ main {
 
 .timeline.is-dragging {
   cursor: grabbing;
-
   user-select: none;
 }
 
@@ -280,14 +508,13 @@ main {
     min(
       590px,
       calc(
-        100% - 82px
+        100% - 72px
       )
     );
 
   min-height: 390px;
 
   display: flex;
-
   flex-direction: column;
 
   overflow: hidden;
@@ -438,11 +665,9 @@ main {
   color: #67d3ff;
 
   font-size: 12px;
-
   line-height: 1.2;
 
   font-weight: 900;
-
   font-style: italic;
 
   letter-spacing: 2px;
@@ -460,11 +685,9 @@ main {
   color: #ffffff;
 
   font-size: 29px;
-
   line-height: 1.05;
 
   font-weight: 900;
-
   font-style: italic;
 
   letter-spacing: -0.8px;
@@ -482,11 +705,9 @@ main {
   text-align: center;
 
   font-size: 15px;
-
   line-height: 1.2;
 
   font-weight: 800;
-
   font-style: italic;
 }
 
@@ -497,7 +718,6 @@ main {
 
 .events {
   flex: 1;
-
   min-height: 0;
 
   padding:
@@ -506,13 +726,11 @@ main {
     22px;
 
   display: flex;
-
   flex-direction: column;
 
   gap: 10px;
 
   overflow-x: hidden;
-
   overflow-y: auto;
 
   overscroll-behavior:
@@ -562,8 +780,7 @@ main {
 .event {
   flex-shrink: 0;
 
-  padding:
-    14px;
+  padding: 14px;
 
   border:
     1px solid
@@ -601,9 +818,7 @@ main {
   margin-bottom: 9px;
 
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
 
   gap: 10px;
@@ -614,11 +829,9 @@ main {
   color: #ffffff;
 
   font-size: 16px;
-
   line-height: 1.1;
 
   font-weight: 900;
-
   font-style: italic;
 }
 
@@ -629,13 +842,11 @@ main {
   color: #8bdcff;
 
   font-size: 12px;
-
   line-height: 1.15;
 
   text-align: right;
 
   font-weight: 900;
-
   font-style: italic;
 
   overflow-wrap: anywhere;
@@ -651,8 +862,7 @@ main {
 
   overflow: hidden;
 
-  padding:
-    15px;
+  padding: 15px;
 
   border:
     1px solid
@@ -709,11 +919,9 @@ main {
   position: absolute;
 
   right: -32px;
-
   bottom: -42px;
 
   width: 110px;
-
   height: 110px;
 
   border:
@@ -733,13 +941,11 @@ main {
 
 .program-heading {
   position: relative;
-
   z-index: 1;
 
   margin-bottom: 12px;
 
   display: flex;
-
   align-items: center;
 
   gap: 8px;
@@ -748,15 +954,12 @@ main {
 
 .program-icon {
   width: 29px;
-
   height: 29px;
 
   flex-shrink: 0;
 
   display: inline-flex;
-
   align-items: center;
-
   justify-content: center;
 
   border:
@@ -779,7 +982,6 @@ main {
     );
 
   font-size: 16px;
-
   line-height: 1;
 }
 
@@ -788,11 +990,9 @@ main {
   color: #ffffff;
 
   font-size: 10px;
-
   line-height: 1.2;
 
   font-weight: 900;
-
   font-style: italic;
 
   letter-spacing: 1.2px;
@@ -801,11 +1001,9 @@ main {
 
 .program-topline {
   position: relative;
-
   z-index: 1;
 
   margin-bottom: 10px;
-
   padding-bottom: 10px;
 
   border-bottom:
@@ -837,13 +1035,11 @@ main {
 
 .program-title {
   position: relative;
-
   z-index: 1;
 
   margin-top: 0;
 
   font-size: 21px;
-
   line-height: 1.08;
 
   letter-spacing: -0.35px;
@@ -852,7 +1048,6 @@ main {
 
 .program-description {
   position: relative;
-
   z-index: 1;
 
   margin-top: 8px;
@@ -866,14 +1061,12 @@ main {
     );
 
   font-size: 12px;
-
   line-height: 1.4;
 }
 
 
 .program-link {
   position: relative;
-
   z-index: 1;
 
   margin-top: 13px;
@@ -904,7 +1097,6 @@ main {
   color: #ffffff;
 
   font-size: 11px;
-
   line-height: 1;
 
   font-weight: 900;
@@ -934,16 +1126,14 @@ main {
 
 
 /* ==================================================
-   ETIQUETA DEL TIPO DE FESTEJO
+   ETIQUETAS DE FESTEJOS
    ================================================== */
 
 .event-type {
   display: inline-flex;
-
   align-items: center;
 
   width: fit-content;
-
   max-width: 100%;
 
   margin-bottom: 8px;
@@ -957,7 +1147,6 @@ main {
   color: #ffffff;
 
   font-size: 9px;
-
   line-height: 1.15;
 
   font-weight: 900;
@@ -983,85 +1172,61 @@ main {
 
 .event-type.type-corrida {
   background: #e83e8c;
-
-  color: #ffffff;
 }
 
 
 .event-type.type-novillada-picadores {
   background: #f28c28;
-
-  color: #ffffff;
 }
 
 
 .event-type.type-novillada-sin-picadores {
   background: #d9a514;
-
-  color: #ffffff;
 }
 
 
 .event-type.type-novillada {
   background: #c97816;
-
-  color: #ffffff;
 }
 
 
 .event-type.type-rejones {
   background: #8e44ad;
-
-  color: #ffffff;
 }
 
 
 .event-type.type-festival {
   background: #299b63;
-
-  color: #ffffff;
 }
 
 
 .event-type.type-recortes {
   background: #d63b3b;
-
-  color: #ffffff;
 }
 
 
 .event-type.type-clase-practica {
   background: #258bc4;
-
-  color: #ffffff;
 }
 
 
 .event-type.type-becerrada {
   background: #138f8f;
-
-  color: #ffffff;
 }
 
 
 .event-type.type-tentadero {
   background: #96623c;
-
-  color: #ffffff;
 }
 
 
 .event-type.type-mixta {
   background: #9b3e58;
-
-  color: #ffffff;
 }
 
 
 .event-type.type-other {
   background: #60758a;
-
-  color: #ffffff;
 }
 
 
@@ -1075,11 +1240,9 @@ main {
   color: #ffffff;
 
   font-size: 17px;
-
   line-height: 1.16;
 
   font-weight: 900;
-
   font-style: italic;
 
   overflow-wrap: anywhere;
@@ -1098,7 +1261,6 @@ main {
     );
 
   font-size: 12px;
-
   line-height: 1.38;
 }
 
@@ -1116,17 +1278,12 @@ main {
 }
 
 
-/* ==================================================
-   GANADERÍA
-   ================================================== */
-
 .breeding {
   margin-top: 7px;
 
   color: #75d2ff;
 
   font-size: 12px;
-
   line-height: 1.35;
 
   font-weight: 800;
@@ -1147,10 +1304,6 @@ main {
   font-weight: 600;
 }
 
-
-/* ==================================================
-   ENLACE DEL EVENTO
-   ================================================== */
 
 .event-link {
   display: inline-block;
@@ -1180,11 +1333,9 @@ main {
   min-height: 210px;
 
   display: flex;
-
   flex-direction: column;
 
   align-items: center;
-
   justify-content: center;
 
   gap: 7px;
@@ -1198,7 +1349,6 @@ main {
   color: #c8deef;
 
   font-size: 13px;
-
   line-height: 1.4;
 }
 
@@ -1209,7 +1359,7 @@ main {
 
 
 /* ==================================================
-   INDICADOR DE SCROLL DEL DÍA
+   INDICADOR INTERIOR
    ================================================== */
 
 .day-scroll-indicator {
@@ -1257,43 +1407,47 @@ main {
 
 
 /* ==================================================
-   FLECHAS DE LA CINTA
+   FLECHAS
    ================================================== */
 
 .edge-arrow {
   position: absolute;
 
   top: 50%;
-
   z-index: 500;
 
-  width: 50px;
-
-  height: 50px;
+  width: 46px;
+  height: 46px;
 
   padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid
+    rgba(
+      123,
+      205,
+      255,
+      0.16
+    );
 
   border-radius: 50%;
 
   background:
     rgba(
-      18,
-      59,
-      99,
-      0.94
+      15,
+      53,
+      88,
+      0.86
     );
 
   color: #dcefff;
 
-  font-size: 32px;
-
+  font-size: 30px;
   line-height: 1;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
 
   box-shadow:
     0
@@ -1303,10 +1457,13 @@ main {
       0,
       0,
       0,
-      0.28
+      0.25
     );
 
   backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
     blur(12px);
 
   transform:
@@ -1314,16 +1471,25 @@ main {
 
   transition:
     background 180ms ease,
+    border-color 180ms ease,
     transform 180ms ease;
 }
 
 
 .edge-arrow:hover {
-  background: #1a527f;
+  border-color:
+    rgba(
+      103,
+      211,
+      255,
+      0.45
+    );
+
+  background: #174b77;
 
   transform:
     translateY(-50%)
-    scale(1.06);
+    scale(1.05);
 }
 
 
@@ -1392,13 +1558,41 @@ main {
   min-width: 801px
 ) {
 
+  .topbar {
+    height: 72px;
+  }
+
+
+  .main-content,
+  main {
+    height:
+      calc(
+        100dvh - 72px
+      );
+  }
+
+
+  .brand {
+    font-size: 28px;
+  }
+
+
+  .category-pill {
+    min-height: 36px;
+
+    padding:
+      8px
+      13px;
+  }
+
+
   .day {
     height:
       calc(
-        100% - 66px
+        100% - 56px
       );
 
-    min-height: 350px;
+    min-height: 345px;
   }
 
 
@@ -1436,6 +1630,48 @@ main {
 
 
 /* ==================================================
+   TABLET
+   ================================================== */
+
+@media (
+  max-width: 1050px
+) {
+
+  .topbar {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+
+  .topbar-inner {
+    gap: 20px;
+  }
+
+
+  .brand {
+    font-size: 28px;
+  }
+
+
+  .category-list {
+    gap: 7px;
+  }
+
+
+  .category-pill {
+    min-height: 37px;
+
+    padding:
+      8px
+      12px;
+
+    font-size: 11px;
+  }
+
+}
+
+
+/* ==================================================
    MÓVIL
    ================================================== */
 
@@ -1444,28 +1680,98 @@ main {
 ) {
 
   .topbar {
-    height: 70px;
+    height: 118px;
 
     padding:
+      max(
+        10px,
+        env(safe-area-inset-top)
+      )
       0
-      18px;
+      8px;
+
+    align-items: stretch;
+  }
+
+
+  .topbar-inner {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: stretch;
+    justify-content: center;
+
+    gap: 10px;
   }
 
 
   .brand {
-    font-size: 24px;
+    align-self: flex-start;
+
+    margin-left:
+      max(
+        16px,
+        env(safe-area-inset-left)
+      );
+
+    font-size: 27px;
+
+    letter-spacing: -1.5px;
   }
 
 
-  .nav-link {
-    display: none;
+  .category-nav {
+    width: 100%;
+
+    overflow: visible;
   }
 
 
+  .category-list {
+    width: 100%;
+
+    gap: 7px;
+
+    padding:
+      3px
+      max(
+        16px,
+        env(safe-area-inset-right)
+      )
+      5px
+      max(
+        16px,
+        env(safe-area-inset-left)
+      );
+
+    overflow-x: auto;
+
+    scroll-snap-type:
+      x proximity;
+  }
+
+
+  .category-pill {
+    min-height: 36px;
+
+    padding:
+      8px
+      13px;
+
+    font-size: 11px;
+
+    scroll-snap-align:
+      start;
+  }
+
+
+  .main-content,
   main {
     height:
       calc(
-        100vh - 70px
+        100dvh - 118px
       );
   }
 
@@ -1474,24 +1780,25 @@ main {
     gap: 8px;
 
     padding:
-      12px
+      8px
       calc(
-        50vw - 135px
-      );
+        50vw - 142px
+      )
+      10px;
   }
 
 
   .day {
-    flex-basis: 270px;
+    flex-basis: 284px;
 
-    width: 270px;
+    width: 284px;
 
     height:
       calc(
-        100% - 54px
+        100% - 34px
       );
 
-    min-height: 350px;
+    min-height: 330px;
 
     border-radius: 20px;
   }
@@ -1499,51 +1806,102 @@ main {
 
   .day-header {
     padding:
-      16px
-      16px
-      12px;
+      14px
+      15px
+      11px;
+  }
+
+
+  .label {
+    min-height: 15px;
+
+    font-size: 11px;
   }
 
 
   .date {
-    font-size: 25px;
+    margin:
+      5px
+      0
+      3px;
+
+    font-size: 24px;
   }
 
 
   .weekday {
-    font-size: 14px;
+    font-size: 13px;
   }
 
 
   .events {
     padding:
-      11px
-      11px
-      17px;
+      10px
+      10px
+      15px;
+
+    gap: 8px;
   }
 
 
   .event {
-    padding: 12px;
+    padding: 11px;
+
+    border-radius: 12px;
+  }
+
+
+  .event-topline {
+    margin-bottom: 7px;
+  }
+
+
+  .time {
+    font-size: 15px;
+  }
+
+
+  .channel {
+    font-size: 11px;
+  }
+
+
+  .event-title {
+    font-size: 16px;
   }
 
 
   .program-heading {
-    margin-bottom: 10px;
+    margin-bottom: 9px;
   }
 
 
   .program-icon {
-    width: 27px;
-
-    height: 27px;
+    width: 26px;
+    height: 26px;
 
     font-size: 14px;
   }
 
 
   .program-title {
-    font-size: 19px;
+    font-size: 18px;
+  }
+
+
+  .program-description {
+    font-size: 11px;
+  }
+
+
+  .day-scroll-indicator {
+    min-height: 24px;
+
+    padding:
+      6px
+      8px;
+
+    font-size: 8px;
   }
 
 
@@ -1551,147 +1909,147 @@ main {
     display: none;
   }
 
+
+  .hint {
+    min-height: 24px;
+
+    padding:
+      3px
+      0
+      6px;
+
+    font-size: 10px;
+  }
+
 }
+
 
 /* ==================================================
-   ALBEROTV - NUEVA CABECERA (FASE 1)
+   MÓVILES PEQUEÑOS
    ================================================== */
 
-.topbar{
-    height:110px;
-    padding:14px 40px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    gap:14px;
+@media (
+  max-width: 380px
+) {
+
+  .topbar {
+    height: 112px;
+  }
+
+
+  .brand {
+    font-size: 25px;
+  }
+
+
+  .category-pill {
+    min-height: 34px;
+
+    padding:
+      7px
+      11px;
+
+    font-size: 10px;
+  }
+
+
+  .main-content,
+  main {
+    height:
+      calc(
+        100dvh - 112px
+      );
+  }
+
+
+  .timeline {
+    padding-left:
+      calc(
+        50vw - 134px
+      );
+
+    padding-right:
+      calc(
+        50vw - 134px
+      );
+  }
+
+
+  .day {
+    flex-basis: 268px;
+
+    width: 268px;
+  }
+
+
+  .date {
+    font-size: 22px;
+  }
+
 }
 
-.brand{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-decoration:none;
-    line-height:1;
-}
 
-.brand-name{
-    font-size:42px;
-    font-weight:900;
-    font-style:italic;
-    color:#ffffff;
-    letter-spacing:-1px;
-}
+/* ==================================================
+   SAFARI / NAVEGADORES SIN 100DVH
+   ================================================== */
 
-.brand-tv{
-    margin-top:2px;
-    font-size:23px;
-    font-weight:900;
-    font-style:italic;
-    color:#59caff;
-    letter-spacing:4px;
+@supports not (
+  height: 100dvh
+) {
 
-    text-shadow:
-        0 0 8px rgba(89,202,255,.55),
-        0 0 18px rgba(89,202,255,.30);
-}
+  .main-content,
+  main {
+    height:
+      calc(
+        100vh - 82px
+      );
+  }
 
-.category-nav{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    overflow:hidden;
-}
 
-.category-list{
-    display:flex;
-    gap:10px;
-    overflow-x:auto;
-    scrollbar-width:none;
-}
+  @media (
+    max-height: 760px
+  ) and (
+    min-width: 801px
+  ) {
 
-.category-list::-webkit-scrollbar{
-    display:none;
-}
-
-.category-pill{
-
-    padding:6px 12px;
-
-    border-radius:999px;
-
-    font-size:11px;
-
-    font-weight:800;
-
-    font-style:italic;
-
-    white-space:nowrap;
-
-    color:white;
-
-    user-select:none;
-
-    cursor:default;
-
-    box-shadow:
-        0 3px 10px rgba(0,0,0,.18);
-
-    transition:
-        transform .18s,
-        opacity .18s;
-}
-
-.category-pill:hover{
-    transform:translateY(-1px);
-}
-
-.category-pill.corridas{
-    background:#e83e8c;
-}
-
-.category-pill.novilladas{
-    background:#f28c28;
-}
-
-.category-pill.rejones{
-    background:#8e44ad;
-}
-
-.category-pill.recortes{
-    background:#d63b3b;
-}
-
-.category-pill.programas{
-    background:#258bc4;
-}
-
-.category-pill.otros{
-    background:#60758a;
-}
-
-main{
-    height:calc(100vh - 110px);
-}
-
-@media(max-width:800px){
-
-    .topbar{
-        height:100px;
-        padding:12px 16px;
+    .main-content,
+    main {
+      height:
+        calc(
+          100vh - 72px
+        );
     }
 
-    .brand-name{
-        font-size:31px;
+  }
+
+
+  @media (
+    max-width: 800px
+  ) {
+
+    .main-content,
+    main {
+      height:
+        calc(
+          100vh - 118px
+        );
     }
 
-    .brand-tv{
-        font-size:18px;
+  }
+
+
+  @media (
+    max-width: 380px
+  ) {
+
+    .main-content,
+    main {
+      height:
+        calc(
+          100vh - 112px
+        );
     }
 
-    main{
-        height:calc(100vh - 100px);
-    }
+  }
 
 }
