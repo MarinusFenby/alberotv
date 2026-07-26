@@ -1,6 +1,6 @@
-
 const timeline = document.getElementById("timeline");
 const hint = document.getElementById("hint");
+const categoryList = document.getElementById("category-list");
 
 const months = [
   "enero",
@@ -101,6 +101,84 @@ function isProgram(event = {}) {
     normalizeText(event.contentType) === "programa" ||
     normalizeText(event.type).includes("programa taurino")
   );
+}
+
+
+/* ==================================================
+   CATEGORÍAS DE LA CABECERA
+   ================================================== */
+
+function getHeaderCategory(event = {}) {
+  if (isProgram(event)) {
+    return "programas";
+  }
+
+  const type = normalizeText(event.type);
+
+  if (
+    type.includes("rejones") ||
+    type.includes("rejoneo") ||
+    type.includes("rejoneadores")
+  ) {
+    return "rejones";
+  }
+
+  if (
+    type.includes("novillada") ||
+    type.includes("novillos")
+  ) {
+    return "novilladas";
+  }
+
+  if (
+    type.includes("recortes") ||
+    type.includes("recortadores") ||
+    type.includes("concurso de recortes")
+  ) {
+    return "recortes";
+  }
+
+  if (
+    type.includes("corrida") ||
+    type.includes("toros")
+  ) {
+    return "corridas";
+  }
+
+  return "otros";
+}
+
+
+function renderCategoryNavigation(events = []) {
+  if (!categoryList) {
+    return;
+  }
+
+  const categoryDefinitions = [
+    { key: "corridas", label: "CORRIDAS" },
+    { key: "novilladas", label: "NOVILLADAS" },
+    { key: "rejones", label: "REJONES" },
+    { key: "recortes", label: "RECORTES" },
+    { key: "programas", label: "PROGRAMAS" }
+  ];
+
+  const availableCategories = new Set(
+    events.map(getHeaderCategory)
+  );
+
+  const visibleCategories = categoryDefinitions.filter(
+    category => availableCategories.has(category.key)
+  );
+
+  categoryList.innerHTML = visibleCategories
+    .map(
+      category => `
+        <span class="category-pill ${category.key}">
+          ${category.label}
+        </span>
+      `
+    )
+    .join("");
 }
 
 
@@ -813,6 +891,8 @@ async function init() {
     console.log(
       `AlberoTV: ${events.length} elementos cargados`
     );
+
+    renderCategoryNavigation(events);
   } catch (error) {
     showLoadingError(error);
 
