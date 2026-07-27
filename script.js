@@ -860,13 +860,13 @@ function injectAlberoEnhancementStyles() {
   style.textContent = `
     .event-compact-header {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 14px;
+      grid-template-columns: minmax(0, 1fr) 72px;
+      align-items: start;
+      gap: 16px;
       width: 100%;
-      margin: 0 0 15px;
-      padding: 0 0 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+      margin: 0 0 16px;
+      padding: 0 0 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
     }
 
     .event-header-information {
@@ -875,13 +875,43 @@ function injectAlberoEnhancementStyles() {
 
     .event-header-channel {
       display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      align-self: center;
+      align-items: flex-start;
+      justify-content: center;
+      align-self: start;
     }
 
     .event-compact-header .event-topline {
       margin: 0;
+    }
+
+    .event-compact-header .time-local {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px 7px;
+    }
+
+    .event-compact-header .time-main {
+      font-size: 1.55rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.035em;
+    }
+
+    .event-compact-header .time-origin {
+      flex-basis: 100%;
+      margin-top: 4px;
+      color: rgba(255, 255, 255, 0.56);
+      font-size: 0.72rem;
+      font-weight: 650;
+      line-height: 1.2;
+    }
+
+    .event-compact-header .time-day-shift {
+      padding: 3px 6px;
+      border-radius: 999px;
+      font-size: 0.56rem;
+      line-height: 1;
     }
 
     .event-status {
@@ -890,15 +920,15 @@ function injectAlberoEnhancementStyles() {
       gap: 7px;
       width: fit-content;
       max-width: 100%;
-      margin: 7px 0 0;
+      margin: 9px 0 0;
       padding: 0;
       border: 0;
       border-radius: 0;
       background: transparent;
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 850;
       line-height: 1.2;
-      letter-spacing: 0.045em;
+      letter-spacing: 0.04em;
       white-space: nowrap;
     }
 
@@ -945,9 +975,9 @@ function injectAlberoEnhancementStyles() {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 46px;
-      height: 46px;
-      flex: 0 0 46px;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 50%;
@@ -1048,15 +1078,24 @@ function injectAlberoEnhancementStyles() {
 
     @media (max-width: 800px) {
       .event-compact-header {
-        gap: 11px;
+        grid-template-columns: minmax(0, 1fr) 64px;
+        gap: 12px;
         margin-bottom: 13px;
         padding-bottom: 12px;
       }
 
       .event-status {
-        margin-top: 6px;
-        font-size: 0.61rem;
+        margin-top: 7px;
+        font-size: 0.64rem;
         letter-spacing: 0.035em;
+      }
+
+      .event-compact-header .time-main {
+        font-size: 1.38rem;
+      }
+
+      .event-compact-header .time-origin {
+        font-size: 0.66rem;
       }
 
       .channel-logo-circle {
