@@ -1,3 +1,4 @@
+
 const timeline = document.getElementById("timeline");
 const hint = document.getElementById("hint");
 const categoryList = document.getElementById("category-list");
@@ -82,10 +83,31 @@ function escapeHtml(value = "") {
 
 
 function formatParticipants(participants = []) {
-  return participants
-    .filter(Boolean)
-    .map(escapeHtml)
-    .join(" · ");
+  if (Array.isArray(participants)) {
+    return participants
+      .filter(Boolean)
+      .map(escapeHtml)
+      .join(" · ");
+  }
+
+  if (
+    typeof participants === "string" ||
+    typeof participants === "number"
+  ) {
+    return escapeHtml(participants);
+  }
+
+  if (
+    participants &&
+    typeof participants === "object"
+  ) {
+    return Object.values(participants)
+      .filter(Boolean)
+      .map(escapeHtml)
+      .join(" · ");
+  }
+
+  return "";
 }
 
 
@@ -1013,6 +1035,14 @@ function injectAlberoEnhancementStyles() {
       margin: 12px 0 0 !important;
     }
 
+    .event-render-error {
+      border-color: rgba(255, 176, 82, 0.35) !important;
+    }
+
+    .event-render-error .people {
+      color: rgba(255, 255, 255, 0.58);
+    }
+
     .event-compact-header .event-topline {
       margin: 0;
     }
@@ -1676,11 +1706,42 @@ function buildBullfightingEvent(event) {
    ================================================== */
 
 function buildEvent(event) {
-  if (isProgram(event)) {
-    return buildProgram(event);
-  }
+  try {
+    if (isProgram(event)) {
+      return buildProgram(event);
+    }
 
-  return buildBullfightingEvent(event);
+    return buildBullfightingEvent(event);
+  } catch (error) {
+    console.error(
+      "AlberoTV: error renderizando un evento",
+      event,
+      error
+    );
+
+    return `
+      <article class="event bullfighting-event event-render-error">
+        <div class="event-content-stack">
+          <div class="event-type type-other">
+            FESTEJO TAURINO
+          </div>
+
+          <h2 class="event-title location-short">
+            ${escapeHtml(
+              event?.location ||
+              event?.name ||
+              event?.title ||
+              "Información temporalmente no disponible"
+            )}
+          </h2>
+
+          <div class="people pending">
+            Revisa los datos de este evento.
+          </div>
+        </div>
+      </article>
+    `;
+  }
 }
 
 
@@ -2135,13 +2196,28 @@ async function init() {
       offset
     );
 
-    timeline.appendChild(
-      buildDayCard(
-        date,
-        offset,
-        events
-      )
-    );
+    try {
+      timeline.appendChild(
+        buildDayCard(
+          date,
+          offset,
+          events
+        )
+      );
+    } catch (error) {
+      console.error(
+        `AlberoTV: error construyendo el día ${toLocalISO(date)}`,
+        error
+      );
+
+      timeline.appendChild(
+        buildDayCard(
+          date,
+          offset,
+          []
+        )
+      );
+    }
   }
 
   cards = [
@@ -2157,15 +2233,23 @@ async function init() {
     );
 
   requestAnimationFrame(() => {
-    if (todayCard) {
-      timeline.scrollLeft =
-        todayCard.offsetLeft -
-        timeline.clientWidth / 2 +
-        todayCard.offsetWidth / 2;
-    }
+    requestAnimationFrame(() => {
+      if (todayCard) {
+        const targetScrollLeft =
+          todayCard.offsetLeft -
+          timeline.clientWidth / 2 +
+          todayCard.offsetWidth / 2;
 
-    updateVisuals();
-    startTemporalStatusUpdates();
+        timeline.scrollLeft =
+          Math.max(
+            0,
+            targetScrollLeft
+          );
+      }
+
+      updateVisuals();
+      startTemporalStatusUpdates();
+    });
   });
 }
 
