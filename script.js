@@ -1524,9 +1524,6 @@ function buildProgram(event) {
     event.sourceUrl ||
     "";
 
-  const locationLengthClass =
-    getLocationLengthClass(location);
-
   return `
     <article class="event program-event">
 
@@ -1609,6 +1606,9 @@ function buildBullfightingEvent(event) {
     event.eventUrl ||
     event.sourceUrl ||
     "";
+
+  const locationLengthClass =
+    getLocationLengthClass(location);
 
   return `
     <article class="event bullfighting-event">
