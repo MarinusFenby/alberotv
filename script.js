@@ -746,6 +746,25 @@ function getChannelInitials(channelName = "") {
 }
 
 
+function getLocationLengthClass(location = "") {
+  const length = String(location).trim().length;
+
+  if (length >= 42) {
+    return "location-xlong";
+  }
+
+  if (length >= 28) {
+    return "location-long";
+  }
+
+  if (length >= 18) {
+    return "location-medium";
+  }
+
+  return "location-short";
+}
+
+
 function getChannelLogoMarkup(channelName = "") {
   const logo =
     getChannelLogoData(channelName);
@@ -776,14 +795,18 @@ function getChannelLogoMarkup(channelName = "") {
   return `
     <div class="channel-identity">
       <span
-      class="channel-logo-circle channel-logo-generic"
-      title="${escapeHtml(channelName)}"
-      aria-label="${escapeHtml(channelName)}"
-    >
-      <span class="channel-logo-fallback">
-        ${escapeHtml(getChannelInitials(channelName))}
+        class="channel-logo-circle channel-logo-generic"
+        title="${escapeHtml(channelName)}"
+        aria-label="${escapeHtml(channelName)}"
+      >
+        <span class="channel-logo-fallback">
+          ${escapeHtml(getChannelInitials(channelName))}
+        </span>
       </span>
-    </span>
+      <span class="channel-name">
+        ${escapeHtml(channelName)}
+      </span>
+    </div>
   `;
 }
 
@@ -864,8 +887,8 @@ function injectAlberoEnhancementStyles() {
       align-items: start;
       gap: 16px;
       width: 100%;
-      margin: 0 0 16px;
-      padding: 0 0 15px;
+      margin: 0 0 20px;
+      padding: 0 0 18px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.10);
     }
 
@@ -878,6 +901,116 @@ function injectAlberoEnhancementStyles() {
       align-items: flex-start;
       justify-content: center;
       align-self: start;
+    }
+
+    .channel-identity {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      min-width: 0;
+      text-align: center;
+    }
+
+    .channel-name {
+      display: block;
+      width: 100%;
+      margin-top: 6px;
+      color: rgba(255, 255, 255, 0.94);
+      font-size: 0.72rem;
+      font-weight: 750;
+      line-height: 1.1;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .bullfighting-event {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      grid-template-columns: none !important;
+    }
+
+    .bullfighting-event .event-compact-header {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+
+    .event-content-stack {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      grid-column: 1 / -1 !important;
+    }
+
+    .event-content-stack .event-type {
+      align-self: flex-start !important;
+      width: fit-content !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+    }
+
+    .event-content-stack .event-title {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      margin: 12px 0 0 !important;
+      padding: 0 !important;
+      align-self: stretch !important;
+      text-align: left !important;
+      line-height: 1.12 !important;
+      overflow-wrap: normal !important;
+      word-break: normal !important;
+      hyphens: none !important;
+      white-space: normal !important;
+    }
+
+    .event-content-stack .event-title.location-short {
+      font-size: clamp(1.35rem, 4.7vw, 1.75rem) !important;
+    }
+
+    .event-content-stack .event-title.location-medium {
+      font-size: clamp(1.20rem, 4.2vw, 1.55rem) !important;
+    }
+
+    .event-content-stack .event-title.location-long {
+      font-size: clamp(1.06rem, 3.7vw, 1.35rem) !important;
+      line-height: 1.15 !important;
+    }
+
+    .event-content-stack .event-title.location-xlong {
+      font-size: clamp(0.94rem, 3.35vw, 1.18rem) !important;
+      line-height: 1.18 !important;
+    }
+
+    .event-content-stack .people,
+    .event-content-stack .breeding {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      align-self: stretch !important;
+      text-align: left !important;
+      overflow-wrap: break-word !important;
+      word-break: normal !important;
+      hyphens: none !important;
+    }
+
+    .event-content-stack .people {
+      margin: 12px 0 0 !important;
+    }
+
+    .event-content-stack .breeding {
+      margin: 10px 0 0 !important;
+    }
+
+    .event-content-stack .event-link {
+      align-self: flex-start !important;
+      margin: 12px 0 0 !important;
     }
 
     .event-compact-header .event-topline {
@@ -1102,6 +1235,28 @@ function injectAlberoEnhancementStyles() {
         width: 42px;
         height: 42px;
         flex-basis: 42px;
+      }
+
+      .channel-name {
+        margin-top: 5px;
+        font-size: 0.66rem;
+        line-height: 1.08;
+      }
+
+      .event-content-stack .event-title {
+        margin-top: 10px !important;
+      }
+
+      .event-content-stack .people {
+        margin-top: 10px !important;
+      }
+
+      .event-content-stack .event-title.location-long {
+        font-size: clamp(1rem, 4.9vw, 1.22rem) !important;
+      }
+
+      .event-content-stack .event-title.location-xlong {
+        font-size: clamp(0.90rem, 4.45vw, 1.08rem) !important;
       }
 
       .channel-logo-unconfirmed {
@@ -1369,6 +1524,9 @@ function buildProgram(event) {
     event.sourceUrl ||
     "";
 
+  const locationLengthClass =
+    getLocationLengthClass(location);
+
   return `
     <article class="event program-event">
 
@@ -1457,52 +1615,56 @@ function buildBullfightingEvent(event) {
 
       ${buildEventHeaderMarkup(event)}
 
-      <div class="event-type ${typeClass}">
-        ${escapeHtml(type)}
+      <div class="event-content-stack">
+
+        <div class="event-type ${typeClass}">
+          ${escapeHtml(type)}
+        </div>
+
+        <h2 class="event-title ${locationLengthClass}">
+          ${escapeHtml(location)}
+        </h2>
+
+        ${
+          participants
+            ? `
+              <div class="people">
+                ${participants}
+              </div>
+            `
+            : `
+              <div class="people pending">
+                Cartel por confirmar
+              </div>
+            `
+        }
+
+        ${
+          breeding
+            ? `
+              <div class="breeding">
+                ${escapeHtml(breeding)}
+              </div>
+            `
+            : ""
+        }
+
+        ${
+          eventUrl
+            ? `
+              <a
+                class="event-link"
+                href="${escapeHtml(eventUrl)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Más información
+              </a>
+            `
+            : ""
+        }
+
       </div>
-
-      <h2 class="event-title">
-        ${escapeHtml(location)}
-      </h2>
-
-      ${
-        participants
-          ? `
-            <div class="people">
-              ${participants}
-            </div>
-          `
-          : `
-            <div class="people pending">
-              Cartel por confirmar
-            </div>
-          `
-      }
-
-      ${
-        breeding
-          ? `
-            <div class="breeding">
-              ${escapeHtml(breeding)}
-            </div>
-          `
-          : ""
-      }
-
-      ${
-        eventUrl
-          ? `
-            <a
-              class="event-link"
-              href="${escapeHtml(eventUrl)}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Más información
-            </a>
-          `
-          : ""
-      }
 
     </article>
   `;
