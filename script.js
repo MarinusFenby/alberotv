@@ -83,31 +83,10 @@ function escapeHtml(value = "") {
 
 
 function formatParticipants(participants = []) {
-  if (Array.isArray(participants)) {
-    return participants
-      .filter(Boolean)
-      .map(escapeHtml)
-      .join(" · ");
-  }
-
-  if (
-    typeof participants === "string" ||
-    typeof participants === "number"
-  ) {
-    return escapeHtml(participants);
-  }
-
-  if (
-    participants &&
-    typeof participants === "object"
-  ) {
-    return Object.values(participants)
-      .filter(Boolean)
-      .map(escapeHtml)
-      .join(" · ");
-  }
-
-  return "";
+  return participants
+    .filter(Boolean)
+    .map(escapeHtml)
+    .join(" · ");
 }
 
 
@@ -787,6 +766,156 @@ function getLocationLengthClass(location = "") {
 }
 
 
+
+const COUNTRY_PRESENTATIONS = {
+  ES: { name: "España", className: "country-es" },
+  FR: { name: "Francia", className: "country-fr" },
+  PT: { name: "Portugal", className: "country-pt" },
+  MX: { name: "México", className: "country-mx" },
+  CO: { name: "Colombia", className: "country-co" },
+  PE: { name: "Perú", className: "country-pe" },
+  EC: { name: "Ecuador", className: "country-ec" }
+};
+
+
+function getEventCountryCode(event = {}) {
+  const explicitCode =
+    String(
+      event.countryCode ||
+      event.country_code ||
+      ""
+    )
+      .trim()
+      .toUpperCase();
+
+  if (COUNTRY_PRESENTATIONS[explicitCode]) {
+    return explicitCode;
+  }
+
+  const searchableText =
+    normalizeText(
+      [
+        event.country,
+        event.location,
+        event.name,
+        event.title
+      ]
+        .filter(Boolean)
+        .join(" ")
+    );
+
+  const countryRules = [
+    {
+      code: "FR",
+      terms: [
+        "francia", "france", "nimes", "arles", "beziers",
+        "dax", "bayona", "bayonne", "mont de marsan",
+        "vic fezensac"
+      ]
+    },
+    {
+      code: "PT",
+      terms: [
+        "portugal", "lisboa", "santarem", "vilafranca de xira",
+        "vila franca de xira", "campo pequeno", "moita"
+      ]
+    },
+    {
+      code: "MX",
+      terms: [
+        "mexico", "aguascalientes", "guadalajara",
+        "queretaro", "tlaxcala", "zacatecas"
+      ]
+    },
+    {
+      code: "CO",
+      terms: [
+        "colombia", "bogota", "cali", "manizales", "medellin"
+      ]
+    },
+    {
+      code: "PE",
+      terms: [
+        "peru", "lima", "acho", "cajabamba"
+      ]
+    },
+    {
+      code: "EC",
+      terms: [
+        "ecuador", "quito", "riobamba", "latacunga"
+      ]
+    },
+    {
+      code: "ES",
+      terms: [
+        "espana"
+      ]
+    }
+  ];
+
+  for (const rule of countryRules) {
+    if (
+      rule.terms.some(term =>
+        searchableText.includes(
+          normalizeText(term)
+        )
+      )
+    ) {
+      return rule.code;
+    }
+  }
+
+  return "ES";
+}
+
+
+function buildCountryCornerMarkup(event = {}) {
+  const countryCode =
+    getEventCountryCode(event);
+
+  const presentation =
+    COUNTRY_PRESENTATIONS[countryCode];
+
+  if (!presentation) {
+    return "";
+  }
+
+  return `
+    <span
+      class="country-corner ${presentation.className}"
+      title="${escapeHtml(presentation.name)}"
+      aria-label="Evento en ${escapeHtml(presentation.name)}"
+    ></span>
+  `;
+}
+
+
+function buildPersonIconMarkup() {
+  return `
+    <span class="event-detail-icon person-detail-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <circle cx="12" cy="6.5" r="3.2"></circle>
+        <path d="M5.2 20c.35-5.1 2.8-8 6.8-8s6.45 2.9 6.8 8z"></path>
+      </svg>
+    </span>
+  `;
+}
+
+
+function buildBreedingIconMarkup() {
+  return `
+    <span class="event-detail-icon breeding-detail-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <path d="M4.2 7.8 1.8 5.3c-.4-.4-.15-1.1.42-1.13 2.2-.12 3.86.63 5.05 2.1A8.8 8.8 0 0 1 12 5c1.72 0 3.33.47 4.72 1.28 1.2-1.48 2.86-2.23 5.06-2.11.57.03.82.73.42 1.13l-2.4 2.5c.46.96.7 2.02.7 3.12 0 4.04-3.8 7.33-8.5 7.33s-8.5-3.29-8.5-7.33c0-1.1.24-2.16.7-3.12Z"></path>
+        <circle cx="9" cy="11" r="1"></circle>
+        <circle cx="15" cy="11" r="1"></circle>
+        <path d="M9.1 15.1c1.7 1.15 4.1 1.15 5.8 0"></path>
+      </svg>
+    </span>
+  `;
+}
+
+
 function getChannelLogoMarkup(channelName = "") {
   const logo =
     getChannelLogoData(channelName);
@@ -1035,12 +1164,137 @@ function injectAlberoEnhancementStyles() {
       margin: 12px 0 0 !important;
     }
 
-    .event-render-error {
-      border-color: rgba(255, 176, 82, 0.35) !important;
+
+    .event-content-stack {
+      position: relative !important;
     }
 
-    .event-render-error .people {
-      color: rgba(255, 255, 255, 0.58);
+    .country-corner {
+      position: absolute;
+      z-index: 3;
+      top: -1px;
+      right: 0;
+      width: 72px;
+      height: 72px;
+      clip-path: polygon(100% 0, 100% 100%, 0 0);
+      pointer-events: auto;
+      filter: saturate(1.05);
+    }
+
+    .country-corner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      clip-path: polygon(100% 0, 100% 100%, 0 0);
+      border-top: 1px solid rgba(255, 255, 255, 0.92);
+      border-right: 1px solid rgba(255, 255, 255, 0.92);
+      box-sizing: border-box;
+    }
+
+    .country-es {
+      background: linear-gradient(
+        135deg,
+        #c8102e 0 31%,
+        #ffcd00 31% 69%,
+        #c8102e 69% 100%
+      );
+    }
+
+    .country-fr {
+      background: linear-gradient(
+        135deg,
+        #0055a4 0 33.33%,
+        #ffffff 33.33% 66.66%,
+        #ef4135 66.66% 100%
+      );
+    }
+
+    .country-pt {
+      background: linear-gradient(
+        135deg,
+        #046a38 0 40%,
+        #da291c 40% 100%
+      );
+    }
+
+    .country-mx {
+      background: linear-gradient(
+        135deg,
+        #006847 0 33.33%,
+        #ffffff 33.33% 66.66%,
+        #ce1126 66.66% 100%
+      );
+    }
+
+    .country-co {
+      background: linear-gradient(
+        135deg,
+        #fcd116 0 50%,
+        #003893 50% 75%,
+        #ce1126 75% 100%
+      );
+    }
+
+    .country-pe {
+      background: linear-gradient(
+        135deg,
+        #d91023 0 33.33%,
+        #ffffff 33.33% 66.66%,
+        #d91023 66.66% 100%
+      );
+    }
+
+    .country-ec {
+      background: linear-gradient(
+        135deg,
+        #ffdd00 0 50%,
+        #034ea2 50% 75%,
+        #ed1c24 75% 100%
+      );
+    }
+
+    .event-detail-row {
+      display: grid !important;
+      grid-template-columns: 22px minmax(0, 1fr);
+      align-items: start;
+      gap: 9px;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .event-detail-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      margin-top: 1px;
+      color: #e83e8c;
+    }
+
+    .event-detail-icon svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      fill: currentColor;
+      stroke: currentColor;
+      stroke-width: 1.25;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .event-detail-row .people,
+    .event-detail-row .breeding {
+      margin: 0 !important;
+    }
+
+    .event-detail-row.participants-row {
+      margin-top: 12px;
+    }
+
+    .event-detail-row.breeding-row {
+      margin-top: 10px;
     }
 
     .event-compact-header .event-topline {
@@ -1271,6 +1525,22 @@ function injectAlberoEnhancementStyles() {
         margin-top: 5px;
         font-size: 0.66rem;
         line-height: 1.08;
+      }
+
+
+      .country-corner {
+        width: 58px;
+        height: 58px;
+      }
+
+      .event-detail-row {
+        grid-template-columns: 19px minmax(0, 1fr);
+        gap: 8px;
+      }
+
+      .event-detail-icon {
+        width: 18px;
+        height: 18px;
       }
 
       .event-content-stack .event-title {
@@ -1628,15 +1898,6 @@ function buildBullfightingEvent(event) {
     event.breeding ||
     "";
 
-  const channel =
-    event.channel ||
-    "Canal por confirmar";
-
-  const eventUrl =
-    event.eventUrl ||
-    event.sourceUrl ||
-    "";
-
   const locationLengthClass =
     getLocationLengthClass(location);
 
@@ -1647,6 +1908,8 @@ function buildBullfightingEvent(event) {
 
       <div class="event-content-stack">
 
+        ${buildCountryCornerMarkup(event)}
+
         <div class="event-type ${typeClass}">
           ${escapeHtml(type)}
         </div>
@@ -1655,41 +1918,35 @@ function buildBullfightingEvent(event) {
           ${escapeHtml(location)}
         </h2>
 
-        ${
-          participants
-            ? `
-              <div class="people">
-                ${participants}
-              </div>
-            `
-            : `
-              <div class="people pending">
-                Cartel por confirmar
-              </div>
-            `
-        }
+        <div class="event-detail-row participants-row">
+          ${buildPersonIconMarkup()}
+
+          ${
+            participants
+              ? `
+                <div class="people">
+                  ${participants}
+                </div>
+              `
+              : `
+                <div class="people pending">
+                  Cartel por confirmar
+                </div>
+              `
+          }
+        </div>
 
         ${
           breeding
             ? `
-              <div class="breeding">
-                ${escapeHtml(breeding)}
-              </div>
-            `
-            : ""
-        }
+              <div class="event-detail-row breeding-row">
+                ${buildBreedingIconMarkup()}
 
-        ${
-          eventUrl
-            ? `
-              <a
-                class="event-link"
-                href="${escapeHtml(eventUrl)}"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Más información
-              </a>
+                <div class="breeding">
+                  <strong>Ganadería:</strong>
+                  ${escapeHtml(breeding)}
+                </div>
+              </div>
             `
             : ""
         }
@@ -2196,28 +2453,13 @@ async function init() {
       offset
     );
 
-    try {
-      timeline.appendChild(
-        buildDayCard(
-          date,
-          offset,
-          events
-        )
-      );
-    } catch (error) {
-      console.error(
-        `AlberoTV: error construyendo el día ${toLocalISO(date)}`,
-        error
-      );
-
-      timeline.appendChild(
-        buildDayCard(
-          date,
-          offset,
-          []
-        )
-      );
-    }
+    timeline.appendChild(
+      buildDayCard(
+        date,
+        offset,
+        events
+      )
+    );
   }
 
   cards = [
@@ -2233,23 +2475,15 @@ async function init() {
     );
 
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      if (todayCard) {
-        const targetScrollLeft =
-          todayCard.offsetLeft -
-          timeline.clientWidth / 2 +
-          todayCard.offsetWidth / 2;
+    if (todayCard) {
+      timeline.scrollLeft =
+        todayCard.offsetLeft -
+        timeline.clientWidth / 2 +
+        todayCard.offsetWidth / 2;
+    }
 
-        timeline.scrollLeft =
-          Math.max(
-            0,
-            targetScrollLeft
-          );
-      }
-
-      updateVisuals();
-      startTemporalStatusUpdates();
-    });
+    updateVisuals();
+    startTemporalStatusUpdates();
   });
 }
 
