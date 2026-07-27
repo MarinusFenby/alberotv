@@ -905,12 +905,28 @@ function buildPersonIconMarkup(event = {}) {
   ) {
     return `
       <span class="event-detail-icon person-detail-icon event-icon-rejones" aria-hidden="true">
-        <svg viewBox="0 0 32 32" focusable="false">
-          <circle cx="11.5" cy="7" r="2.4"></circle>
-          <path d="M8.8 10.5c1.5-1.6 4.5-1.7 6.2-.2l2.3 2.1"></path>
-          <path d="M4 22c2.4-4.2 6.8-6.5 12.1-6.5 5 0 9.1 2 11.9 5.8-3.8-.8-7-.7-9.8.3-4.2 1.5-8.8 1.6-14.2.4Z"></path>
-          <path d="M8 21.5 6.8 28M22 21.5l1.3 6.5M15.2 15.8l-1.6 7"></path>
-          <path d="m18.5 12.2 6-5.8"></path>
+        <svg viewBox="0 0 48 48" focusable="false">
+          <circle cx="20" cy="9" r="3.4"></circle>
+          <path d="M16.2 13.2c2.1-2.2 6.1-2.3 8.4-.3l3.2 2.8 7.1-7.2 1.8 1.7-7.1 7.3 1.4 4.4-4.2 1.4-2.1-5.2-4.4-1.6Z"></path>
+          <path d="M5.2 32.3c3.3-6.9 10.1-10.5 18.3-10.5 7.6 0 13.7 3 18.2 8.9-5.4-1.1-10.1-.9-14.3.7-6 2.2-12.7 2.4-22.2.9Z"></path>
+          <path d="M10.8 31.8 8.8 43h4l2.2-10.1M33.2 31.6l2.2 11.4h4l-1.9-12M22.4 22.2l-2.8 12.6"></path>
+          <path d="M38.6 27.9c2.6.4 4.2 1.5 5.1 3.5-2.7-.1-4.9-.7-6.6-1.8Z"></path>
+        </svg>
+      </span>
+    `;
+  }
+
+  if (
+    type.includes("recortes") ||
+    type.includes("recortadores") ||
+    type.includes("concurso de recortes")
+  ) {
+    return `
+      <span class="event-detail-icon person-detail-icon event-icon-recortes" aria-hidden="true">
+        <svg viewBox="0 0 48 48" focusable="false">
+          <circle cx="30.5" cy="8.5" r="4"></circle>
+          <path d="m27.6 13-8.2 8.5 5.9 5.5 6.8-4.6"></path>
+          <path d="m19.4 21.5-9.5 2.8M25.3 27l-4.7 13M32.1 22.4l8 9.6"></path>
         </svg>
       </span>
     `;
@@ -918,15 +934,15 @@ function buildPersonIconMarkup(event = {}) {
 
   return `
     <span class="event-detail-icon person-detail-icon event-icon-torero" aria-hidden="true">
-      <svg viewBox="0 0 32 32" focusable="false">
-        <path d="M8 7.1c1.6-2.2 4.2-3.3 8-3.3s6.4 1.1 8 3.3c-1.8 1-4.4 1.5-8 1.5S9.8 8.1 8 7.1Z"></path>
-        <path d="M10.8 8.4h10.4v3.2c0 3.1-2.3 5.5-5.2 5.5s-5.2-2.4-5.2-5.5Z"></path>
-        <path d="M6.1 29c.4-6.8 2.4-10.7 6.5-12.2l3.4 3.2 3.4-3.2c4.1 1.5 6.1 5.4 6.5 12.2Z"></path>
-        <path d="m12.6 17 3.4 3 3.4-3M16 20v9"></path>
-        <circle cx="12.2" cy="23.3" r=".7"></circle>
-        <circle cx="19.8" cy="23.3" r=".7"></circle>
-        <circle cx="12.2" cy="26.2" r=".7"></circle>
-        <circle cx="19.8" cy="26.2" r=".7"></circle>
+      <svg viewBox="0 0 48 48" focusable="false">
+        <path d="M10.2 10.7C12.8 6.9 17.4 5 24 5s11.2 1.9 13.8 5.7c-3.1 1.6-7.7 2.4-13.8 2.4s-10.7-.8-13.8-2.4Z"></path>
+        <path d="M15 13h18v4.7c0 5.2-4 9.3-9 9.3s-9-4.1-9-9.3Z"></path>
+        <path d="M7.2 44c.7-10.9 4.1-17.2 11.1-19.7L24 29.8l5.7-5.5c7 2.5 10.4 8.8 11.1 19.7Z"></path>
+        <path d="m18.3 24.7 5.7 5.1 5.7-5.1M24 29.8V44"></path>
+        <circle cx="17.6" cy="34.3" r="1.1"></circle>
+        <circle cx="30.4" cy="34.3" r="1.1"></circle>
+        <circle cx="17.6" cy="39.2" r="1.1"></circle>
+        <circle cx="30.4" cy="39.2" r="1.1"></circle>
       </svg>
     </span>
   `;
@@ -936,14 +952,15 @@ function buildPersonIconMarkup(event = {}) {
 function buildBreedingIconMarkup(event = {}) {
   return `
     <span class="event-detail-icon breeding-detail-icon event-icon-bull" aria-hidden="true">
-      <svg viewBox="0 0 32 32" focusable="false">
-        <path d="M10.4 10.2C7.4 9.8 4.5 7.7 2.5 4.3c4.5-.2 7.8 1.2 9.5 4.2"></path>
-        <path d="M21.6 10.2c3-.4 5.9-2.5 7.9-5.9-4.5-.2-7.8 1.2-9.5 4.2"></path>
-        <path d="M9.5 9.8c1.4-2.4 3.6-3.7 6.5-3.7s5.1 1.3 6.5 3.7c1.2 2 1.5 4.5.8 7-.9 3.5-3.8 6.2-7.3 6.2s-6.4-2.7-7.3-6.2c-.7-2.5-.4-5 0.8-7Z"></path>
-        <path d="M11 13.2c1.2-1 2.8-1.5 5-1.5s3.8.5 5 1.5"></path>
-        <circle cx="12.3" cy="16" r="1"></circle>
-        <circle cx="19.7" cy="16" r="1"></circle>
-        <path d="M12.2 19.7c2.2 1.4 5.4 1.4 7.6 0"></path>
+      <svg viewBox="0 0 48 48" focusable="false">
+        <path d="M17.2 15.1C12.4 14.6 7.3 11 4 5.5c7.4-.4 12.8 2 15.6 7"></path>
+        <path d="M30.8 15.1C35.6 14.6 40.7 11 44 5.5c-7.4-.4-12.8 2-15.6 7"></path>
+        <path d="M15.7 14.4c2.4-3.9 5.2-5.7 8.3-5.7s5.9 1.8 8.3 5.7c2.1 3.4 2.6 7.4 1.5 11.6-1.5 5.9-5.5 10.2-9.8 10.2s-8.3-4.3-9.8-10.2c-1.1-4.2-.6-8.2 1.5-11.6Z"></path>
+        <path d="M17.5 20.1c1.8-1.5 4-2.2 6.5-2.2s4.7.7 6.5 2.2"></path>
+        <circle cx="19.1" cy="24.4" r="1.4"></circle>
+        <circle cx="28.9" cy="24.4" r="1.4"></circle>
+        <path d="M18.8 29.7c3.1 2 7.3 2 10.4 0"></path>
+        <path d="M18.2 35.4 16 43M29.8 35.4 32 43"></path>
       </svg>
     </span>
   `;
@@ -1125,6 +1142,40 @@ function addTodayButton() {
     "afterend",
     button
   );
+
+  updateTodayButtonState();
+}
+
+
+function updateTodayButtonState() {
+  const button =
+    document.getElementById(
+      "today-button"
+    );
+
+  if (!button) {
+    return;
+  }
+
+  const isToday =
+    activeCard?.dataset.offset === "0";
+
+  button.classList.toggle(
+    "is-today",
+    isToday
+  );
+
+  button.setAttribute(
+    "aria-pressed",
+    isToday
+      ? "true"
+      : "false"
+  );
+
+  button.title =
+    isToday
+      ? "Estás viendo el día de hoy"
+      : "Volver al día de hoy";
 }
 
 
@@ -1404,22 +1455,66 @@ function injectAlberoEnhancementStyles() {
       justify-content: center;
       gap: 7px;
       min-height: 36px;
-      padding: 8px 13px;
+      padding: 8px 14px;
       margin-left: 10px;
-      border: 1px solid rgba(105, 183, 255, 0.72);
+      border: 1px solid rgba(255, 224, 102, 0.72);
       border-radius: 10px;
-      background: rgba(9, 55, 96, 0.58);
-      color: #ffffff;
+      background: rgba(255, 230, 128, 0.42);
+      color: rgba(255, 248, 205, 0.92);
+      box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.14),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
       font: inherit;
       font-size: 0.78rem;
-      font-weight: 850;
+      font-weight: 900;
       line-height: 1;
       letter-spacing: 0.035em;
       cursor: pointer;
+      transition:
+        background 170ms ease,
+        color 170ms ease,
+        border-color 170ms ease,
+        box-shadow 170ms ease,
+        transform 170ms ease;
     }
 
     .today-button:hover {
-      background: rgba(16, 79, 132, 0.76);
+      transform: translateY(-1px);
+      background: rgba(255, 231, 128, 0.58);
+      border-color: rgba(255, 230, 118, 0.92);
+      color: #fff8cf;
+    }
+
+    .today-button.is-today {
+      background: linear-gradient(
+        180deg,
+        #fff3a0 0%,
+        #ffe46a 100%
+      );
+      border-color: #fff2a2;
+      color: #4a3900;
+      box-shadow:
+        0 0 0 1px rgba(255, 241, 149, 0.38),
+        0 0 18px rgba(255, 222, 73, 0.55),
+        0 7px 18px rgba(0, 0, 0, 0.20);
+    }
+
+    .today-button.is-today:hover {
+      background: linear-gradient(
+        180deg,
+        #fff7b9 0%,
+        #ffe977 100%
+      );
+      color: #3f3000;
+    }
+
+    .today-button:active {
+      transform: translateY(0);
+    }
+
+    .today-button:focus-visible {
+      outline: 3px solid rgba(255, 226, 91, 0.35);
+      outline-offset: 3px;
     }
 
     .today-button svg {
@@ -1445,9 +1540,9 @@ function injectAlberoEnhancementStyles() {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 20px;
-      height: 20px;
-      margin-top: 1px;
+      width: 22px;
+      height: 22px;
+      margin-top: 0;
       color: #e83e8c;
     }
 
@@ -2089,7 +2184,9 @@ function buildBullfightingEvent(event) {
 
   const breeding =
     String(event.breeding || "")
-      .replace(/^(?:ganader[ií]a\s*:\s*)+/i, "")
+      .replace(/&nbsp;/gi, " ")
+      .replace(/\u00a0/g, " ")
+      .replace(/^(?:\s*ganader[ií]a\s*[:\-–—]\s*)+/i, "")
       .trim();
 
   const locationLengthClass =
@@ -2504,6 +2601,7 @@ function updateVisuals() {
   });
 
   updateActiveCategories();
+  updateTodayButtonState();
 }
 
 
