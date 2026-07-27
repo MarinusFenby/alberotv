@@ -1171,22 +1171,22 @@ function injectAlberoEnhancementStyles() {
     .country-corner {
       position: absolute;
       z-index: 3;
-      top: -1px;
-      right: 0;
-      width: 54px;
-      height: 54px;
-      clip-path: polygon(100% 0, 100% 100%, 0 0);
-      pointer-events: auto;
-      filter: saturate(1.05);
+      top: 8px;
+      right: 8px;
+      width: 42px;
+      height: 42px;
+      clip-path: polygon(100% 0,100% 100%,0 0);
+      pointer-events: none;
+      filter: saturate(1.08);
     }
 
-    .country-corner::after {
-      content: none;
+    .country-corner::after{
+      display:none;
     }
 
     .country-es {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #c8102e 0 31%,
         #ffcd00 31% 69%,
         #c8102e 69% 100%
@@ -1195,7 +1195,7 @@ function injectAlberoEnhancementStyles() {
 
     .country-fr {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #0055a4 0 33.33%,
         #ffffff 33.33% 66.66%,
         #ef4135 66.66% 100%
@@ -1204,7 +1204,7 @@ function injectAlberoEnhancementStyles() {
 
     .country-pt {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #046a38 0 40%,
         #da291c 40% 100%
       );
@@ -1212,7 +1212,7 @@ function injectAlberoEnhancementStyles() {
 
     .country-mx {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #006847 0 33.33%,
         #ffffff 33.33% 66.66%,
         #ce1126 66.66% 100%
@@ -1221,7 +1221,7 @@ function injectAlberoEnhancementStyles() {
 
     .country-co {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #fcd116 0 50%,
         #003893 50% 75%,
         #ce1126 75% 100%
@@ -1230,7 +1230,7 @@ function injectAlberoEnhancementStyles() {
 
     .country-pe {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #d91023 0 33.33%,
         #ffffff 33.33% 66.66%,
         #d91023 66.66% 100%
@@ -1239,7 +1239,7 @@ function injectAlberoEnhancementStyles() {
 
     .country-ec {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #ffdd00 0 50%,
         #034ea2 50% 75%,
         #ed1c24 75% 100%
@@ -1522,8 +1522,10 @@ function injectAlberoEnhancementStyles() {
 
 
       .country-corner {
-        width: 46px;
-        height: 46px;
+        width: 34px;
+        height: 34px;
+        top: 6px;
+        right: 6px;
       }
 
       .event-detail-row {
@@ -3992,7 +3994,7 @@ function injectAlberoEnhancementStyles() {
 
     .country-es {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #c8102e 0 31%,
         #ffcd00 31% 69%,
         #c8102e 69% 100%
@@ -4001,7 +4003,7 @@ function injectAlberoEnhancementStyles() {
 
     .country-fr {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #0055a4 0 33.33%,
         #ffffff 33.33% 66.66%,
         #ef4135 66.66% 100%
@@ -4010,7 +4012,7 @@ function injectAlberoEnhancementStyles() {
 
     .country-pt {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #046a38 0 40%,
         #da291c 40% 100%
       );
@@ -4018,7 +4020,7 @@ function injectAlberoEnhancementStyles() {
 
     .country-mx {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #006847 0 33.33%,
         #ffffff 33.33% 66.66%,
         #ce1126 66.66% 100%
@@ -4027,7 +4029,7 @@ function injectAlberoEnhancementStyles() {
 
     .country-co {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #fcd116 0 50%,
         #003893 50% 75%,
         #ce1126 75% 100%
@@ -4036,7 +4038,7 @@ function injectAlberoEnhancementStyles() {
 
     .country-pe {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #d91023 0 33.33%,
         #ffffff 33.33% 66.66%,
         #d91023 66.66% 100%
@@ -4045,7 +4047,7 @@ function injectAlberoEnhancementStyles() {
 
     .country-ec {
       background: linear-gradient(
-        45deg,
+        -45deg,
         #ffdd00 0 50%,
         #034ea2 50% 75%,
         #ed1c24 75% 100%
