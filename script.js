@@ -889,26 +889,108 @@ function buildCountryCornerMarkup(event = {}) {
 }
 
 
-function buildPersonIconMarkup() {
+function getEventIconVariant(event = {}) {
+  const type = normalizeText(event.type);
+
+  if (
+    type.includes("rejones") ||
+    type.includes("rejoneo") ||
+    type.includes("rejoneadores")
+  ) {
+    return "rejones";
+  }
+
+  if (
+    type.includes("recortes") ||
+    type.includes("recortadores") ||
+    type.includes("concurso de recortes")
+  ) {
+    return "recortes";
+  }
+
+  if (
+    type.includes("novillada") ||
+    type.includes("novillos")
+  ) {
+    return "novillada";
+  }
+
+  if (
+    type.includes("tentadero") ||
+    type.includes("tienta") ||
+    type.includes("clase practica")
+  ) {
+    return "tentadero";
+  }
+
+  return "corrida";
+}
+
+
+function buildPersonIconMarkup(event = {}) {
+  const variant = getEventIconVariant(event);
+
+  if (variant === "rejones") {
+    return `
+      <span class="event-detail-icon person-detail-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false">
+          <circle cx="12.2" cy="5.2" r="2.1"></circle>
+          <path d="M9.2 11.3c1.2-2.2 4.8-2.4 6.2-.2l1.7 2.8"></path>
+          <path d="M3.1 16.8c2.9-2.6 6.3-3.8 10.2-3.4 3.1.3 5.7 1.6 7.6 3.8"></path>
+          <path d="M5.3 17.1 4 21M17.9 17.5l1.2 3.5M10.6 13.4l-1.4 4.2"></path>
+        </svg>
+      </span>
+    `;
+  }
+
+  if (variant === "recortes") {
+    return `
+      <span class="event-detail-icon person-detail-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false">
+          <circle cx="14.8" cy="4.6" r="2.2"></circle>
+          <path d="M13 7.4 9.5 11l3 2.8 3.2-2.1"></path>
+          <path d="m9.5 11-4.3 1.2M12.5 13.8l-2 6M15.7 11.7l3.6 4.4"></path>
+        </svg>
+      </span>
+    `;
+  }
+
+  if (variant === "tentadero") {
+    return `
+      <span class="event-detail-icon person-detail-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false">
+          <circle cx="9.5" cy="5.3" r="2.3"></circle>
+          <path d="M7.2 8.4c1.4-1.4 4-1.4 5.4.1l1.6 2.2"></path>
+          <path d="M13.7 10.1c3.2.3 5.5 2 6.4 5.1-3.4-.8-6.1-2.5-8.1-5"></path>
+          <path d="M8.7 10.3 7 18.8M11.2 10.8l1.1 8"></path>
+        </svg>
+      </span>
+    `;
+  }
+
   return `
     <span class="event-detail-icon person-detail-icon" aria-hidden="true">
       <svg viewBox="0 0 24 24" focusable="false">
-        <circle cx="12" cy="6.5" r="3.2"></circle>
-        <path d="M5.2 20c.35-5.1 2.8-8 6.8-8s6.45 2.9 6.8 8z"></path>
+        <path d="M8.1 5.2c1.2-1.7 6.6-1.7 7.8 0-.8 1.1-2.2 1.8-3.9 1.8s-3.1-.7-3.9-1.8Z"></path>
+        <circle cx="12" cy="8.6" r="2.4"></circle>
+        <path d="M6.3 20c.4-5.1 2.4-7.9 5.7-7.9s5.3 2.8 5.7 7.9Z"></path>
       </svg>
     </span>
   `;
 }
 
 
-function buildBreedingIconMarkup() {
+function buildBreedingIconMarkup(event = {}) {
   return `
     <span class="event-detail-icon breeding-detail-icon" aria-hidden="true">
       <svg viewBox="0 0 24 24" focusable="false">
-        <path d="M4.2 7.8 1.8 5.3c-.4-.4-.15-1.1.42-1.13 2.2-.12 3.86.63 5.05 2.1A8.8 8.8 0 0 1 12 5c1.72 0 3.33.47 4.72 1.28 1.2-1.48 2.86-2.23 5.06-2.11.57.03.82.73.42 1.13l-2.4 2.5c.46.96.7 2.02.7 3.12 0 4.04-3.8 7.33-8.5 7.33s-8.5-3.29-8.5-7.33c0-1.1.24-2.16.7-3.12Z"></path>
-        <circle cx="9" cy="11" r="1"></circle>
-        <circle cx="15" cy="11" r="1"></circle>
-        <path d="M9.1 15.1c1.7 1.15 4.1 1.15 5.8 0"></path>
+        <path d="M7.2 8.1C5.2 7.7 3.4 6.4 2.2 4.3c3-.1 5.2.7 6.6 2.4"></path>
+        <path d="M16.8 8.1c2-.4 3.8-1.7 5-3.8-3-.1-5.2.7-6.6 2.4"></path>
+        <path d="M6.5 8.3c1.2-2 3.1-3 5.5-3s4.3 1 5.5 3c1 1.5 1.2 3.4.8 5.3-.7 3.1-3.1 5.3-6.3 5.3s-5.6-2.2-6.3-5.3c-.4-1.9-.2-3.8.8-5.3Z"></path>
+        <path d="M8.2 9.7c.9-.8 2.1-1.2 3.8-1.2s2.9.4 3.8 1.2"></path>
+        <circle cx="9.2" cy="12" r=".8"></circle>
+        <circle cx="14.8" cy="12" r=".8"></circle>
+        <path d="M9.2 15.4c1.7 1.1 3.9 1.1 5.6 0"></path>
       </svg>
     </span>
   `;
@@ -1891,8 +1973,9 @@ function buildBullfightingEvent(event) {
     );
 
   const breeding =
-    event.breeding ||
-    "";
+    String(event.breeding || "")
+      .replace(/^ganader[ií]a\s*:\s*/i, "")
+      .trim();
 
   const locationLengthClass =
     getLocationLengthClass(location);
@@ -1915,7 +1998,7 @@ function buildBullfightingEvent(event) {
         </h2>
 
         <div class="event-detail-row participants-row">
-          ${buildPersonIconMarkup()}
+          ${buildPersonIconMarkup(event)}
 
           ${
             participants
@@ -1936,7 +2019,7 @@ function buildBullfightingEvent(event) {
           breeding
             ? `
               <div class="event-detail-row breeding-row">
-                ${buildBreedingIconMarkup()}
+                ${buildBreedingIconMarkup(event)}
 
                 <div class="breeding">
                   <strong>Ganadería:</strong>
