@@ -752,7 +752,8 @@ function getChannelLogoMarkup(channelName = "") {
 
   if (logo) {
     return `
-      <span
+      <div class="channel-identity">
+        <span
         class="channel-logo-circle"
         title="${escapeHtml(logo.alt)}"
         aria-label="${escapeHtml(logo.alt)}"
@@ -767,11 +768,14 @@ function getChannelLogoMarkup(channelName = "") {
           ${escapeHtml(getChannelInitials(logo.alt))}
         </span>
       </span>
+      <span class="channel-name">${escapeHtml(logo.alt)}</span>
+      </div>
     `;
   }
 
   return `
-    <span
+    <div class="channel-identity">
+      <span
       class="channel-logo-circle channel-logo-generic"
       title="${escapeHtml(channelName)}"
       aria-label="${escapeHtml(channelName)}"
