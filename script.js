@@ -1,3 +1,4 @@
+
 const timeline = document.getElementById("timeline");
 const hint = document.getElementById("hint");
 const categoryList = document.getElementById("category-list");
@@ -889,7 +890,12 @@ function buildCountryCornerMarkup(event = {}) {
 }
 
 
-function getEventIconVariant(event = {}) {
+function getEventAccentClass(event = {}) {
+  return getTypeClass(event.type || "");
+}
+
+
+function buildPersonIconMarkup(event = {}) {
   const type = normalizeText(event.type);
 
   if (
@@ -897,80 +903,30 @@ function getEventIconVariant(event = {}) {
     type.includes("rejoneo") ||
     type.includes("rejoneadores")
   ) {
-    return "rejones";
-  }
-
-  if (
-    type.includes("recortes") ||
-    type.includes("recortadores") ||
-    type.includes("concurso de recortes")
-  ) {
-    return "recortes";
-  }
-
-  if (
-    type.includes("novillada") ||
-    type.includes("novillos")
-  ) {
-    return "novillada";
-  }
-
-  if (type.includes("festival")) {
-    return "festival";
-  }
-
-  if (
-    type.includes("tentadero") ||
-    type.includes("tienta") ||
-    type.includes("clase practica")
-  ) {
-    return "tentadero";
-  }
-
-  return "corrida";
-}
-
-
-function buildPersonIconMarkup(event = {}) {
-  const variant = getEventIconVariant(event);
-
-  if (variant === "rejones") {
     return `
-      <span class="event-detail-icon person-detail-icon icon-rejoneador" aria-hidden="true">
+      <span class="event-detail-icon person-detail-icon event-icon-rejones" aria-hidden="true">
         <svg viewBox="0 0 32 32" focusable="false">
-          <circle cx="12.2" cy="7" r="2.5"></circle>
-          <path d="M9.4 10.2c1.5-1.5 4.2-1.6 5.9-.2l2.4 2"></path>
-          <path d="M4 21.7c2.4-4.1 6.8-6.4 12.2-6.4 5.1 0 9.1 2 11.8 5.8-3.5-.8-6.6-.8-9.5.2-4.2 1.5-8.8 1.6-14.5.4Z"></path>
-          <path d="M8.2 21.2 6.8 28M22 21.2l1.4 6.8M15.5 15.6l-1.8 7.1"></path>
-          <path d="m18.4 12.1 6.1-5.9"></path>
-        </svg>
-      </span>
-    `;
-  }
-
-  if (variant === "recortes") {
-    return `
-      <span class="event-detail-icon person-detail-icon icon-recortador" aria-hidden="true">
-        <svg viewBox="0 0 32 32" focusable="false">
-          <circle cx="20.5" cy="5.5" r="3"></circle>
-          <path d="m18.3 9.2-5.6 5.7 4 4 4.5-3.2"></path>
-          <path d="m12.7 14.9-6.1 1.8M16.7 18.9l-3 8.4M21.2 15.7l5.2 6.3"></path>
+          <circle cx="11.5" cy="7" r="2.4"></circle>
+          <path d="M8.8 10.5c1.5-1.6 4.5-1.7 6.2-.2l2.3 2.1"></path>
+          <path d="M4 22c2.4-4.2 6.8-6.5 12.1-6.5 5 0 9.1 2 11.9 5.8-3.8-.8-7-.7-9.8.3-4.2 1.5-8.8 1.6-14.2.4Z"></path>
+          <path d="M8 21.5 6.8 28M22 21.5l1.3 6.5M15.2 15.8l-1.6 7"></path>
+          <path d="m18.5 12.2 6-5.8"></path>
         </svg>
       </span>
     `;
   }
 
   return `
-    <span class="event-detail-icon person-detail-icon icon-torero" aria-hidden="true">
+    <span class="event-detail-icon person-detail-icon event-icon-torero" aria-hidden="true">
       <svg viewBox="0 0 32 32" focusable="false">
-        <path d="M8.2 7.3c1.5-2.1 4.1-3.3 7.8-3.3s6.3 1.2 7.8 3.3c-1.7.9-4.2 1.4-7.8 1.4s-6.1-.5-7.8-1.4Z"></path>
-        <path d="M10.8 8.3h10.4v3.1c0 3.1-2.3 5.5-5.2 5.5s-5.2-2.4-5.2-5.5Z"></path>
-        <path d="M6.2 29c.4-6.8 2.3-10.7 6.4-12.2l3.4 3.2 3.4-3.2c4.1 1.5 6 5.4 6.4 12.2Z"></path>
-        <path d="m12.7 17 3.3 3 3.3-3M16 20v9"></path>
-        <circle cx="12.2" cy="23.2" r=".8"></circle>
-        <circle cx="19.8" cy="23.2" r=".8"></circle>
-        <circle cx="12.2" cy="26.2" r=".8"></circle>
-        <circle cx="19.8" cy="26.2" r=".8"></circle>
+        <path d="M8 7.1c1.6-2.2 4.2-3.3 8-3.3s6.4 1.1 8 3.3c-1.8 1-4.4 1.5-8 1.5S9.8 8.1 8 7.1Z"></path>
+        <path d="M10.8 8.4h10.4v3.2c0 3.1-2.3 5.5-5.2 5.5s-5.2-2.4-5.2-5.5Z"></path>
+        <path d="M6.1 29c.4-6.8 2.4-10.7 6.5-12.2l3.4 3.2 3.4-3.2c4.1 1.5 6.1 5.4 6.5 12.2Z"></path>
+        <path d="m12.6 17 3.4 3 3.4-3M16 20v9"></path>
+        <circle cx="12.2" cy="23.3" r=".7"></circle>
+        <circle cx="19.8" cy="23.3" r=".7"></circle>
+        <circle cx="12.2" cy="26.2" r=".7"></circle>
+        <circle cx="19.8" cy="26.2" r=".7"></circle>
       </svg>
     </span>
   `;
@@ -979,15 +935,15 @@ function buildPersonIconMarkup(event = {}) {
 
 function buildBreedingIconMarkup(event = {}) {
   return `
-    <span class="event-detail-icon breeding-detail-icon icon-toro" aria-hidden="true">
+    <span class="event-detail-icon breeding-detail-icon event-icon-bull" aria-hidden="true">
       <svg viewBox="0 0 32 32" focusable="false">
-        <path d="M10.2 10.3C7.4 10 4.5 7.9 2.6 4.5c4.4-.2 7.7 1.2 9.3 4.2"></path>
-        <path d="M21.8 10.3c2.8-.3 5.7-2.4 7.6-5.8-4.4-.2-7.7 1.2-9.3 4.2"></path>
-        <path d="M9.5 9.7c1.4-2.3 3.6-3.6 6.5-3.6s5.1 1.3 6.5 3.6c1.2 2 1.5 4.4.8 6.9-.9 3.5-3.8 6.2-7.3 6.2s-6.4-2.7-7.3-6.2c-.7-2.5-.4-4.9.8-6.9Z"></path>
+        <path d="M10.4 10.2C7.4 9.8 4.5 7.7 2.5 4.3c4.5-.2 7.8 1.2 9.5 4.2"></path>
+        <path d="M21.6 10.2c3-.4 5.9-2.5 7.9-5.9-4.5-.2-7.8 1.2-9.5 4.2"></path>
+        <path d="M9.5 9.8c1.4-2.4 3.6-3.7 6.5-3.7s5.1 1.3 6.5 3.7c1.2 2 1.5 4.5.8 7-.9 3.5-3.8 6.2-7.3 6.2s-6.4-2.7-7.3-6.2c-.7-2.5-.4-5 0.8-7Z"></path>
         <path d="M11 13.2c1.2-1 2.8-1.5 5-1.5s3.8.5 5 1.5"></path>
-        <circle cx="12.4" cy="15.9" r="1"></circle>
-        <circle cx="19.6" cy="15.9" r="1"></circle>
-        <path d="M12.1 19.6c2.3 1.5 5.5 1.5 7.8 0"></path>
+        <circle cx="12.3" cy="16" r="1"></circle>
+        <circle cx="19.7" cy="16" r="1"></circle>
+        <path d="M12.2 19.7c2.2 1.4 5.4 1.4 7.6 0"></path>
       </svg>
     </span>
   `;
@@ -1096,10 +1052,6 @@ function buildEventHeaderMarkup(event = {}) {
 
 function scrollToToday() {
   const todayCard =
-    cards.find(
-      card =>
-        card.dataset.offset === "0"
-    ) ||
     document.querySelector(
       '.day[data-offset="0"]'
     );
@@ -1107,13 +1059,6 @@ function scrollToToday() {
   if (!todayCard || !timeline) {
     return;
   }
-
-  todayCard
-    .querySelector(".events")
-    ?.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
 
   timeline.scrollTo({
     left:
@@ -1123,16 +1068,30 @@ function scrollToToday() {
     behavior: "smooth"
   });
 
-  hint?.classList.add("hidden");
+  todayCard
+    .querySelector(".events")
+    ?.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
 }
 
 
-function createTodayButton() {
+function addTodayButton() {
   if (
     document.getElementById(
-      "alberotv-today-button"
+      "today-button"
     )
   ) {
+    return;
+  }
+
+  const brand =
+    document.querySelector(
+      ".topbar .brand"
+    );
+
+  if (!brand) {
     return;
   }
 
@@ -1140,21 +1099,16 @@ function createTodayButton() {
     document.createElement("button");
 
   button.id =
-    "alberotv-today-button";
+    "today-button";
 
   button.className =
-    "alberotv-today-button";
+    "today-button";
 
   button.type =
     "button";
 
-  button.setAttribute(
-    "aria-label",
-    "Volver al día de hoy"
-  );
-
   button.innerHTML = `
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
       <rect x="3.5" y="5.5" width="17" height="15" rx="2.5"></rect>
       <path d="M7.5 3.5v4M16.5 3.5v4M3.5 10h17"></path>
       <path d="M8 13.5h.01M12 13.5h.01M16 13.5h.01M8 17h.01M12 17h.01"></path>
@@ -1167,33 +1121,8 @@ function createTodayButton() {
     scrollToToday
   );
 
-  const brand =
-    document.querySelector(
-      "#logo, .site-logo, .brand-logo, .brand, .site-brand, .topbar-title, header h1, header .logo"
-    );
-
-  if (brand) {
-    const host =
-      brand.parentElement ||
-      brand;
-
-    host.classList.add(
-      "alberotv-brand-actions"
-    );
-
-    brand.insertAdjacentElement(
-      "afterend",
-      button
-    );
-
-    return;
-  }
-
-  button.classList.add(
-    "alberotv-today-button-fallback"
-  );
-
-  document.body.appendChild(
+  brand.insertAdjacentElement(
+    "afterend",
     button
   );
 }
@@ -1469,70 +1398,38 @@ function injectAlberoEnhancementStyles() {
       color: var(--event-accent) !important;
     }
 
-    .alberotv-brand-actions {
-      display: flex !important;
-      align-items: center !important;
-      gap: 10px !important;
-    }
-
-    .alberotv-today-button {
+    .today-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 7px;
       min-height: 36px;
       padding: 8px 13px;
-      border: 1px solid rgba(105, 183, 255, 0.7);
+      margin-left: 10px;
+      border: 1px solid rgba(105, 183, 255, 0.72);
       border-radius: 10px;
       background: rgba(9, 55, 96, 0.58);
       color: #ffffff;
-      box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.14),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
       font: inherit;
       font-size: 0.78rem;
       font-weight: 850;
       line-height: 1;
       letter-spacing: 0.035em;
       cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      transition:
-        transform 160ms ease,
-        background 160ms ease,
-        border-color 160ms ease;
     }
 
-    .alberotv-today-button:hover {
-      transform: translateY(-1px);
-      border-color: rgba(132, 202, 255, 0.95);
+    .today-button:hover {
       background: rgba(16, 79, 132, 0.76);
     }
 
-    .alberotv-today-button:active {
-      transform: translateY(0);
-    }
-
-    .alberotv-today-button:focus-visible {
-      outline: 3px solid rgba(101, 183, 255, 0.38);
-      outline-offset: 3px;
-    }
-
-    .alberotv-today-button svg {
+    .today-button svg {
       width: 18px;
       height: 18px;
-      flex: 0 0 18px;
       fill: none;
       stroke: currentColor;
       stroke-width: 1.8;
       stroke-linecap: round;
       stroke-linejoin: round;
-    }
-
-    .alberotv-today-button-fallback {
-      position: fixed;
-      z-index: 999;
-      top: 12px;
-      left: 12px;
     }
 
     .event-detail-row {
@@ -1561,15 +1458,9 @@ function injectAlberoEnhancementStyles() {
       overflow: visible;
       fill: currentColor;
       stroke: currentColor;
-      stroke-width: 1.15;
+      stroke-width: 1.25;
       stroke-linecap: round;
       stroke-linejoin: round;
-    }
-
-    .icon-torero,
-    .icon-toro {
-      width: 22px;
-      height: 22px;
     }
 
     .event-detail-row .people,
@@ -1782,21 +1673,16 @@ function injectAlberoEnhancementStyles() {
     }
 
     @media (max-width: 800px) {
-      .alberotv-brand-actions {
-        gap: 7px !important;
-      }
-
-      .alberotv-today-button {
+      .today-button {
         min-height: 32px;
         padding: 7px 10px;
-        border-radius: 9px;
+        margin-left: 7px;
         font-size: 0.70rem;
       }
 
-      .alberotv-today-button svg {
+      .today-button svg {
         width: 16px;
         height: 16px;
-        flex-basis: 16px;
       }
 
       .event-compact-header {
@@ -2718,7 +2604,6 @@ function showLoadingError(error) {
 
 async function init() {
   injectAlberoEnhancementStyles();
-  createTodayButton();
 
   let events = [];
 
@@ -2793,6 +2678,7 @@ async function init() {
 
     updateVisuals();
     startTemporalStatusUpdates();
+    addTodayButton();
   });
 }
 
