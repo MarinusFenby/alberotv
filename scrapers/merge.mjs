@@ -3,7 +3,7 @@ import path from "node:path";
 
 const DATA_DIR = "data";
 const OUTPUT_FILE = path.join(DATA_DIR, "programacion.json");
-const BACKUP_DIR = path.join(DATA_DIR, "backups");
+const HISTORY_FILE = path.join(DATA_DIR, "historico.json");
 
 const SOURCE_FILES = {
   elMuletazo: path.join(DATA_DIR, "elmuletazo.json"),
@@ -23,6 +23,7 @@ const SOURCE_LABELS = {
 
 const SOURCE_CONFIDENCE = {
   "Canal Sur": 98,
+  "Canal Extremadura": 98,
   OneToro: 96,
   "El Muletazo": 90,
   "Programas taurinos": 88,
@@ -53,7 +54,16 @@ function cleanName(name = "") {
 }
 
 function cleanBreeding(value = "") {
-  return cleanName(String(value).replace(/^ganader[ií]a\s*:\s*/i, ""));
+  const cleaned = cleanName(String(value).replace(/^ganader[ií]a\s*:\s*/i, ""));
+
+  if (
+    cleaned.length > 220 ||
+    /servicio gratis|me gusta responder|comentarios?|pulsa aqu[ií]/i.test(cleaned)
+  ) {
+    return "";
+  }
+
+  return cleaned;
 }
 
 function cleanParticipants(values) {
@@ -72,6 +82,7 @@ function normalizeChannel(channel = "") {
   const aliases = [
     [/^onetoro$|^one toro$/, "OneToro"],
     [/canal sur/, "Canal Sur"],
+    [/canal extremadura|extremadura tv|extremadura television/, "Canal Extremadura"],
     [/telemadrid/, "Telemadrid"],
     [/castilla la mancha|cmmedia|^cmm$/, "CMM"],
     [/castilla y leon|la 7 cyl|^cyltv$/, "La 7 CyL"],
@@ -92,12 +103,21 @@ function normalizeType(type = "") {
   if (!value) return "Festejo taurino";
   if (value.includes("programa")) return "Programa taurino";
   if (value.includes("rejones") || value.includes("rejoneo")) return "Rejones";
-  if (value.includes("novillada") && value.includes("sin picadores")) return "Novillada sin picadores";
-  if (value.includes("novillada") && value.includes("picadores")) return "Novillada con picadores";
+  if (
+    value.includes("novillada") &&
+    (value.includes("sin picadores") || value.includes("sin caballos"))
+  ) {
+    return "Novillada sin picadores";
+  }
+  if (value.includes("novillada") && value.includes("picadores")) {
+    return "Novillada con picadores";
+  }
   if (value.includes("novillada")) return "Novillada";
   if (value.includes("corrida") && value.includes("mixta")) return "Corrida mixta";
   if (value.includes("corrida")) return "Corrida de toros";
-  if (value.includes("recortadores")) return "Concurso de recortadores";
+  if (value.includes("recortadores") || value.includes("recortes")) {
+    return "Concurso de recortadores";
+  }
 
   return cleanName(type);
 }
@@ -121,7 +141,6 @@ function similarity(a = "", b = "") {
 
   return matches / Math.max(aWords.size, bWords.size);
 }
-
 
 function levenshteinDistance(first = "", second = "") {
   const a = normalizeText(first);
@@ -284,11 +303,6 @@ function eventMatchScore(first, second) {
     isGenericLabel(second.name) ||
     isGenericLabel(second.title);
 
-  /*
-   * Caso típico CMM:
-   * una entrada genérica "Televisión" y otra entrada enriquecida,
-   * con la misma fecha, canal y hora.
-   */
   if (
     first.contentType === "festejo" &&
     sameChannel &&
@@ -298,10 +312,6 @@ function eventMatchScore(first, second) {
     return 96;
   }
 
-  /*
-   * Caso típico OneToro:
-   * "Abiul (Portugal)" con hora y "Abiú" con hora por confirmar.
-   */
   if (
     first.contentType === "festejo" &&
     sameChannel &&
@@ -318,9 +328,7 @@ function eventMatchScore(first, second) {
 
   score += timeCloseness(first.time, second.time) * 7;
   score += participantSimilarity(first.participants, second.participants) * 7;
-
-  const breedingScore = fuzzyTextSimilarity(first.breeding, second.breeding);
-  score += breedingScore * 3;
+  score += fuzzyTextSimilarity(first.breeding, second.breeding) * 3;
 
   return Math.round(score * 100) / 100;
 }
@@ -368,9 +376,11 @@ function uniqueSourceDetails(details = []) {
 }
 
 function normalizeGenericEvent(event, sourceName, fetchedAt = null) {
-  const contentType = event.contentType === "programa" || normalizeType(event.type) === "Programa taurino"
-    ? "programa"
-    : "festejo";
+  const contentType =
+    event.contentType === "programa" ||
+    normalizeType(event.type) === "Programa taurino"
+      ? "programa"
+      : "festejo";
 
   const normalized = {
     id: event.id || null,
@@ -378,20 +388,37 @@ function normalizeGenericEvent(event, sourceName, fetchedAt = null) {
     time: event.time || null,
     channel: normalizeChannel(event.channel || sourceName),
     location: cleanName(event.location || event.name || "Televisión"),
-    type: contentType === "programa"
-      ? "Programa taurino"
-      : normalizeType(event.type),
+    type:
+      contentType === "programa"
+        ? "Programa taurino"
+        : normalizeType(event.type),
     contentType,
-    breeding: contentType === "programa" ? "" : cleanBreeding(event.breeding),
-    participants: contentType === "programa" ? [] : cleanParticipants(event.participants),
-    name: cleanName(event.name || event.title || event.location || event.type || "Festejo taurino"),
+    breeding:
+      contentType === "programa"
+        ? ""
+        : cleanBreeding(event.breeding),
+    participants:
+      contentType === "programa"
+        ? []
+        : cleanParticipants(event.participants),
+    name: cleanName(
+      event.name ||
+      event.title ||
+      event.location ||
+      event.type ||
+      "Festejo taurino"
+    ),
     title: event.title ? cleanName(event.title) : null,
     image: event.image || null,
     eventUrl: event.eventUrl || event.sourceUrl || null,
     sourceUrl: event.sourceUrl || event.eventUrl || null,
     sources: [sourceName],
     sourceDetails: [
-      createSourceDetail(sourceName, event.sourceUrl || event.eventUrl, fetchedAt)
+      createSourceDetail(
+        sourceName,
+        event.sourceUrl || event.eventUrl,
+        fetchedAt
+      )
     ]
   };
 
@@ -402,7 +429,7 @@ function normalizeGenericEvent(event, sourceName, fetchedAt = null) {
 }
 
 function normalizeOneToroEvent(event, fetchedAt = null) {
-  const normalized = normalizeGenericEvent(
+  return normalizeGenericEvent(
     {
       ...event,
       channel: "OneToro",
@@ -412,10 +439,6 @@ function normalizeOneToroEvent(event, fetchedAt = null) {
     "OneToro",
     fetchedAt
   );
-
-  normalized.eventUrl = event.sourceUrl || null;
-  normalized.sourceUrl = event.sourceUrl || null;
-  return normalized;
 }
 
 function normalizeMuletazoEvent(event, fetchedAt = null) {
@@ -429,7 +452,11 @@ function normalizeMuletazoEvent(event, fetchedAt = null) {
   );
 }
 
-function normalizeProgramEvent(event, fallbackSource = "Programas taurinos", fetchedAt = null) {
+function normalizeProgramEvent(
+  event,
+  fallbackSource = "Programas taurinos",
+  fetchedAt = null
+) {
   const sourceName = event.source || event.channel || fallbackSource;
 
   return normalizeGenericEvent(
@@ -450,8 +477,15 @@ function normalizeProgramEvent(event, fallbackSource = "Programas taurinos", fet
 }
 
 function chooseValue(firstValue, secondValue, preferSecond = false) {
-  const firstEmpty = firstValue === null || firstValue === undefined || firstValue === "";
-  const secondEmpty = secondValue === null || secondValue === undefined || secondValue === "";
+  const firstEmpty =
+    firstValue === null ||
+    firstValue === undefined ||
+    firstValue === "";
+
+  const secondEmpty =
+    secondValue === null ||
+    secondValue === undefined ||
+    secondValue === "";
 
   if (firstEmpty && !secondEmpty) return secondValue;
   if (!firstEmpty && secondEmpty) return firstValue;
@@ -459,7 +493,6 @@ function chooseValue(firstValue, secondValue, preferSecond = false) {
 
   return preferSecond ? secondValue : firstValue;
 }
-
 
 function chooseInformativeValue(firstValue, secondValue, preferSecond = false) {
   const firstEmpty =
@@ -489,7 +522,10 @@ function mergeParticipants(first = [], second = []) {
   const output = [...first];
 
   for (const candidate of second) {
-    const exists = output.some(current => similarity(current, candidate) >= 0.75);
+    const exists = output.some(
+      current => similarity(current, candidate) >= 0.75
+    );
+
     if (!exists) output.push(candidate);
   }
 
@@ -503,10 +539,6 @@ function mergeTwoEvents(first, second) {
   const firstInformation = informationScore(first);
   const secondInformation = informationScore(second);
 
-  /*
-   * La riqueza de datos manda sobre una entrada genérica.
-   * La confianza de la fuente solo desempata cuando ambas son similares.
-   */
   const preferSecond =
     secondInformation > firstInformation ||
     (
@@ -536,7 +568,10 @@ function mergeTwoEvents(first, second) {
       second.breeding,
       preferSecond
     ),
-    participants: mergeParticipants(first.participants, second.participants),
+    participants: mergeParticipants(
+      first.participants,
+      second.participants
+    ),
     name: chooseInformativeValue(
       first.name,
       second.name,
@@ -550,7 +585,12 @@ function mergeTwoEvents(first, second) {
     image: chooseValue(first.image, second.image, preferSecond),
     eventUrl: chooseValue(first.eventUrl, second.eventUrl, preferSecond),
     sourceUrl: chooseValue(first.sourceUrl, second.sourceUrl, preferSecond),
-    sources: [...new Set([...(first.sources || []), ...(second.sources || [])])],
+    sources: [
+      ...new Set([
+        ...(first.sources || []),
+        ...(second.sources || [])
+      ])
+    ],
     sourceDetails: uniqueSourceDetails([
       ...(first.sourceDetails || []),
       ...(second.sourceDetails || [])
@@ -569,26 +609,54 @@ function addOrMergeEvent(collection, candidate) {
 
   for (let index = 0; index < collection.length; index += 1) {
     const score = eventMatchScore(collection[index], candidate);
+
     if (score > bestScore) {
       bestScore = score;
       bestIndex = index;
     }
   }
 
-  const threshold = candidate.contentType === "programa" ? 82 : 68;
+  const threshold =
+    candidate.contentType === "programa"
+      ? 82
+      : 68;
 
   if (bestIndex >= 0 && bestScore >= threshold) {
-    collection[bestIndex] = mergeTwoEvents(collection[bestIndex], candidate);
-    return { merged: true, score: bestScore };
+    collection[bestIndex] =
+      mergeTwoEvents(
+        collection[bestIndex],
+        candidate
+      );
+
+    return {
+      merged: true,
+      score: bestScore
+    };
   }
 
   collection.push(candidate);
-  return { merged: false, score: bestScore };
+
+  return {
+    merged: false,
+    score: bestScore
+  };
 }
 
 async function readJson(filePath) {
   const raw = await fs.readFile(filePath, "utf8");
   return JSON.parse(raw);
+}
+
+async function readOptionalJson(filePath, fallback = null) {
+  try {
+    return await readJson(filePath);
+  } catch (error) {
+    if (error.code !== "ENOENT") {
+      console.warn(`No se pudo leer ${filePath}: ${error.message}`);
+    }
+
+    return fallback;
+  }
 }
 
 async function readSource(key, defaultValue = { events: [] }) {
@@ -664,7 +732,8 @@ function validateOutput(output, previousOutput = null) {
 
   if (
     previousOutput?.events?.length >= 10 &&
-    output.events.length < Math.floor(previousOutput.events.length * 0.4)
+    output.events.length <
+      Math.floor(previousOutput.events.length * 0.4)
   ) {
     errors.push(
       `Caída sospechosa de eventos: ${previousOutput.events.length} → ${output.events.length}`
@@ -674,8 +743,10 @@ function validateOutput(output, previousOutput = null) {
   return errors;
 }
 
-
-function getDateKeyInTimeZone(date = new Date(), timeZone = "Europe/Madrid") {
+function getDateKeyInTimeZone(
+  date = new Date(),
+  timeZone = "Europe/Madrid"
+) {
   const parts = new Intl.DateTimeFormat("en-CA", {
     timeZone,
     year: "numeric",
@@ -728,7 +799,11 @@ function normalizeStoredEvent(event = {}) {
     location: cleanName(
       event.location ||
       event.name ||
-      (contentType === "programa" ? "Televisión" : "Localidad por confirmar")
+      (
+        contentType === "programa"
+          ? "Televisión"
+          : "Localidad por confirmar"
+      )
     ),
     type:
       contentType === "programa"
@@ -748,7 +823,11 @@ function normalizeStoredEvent(event = {}) {
       event.title ||
       event.location ||
       event.type ||
-      (contentType === "programa" ? "Programa taurino" : "Festejo taurino")
+      (
+        contentType === "programa"
+          ? "Programa taurino"
+          : "Festejo taurino"
+      )
     ),
     title: event.title ? cleanName(event.title) : null,
     image: event.image || null,
@@ -765,82 +844,79 @@ function normalizeStoredEvent(event = {}) {
 
   normalized.status =
     event.status ||
-    (normalized.confidence >= 94 ? "confirmed" : "probable");
+    (
+      normalized.confidence >= 94
+        ? "confirmed"
+        : "probable"
+    );
 
   return normalized;
 }
 
-function seedHistoricalEvents(collection, previousOutput, todayKey) {
-  const historicalEvents =
-    Array.isArray(previousOutput?.events)
-      ? previousOutput.events.filter(event =>
-          shouldPreserveHistoricalEvent(event, todayKey)
-        )
-      : [];
-
+function seedHistoricalEvents(collection, sources, todayKey) {
+  let total = 0;
   let added = 0;
   let merged = 0;
 
-  for (const event of historicalEvents) {
-    const result = addOrMergeEvent(
-      collection,
-      normalizeStoredEvent(event)
-    );
+  for (const source of sources) {
+    const events =
+      Array.isArray(source?.events)
+        ? source.events
+        : [];
 
-    if (result.merged) {
-      merged += 1;
-    } else {
-      added += 1;
+    for (const event of events) {
+      if (!shouldPreserveHistoricalEvent(event, todayKey)) {
+        continue;
+      }
+
+      total += 1;
+
+      const result = addOrMergeEvent(
+        collection,
+        normalizeStoredEvent(event)
+      );
+
+      if (result.merged) {
+        merged += 1;
+      } else {
+        added += 1;
+      }
     }
   }
 
   return {
-    total: historicalEvents.length,
+    total,
     added,
     merged
   };
 }
 
-async function readPreviousOutput() {
-  try {
-    return await readJson(OUTPUT_FILE);
-  } catch {
-    return null;
-  }
-}
-
-function safeTimestamp(date = new Date()) {
-  return date.toISOString().replace(/[:.]/g, "-");
-}
-
-async function backupPreviousOutput(previousOutput) {
-  if (!previousOutput) return null;
-
-  await fs.mkdir(BACKUP_DIR, { recursive: true });
-  const backupFile = path.join(
-    BACKUP_DIR,
-    `programacion-${safeTimestamp()}.json`
-  );
-
-  await fs.writeFile(
-    backupFile,
-    JSON.stringify(previousOutput, null, 2) + "\n",
-    "utf8"
-  );
-
-  return backupFile;
-}
-
 function sortEvents(events) {
   events.sort((a, b) => {
-    const dateComparison = String(a.date || "").localeCompare(String(b.date || ""));
+    const dateComparison =
+      String(a.date || "").localeCompare(
+        String(b.date || "")
+      );
+
     if (dateComparison !== 0) return dateComparison;
 
-    const timeComparison = String(a.time || "99:99").localeCompare(String(b.time || "99:99"));
+    const timeComparison =
+      String(a.time || "99:99").localeCompare(
+        String(b.time || "99:99")
+      );
+
     if (timeComparison !== 0) return timeComparison;
 
-    return String(a.name || a.title || "").localeCompare(
-      String(b.name || b.title || ""),
+    return String(
+      a.name ||
+      a.title ||
+      ""
+    ).localeCompare(
+      String(
+        b.name ||
+        b.title ||
+        ""
+      ),
       "es"
     );
   });
@@ -849,16 +925,31 @@ function sortEvents(events) {
 }
 
 async function main() {
-  /*
-   * Leemos la programación anterior antes de reconstruir la nueva.
-   * Conservamos únicamente los eventos cuya fecha sea hoy o anterior.
-   * Los eventos futuros siempre se reconstruyen con las fuentes actuales,
-   * evitando mantener anuncios cancelados o desactualizados.
-   */
-  const previousOutput = await readPreviousOutput();
-  const todayKey = getDateKeyInTimeZone(new Date(), "Europe/Madrid");
+  const previousOutput =
+    await readOptionalJson(
+      OUTPUT_FILE,
+      { events: [] }
+    );
 
-  const [muletazo, oneToro, programas, canalSur, cmm] = await Promise.all([
+  const previousHistory =
+    await readOptionalJson(
+      HISTORY_FILE,
+      { events: [] }
+    );
+
+  const todayKey =
+    getDateKeyInTimeZone(
+      new Date(),
+      "Europe/Madrid"
+    );
+
+  const [
+    muletazo,
+    oneToro,
+    programas,
+    canalSur,
+    cmm
+  ] = await Promise.all([
     readSource("elMuletazo"),
     readSource("oneToro"),
     readSource("programasTaurinos"),
@@ -866,22 +957,42 @@ async function main() {
     readSource("cmm")
   ]);
 
-  const sourceResults = [muletazo, oneToro, programas, canalSur, cmm];
+  const sourceResults = [
+    muletazo,
+    oneToro,
+    programas,
+    canalSur,
+    cmm
+  ];
 
   if (!sourceResults.some(source => source.ok)) {
-    throw new Error("Todas las fuentes han fallado. Se conserva programacion.json.");
+    throw new Error(
+      "Todas las fuentes han fallado. Se conserva programacion.json."
+    );
   }
 
   const merged = [];
 
+  /*
+   * El histórico permanente se alimenta de:
+   * 1. data/historico.json
+   * 2. la programación publicada anteriormente
+   *
+   * Así los eventos pasados no dependen de que las fuentes externas
+   * sigan mostrándolos.
+   */
   const historicalStats =
     seedHistoricalEvents(
       merged,
-      previousOutput,
+      [
+        previousHistory,
+        previousOutput
+      ],
       todayKey
     );
 
   const mergeStats = {
+    historicalCandidates: historicalStats.total,
     historicalPreserved: historicalStats.added,
     historicalDuplicatesMerged: historicalStats.merged,
     added: 0,
@@ -891,121 +1002,323 @@ async function main() {
   for (const event of muletazo.data.events || []) {
     const result = addOrMergeEvent(
       merged,
-      normalizeMuletazoEvent(event, muletazo.fetchedAt)
+      normalizeMuletazoEvent(
+        event,
+        muletazo.fetchedAt
+      )
     );
-    mergeStats[result.merged ? "merged" : "added"] += 1;
+
+    mergeStats[
+      result.merged
+        ? "merged"
+        : "added"
+    ] += 1;
   }
 
   for (const event of oneToro.data.events || []) {
     const result = addOrMergeEvent(
       merged,
-      normalizeOneToroEvent(event, oneToro.fetchedAt)
+      normalizeOneToroEvent(
+        event,
+        oneToro.fetchedAt
+      )
     );
-    mergeStats[result.merged ? "merged" : "added"] += 1;
+
+    mergeStats[
+      result.merged
+        ? "merged"
+        : "added"
+    ] += 1;
   }
 
   for (const event of canalSur.data.events || []) {
-    const normalized = event.contentType === "programa"
-      ? normalizeProgramEvent(event, "Canal Sur", canalSur.fetchedAt)
-      : normalizeGenericEvent(event, "Canal Sur", canalSur.fetchedAt);
+    const normalized =
+      event.contentType === "programa"
+        ? normalizeProgramEvent(
+            event,
+            "Canal Sur",
+            canalSur.fetchedAt
+          )
+        : normalizeGenericEvent(
+            event,
+            "Canal Sur",
+            canalSur.fetchedAt
+          );
 
-    const result = addOrMergeEvent(merged, normalized);
-    mergeStats[result.merged ? "merged" : "added"] += 1;
+    const result =
+      addOrMergeEvent(
+        merged,
+        normalized
+      );
+
+    mergeStats[
+      result.merged
+        ? "merged"
+        : "added"
+    ] += 1;
   }
 
   for (const event of cmm.data.events || []) {
-    const normalized = event.contentType === "programa"
-      ? normalizeProgramEvent(event, "CMM", cmm.fetchedAt)
-      : normalizeGenericEvent(event, "CMM", cmm.fetchedAt);
+    const normalized =
+      event.contentType === "programa"
+        ? normalizeProgramEvent(
+            event,
+            "CMM",
+            cmm.fetchedAt
+          )
+        : normalizeGenericEvent(
+            event,
+            "CMM",
+            cmm.fetchedAt
+          );
 
-    const result = addOrMergeEvent(merged, normalized);
-    mergeStats[result.merged ? "merged" : "added"] += 1;
+    const result =
+      addOrMergeEvent(
+        merged,
+        normalized
+      );
+
+    mergeStats[
+      result.merged
+        ? "merged"
+        : "added"
+    ] += 1;
   }
 
   for (const event of programas.data.events || []) {
     const result = addOrMergeEvent(
       merged,
-      normalizeProgramEvent(event, "Programas taurinos", programas.fetchedAt)
+      normalizeProgramEvent(
+        event,
+        "Programas taurinos",
+        programas.fetchedAt
+      )
     );
-    mergeStats[result.merged ? "merged" : "added"] += 1;
+
+    mergeStats[
+      result.merged
+        ? "merged"
+        : "added"
+    ] += 1;
   }
 
   sortEvents(merged);
 
-  const programCount = merged.filter(event => event.contentType === "programa").length;
-  const bullfightingEventCount = merged.length - programCount;
+  const programCount =
+    merged.filter(
+      event =>
+        event.contentType === "programa"
+    ).length;
 
-  const sourceHealth = Object.fromEntries(
-    sourceResults.map(source => [
-      source.key,
-      {
-        label: source.label,
-        status: source.ok ? "ok" : "error",
-        eventCount: source.eventCount,
-        fetchedAt: source.fetchedAt,
-        error: source.error
-      }
-    ])
-  );
+  const bullfightingEventCount =
+    merged.length -
+    programCount;
+
+  const sourceHealth =
+    Object.fromEntries(
+      sourceResults.map(
+        source => [
+          source.key,
+          {
+            label: source.label,
+            status:
+              source.ok
+                ? "ok"
+                : "error",
+            eventCount:
+              source.eventCount,
+            fetchedAt:
+              source.fetchedAt,
+            error:
+              source.error
+          }
+        ]
+      )
+    );
 
   const output = {
-    generatedAt: new Date().toISOString(),
-    degraded: sourceResults.some(source => !source.ok),
-    eventCount: merged.length,
+    generatedAt:
+      new Date().toISOString(),
+
+    degraded:
+      sourceResults.some(
+        source =>
+          !source.ok
+      ),
+
+    eventCount:
+      merged.length,
+
     bullfightingEventCount,
+
     programCount,
+
     mergeStats,
+
     sources: {
-      elMuletazo: muletazo.eventCount,
-      oneToro: oneToro.eventCount,
-      programasTaurinos: programas.eventCount,
-      canalSur: canalSur.eventCount,
-      cmm: cmm.eventCount
+      elMuletazo:
+        muletazo.eventCount,
+
+      oneToro:
+        oneToro.eventCount,
+
+      programasTaurinos:
+        programas.eventCount,
+
+      canalSur:
+        canalSur.eventCount,
+
+      cmm:
+        cmm.eventCount
     },
+
     sourceHealth,
-    events: merged
+
+    events:
+      merged
   };
 
-  const validationErrors = validateOutput(output, previousOutput);
+  const validationErrors =
+    validateOutput(
+      output,
+      previousOutput
+    );
 
   if (validationErrors.length > 0) {
-    console.error("No se publica la nueva programación por errores de validación:");
-    for (const error of validationErrors.slice(0, 20)) {
-      console.error(`- ${error}`);
-    }
+    console.error(
+      "No se publica la nueva programación por errores de validación:"
+    );
 
-    if (validationErrors.length > 20) {
-      console.error(`- ... y ${validationErrors.length - 20} errores más`);
+    for (
+      const error
+      of validationErrors.slice(0, 20)
+    ) {
+      console.error(
+        `- ${error}`
+      );
     }
 
     process.exitCode = 1;
     return;
   }
 
-  const backupFile = await backupPreviousOutput(previousOutput);
+  /*
+   * El archivo histórico solo contiene fechas de hoy o anteriores.
+   * Se regenera en cada ejecución y queda guardado en Git.
+   */
+  const historicalEvents =
+    merged.filter(
+      event =>
+        shouldPreserveHistoricalEvent(
+          event,
+          todayKey
+        )
+    );
 
-  await fs.writeFile(
-    OUTPUT_FILE,
-    JSON.stringify(output, null, 2) + "\n",
-    "utf8"
+  const historicalOutput = {
+    generatedAt:
+      new Date().toISOString(),
+
+    throughDate:
+      todayKey,
+
+    eventCount:
+      historicalEvents.length,
+
+    events:
+      historicalEvents
+  };
+
+  await fs.mkdir(
+    DATA_DIR,
+    {
+      recursive: true
+    }
   );
 
-  console.log(`Programación fusionada: ${merged.length} elementos`);
-  console.log(`Festejos: ${bullfightingEventCount}`);
-  console.log(`Programas taurinos: ${programCount}`);
-  console.log(`Eventos históricos conservados: ${mergeStats.historicalPreserved}`);
-  console.log(`Duplicados históricos fusionados: ${mergeStats.historicalDuplicatesMerged}`);
-  console.log(`Coincidencias nuevas fusionadas: ${mergeStats.merged}`);
-  console.log(`Fuentes degradadas: ${output.degraded ? "sí" : "no"}`);
-  console.log(`Salida: ${OUTPUT_FILE}`);
+  await Promise.all([
+    fs.writeFile(
+      OUTPUT_FILE,
+      JSON.stringify(
+        output,
+        null,
+        2
+      ) + "\n",
+      "utf8"
+    ),
 
-  if (backupFile) {
-    console.log(`Copia de seguridad: ${backupFile}`);
-  }
+    fs.writeFile(
+      HISTORY_FILE,
+      JSON.stringify(
+        historicalOutput,
+        null,
+        2
+      ) + "\n",
+      "utf8"
+    )
+  ]);
+
+  console.log(
+    `Programación fusionada: ${merged.length} elementos`
+  );
+
+  console.log(
+    `Festejos: ${bullfightingEventCount}`
+  );
+
+  console.log(
+    `Programas taurinos: ${programCount}`
+  );
+
+  console.log(
+    `Histórico permanente: ${historicalEvents.length} elementos`
+  );
+
+  console.log(
+    `Candidatos históricos leídos: ${mergeStats.historicalCandidates}`
+  );
+
+  console.log(
+    `Históricos añadidos: ${mergeStats.historicalPreserved}`
+  );
+
+  console.log(
+    `Duplicados históricos fusionados: ${mergeStats.historicalDuplicatesMerged}`
+  );
+
+  console.log(
+    `Coincidencias nuevas fusionadas: ${mergeStats.merged}`
+  );
+
+  console.log(
+    `Fuentes degradadas: ${
+      output.degraded
+        ? "sí"
+        : "no"
+    }`
+  );
+
+  console.log(
+    `Salida: ${OUTPUT_FILE}`
+  );
+
+  console.log(
+    `Archivo histórico: ${HISTORY_FILE}`
+  );
 }
 
-main().catch(error => {
-  console.error("Error fusionando la programación:");
-  console.error(error);
-  process.exit(1);
-});
+main().catch(
+  error => {
+    console.error(
+      "Error fusionando la programación:"
+    );
+
+    console.error(
+      error
+    );
+
+    process.exit(
+      1
+    );
+  }
+);
