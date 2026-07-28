@@ -1,678 +1,556 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const OUTPUT_FILE = path.resolve("data/cmm.json");
-const BASE_URL = "https://www.cmmedia.es";
-const INDEX_URLS = [
-  `${BASE_URL}/tv/toros`,
-  `${BASE_URL}/play/toros`,
-  ...Array.from({ length: 10 }, (_, i) => `${BASE_URL}/tv/toros/${i + 2}`),
-  ...Array.from({ length: 6 }, (_, i) => `${BASE_URL}/play/toros/${i + 2}`)
-];
+const SOURCE = "CMM";
+const GUIDE_URL = "https://www.cmmedia.es/play/programacion/tv";
+const OUTPUT = path.resolve("data/cmm.json");
 
 const USER_AGENT =
   "Mozilla/5.0 (compatible; AlberoTV/1.0; +https://alberotv.com)";
-const MAX_DETAIL_PAGES = 220;
-const REQUEST_DELAY_MS = 100;
-const PAST_DAYS = 7;
-const FUTURE_DAYS = 240;
 
-const MONTHS = {
-  enero: 1, febrero: 2, marzo: 3, abril: 4, mayo: 5, junio: 6,
-  julio: 7, agosto: 8, septiembre: 9, setiembre: 9,
-  octubre: 10, noviembre: 11, diciembre: 12
-};
+const TAURINE_PATTERNS = [
+  /\btoros?\b/i,
+  /\bcorrida\b/i,
+  /\bnovillad[ao]\b/i,
+  /\brejones?\b/i,
+  /\brejoneo\b/i,
+  /\btauromaquia\b/i,
+  /\btaurin[oa]s?\b/i,
+  /\bpromesas de nuestra tierra\b/i,
+  /\bnuestro campo bravo\b/i,
+  /\btiempo de toros\b/i,
+  /\bplaytoros\b/i,
+  /\brecortes?\b/i,
+  /\bganader[ií]as?\b/i,
+  /\btoreo\b/i,
+  /\btorero\b/i
+];
 
-const DAY_NAMES =
-  "(?:lunes|martes|miércoles|miercoles|jueves|viernes|sábado|sabado|domingo)";
+const EXCLUDED_PATTERNS = [
+  /\bnoticias?\b/i,
+  /\binformativo\b/i,
+  /\bcastilla[\s-]+la mancha (?:a las|hoy|despierta)\b/i
+];
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function decodeHtml(value = "") {
-  const named = {
-    amp: "&", quot: '"', apos: "'", lt: "<", gt: ">", nbsp: " ",
-    ndash: "–", mdash: "—", hellip: "…", laquo: "«", raquo: "»",
-    aacute: "á", eacute: "é", iacute: "í", oacute: "ó", uacute: "ú",
-    Aacute: "Á", Eacute: "É", Iacute: "Í", Oacute: "Ó", Uacute: "Ú",
-    ntilde: "ñ", Ntilde: "Ñ", uuml: "ü", Uuml: "Ü"
-  };
-
+function normalizeSpace(value = "") {
   return String(value)
-    .replace(/&#x([0-9a-f]+);/gi, (_, n) =>
-      String.fromCodePoint(parseInt(n, 16))
-    )
-    .replace(/&#(\d+);/g, (_, n) =>
-      String.fromCodePoint(parseInt(n, 10))
-    )
-    .replace(/&([a-z]+);/gi, (all, key) => named[key] ?? all);
-}
-
-function clean(value = "") {
-  return decodeHtml(String(value))
     .replace(/\u00a0/g, " ")
-    .replace(/[ \t]+/g, " ")
-    .replace(/\s*\n\s*/g, "\n")
+    .replace(/[ \t\r\f\v]+/g, " ")
+    .replace(/\n[ \t]+/g, "\n")
+    .replace(/[ \t]+\n/g, "\n")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 }
 
-function plain(value = "") {
-  return clean(
-    String(value)
-      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
-      .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
-      .replace(/<br\s*\/?>/gi, "\n")
-      .replace(/<\/(?:p|div|li|h[1-6]|section|article)>/gi, "\n")
-      .replace(/<[^>]+>/g, " ")
+function decodeHtml(value = "") {
+  const named = {
+    amp: "&",
+    quot: '"',
+    apos: "'",
+    lt: "<",
+    gt: ">",
+    nbsp: " ",
+    ndash: "–",
+    mdash: "—",
+    hellip: "…",
+    aacute: "á",
+    eacute: "é",
+    iacute: "í",
+    oacute: "ó",
+    uacute: "ú",
+    Aacute: "Á",
+    Eacute: "É",
+    Iacute: "Í",
+    Oacute: "Ó",
+    Uacute: "Ú",
+    ntilde: "ñ",
+    Ntilde: "Ñ"
+  };
+
+  return String(value)
+    .replace(/&#(\d+);/g, (_, number) =>
+      String.fromCodePoint(Number(number))
+    )
+    .replace(/&#x([0-9a-f]+);/gi, (_, number) =>
+      String.fromCodePoint(parseInt(number, 16))
+    )
+    .replace(/&([a-zA-Z]+);/g, (whole, name) =>
+      Object.hasOwn(named, name) ? named[name] : whole
+    );
+}
+
+function stripHtml(html = "") {
+  return normalizeSpace(
+    decodeHtml(
+      String(html)
+        .replace(/<script\b[\s\S]*?<\/script>/gi, " ")
+        .replace(/<style\b[\s\S]*?<\/style>/gi, " ")
+        .replace(/<!--[\s\S]*?-->/g, " ")
+        .replace(/<br\s*\/?>/gi, "\n")
+        .replace(/<\/(?:p|div|article|section|li|h[1-6]|time|a)>/gi, "\n")
+        .replace(/<[^>]+>/g, " ")
+    )
   );
 }
 
-function normalized(value = "") {
-  return clean(value)
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
-}
-
-function unique(values) {
-  return [...new Set(values.filter(Boolean))];
-}
-
-function absoluteUrl(value, base = BASE_URL) {
+function absoluteUrl(value = "") {
   try {
-    return new URL(decodeHtml(value), base).href.split("#")[0];
+    return new URL(decodeHtml(value), GUIDE_URL).href;
   } catch {
-    return "";
+    return GUIDE_URL;
   }
 }
 
-async function fetchPage(url) {
+function dateToIso(year, month, day) {
+  const date = new Date(Date.UTC(year, month - 1, day));
+  if (
+    date.getUTCFullYear() !== year ||
+    date.getUTCMonth() + 1 !== month ||
+    date.getUTCDate() !== day
+  ) {
+    return null;
+  }
+
+  return [
+    String(year).padStart(4, "0"),
+    String(month).padStart(2, "0"),
+    String(day).padStart(2, "0")
+  ].join("-");
+}
+
+function monthNumber(name = "") {
+  const normalized = name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "");
+
+  const months = {
+    enero: 1,
+    febrero: 2,
+    marzo: 3,
+    abril: 4,
+    mayo: 5,
+    junio: 6,
+    julio: 7,
+    agosto: 8,
+    septiembre: 9,
+    setiembre: 9,
+    octubre: 10,
+    noviembre: 11,
+    diciembre: 12
+  };
+
+  return months[normalized] || null;
+}
+
+function resolveYear(month, day, reference = new Date()) {
+  const candidates = [
+    reference.getUTCFullYear() - 1,
+    reference.getUTCFullYear(),
+    reference.getUTCFullYear() + 1
+  ];
+
+  let best = candidates[0];
+  let bestDistance = Infinity;
+
+  for (const year of candidates) {
+    const candidate = new Date(Date.UTC(year, month - 1, day));
+    const distance = Math.abs(candidate - reference);
+
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      best = year;
+    }
+  }
+
+  return best;
+}
+
+function extractGuideDates(html) {
+  const results = [];
+  const seen = new Set();
+
+  const attributePatterns = [
+    /\bdata-(?:date|day|fecha)\s*=\s*["'](\d{4})-(\d{2})-(\d{2})["']/gi,
+    /\b(?:date|fecha)\s*=\s*["'](\d{4})-(\d{2})-(\d{2})["']/gi
+  ];
+
+  for (const pattern of attributePatterns) {
+    for (const match of html.matchAll(pattern)) {
+      const iso = dateToIso(+match[1], +match[2], +match[3]);
+      if (iso && !seen.has(iso)) {
+        seen.add(iso);
+        results.push(iso);
+      }
+    }
+  }
+
+  const text = stripHtml(html);
+  const fullDatePattern =
+    /\b(?:lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|domingo)?\s*(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)(?:\s+de\s+(\d{4}))?\b/gi;
+
+  for (const match of text.matchAll(fullDatePattern)) {
+    const day = +match[1];
+    const month = monthNumber(match[2]);
+    const year = match[3]
+      ? +match[3]
+      : resolveYear(month, day, new Date());
+
+    const iso = dateToIso(year, month, day);
+    if (iso && !seen.has(iso)) {
+      seen.add(iso);
+      results.push(iso);
+    }
+  }
+
+  /*
+   * La cabecera visual de la guía muestra una sucesión:
+   * "lunes 20 martes 21 ... domingo 02".
+   * Si el HTML no expone fechas completas, reconstruimos esa secuencia
+   * tomando como referencia la fecha actual.
+   */
+  if (results.length === 0) {
+    const headerMatches = [
+      ...text.matchAll(
+        /\b(lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|domingo)\s+(\d{1,2})\b/gi
+      )
+    ].slice(0, 20);
+
+    if (headerMatches.length) {
+      const now = new Date();
+      const weekdays = {
+        domingo: 0,
+        lunes: 1,
+        martes: 2,
+        miercoles: 3,
+        miércoles: 3,
+        jueves: 4,
+        viernes: 5,
+        sabado: 6,
+        sábado: 6
+      };
+
+      let cursor = new Date(Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate() - 10
+      ));
+
+      for (const match of headerMatches) {
+        const weekdayName = match[1].toLowerCase();
+        const targetWeekday = weekdays[weekdayName];
+        const targetDay = +match[2];
+        let found = null;
+
+        for (let offset = 0; offset < 40; offset++) {
+          const candidate = new Date(cursor);
+          candidate.setUTCDate(candidate.getUTCDate() + offset);
+
+          if (
+            candidate.getUTCDate() === targetDay &&
+            candidate.getUTCDay() === targetWeekday
+          ) {
+            found = candidate;
+            break;
+          }
+        }
+
+        if (found) {
+          const iso = found.toISOString().slice(0, 10);
+          if (!seen.has(iso)) {
+            seen.add(iso);
+            results.push(iso);
+          }
+          cursor = new Date(found);
+          cursor.setUTCDate(cursor.getUTCDate() + 1);
+        }
+      }
+    }
+  }
+
+  return results.sort();
+}
+
+function extractLinks(fragment) {
+  const links = [];
+
+  for (const match of String(fragment).matchAll(
+    /<a\b[^>]*href\s*=\s*["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi
+  )) {
+    links.push({
+      url: absoluteUrl(match[1]),
+      text: stripHtml(match[2])
+    });
+  }
+
+  return links;
+}
+
+function isTaurine(title, description = "") {
+  const text = `${title} ${description}`;
+  if (!TAURINE_PATTERNS.some(pattern => pattern.test(text))) return false;
+
+  if (
+    EXCLUDED_PATTERNS.some(pattern => pattern.test(title)) &&
+    !/\btoros?\b|\btauromaquia\b|\btaurin[oa]\b/i.test(title)
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+function inferType(title = "", description = "") {
+  const text = `${title} ${description}`;
+
+  if (/\brejones?\b|\brejoneo\b/i.test(text)) {
+    return "Corrida de rejones";
+  }
+
+  if (/\bnovillada\b/i.test(text)) {
+    return /\bpicadores\b/i.test(text)
+      ? "Novillada con picadores"
+      : "Novillada";
+  }
+
+  if (/\bcorrida\b|\btoros?\b/i.test(text)) {
+    return "Corrida de toros";
+  }
+
+  return "Programa taurino";
+}
+
+function cleanTitle(title = "") {
+  return normalizeSpace(title)
+    .replace(/\s+\|\s+CMM(?:Play)?$/i, "")
+    .replace(/\s+-\s+CMM(?:Play)?$/i, "")
+    .replace(/\s+\d+$/g, "")
+    .trim();
+}
+
+function inferLocation(title = "", description = "") {
+  const text = `${title}. ${description}`;
+
+  const patterns = [
+    /\b(?:desde|en|de)\s+(?:la plaza de toros de\s+)?([A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ' -]{2,45})(?=[,.;]|$)/,
+    /\b(?:toros|novillada|rejones|recortes)\s+(?:en|de)\s+([A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ' -]{2,45})(?=[,.;]|$)/i
+  ];
+
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (match) {
+      const candidate = normalizeSpace(match[1])
+        .replace(/\b(?:este|esta|el|la|los|las)\b.*$/i, "")
+        .trim();
+
+      if (candidate.length >= 3 && candidate.length <= 50) {
+        return candidate;
+      }
+    }
+  }
+
+  return "Castilla-La Mancha";
+}
+
+function parseScheduleItems(html, dates) {
+  /*
+   * Estrategia principal: convertimos el HTML en bloques delimitados por
+   * cada hora de emisión. Esto evita depender de las clases CSS internas.
+   */
+  const timeMatches = [
+    ...html.matchAll(
+      /(?:^|>|\s)([01]?\d|2[0-3]):([0-5]\d)(?=<|\s|$)/g
+    )
+  ];
+
+  const blocks = [];
+
+  for (let index = 0; index < timeMatches.length; index++) {
+    const match = timeMatches[index];
+    const start = match.index;
+    const end =
+      index + 1 < timeMatches.length
+        ? timeMatches[index + 1].index
+        : html.length;
+
+    const fragment = html.slice(start, end);
+    const time = `${String(+match[1]).padStart(2, "0")}:${match[2]}`;
+    const links = extractLinks(fragment);
+
+    let title = "";
+    let sourceUrl = GUIDE_URL;
+
+    const headingMatch = fragment.match(
+      /<h[1-6]\b[^>]*>([\s\S]*?)<\/h[1-6]>/i
+    );
+
+    if (headingMatch) {
+      title = stripHtml(headingMatch[1]);
+      const headingLinks = extractLinks(headingMatch[1]);
+      sourceUrl = headingLinks[0]?.url || sourceUrl;
+    }
+
+    if (!title) {
+      const usefulLink = links.find(link =>
+        link.text &&
+        !/^(play|ver|directo|más información)$/i.test(link.text)
+      );
+
+      title = usefulLink?.text || "";
+      sourceUrl = usefulLink?.url || sourceUrl;
+    }
+
+    const plain = stripHtml(fragment);
+    let description = plain
+      .replace(new RegExp(`^${time.replace(":", "\\:")}\\s*`), "")
+      .replace(title, "")
+      .replace(/\bPlay\b/gi, "")
+      .trim();
+
+    title = cleanTitle(title);
+
+    if (!title || title.length > 180) continue;
+    if (!isTaurine(title, description)) continue;
+
+    blocks.push({
+      time,
+      title,
+      description: normalizeSpace(description).slice(0, 700),
+      sourceUrl
+    });
+  }
+
+  /*
+   * La guía concatena los días. Detectamos el comienzo de cada parrilla:
+   * normalmente 06:00 y, si cambia el horario, cualquier salto claro desde
+   * la madrugada hacia una hora posterior.
+   */
+  let dayIndex = 0;
+  let previousMinutes = null;
+  let itemsInCurrentDay = 0;
+
+  for (const block of blocks) {
+    const [hour, minute] = block.time.split(":").map(Number);
+    const currentMinutes = hour * 60 + minute;
+
+    const startsNewDay =
+      previousMinutes !== null &&
+      itemsInCurrentDay > 0 &&
+      (
+        (previousMinutes <= 5 * 60 + 59 && currentMinutes >= 6 * 60) ||
+        (currentMinutes - previousMinutes >= 5 * 60)
+      );
+
+    if (startsNewDay && dayIndex < dates.length - 1) {
+      dayIndex++;
+      itemsInCurrentDay = 0;
+    }
+
+    block.date = dates[dayIndex] || dates[0] || null;
+    previousMinutes = currentMinutes;
+    itemsInCurrentDay++;
+  }
+
+  return blocks.filter(block => block.date);
+}
+
+function deduplicate(events) {
+  const map = new Map();
+
+  for (const event of events) {
+    const key = [
+      event.date,
+      event.time,
+      event.title.toLowerCase()
+    ].join("|");
+
+    if (!map.has(key)) map.set(key, event);
+  }
+
+  return [...map.values()].sort((a, b) =>
+    `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`)
+  );
+}
+
+async function fetchHtml(url) {
   const response = await fetch(url, {
     redirect: "follow",
     headers: {
       "user-agent": USER_AGENT,
-      "accept-language": "es-ES,es;q=0.9",
-      accept: "text/html,application/xhtml+xml"
+      accept: "text/html,application/xhtml+xml",
+      "accept-language": "es-ES,es;q=0.9"
     },
-    signal: AbortSignal.timeout(25000)
+    signal: AbortSignal.timeout(30000)
   });
 
   if (!response.ok) {
     throw new Error(`HTTP ${response.status} en ${url}`);
   }
 
-  return { html: await response.text(), url: response.url || url };
-}
-
-function isDetailUrl(url) {
-  try {
-    const pathname = new URL(url).pathname.replace(/\/+$/, "");
-    return (
-      /^\/(?:tv|play)\/toros\/.+\.html$/i.test(pathname) &&
-      !/user-descargas\.html$/i.test(pathname)
-    );
-  } catch {
-    return false;
-  }
-}
-
-function extractLinks(html, pageUrl) {
-  const links = [];
-
-  for (const match of html.matchAll(/href=["']([^"'#]+)["']/gi)) {
-    const url = absoluteUrl(match[1], pageUrl);
-    if (isDetailUrl(url)) links.push(url);
-  }
-
-  return unique(links);
-}
-
-function meta(html, attribute, value) {
-  const escaped = value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const patterns = [
-    new RegExp(
-      `<meta[^>]+${attribute}=["']${escaped}["'][^>]+content=["']([^"']+)["']`,
-      "i"
-    ),
-    new RegExp(
-      `<meta[^>]+content=["']([^"']+)["'][^>]+${attribute}=["']${escaped}["']`,
-      "i"
-    )
-  ];
-
-  for (const pattern of patterns) {
-    const found = html.match(pattern)?.[1];
-    if (found) return clean(found);
-  }
-
-  return "";
-}
-
-function titleFromHtml(html) {
-  return (
-    meta(html, "property", "og:title") ||
-    plain(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || "") ||
-    plain(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] || "")
-  )
-    .replace(/\s*[-–|]\s*Castilla-La Mancha Media.*$/i, "")
-    .trim();
-}
-
-function canonicalFromHtml(html, fallback) {
-  const value =
-    html.match(
-      /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i
-    )?.[1] ||
-    html.match(
-      /<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i
-    )?.[1];
-
-  return absoluteUrl(value || fallback, fallback);
-}
-
-function publishedDate(html) {
-  const values = [
-    meta(html, "property", "article:published_time"),
-    meta(html, "name", "date"),
-    html.match(/"datePublished"\s*:\s*"([^"]+)"/i)?.[1],
-    html.match(/\b(\d{2}\.\d{2}\.20\d{2})\s+\d{1,2}:\d{2}\b/)?.[1]
-  ].filter(Boolean);
-
-  for (const value of values) {
-    const european = value.match(/^(\d{2})\.(\d{2})\.(20\d{2})/);
-    if (european) {
-      return new Date(
-        Number(european[3]),
-        Number(european[2]) - 1,
-        Number(european[1]),
-        12
-      );
-    }
-
-    const parsed = new Date(value);
-    if (!Number.isNaN(parsed.getTime())) return parsed;
-  }
-
-  return null;
-}
-
-function articleHtml(html) {
-  return (
-    html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i)?.[1] ||
-    html.match(
-      /<(?:div|section)\b[^>]+class=["'][^"']*(?:article-body|article__body|entry-content|content-body|cuerpo|texto)[^"']*["'][^>]*>([\s\S]*?)<\/(?:div|section)>/i
-    )?.[1] ||
-    html
-  );
-}
-
-function meaningfulBlocks(html) {
-  const source = articleHtml(html)
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
-    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "");
-
-  const blocks = [];
-
-  for (const match of source.matchAll(
-    /<(h2|h3|h4|p|li)\b[^>]*>([\s\S]*?)<\/\1>/gi
-  )) {
-    const type = match[1].toLowerCase();
-    const text = plain(match[2]);
-
-    if (
-      text.length >= 8 &&
-      text.length <= 1400 &&
-      !/^(facebook|twitter|linkedin|enviar por email|whatsapp|telegram|últimas noticias|mira también|quitar alertas)/i.test(
-        text
-      )
-    ) {
-      blocks.push({ type, text });
-    }
-  }
-
-  return blocks;
-}
-
-function createDate(year, month, day) {
-  const date = new Date(Number(year), Number(month) - 1, Number(day), 12);
-  if (
-    date.getFullYear() !== Number(year) ||
-    date.getMonth() !== Number(month) - 1 ||
-    date.getDate() !== Number(day)
-  ) {
-    return null;
-  }
-  return date;
-}
-
-function isoDate(date) {
-  return [
-    date.getFullYear(),
-    String(date.getMonth() + 1).padStart(2, "0"),
-    String(date.getDate()).padStart(2, "0")
-  ].join("-");
-}
-
-function allowedDate(date) {
-  if (!date || Number.isNaN(date.getTime())) return false;
-
-  const today = new Date();
-  today.setHours(12, 0, 0, 0);
-
-  const min = new Date(today);
-  min.setDate(min.getDate() - PAST_DAYS);
-
-  const max = new Date(today);
-  max.setDate(max.getDate() + FUTURE_DAYS);
-
-  return date >= min && date <= max;
-}
-
-function dateMentions(text, fallbackYear) {
-  const result = [];
-  const source = normalized(text);
-
-  for (const match of source.matchAll(
-    /\b([0-3]?\d)[\/.-]([01]?\d)[\/.-](20\d{2})\b/g
-  )) {
-    const date = createDate(match[3], match[2], match[1]);
-    if (date) result.push({ date, index: match.index, raw: match[0] });
-  }
-
-  for (const match of source.matchAll(
-    new RegExp(
-      `\\b(?:${DAY_NAMES}[,\\s]*)?([0-3]?\\d)\\s+de\\s+` +
-        `(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)` +
-        `(?:\\s+de\\s+(20\\d{2}))?\\b`,
-      "gi"
-    )
-  )) {
-    const year = Number(match[3] || fallbackYear);
-    const date = createDate(year, MONTHS[match[2]], match[1]);
-    if (date) result.push({ date, index: match.index, raw: match[0] });
-  }
-
-  return result.sort((a, b) => a.index - b.index);
-}
-
-function timeFrom(text) {
-  const source = normalized(text);
-  const patterns = [
-    /\b(?:a\s+las?|desde\s+las?|a\s+partir\s+de\s+las?)\s+([01]?\d|2[0-3])[:.h]([0-5]\d)\b/,
-    /\b([01]?\d|2[0-3]):([0-5]\d)\s*(?:h|horas?)\b/,
-    /\b([01]?\d|2[0-3])h([0-5]\d)\b/
-  ];
-
-  for (const pattern of patterns) {
-    const match = source.match(pattern);
-    if (match) return `${match[1].padStart(2, "0")}:${match[2]}`;
-  }
-
-  return null;
-}
-
-function typeFrom(text) {
-  const value = normalized(text);
-  if (/concurso\s+de\s+recortadores|recortadores|recortes/.test(value))
-    return "Concurso de recortadores";
-  if (/corrida\s+mixta/.test(value)) return "Corrida mixta";
-  if (/rejones|rejoneo/.test(value)) return "Rejones";
-  if (/novillada\s+sin\s+picadores/.test(value))
-    return "Novillada sin picadores";
-  if (/novillada\s+con\s+picadores/.test(value))
-    return "Novillada con picadores";
-  if (/novillada/.test(value)) return "Novillada";
-  if (/corrida\s+de\s+toros|corrida/.test(value))
-    return "Corrida de toros";
-  if (/festival/.test(value)) return "Festival taurino";
-  if (/becerrada/.test(value)) return "Becerrada";
-  return "Festejo taurino";
-}
-
-function cleanLocation(value) {
-  return clean(value)
-    .replace(/^la\s+plaza\s+de\s+toros\s+(?:de\s+)?/i, "")
-    .replace(/^plaza\s+de\s+toros\s+(?:de\s+)?/i, "")
-    .replace(/^la\s+localidad\s+(?:toledana|albaceteña|ciudadrealeña|conquense|guadalajareña)\s+de\s+/i, "")
-    .replace(/^la\s+localidad\s+de\s+/i, "")
-    .replace(/\s+(?:con|para|ante|donde|que)\s+.+$/i, "")
-    .replace(/[.,;:]+$/g, "")
-    .trim();
-}
-
-function locationFrom(text) {
-  const patterns = [
-    /\bdesde\s+(?:la\s+plaza\s+de\s+toros\s+(?:de\s+)?)?([^.;\n]+?)(?=\s+(?:a\s+las|con|para|ante|donde|el\s+(?:lunes|martes|miércoles|miercoles|jueves|viernes|sábado|sabado|domingo))|[.;\n]|$)/i,
-    /\ben\s+(?:la\s+plaza\s+de\s+toros\s+(?:de\s+)?)?([^.;\n]+?)(?=\s+(?:a\s+las|con|para|ante|donde)|[.;\n]|$)/i
-  ];
-
-  for (const pattern of patterns) {
-    const match = text.match(pattern)?.[1];
-    const value = cleanLocation(match || "");
-    if (
-      value.length >= 2 &&
-      value.length <= 80 &&
-      !/\by\b.+\b(?:corrida|novillada|rejones|toros)\b/i.test(value) &&
-      !/televisi[oó]n|playtoros|castilla-la mancha media/i.test(value)
-    ) {
-      return value;
-    }
-  }
-
-  return "";
-}
-
-function breedingFrom(text) {
-  const patterns = [
-    /\b(?:toros|novillos|reses)\s+de\s+(?:la\s+ganader[ií]a\s+)?([A-ZÁÉÍÓÚÑ][^.;\n]{2,90}?)(?=\s+(?:para|que|con)|[.;\n]|$)/i,
-    /\bganader[ií]a\s+(?:de\s+)?([A-ZÁÉÍÓÚÑ][^.;\n]{2,90}?)(?=\s+(?:para|que|con)|[.;\n]|$)/i,
-    /\bante\s+(?:toros|novillos|reses)\s+de\s+([A-ZÁÉÍÓÚÑ][^.;\n]{2,90}?)(?=[.;\n]|$)/i
-  ];
-
-  for (const pattern of patterns) {
-    const value = clean(text.match(pattern)?.[1] || "")
-      .replace(/\s+y\s+sobreros.*$/i, "")
-      .trim();
-
-    if (
-      value &&
-      value.length <= 100 &&
-      !/este fin de semana|televisi[oó]n|programaci[oó]n|comentario|responder|me gusta/i.test(
-        value
-      )
-    ) {
-      return value;
-    }
-  }
-
-  return "";
-}
-
-function splitNames(value) {
-  return value
-    .replace(/\s+(?:ante|frente\s+a)\s+(?:toros|novillos|reses).*$/i, "")
-    .split(/\s*,\s*|\s+ y \s+/i)
-    .map(name =>
-      clean(name)
-        .replace(/^(?:los\s+)?(?:matadores|toreros|novilleros|rejoneadores|diestros)\s*[:\-]?\s*/i, "")
-        .replace(/[.;:]+$/g, "")
-        .trim()
-    )
-    .filter(name =>
-      name.length >= 3 &&
-      name.length <= 55 &&
-      !/ganader[ií]a|toros?|novillos?|directo|televisi[oó]n|playtoros|plaza|hora/i.test(name)
-    );
-}
-
-function participantsFrom(text) {
-  const names = [];
-  const patterns = [
-    /\b(?:para|con)\s+([A-ZÁÉÍÓÚÑ][^.;\n]{4,220}?)(?=\s+(?:ante|frente\s+a)\s+(?:toros|novillos|reses)|[.;\n]|$)/g,
-    /\b(?:actuarán|actuaran|torearán|torearan|participarán|participaran)\s+([^.;\n]+)/gi,
-    /\bcartel\s+(?:formado|compuesto|integrado)\s+por\s+([^.;\n]+)/gi
-  ];
-
-  for (const pattern of patterns) {
-    for (const match of text.matchAll(pattern)) {
-      names.push(...splitNames(match[1]));
-    }
-  }
-
-  return unique(names).slice(0, 8);
-}
-
-function imageFromHtml(html, pageUrl) {
-  const value = meta(html, "property", "og:image");
-  return value ? absoluteUrl(value, pageUrl) : null;
-}
-
-function buildSegments(blocks, fallbackYear) {
-  const segments = [];
-
-  /*
-    Cada encabezado abre una sección. Los párrafos siguientes pertenecen a ella.
-    Además, cualquier bloque que contenga una fecha completa puede iniciar un evento.
-  */
-  let currentHeading = "";
-
-  for (const block of blocks) {
-    if (/^h[2-4]$/.test(block.type)) {
-      currentHeading = block.text;
-    }
-
-    const combined = currentHeading && currentHeading !== block.text
-      ? `${currentHeading}\n${block.text}`
-      : block.text;
-
-    const dates = dateMentions(combined, fallbackYear);
-
-    if (!dates.length) continue;
-
-    /*
-      Si el mismo bloque contiene varias fechas, lo dividimos por la posición
-      de cada fecha y damos a cada tramo su propio contexto.
-    */
-    const source = combined;
-    const normalizedSource = normalized(source);
-
-    for (let i = 0; i < dates.length; i++) {
-      const start = Math.max(0, dates[i].index - 90);
-      const end =
-        i + 1 < dates.length
-          ? Math.max(start, dates[i + 1].index - 1)
-          : normalizedSource.length;
-
-      const excerpt = normalizedSource.slice(start, end);
-      const originalApprox = source.slice(
-        Math.max(0, Math.min(start, source.length)),
-        Math.max(0, Math.min(end + 260, source.length))
-      );
-
-      segments.push({
-        date: dates[i].date,
-        text: clean(`${currentHeading}\n${block.text}\n${originalApprox}`),
-        excerpt
-      });
-    }
-  }
-
-  return segments;
-}
-
-function inferYear(published) {
-  return published?.getFullYear() || new Date().getFullYear();
-}
-
-function segmentToEvent(segment, page, html) {
-  if (!allowedDate(segment.date)) return null;
-
-  const text = segment.text;
-  const location = locationFrom(text);
-  if (!location) return null;
-
-  const type = typeFrom(text);
-
-  const event = {
-    id: null,
-    source: "CMM",
-    date: isoDate(segment.date),
-    time: timeFrom(text),
-    channel: "CMM",
-    location,
-    type,
-    contentType: "festejo",
-    breeding: breedingFrom(text),
-    participants: participantsFrom(text),
-    name: `${type} desde ${location}`,
-    title: page.title,
-    image: imageFromHtml(html, page.url),
-    eventUrl: page.url,
-    sourceUrl: page.url
-  };
-
-  const slug = normalized(`${event.date}-${location}-${type}`)
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-
-  event.id = `cmm-${slug}`;
-  return event;
-}
-
-function sameEvent(a, b) {
-  if (a.date !== b.date) return false;
-
-  const x = normalized(a.location).replace(/\b(?:toledo|albacete|cuenca|guadalajara|ciudad real)\b/g, "").trim();
-  const y = normalized(b.location).replace(/\b(?:toledo|albacete|cuenca|guadalajara|ciudad real)\b/g, "").trim();
-
-  return x === y || x.includes(y) || y.includes(x);
-}
-
-function eventQuality(event) {
-  return (
-    (event.time ? 2 : 0) +
-    (event.breeding ? 2 : 0) +
-    Math.min(event.participants.length, 3) +
-    (event.type !== "Festejo taurino" ? 1 : 0)
-  );
-}
-
-function mergeEvents(events) {
-  const output = [];
-
-  for (const event of events.sort((a, b) => eventQuality(b) - eventQuality(a))) {
-    const existing = output.find(item => sameEvent(item, event));
-
-    if (!existing) {
-      output.push({ ...event });
-      continue;
-    }
-
-    existing.time ||= event.time;
-    existing.breeding ||= event.breeding;
-    existing.image ||= event.image;
-
-    if (event.participants.length > existing.participants.length) {
-      existing.participants = event.participants;
-    }
-
-    if (
-      existing.type === "Festejo taurino" &&
-      event.type !== "Festejo taurino"
-    ) {
-      existing.type = event.type;
-    }
-  }
-
-  return output.sort((a, b) =>
-    `${a.date} ${a.time || "99:99"}`.localeCompare(
-      `${b.date} ${b.time || "99:99"}`
-    )
-  );
-}
-
-function parseDetailPage(html, url) {
-  const page = {
-    url: canonicalFromHtml(html, url),
-    title: titleFromHtml(html),
-    published: publishedDate(html)
-  };
-
-  /*
-    Regla crítica: una noticia de 2024 no puede convertirse en programación 2026.
-    Las fechas sin año heredan el año real de publicación del artículo.
-  */
-  const fallbackYear = inferYear(page.published);
-  const blocks = meaningfulBlocks(html);
-  const segments = buildSegments(blocks, fallbackYear);
-
-  return segments
-    .map(segment => segmentToEvent(segment, page, html))
-    .filter(Boolean);
-}
-
-async function discover() {
-  const urls = [];
-  const errors = [];
-
-  for (const indexUrl of INDEX_URLS) {
-    try {
-      const page = await fetchPage(indexUrl);
-      urls.push(...extractLinks(page.html, page.url));
-    } catch (error) {
-      errors.push({
-        phase: "discover",
-        url: indexUrl,
-        error: error.message
-      });
-    }
-    await sleep(REQUEST_DELAY_MS);
-  }
-
-  return {
-    urls: unique(urls).slice(0, MAX_DETAIL_PAGES),
-    errors
-  };
+  return response.text();
 }
 
 async function main() {
-  console.log("AlberoTV — scraper oficial CMM por eventos");
+  const generatedAt = new Date().toISOString();
+  const errors = [];
+  let html = "";
+  let dates = [];
+  let parsedItems = [];
 
-  const discovery = await discover();
-  const events = [];
-  const errors = [...discovery.errors];
-
-  console.log(`${discovery.urls.length} artículos oficiales encontrados`);
-
-  for (let i = 0; i < discovery.urls.length; i++) {
-    const url = discovery.urls[i];
-
-    try {
-      const page = await fetchPage(url);
-      events.push(...parseDetailPage(page.html, page.url));
-    } catch (error) {
-      errors.push({
-        phase: "detail",
-        url,
-        error: error.message
-      });
-    }
-
-    if ((i + 1) % 20 === 0) {
-      console.log(`Procesados ${i + 1}/${discovery.urls.length}`);
-    }
-
-    await sleep(REQUEST_DELAY_MS);
+  try {
+    html = await fetchHtml(GUIDE_URL);
+    dates = extractGuideDates(html);
+    parsedItems = parseScheduleItems(html, dates);
+  } catch (error) {
+    errors.push({
+      url: GUIDE_URL,
+      error: error.message
+    });
   }
 
-  const finalEvents = mergeEvents(events);
+  const events = deduplicate(
+    parsedItems.map((item, index) => ({
+      id: `cmm-${item.date}-${item.time.replace(":", "")}-${index + 1}`,
+      source: SOURCE,
+      title: item.title,
+      type: inferType(item.title, item.description),
+      date: item.date,
+      time: item.time,
+      channel: "CMM",
+      location: inferLocation(item.title, item.description),
+      breeding: "",
+      participants: [],
+      description: item.description,
+      sourceUrl: item.sourceUrl || GUIDE_URL
+    }))
+  );
 
   const output = {
-    source: "CMM",
-    updatedAt: new Date().toISOString(),
-    eventCount: finalEvents.length,
-    checkedPages: discovery.urls.length,
-    discoveryPages: INDEX_URLS.length,
+    source: SOURCE,
+    generatedAt,
+    sourceUrl: GUIDE_URL,
+    status: errors.length ? "partial" : "ok",
+    eventCount: events.length,
+    checkedPages: html ? 1 : 0,
+    discoveredDates: dates,
     errorCount: errors.length,
-    events: finalEvents,
-    errors: errors.slice(0, 20)
+    errors,
+    events
   };
 
-  await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });
+  await fs.mkdir(path.dirname(OUTPUT), { recursive: true });
   await fs.writeFile(
-    OUTPUT_FILE,
+    OUTPUT,
     JSON.stringify(output, null, 2) + "\n",
     "utf8"
   );
 
-  console.log(`CMM: ${finalEvents.length} eventos válidos`);
-  console.log(`Salida: ${OUTPUT_FILE}`);
+  console.log(`CMM: ${events.length} emisiones taurinas encontradas.`);
+  console.log(`Fechas detectadas: ${dates.length}.`);
+  console.log(`Archivo guardado en ${OUTPUT}.`);
 }
 
 main().catch(error => {
-  console.error("Error actualizando CMM:");
   console.error(error);
   process.exit(1);
 });
