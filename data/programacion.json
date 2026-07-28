@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-28T13:45:58.837Z",
+  "generatedAt": "2026-07-28T13:59:29.428Z",
   "degraded": false,
-  "eventCount": 36,
-  "bullfightingEventCount": 34,
+  "eventCount": 34,
+  "bullfightingEventCount": 32,
   "programCount": 2,
   "mergeStats": {
-    "added": 36,
-    "merged": 1
+    "added": 34,
+    "merged": 3
   },
   "sources": {
     "elMuletazo": 30,
@@ -20,28 +20,28 @@
       "label": "El Muletazo",
       "status": "ok",
       "eventCount": 30,
-      "fetchedAt": "2026-07-28T13:45:39.308Z",
+      "fetchedAt": "2026-07-28T13:59:09.391Z",
       "error": null
     },
     "oneToro": {
       "label": "OneToro",
       "status": "ok",
       "eventCount": 2,
-      "fetchedAt": "2026-07-28T13:45:39.083Z",
+      "fetchedAt": "2026-07-28T13:59:09.115Z",
       "error": null
     },
     "programasTaurinos": {
       "label": "Programas taurinos",
       "status": "ok",
       "eventCount": 0,
-      "fetchedAt": "2026-07-28T13:45:58.745Z",
+      "fetchedAt": "2026-07-28T13:59:29.374Z",
       "error": null
     },
     "canalSur": {
       "label": "Canal Sur",
       "status": "ok",
       "eventCount": 0,
-      "fetchedAt": "2026-07-28T13:45:56.951Z",
+      "fetchedAt": "2026-07-28T13:59:28.055Z",
       "error": null
     },
     "cmm": {
@@ -167,7 +167,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -200,7 +200,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -211,8 +211,8 @@
       "date": "2026-07-31",
       "time": "22:30",
       "channel": "OneToro",
-      "location": "Paio Pires",
-      "type": "Festejo taurino",
+      "location": "Paio Pires (Portugal)",
+      "type": "Rejones",
       "contentType": "festejo",
       "breeding": "Benítez Cubero, Villamarta, Casa Prudêncio, Canas Vigouroux, Monteviejo y Passanha Sobral",
       "participants": [
@@ -228,11 +228,11 @@
         "Villamarta",
         "Mundo Ecuestre"
       ],
-      "name": "Paio Pires",
+      "name": "Paio Pires (Portugal)",
       "title": null,
       "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2Frf0z-0257dda1-3008-46b6-b73f-b50722e0d019.landscapes.high.webp",
-      "eventUrl": "https://festejos.onetoro.tv/content/paio-pires-31072026",
-      "sourceUrl": "https://festejos.onetoro.tv/content/paio-pires-31072026",
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
         "OneToro"
@@ -242,13 +242,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         },
         {
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/paio-pires-31072026",
-          "fetchedAt": "2026-07-28T13:45:39.083Z"
+          "fetchedAt": "2026-07-28T13:59:09.115Z"
         }
       ],
       "confidence": 100,
@@ -313,7 +313,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -324,37 +324,8 @@
       "date": "2026-08-01",
       "time": "19:00",
       "channel": "CMM",
-      "location": "Televisión",
-      "type": "Rejones",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [],
-      "name": "TOROS 2026",
-      "title": "TOROS 2026",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sources": [
-        "CMM"
-      ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": null,
-      "date": "2026-08-01",
-      "time": "19:00",
-      "channel": "CMM",
       "location": "Villapalacios (Albacete)",
-      "type": "Festejo taurino",
+      "type": "Rejones",
       "contentType": "festejo",
       "breeding": "Valdealcalde",
       "participants": [
@@ -363,22 +334,29 @@
         "Manuel Sánchez «Panita»"
       ],
       "name": "Villapalacios (Albacete)",
-      "title": null,
+      "title": "TOROS 2026",
       "image": null,
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "CMM"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
+        },
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
         }
       ],
-      "confidence": 94,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -408,7 +386,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -437,7 +415,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 92,
@@ -470,7 +448,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -499,7 +477,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 92,
@@ -532,7 +510,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -565,7 +543,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -598,14 +576,14 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
       "status": "confirmed"
     },
     {
-      "id": null,
+      "id": "23a8ddfb-ed9a-4558-b85d-44bdaa9e0c0b",
       "date": "2026-08-14",
       "time": "23:00",
       "channel": "OneToro",
@@ -618,61 +596,36 @@
         "Francisco Palha",
         "Miguel Moura",
         "los forcados de Lisboa",
-        "Coruche"
+        "Coruche",
+        "Rui Fernandez",
+        "Portugal",
+        "Antonio Charrua",
+        "Mundo Ecuestre"
       ],
       "name": "Abiul (Portugal)",
       "title": null,
-      "image": null,
+      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FWwCu-beabb8cb-c1a2-4535-8e4e-462decc3eeb4.landscapes.high.webp",
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "OneToro"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
-        }
-      ],
-      "confidence": 94,
-      "status": "confirmed"
-    },
-    {
-      "id": "23a8ddfb-ed9a-4558-b85d-44bdaa9e0c0b",
-      "date": "2026-08-14",
-      "time": null,
-      "channel": "OneToro",
-      "location": "Abiúl",
-      "type": "Festejo taurino",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [
-        "Rui Fernandez",
-        "Francisco Palha",
-        "Portugal",
-        "Antonio Charrua",
-        "Miguel Moura",
-        "Mundo Ecuestre"
-      ],
-      "name": "Abiúl",
-      "title": null,
-      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FWwCu-beabb8cb-c1a2-4535-8e4e-462decc3eeb4.landscapes.high.webp",
-      "eventUrl": "https://festejos.onetoro.tv/content/abiul-14082026",
-      "sourceUrl": "https://festejos.onetoro.tv/content/abiul-14082026",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
+        },
         {
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/abiul-14082026",
-          "fetchedAt": "2026-07-28T13:45:39.083Z"
+          "fetchedAt": "2026-07-28T13:59:09.115Z"
         }
       ],
-      "confidence": 98,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -698,7 +651,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 92,
@@ -727,7 +680,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 92,
@@ -760,7 +713,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -789,7 +742,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 92,
@@ -818,7 +771,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 92,
@@ -847,7 +800,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 92,
@@ -876,7 +829,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 92,
@@ -909,7 +862,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -942,7 +895,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -975,7 +928,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -1008,7 +961,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -1041,7 +994,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -1074,7 +1027,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -1107,7 +1060,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -1140,7 +1093,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 94,
@@ -1169,7 +1122,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 92,
@@ -1198,7 +1151,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T13:45:39.308Z"
+          "fetchedAt": "2026-07-28T13:59:09.391Z"
         }
       ],
       "confidence": 93,
