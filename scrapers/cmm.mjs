@@ -1,65 +1,56 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-/*
-  ALBEROTV — SCRAPER OFICIAL DE CMM
-
-  Fuente principal:
-    https://www.cmmedia.es/tv/toros
-
-  Fuente complementaria:
-    https://www.cmmedia.es/play/toros
-
-  El scraper:
-  - recorre directamente las páginas taurinas oficiales de CMM;
-  - descubre artículos y fichas de retransmisiones;
-  - abre cada ficha oficial;
-  - extrae fecha, hora, localidad, festejo, ganadería y participantes;
-  - conserva solo emisiones recientes o futuras;
-  - genera data/cmm.json;
-  - no necesita instalar dependencias.
-*/
-
-const OUTPUT_FILE = path.resolve(process.cwd(), "data", "cmm.json");
-
+const OUTPUT_FILE = path.resolve("data/cmm.json");
 const BASE_URL = "https://www.cmmedia.es";
-const START_URLS = [
+const INDEX_URLS = [
   `${BASE_URL}/tv/toros`,
   `${BASE_URL}/play/toros`,
-  ...Array.from({ length: 8 }, (_, index) => `${BASE_URL}/tv/toros/${index + 2}`),
-  ...Array.from({ length: 6 }, (_, index) => `${BASE_URL}/play/toros/${index + 2}`)
+  ...Array.from({ length: 10 }, (_, i) => `${BASE_URL}/tv/toros/${i + 2}`),
+  ...Array.from({ length: 6 }, (_, i) => `${BASE_URL}/play/toros/${i + 2}`)
 ];
 
 const USER_AGENT =
   "Mozilla/5.0 (compatible; AlberoTV/1.0; +https://alberotv.com)";
-
-const MAX_DETAIL_PAGES = 180;
-const MAX_PAST_DAYS = 7;
-const MAX_FUTURE_DAYS = 240;
-const REQUEST_DELAY_MS = 120;
+const MAX_DETAIL_PAGES = 220;
+const REQUEST_DELAY_MS = 100;
+const PAST_DAYS = 7;
+const FUTURE_DAYS = 240;
 
 const MONTHS = {
-  enero: 1,
-  febrero: 2,
-  marzo: 3,
-  abril: 4,
-  mayo: 5,
-  junio: 6,
-  julio: 7,
-  agosto: 8,
-  septiembre: 9,
-  setiembre: 9,
-  octubre: 10,
-  noviembre: 11,
-  diciembre: 12
+  enero: 1, febrero: 2, marzo: 3, abril: 4, mayo: 5, junio: 6,
+  julio: 7, agosto: 8, septiembre: 9, setiembre: 9,
+  octubre: 10, noviembre: 11, diciembre: 12
 };
 
-function sleep(milliseconds) {
-  return new Promise(resolve => setTimeout(resolve, milliseconds));
+const DAY_NAMES =
+  "(?:lunes|martes|miércoles|miercoles|jueves|viernes|sábado|sabado|domingo)";
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function normalizeWhitespace(value = "") {
+function decodeHtml(value = "") {
+  const named = {
+    amp: "&", quot: '"', apos: "'", lt: "<", gt: ">", nbsp: " ",
+    ndash: "–", mdash: "—", hellip: "…", laquo: "«", raquo: "»",
+    aacute: "á", eacute: "é", iacute: "í", oacute: "ó", uacute: "ú",
+    Aacute: "Á", Eacute: "É", Iacute: "Í", Oacute: "Ó", Uacute: "Ú",
+    ntilde: "ñ", Ntilde: "Ñ", uuml: "ü", Uuml: "Ü"
+  };
+
   return String(value)
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) =>
+      String.fromCodePoint(parseInt(n, 16))
+    )
+    .replace(/&#(\d+);/g, (_, n) =>
+      String.fromCodePoint(parseInt(n, 10))
+    )
+    .replace(/&([a-z]+);/gi, (all, key) => named[key] ?? all);
+}
+
+function clean(value = "") {
+  return decodeHtml(String(value))
     .replace(/\u00a0/g, " ")
     .replace(/[ \t]+/g, " ")
     .replace(/\s*\n\s*/g, "\n")
@@ -67,137 +58,34 @@ function normalizeWhitespace(value = "") {
     .trim();
 }
 
-function normalizeText(value = "") {
-  return normalizeWhitespace(value)
+function plain(value = "") {
+  return clean(
+    String(value)
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<\/(?:p|div|li|h[1-6]|section|article)>/gi, "\n")
+      .replace(/<[^>]+>/g, " ")
+  );
+}
+
+function normalized(value = "") {
+  return clean(value)
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
 }
 
-function decodeHtmlEntities(value = "") {
-  const entities = {
-    amp: "&",
-    apos: "'",
-    quot: '"',
-    lt: "<",
-    gt: ">",
-    nbsp: " ",
-    ndash: "–",
-    mdash: "—",
-    hellip: "…",
-    laquo: "«",
-    raquo: "»",
-    aacute: "á",
-    eacute: "é",
-    iacute: "í",
-    oacute: "ó",
-    uacute: "ú",
-    Aacute: "Á",
-    Eacute: "É",
-    Iacute: "Í",
-    Oacute: "Ó",
-    Uacute: "Ú",
-    ntilde: "ñ",
-    Ntilde: "Ñ",
-    uuml: "ü",
-    Uuml: "Ü"
-  };
-
-  return String(value)
-    .replace(/&#x([0-9a-f]+);/gi, (_, hex) =>
-      String.fromCodePoint(Number.parseInt(hex, 16))
-    )
-    .replace(/&#([0-9]+);/g, (_, decimal) =>
-      String.fromCodePoint(Number.parseInt(decimal, 10))
-    )
-    .replace(/&([a-zA-Z]+);/g, (match, entity) =>
-      Object.prototype.hasOwnProperty.call(entities, entity)
-        ? entities[entity]
-        : match
-    );
+function unique(values) {
+  return [...new Set(values.filter(Boolean))];
 }
 
-function stripHtmlKeepingLines(html = "") {
-  return normalizeWhitespace(
-    decodeHtmlEntities(
-      String(html)
-        .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
-        .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
-        .replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi, " ")
-        .replace(/<br\s*\/?>/gi, "\n")
-        .replace(/<\/(?:p|div|li|h[1-6]|article|section|tr)>/gi, "\n")
-        .replace(/<[^>]+>/g, " ")
-    )
-  );
-}
-
-function unique(values = []) {
-  return [
-    ...new Set(
-      values
-        .map(value => normalizeWhitespace(value))
-        .filter(Boolean)
-    )
-  ];
-}
-
-function absoluteUrl(value, baseUrl = BASE_URL) {
-  if (!value) return "";
-
+function absoluteUrl(value, base = BASE_URL) {
   try {
-    return new URL(decodeHtmlEntities(value), baseUrl).href;
+    return new URL(decodeHtml(value), base).href.split("#")[0];
   } catch {
     return "";
   }
-}
-
-function isOfficialCmmUrl(url = "") {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "") === "cmmedia.es";
-  } catch {
-    return false;
-  }
-}
-
-function isTaurineDetailUrl(url = "") {
-  if (!isOfficialCmmUrl(url)) return false;
-
-  try {
-    const parsed = new URL(url);
-    const pathname = parsed.pathname.replace(/\/+$/, "");
-
-    if (!/^\/(?:tv|play)\/toros\//i.test(pathname)) return false;
-    if (/\/toros\/\d+$/i.test(pathname)) return false;
-    if (/\/toros\/(?:directo|programacion|videos?)$/i.test(pathname)) return false;
-
-    return pathname.endsWith(".html");
-  } catch {
-    return false;
-  }
-}
-
-function extractLinks(html = "", pageUrl = BASE_URL) {
-  const links = [];
-
-  for (const match of String(html).matchAll(
-    /<a\b[^>]*href\s*=\s*["']([^"'#]+)["'][^>]*>/gi
-  )) {
-    const url = absoluteUrl(match[1], pageUrl);
-    if (isTaurineDetailUrl(url)) links.push(url);
-  }
-
-  /*
-    Algunas páginas incluyen enlaces dentro de JSON incrustado.
-    Esta segunda lectura evita depender de una clase CSS concreta.
-  */
-  for (const match of String(html).matchAll(
-    /["'](?:url|href)["']\s*:\s*["']([^"']+\/(?:tv|play)\/toros\/[^"']+\.html[^"']*)["']/gi
-  )) {
-    const url = absoluteUrl(match[1].replace(/\\\//g, "/"), pageUrl);
-    if (isTaurineDetailUrl(url)) links.push(url);
-  }
-
-  return unique(links.map(url => url.split("#")[0]));
 }
 
 async function fetchPage(url) {
@@ -205,9 +93,8 @@ async function fetchPage(url) {
     redirect: "follow",
     headers: {
       "user-agent": USER_AGENT,
-      accept:
-        "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-      "accept-language": "es-ES,es;q=0.9"
+      "accept-language": "es-ES,es;q=0.9",
+      accept: "text/html,application/xhtml+xml"
     },
     signal: AbortSignal.timeout(25000)
   });
@@ -216,92 +103,140 @@ async function fetchPage(url) {
     throw new Error(`HTTP ${response.status} en ${url}`);
   }
 
-  return {
-    html: await response.text(),
-    finalUrl: response.url || url
-  };
+  return { html: await response.text(), url: response.url || url };
 }
 
-function extractMetaContent(html = "", attribute, value) {
+function isDetailUrl(url) {
+  try {
+    const pathname = new URL(url).pathname.replace(/\/+$/, "");
+    return (
+      /^\/(?:tv|play)\/toros\/.+\.html$/i.test(pathname) &&
+      !/user-descargas\.html$/i.test(pathname)
+    );
+  } catch {
+    return false;
+  }
+}
+
+function extractLinks(html, pageUrl) {
+  const links = [];
+
+  for (const match of html.matchAll(/href=["']([^"'#]+)["']/gi)) {
+    const url = absoluteUrl(match[1], pageUrl);
+    if (isDetailUrl(url)) links.push(url);
+  }
+
+  return unique(links);
+}
+
+function meta(html, attribute, value) {
+  const escaped = value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const patterns = [
     new RegExp(
-      `<meta[^>]+${attribute}=["']${value}["'][^>]+content=["']([^"']+)["']`,
+      `<meta[^>]+${attribute}=["']${escaped}["'][^>]+content=["']([^"']+)["']`,
       "i"
     ),
     new RegExp(
-      `<meta[^>]+content=["']([^"']+)["'][^>]+${attribute}=["']${value}["']`,
+      `<meta[^>]+content=["']([^"']+)["'][^>]+${attribute}=["']${escaped}["']`,
       "i"
     )
   ];
 
   for (const pattern of patterns) {
-    const match = String(html).match(pattern)?.[1];
-    if (match) return normalizeWhitespace(decodeHtmlEntities(match));
+    const found = html.match(pattern)?.[1];
+    if (found) return clean(found);
   }
 
   return "";
 }
 
-function extractCanonicalUrl(html = "", fallbackUrl = "") {
-  const match =
-    String(html).match(
-      /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i
-    )?.[1] ||
-    String(html).match(
-      /<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i
-    )?.[1];
-
-  return absoluteUrl(match, fallbackUrl) || fallbackUrl;
-}
-
-function extractTitle(html = "") {
-  const ogTitle = extractMetaContent(html, "property", "og:title");
-  if (ogTitle) return ogTitle.replace(/\s*\|\s*CMM.*$/i, "").trim();
-
-  const heading = String(html).match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1];
-  if (heading) return stripHtmlKeepingLines(heading);
-
-  const pageTitle = String(html).match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1];
-  return stripHtmlKeepingLines(pageTitle || "")
-    .replace(/\s*\|\s*CMM.*$/i, "")
+function titleFromHtml(html) {
+  return (
+    meta(html, "property", "og:title") ||
+    plain(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || "") ||
+    plain(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] || "")
+  )
+    .replace(/\s*[-–|]\s*Castilla-La Mancha Media.*$/i, "")
     .trim();
 }
 
-function extractDescription(html = "") {
+function canonicalFromHtml(html, fallback) {
+  const value =
+    html.match(
+      /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i
+    )?.[1] ||
+    html.match(
+      /<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i
+    )?.[1];
+
+  return absoluteUrl(value || fallback, fallback);
+}
+
+function publishedDate(html) {
+  const values = [
+    meta(html, "property", "article:published_time"),
+    meta(html, "name", "date"),
+    html.match(/"datePublished"\s*:\s*"([^"]+)"/i)?.[1],
+    html.match(/\b(\d{2}\.\d{2}\.20\d{2})\s+\d{1,2}:\d{2}\b/)?.[1]
+  ].filter(Boolean);
+
+  for (const value of values) {
+    const european = value.match(/^(\d{2})\.(\d{2})\.(20\d{2})/);
+    if (european) {
+      return new Date(
+        Number(european[3]),
+        Number(european[2]) - 1,
+        Number(european[1]),
+        12
+      );
+    }
+
+    const parsed = new Date(value);
+    if (!Number.isNaN(parsed.getTime())) return parsed;
+  }
+
+  return null;
+}
+
+function articleHtml(html) {
   return (
-    extractMetaContent(html, "property", "og:description") ||
-    extractMetaContent(html, "name", "description")
+    html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i)?.[1] ||
+    html.match(
+      /<(?:div|section)\b[^>]+class=["'][^"']*(?:article-body|article__body|entry-content|content-body|cuerpo|texto)[^"']*["'][^>]*>([\s\S]*?)<\/(?:div|section)>/i
+    )?.[1] ||
+    html
   );
 }
 
-function extractImage(html = "", pageUrl = "") {
-  const image = extractMetaContent(html, "property", "og:image");
-  return image ? absoluteUrl(image, pageUrl) : null;
-}
+function meaningfulBlocks(html) {
+  const source = articleHtml(html)
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "");
 
-function extractArticleText(html = "") {
-  const candidates = [
-    String(html).match(/<article\b[^>]*>([\s\S]*?)<\/article>/i)?.[1],
-    String(html).match(
-      /<(?:div|section)\b[^>]+class=["'][^"']*(?:article-body|article__body|entry-content|content-body|cuerpo|texto)[^"']*["'][^>]*>([\s\S]*?)<\/(?:div|section)>/i
-    )?.[1]
-  ].filter(Boolean);
+  const blocks = [];
 
-  const selected = candidates.sort((a, b) => b.length - a.length)[0] || html;
-  return stripHtmlKeepingLines(selected);
+  for (const match of source.matchAll(
+    /<(h2|h3|h4|p|li)\b[^>]*>([\s\S]*?)<\/\1>/gi
+  )) {
+    const type = match[1].toLowerCase();
+    const text = plain(match[2]);
+
+    if (
+      text.length >= 8 &&
+      text.length <= 1400 &&
+      !/^(facebook|twitter|linkedin|enviar por email|whatsapp|telegram|últimas noticias|mira también|quitar alertas)/i.test(
+        text
+      )
+    ) {
+      blocks.push({ type, text });
+    }
+  }
+
+  return blocks;
 }
 
 function createDate(year, month, day) {
-  const date = new Date(
-    Number(year),
-    Number(month) - 1,
-    Number(day),
-    12,
-    0,
-    0,
-    0
-  );
-
+  const date = new Date(Number(year), Number(month) - 1, Number(day), 12);
   if (
     date.getFullYear() !== Number(year) ||
     date.getMonth() !== Number(month) - 1 ||
@@ -309,11 +244,10 @@ function createDate(year, month, day) {
   ) {
     return null;
   }
-
   return date;
 }
 
-function toISODate(date) {
+function isoDate(date) {
   return [
     date.getFullYear(),
     String(date.getMonth() + 1).padStart(2, "0"),
@@ -321,417 +255,304 @@ function toISODate(date) {
   ].join("-");
 }
 
-function isAllowedDate(date) {
-  if (!(date instanceof Date) || Number.isNaN(date.getTime())) return false;
+function allowedDate(date) {
+  if (!date || Number.isNaN(date.getTime())) return false;
 
   const today = new Date();
   today.setHours(12, 0, 0, 0);
 
-  const minimum = new Date(today);
-  minimum.setDate(minimum.getDate() - MAX_PAST_DAYS);
+  const min = new Date(today);
+  min.setDate(min.getDate() - PAST_DAYS);
 
-  const maximum = new Date(today);
-  maximum.setDate(maximum.getDate() + MAX_FUTURE_DAYS);
+  const max = new Date(today);
+  max.setDate(max.getDate() + FUTURE_DAYS);
 
-  return date >= minimum && date <= maximum;
+  return date >= min && date <= max;
 }
 
-function extractDateCandidates(text = "") {
-  const normalized = normalizeText(text);
-  const dates = [];
+function dateMentions(text, fallbackYear) {
+  const result = [];
+  const source = normalized(text);
 
-  for (const match of normalized.matchAll(
+  for (const match of source.matchAll(
     /\b([0-3]?\d)[\/.-]([01]?\d)[\/.-](20\d{2})\b/g
   )) {
     const date = createDate(match[3], match[2], match[1]);
-    if (date) dates.push(date);
+    if (date) result.push({ date, index: match.index, raw: match[0] });
   }
 
-  for (const match of normalized.matchAll(
-    /\b([0-3]?\d)\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)(?:\s+de\s+(20\d{2}))?\b/g
+  for (const match of source.matchAll(
+    new RegExp(
+      `\\b(?:${DAY_NAMES}[,\\s]*)?([0-3]?\\d)\\s+de\\s+` +
+        `(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)` +
+        `(?:\\s+de\\s+(20\\d{2}))?\\b`,
+      "gi"
+    )
   )) {
-    const year = Number(match[3] || new Date().getFullYear());
+    const year = Number(match[3] || fallbackYear);
     const date = createDate(year, MONTHS[match[2]], match[1]);
-    if (date) dates.push(date);
+    if (date) result.push({ date, index: match.index, raw: match[0] });
   }
 
-  return dates;
+  return result.sort((a, b) => a.index - b.index);
 }
 
-function extractEventDate(title = "", body = "") {
-  /*
-    Priorizamos el título porque las fichas de CMM suelen incluir
-    la fecha de la retransmisión entre paréntesis.
-  */
-  const titleDates = extractDateCandidates(title);
-  const allowedTitleDate = titleDates.find(isAllowedDate);
-  if (allowedTitleDate) return allowedTitleDate;
-
-  const bodyDates = extractDateCandidates(body);
-  const allowedBodyDates = bodyDates.filter(isAllowedDate);
-
-  /*
-    En una ficha puede aparecer la fecha de publicación además de la emisión.
-    Preferimos fechas precedidas por expresiones de programación.
-  */
-  const normalizedBody = normalizeText(body);
-
-  for (const date of allowedBodyDates) {
-    const isoSpanish = `${String(date.getDate()).padStart(2, "0")}/${String(
-      date.getMonth() + 1
-    ).padStart(2, "0")}/${date.getFullYear()}`;
-
-    const index = normalizedBody.indexOf(isoSpanish);
-    if (index >= 0) {
-      const context = normalizedBody.slice(Math.max(0, index - 100), index + 100);
-      if (
-        /directo|retransmision|emitira|television|playtoros|toros desde|novillada|corrida|rejones/.test(
-          context
-        )
-      ) {
-        return date;
-      }
-    }
-  }
-
-  return allowedBodyDates[0] || null;
-}
-
-function extractTime(title = "", body = "") {
-  const combined = normalizeText(`${title}\n${body}`);
-
+function timeFrom(text) {
+  const source = normalized(text);
   const patterns = [
-    /\b(?:a\s+las?|desde\s+las?|a\s+partir\s+de\s+las?|en\s+directo\s+a\s+las?)\s+([01]?\d|2[0-3])[:.h]([0-5]\d)\s*(?:horas?|h)?\b/i,
-    /\b([01]?\d|2[0-3]):([0-5]\d)\s*(?:horas?|h)\b/i,
-    /\b([01]?\d|2[0-3])h([0-5]\d)\b/i
+    /\b(?:a\s+las?|desde\s+las?|a\s+partir\s+de\s+las?)\s+([01]?\d|2[0-3])[:.h]([0-5]\d)\b/,
+    /\b([01]?\d|2[0-3]):([0-5]\d)\s*(?:h|horas?)\b/,
+    /\b([01]?\d|2[0-3])h([0-5]\d)\b/
   ];
 
   for (const pattern of patterns) {
-    const match = combined.match(pattern);
-    if (match) {
-      return `${String(match[1]).padStart(2, "0")}:${match[2]}`;
-    }
+    const match = source.match(pattern);
+    if (match) return `${match[1].padStart(2, "0")}:${match[2]}`;
   }
 
   return null;
 }
 
-function inferType(text = "") {
-  const value = normalizeText(text);
-
-  if (/concurso\s+de\s+recortadores|recortadores/.test(value)) {
+function typeFrom(text) {
+  const value = normalized(text);
+  if (/concurso\s+de\s+recortadores|recortadores|recortes/.test(value))
     return "Concurso de recortadores";
-  }
-
-  if (/corrida\s+(?:mixta\s+)?de\s+rejones|rejones|rejoneo/.test(value)) {
-    return "Rejones";
-  }
-
-  if (/novillada\s+sin\s+picadores/.test(value)) {
+  if (/corrida\s+mixta/.test(value)) return "Corrida mixta";
+  if (/rejones|rejoneo/.test(value)) return "Rejones";
+  if (/novillada\s+sin\s+picadores/.test(value))
     return "Novillada sin picadores";
-  }
-
-  if (/novillada\s+con\s+picadores/.test(value)) {
+  if (/novillada\s+con\s+picadores/.test(value))
     return "Novillada con picadores";
-  }
-
-  if (/novillada\s+mixta/.test(value)) {
-    return "Novillada mixta";
-  }
-
-  if (/novillada/.test(value)) {
-    return "Novillada";
-  }
-
-  if (/corrida\s+mixta/.test(value)) {
-    return "Corrida mixta";
-  }
-
-  if (/corrida\s+de\s+toros|corrida/.test(value)) {
+  if (/novillada/.test(value)) return "Novillada";
+  if (/corrida\s+de\s+toros|corrida/.test(value))
     return "Corrida de toros";
-  }
-
-  if (/festival/.test(value)) {
-    return "Festival taurino";
-  }
-
-  if (/becerrada/.test(value)) {
-    return "Becerrada";
-  }
-
+  if (/festival/.test(value)) return "Festival taurino";
+  if (/becerrada/.test(value)) return "Becerrada";
   return "Festejo taurino";
 }
 
-function cleanLocation(value = "") {
-  return normalizeWhitespace(value)
-    .replace(/\s*\((?:\d{1,2}[\/.-]\d{1,2}[\/.-]20\d{2})\)\s*$/i, "")
-    .replace(/\s+(?:en\s+directo|directo)$/i, "")
-    .replace(/\s*[|–—-]\s*(?:Toros|CMM|CMMPlay).*$/i, "")
-    .replace(/^(?:toros|corrida|novillada|rejones)\s+desde\s+/i, "")
+function cleanLocation(value) {
+  return clean(value)
+    .replace(/^la\s+plaza\s+de\s+toros\s+(?:de\s+)?/i, "")
+    .replace(/^plaza\s+de\s+toros\s+(?:de\s+)?/i, "")
+    .replace(/^la\s+localidad\s+(?:toledana|albaceteña|ciudadrealeña|conquense|guadalajareña)\s+de\s+/i, "")
+    .replace(/^la\s+localidad\s+de\s+/i, "")
+    .replace(/\s+(?:con|para|ante|donde|que)\s+.+$/i, "")
+    .replace(/[.,;:]+$/g, "")
     .trim();
 }
 
-function extractLocation(title = "", body = "") {
-  const candidates = [
-    title.match(
-      /\bdesde\s+(.+?)(?=\s*\(\d{1,2}[\/.-]\d{1,2}[\/.-]20\d{2}\)|\s*[|–—-]\s*CMM|$)/i
-    )?.[1],
-    title.match(
-      /\ben\s+(.+?)(?=\s*\(\d{1,2}[\/.-]\d{1,2}[\/.-]20\d{2}\)|\s*[|–—-]\s*CMM|$)/i
-    )?.[1],
-    body.match(
-      /\bdesde\s+(?:la\s+plaza\s+de\s+toros\s+de\s+)?([^\n.;]+?)(?=\s+(?:a\s+las|con|donde|el\s+\d)|[.;\n]|$)/i
-    )?.[1]
+function locationFrom(text) {
+  const patterns = [
+    /\bdesde\s+(?:la\s+plaza\s+de\s+toros\s+(?:de\s+)?)?([^.;\n]+?)(?=\s+(?:a\s+las|con|para|ante|donde|el\s+(?:lunes|martes|miércoles|miercoles|jueves|viernes|sábado|sabado|domingo))|[.;\n]|$)/i,
+    /\ben\s+(?:la\s+plaza\s+de\s+toros\s+(?:de\s+)?)?([^.;\n]+?)(?=\s+(?:a\s+las|con|para|ante|donde)|[.;\n]|$)/i
   ];
 
-  for (const candidate of candidates) {
-    const cleaned = cleanLocation(candidate || "");
+  for (const pattern of patterns) {
+    const match = text.match(pattern)?.[1];
+    const value = cleanLocation(match || "");
     if (
-      cleaned.length >= 2 &&
-      cleaned.length <= 90 &&
-      !/television|playtoros|castilla-la mancha media|cmm/i.test(cleaned)
+      value.length >= 2 &&
+      value.length <= 80 &&
+      !/\by\b.+\b(?:corrida|novillada|rejones|toros)\b/i.test(value) &&
+      !/televisi[oó]n|playtoros|castilla-la mancha media/i.test(value)
     ) {
-      return cleaned;
+      return value;
     }
   }
 
   return "";
 }
 
-function cleanBreeding(value = "") {
-  const cleaned = normalizeWhitespace(value)
-    .replace(/^(?:la\s+)?ganader[ií]a\s+(?:de\s+)?/i, "")
-    .replace(/\s+(?:para|que|con)\s+.+$/i, "")
-    .replace(/\s+y\s+sobreros.*$/i, "")
-    .trim();
-
-  if (
-    !cleaned ||
-    cleaned.length > 100 ||
-    /(?:directo|televisi[oó]n|programaci[oó]n|comentarios?|responder|me gusta)/i.test(
-      cleaned
-    )
-  ) {
-    return "";
-  }
-
-  return cleaned;
-}
-
-function extractBreeding(body = "") {
+function breedingFrom(text) {
   const patterns = [
-    /\b(?:toros|novillos|reses)\s+de\s+(?:la\s+ganader[ií]a\s+de\s+)?([^\n.;:]+?)(?=\s+(?:para|que|con|serán|seran)|[.;:\n]|$)/i,
-    /\bganader[ií]a\s*[:\-]?\s*(?:de\s+)?([^\n.;:]+?)(?=\s+(?:para|que|con)|[.;:\n]|$)/i,
-    /\bante\s+(?:toros|novillos|reses)\s+de\s+([^\n.;:]+?)(?=[.;:\n]|$)/i
+    /\b(?:toros|novillos|reses)\s+de\s+(?:la\s+ganader[ií]a\s+)?([A-ZÁÉÍÓÚÑ][^.;\n]{2,90}?)(?=\s+(?:para|que|con)|[.;\n]|$)/i,
+    /\bganader[ií]a\s+(?:de\s+)?([A-ZÁÉÍÓÚÑ][^.;\n]{2,90}?)(?=\s+(?:para|que|con)|[.;\n]|$)/i,
+    /\bante\s+(?:toros|novillos|reses)\s+de\s+([A-ZÁÉÍÓÚÑ][^.;\n]{2,90}?)(?=[.;\n]|$)/i
   ];
 
   for (const pattern of patterns) {
-    const value = cleanBreeding(body.match(pattern)?.[1] || "");
-    if (value) return value;
+    const value = clean(text.match(pattern)?.[1] || "")
+      .replace(/\s+y\s+sobreros.*$/i, "")
+      .trim();
+
+    if (
+      value &&
+      value.length <= 100 &&
+      !/este fin de semana|televisi[oó]n|programaci[oó]n|comentario|responder|me gusta/i.test(
+        value
+      )
+    ) {
+      return value;
+    }
   }
 
   return "";
 }
 
-function splitNames(value = "") {
+function splitNames(value) {
   return value
-    .replace(
-      /\s+(?:ante|con|frente\s+a)\s+(?:toros|novillos|reses).*$/i,
-      ""
-    )
+    .replace(/\s+(?:ante|frente\s+a)\s+(?:toros|novillos|reses).*$/i, "")
     .split(/\s*,\s*|\s+ y \s+/i)
     .map(name =>
-      normalizeWhitespace(
-        name
-          .replace(
-            /^(?:los\s+)?(?:diestros|matadores|toreros|novilleros|rejoneadores)\s*[:\-]?\s*/i,
-            ""
-          )
-          .replace(/\s+\((?:[A-ZÁÉÍÓÚÑ][^)]+)\)\s*$/i, "")
-      )
+      clean(name)
+        .replace(/^(?:los\s+)?(?:matadores|toreros|novilleros|rejoneadores|diestros)\s*[:\-]?\s*/i, "")
+        .replace(/[.;:]+$/g, "")
+        .trim()
     )
-    .filter(name => {
-      if (name.length < 3 || name.length > 65) return false;
-      if (
-        /ganader[ií]a|toros?|novillos?|directo|televisi[oó]n|plaza|cmm|playtoros|hora/i.test(
-          name
-        )
-      ) {
-        return false;
-      }
-      return true;
-    });
+    .filter(name =>
+      name.length >= 3 &&
+      name.length <= 55 &&
+      !/ganader[ií]a|toros?|novillos?|directo|televisi[oó]n|playtoros|plaza|hora/i.test(name)
+    );
 }
 
-function extractParticipants(body = "") {
-  const participants = [];
-
+function participantsFrom(text) {
+  const names = [];
   const patterns = [
-    /\bcartel\s+(?:formado|compuesto|integrado)\s+por\s+([^\n.;:]+)/gi,
-    /\b(?:actuarán|actuaran|torearán|torearan|participarán|participaran|se\s+medirán|se\s+mediran)\s+([^\n.;:]+)/gi,
-    /\b(?:matadores|diestros|toreros|novilleros|rejoneadores)\s*[:\-]\s*([^\n.;]+)/gi
+    /\b(?:para|con)\s+([A-ZÁÉÍÓÚÑ][^.;\n]{4,220}?)(?=\s+(?:ante|frente\s+a)\s+(?:toros|novillos|reses)|[.;\n]|$)/g,
+    /\b(?:actuarán|actuaran|torearán|torearan|participarán|participaran)\s+([^.;\n]+)/gi,
+    /\bcartel\s+(?:formado|compuesto|integrado)\s+por\s+([^.;\n]+)/gi
   ];
 
   for (const pattern of patterns) {
-    for (const match of body.matchAll(pattern)) {
-      participants.push(...splitNames(match[1]));
+    for (const match of text.matchAll(pattern)) {
+      names.push(...splitNames(match[1]));
     }
   }
 
-  /*
-    Las fichas de vídeo de CMM a veces colocan una etiqueta en una línea
-    y después un nombre por línea.
-  */
-  const lines = body
-    .split("\n")
-    .map(normalizeWhitespace)
-    .filter(Boolean);
+  return unique(names).slice(0, 8);
+}
 
-  for (let index = 0; index < lines.length; index++) {
-    if (
-      /^(?:matadores|diestros|toreros|novilleros|rejoneadores)\s*:?\s*$/i.test(
-        lines[index]
-      )
-    ) {
-      for (let offset = 1; offset <= 8; offset++) {
-        const line = lines[index + offset];
-        if (!line) break;
-        if (
-          /^(?:ganader[ií]a|toros?|novillos?|duraci[oó]n|fecha|hora|cmm)/i.test(
-            line
-          )
-        ) {
-          break;
-        }
-        participants.push(...splitNames(line));
-      }
+function imageFromHtml(html, pageUrl) {
+  const value = meta(html, "property", "og:image");
+  return value ? absoluteUrl(value, pageUrl) : null;
+}
+
+function buildSegments(blocks, fallbackYear) {
+  const segments = [];
+
+  /*
+    Cada encabezado abre una sección. Los párrafos siguientes pertenecen a ella.
+    Además, cualquier bloque que contenga una fecha completa puede iniciar un evento.
+  */
+  let currentHeading = "";
+
+  for (const block of blocks) {
+    if (/^h[2-4]$/.test(block.type)) {
+      currentHeading = block.text;
+    }
+
+    const combined = currentHeading && currentHeading !== block.text
+      ? `${currentHeading}\n${block.text}`
+      : block.text;
+
+    const dates = dateMentions(combined, fallbackYear);
+
+    if (!dates.length) continue;
+
+    /*
+      Si el mismo bloque contiene varias fechas, lo dividimos por la posición
+      de cada fecha y damos a cada tramo su propio contexto.
+    */
+    const source = combined;
+    const normalizedSource = normalized(source);
+
+    for (let i = 0; i < dates.length; i++) {
+      const start = Math.max(0, dates[i].index - 90);
+      const end =
+        i + 1 < dates.length
+          ? Math.max(start, dates[i + 1].index - 1)
+          : normalizedSource.length;
+
+      const excerpt = normalizedSource.slice(start, end);
+      const originalApprox = source.slice(
+        Math.max(0, Math.min(start, source.length)),
+        Math.max(0, Math.min(end + 260, source.length))
+      );
+
+      segments.push({
+        date: dates[i].date,
+        text: clean(`${currentHeading}\n${block.text}\n${originalApprox}`),
+        excerpt
+      });
     }
   }
 
-  return unique(participants).slice(0, 8);
+  return segments;
 }
 
-function confirmsTaurineBroadcast(title = "", body = "", url = "") {
-  const value = normalizeText(`${title}\n${body}\n${url}`);
-
-  const taurine =
-    /\btoros?\b|\bcorrida\b|\bnovillada\b|\brejones\b|\brejoneo\b|\bfestival\s+taurino\b|\bbecerrada\b/.test(
-      value
-    );
-
-  const cmmContext =
-    /\/(?:tv|play)\/toros\//.test(url) ||
-    /\bcmm\b|\bcastilla la mancha media\b|\bplaytoros\b/.test(value);
-
-  /*
-    En /play/toros las fichas ya son emisiones oficiales.
-    No exigimos que el texto contenga literalmente "en directo",
-    porque algunas fichas publican el vídeo con el mismo título del directo.
-  */
-  return taurine && cmmContext;
+function inferYear(published) {
+  return published?.getFullYear() || new Date().getFullYear();
 }
 
-function createId(event) {
-  const slug = normalizeText(
-    `${event.date}-${event.location}-${event.type}`
-  )
-    .replace(/[^a-z0-9ñ]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+function segmentToEvent(segment, page, html) {
+  if (!allowedDate(segment.date)) return null;
 
-  return `cmm-${slug || Date.now()}`;
-}
+  const text = segment.text;
+  const location = locationFrom(text);
+  if (!location) return null;
 
-function detailPageToEvent({ html, url }) {
-  const canonicalUrl = extractCanonicalUrl(html, url);
-  const title = extractTitle(html);
-  const description = extractDescription(html);
-  const articleText = extractArticleText(html);
-  const body = normalizeWhitespace(`${description}\n${articleText}`);
-
-  if (!confirmsTaurineBroadcast(title, body, canonicalUrl)) {
-    return null;
-  }
-
-  const date = extractEventDate(title, body);
-
-  if (!date || !isAllowedDate(date)) {
-    return null;
-  }
-
-  const combined = `${title}\n${body}`;
+  const type = typeFrom(text);
 
   const event = {
     id: null,
     source: "CMM",
-    date: toISODate(date),
-    time: extractTime(title, body),
+    date: isoDate(segment.date),
+    time: timeFrom(text),
     channel: "CMM",
-    location: extractLocation(title, body),
-    type: inferType(combined),
+    location,
+    type,
     contentType: "festejo",
-    breeding: extractBreeding(body),
-    participants: extractParticipants(body),
-    name: title,
-    title,
-    image: extractImage(html, canonicalUrl),
-    eventUrl: canonicalUrl,
-    sourceUrl: canonicalUrl
+    breeding: breedingFrom(text),
+    participants: participantsFrom(text),
+    name: `${type} desde ${location}`,
+    title: page.title,
+    image: imageFromHtml(html, page.url),
+    eventUrl: page.url,
+    sourceUrl: page.url
   };
 
-  if (!event.location) {
-    return null;
-  }
+  const slug = normalized(`${event.date}-${location}-${type}`)
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 
-  event.id = createId(event);
+  event.id = `cmm-${slug}`;
   return event;
 }
 
-function eventScore(event) {
-  let score = 0;
-  if (event.time) score += 2;
-  if (event.location) score += 3;
-  if (event.type && event.type !== "Festejo taurino") score += 1;
-  if (event.breeding) score += 2;
-  score += Math.min(event.participants.length, 3);
-  if (event.image) score += 1;
-  return score;
+function sameEvent(a, b) {
+  if (a.date !== b.date) return false;
+
+  const x = normalized(a.location).replace(/\b(?:toledo|albacete|cuenca|guadalajara|ciudad real)\b/g, "").trim();
+  const y = normalized(b.location).replace(/\b(?:toledo|albacete|cuenca|guadalajara|ciudad real)\b/g, "").trim();
+
+  return x === y || x.includes(y) || y.includes(x);
 }
 
-function sameEvent(first, second) {
-  if (first.date !== second.date) return false;
-
-  const firstLocation = normalizeText(first.location)
-    .replace(/\b(?:albacete|toledo|guadalajara|ciudad real|cuenca)\b/g, "")
-    .trim();
-
-  const secondLocation = normalizeText(second.location)
-    .replace(/\b(?:albacete|toledo|guadalajara|ciudad real|cuenca)\b/g, "")
-    .trim();
-
+function eventQuality(event) {
   return (
-    firstLocation === secondLocation ||
-    firstLocation.includes(secondLocation) ||
-    secondLocation.includes(firstLocation)
+    (event.time ? 2 : 0) +
+    (event.breeding ? 2 : 0) +
+    Math.min(event.participants.length, 3) +
+    (event.type !== "Festejo taurino" ? 1 : 0)
   );
 }
 
-function mergeEvents(events = []) {
-  const merged = [];
+function mergeEvents(events) {
+  const output = [];
 
-  for (const event of events.sort((a, b) => eventScore(b) - eventScore(a))) {
-    const existing = merged.find(candidate => sameEvent(candidate, event));
+  for (const event of events.sort((a, b) => eventQuality(b) - eventQuality(a))) {
+    const existing = output.find(item => sameEvent(item, event));
 
     if (!existing) {
-      merged.push({ ...event });
+      output.push({ ...event });
       continue;
     }
 
     existing.time ||= event.time;
-    existing.location ||= event.location;
     existing.breeding ||= event.breeding;
     existing.image ||= event.image;
-    existing.eventUrl ||= event.eventUrl;
-    existing.sourceUrl ||= event.sourceUrl;
 
     if (event.participants.length > existing.participants.length) {
       existing.participants = event.participants;
@@ -743,43 +564,50 @@ function mergeEvents(events = []) {
     ) {
       existing.type = event.type;
     }
-
-    if (eventScore(event) > eventScore(existing)) {
-      existing.name = event.name || existing.name;
-      existing.title = event.title || existing.title;
-    }
   }
 
-  return merged.sort((a, b) => {
-    const dateComparison = a.date.localeCompare(b.date);
-    if (dateComparison !== 0) return dateComparison;
-
-    return String(a.time || "99:99").localeCompare(
-      String(b.time || "99:99")
-    );
-  });
+  return output.sort((a, b) =>
+    `${a.date} ${a.time || "99:99"}`.localeCompare(
+      `${b.date} ${b.time || "99:99"}`
+    )
+  );
 }
 
-async function discoverDetailUrls() {
+function parseDetailPage(html, url) {
+  const page = {
+    url: canonicalFromHtml(html, url),
+    title: titleFromHtml(html),
+    published: publishedDate(html)
+  };
+
+  /*
+    Regla crítica: una noticia de 2024 no puede convertirse en programación 2026.
+    Las fechas sin año heredan el año real de publicación del artículo.
+  */
+  const fallbackYear = inferYear(page.published);
+  const blocks = meaningfulBlocks(html);
+  const segments = buildSegments(blocks, fallbackYear);
+
+  return segments
+    .map(segment => segmentToEvent(segment, page, html))
+    .filter(Boolean);
+}
+
+async function discover() {
   const urls = [];
   const errors = [];
 
-  for (const startUrl of START_URLS) {
+  for (const indexUrl of INDEX_URLS) {
     try {
-      const { html, finalUrl } = await fetchPage(startUrl);
-      urls.push(...extractLinks(html, finalUrl));
+      const page = await fetchPage(indexUrl);
+      urls.push(...extractLinks(page.html, page.url));
     } catch (error) {
-      /*
-        Algunas páginas de paginación pueden no existir.
-        Eso no invalida las páginas principales.
-      */
       errors.push({
         phase: "discover",
-        url: startUrl,
+        url: indexUrl,
         error: error.message
       });
     }
-
     await sleep(REQUEST_DELAY_MS);
   }
 
@@ -790,28 +618,20 @@ async function discoverDetailUrls() {
 }
 
 async function main() {
-  console.log("AlberoTV — CMM");
-  console.log("Leyendo directamente las páginas oficiales de Toros de CMM...");
+  console.log("AlberoTV — scraper oficial CMM por eventos");
 
-  const discovery = await discoverDetailUrls();
+  const discovery = await discover();
   const events = [];
   const errors = [...discovery.errors];
 
-  console.log(
-    `${discovery.urls.length} fichas taurinas oficiales encontradas`
-  );
+  console.log(`${discovery.urls.length} artículos oficiales encontrados`);
 
-  for (let index = 0; index < discovery.urls.length; index++) {
-    const url = discovery.urls[index];
+  for (let i = 0; i < discovery.urls.length; i++) {
+    const url = discovery.urls[i];
 
     try {
-      const { html, finalUrl } = await fetchPage(url);
-      const event = detailPageToEvent({
-        html,
-        url: finalUrl
-      });
-
-      if (event) events.push(event);
+      const page = await fetchPage(url);
+      events.push(...parseDetailPage(page.html, page.url));
     } catch (error) {
       errors.push({
         phase: "detail",
@@ -820,10 +640,8 @@ async function main() {
       });
     }
 
-    if ((index + 1) % 20 === 0) {
-      console.log(
-        `Procesadas ${index + 1}/${discovery.urls.length} fichas`
-      );
+    if ((i + 1) % 20 === 0) {
+      console.log(`Procesados ${i + 1}/${discovery.urls.length}`);
     }
 
     await sleep(REQUEST_DELAY_MS);
@@ -836,37 +654,24 @@ async function main() {
     updatedAt: new Date().toISOString(),
     eventCount: finalEvents.length,
     checkedPages: discovery.urls.length,
-    discoveryPages: START_URLS.length,
+    discoveryPages: INDEX_URLS.length,
     errorCount: errors.length,
     events: finalEvents,
     errors: errors.slice(0, 20)
   };
 
-  await fs.mkdir(path.dirname(OUTPUT_FILE), {
-    recursive: true
-  });
-
+  await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });
   await fs.writeFile(
     OUTPUT_FILE,
     JSON.stringify(output, null, 2) + "\n",
     "utf8"
   );
 
-  console.log("");
-  console.log(`CMM: ${finalEvents.length} eventos encontrados`);
-  console.log(`Fichas comprobadas: ${discovery.urls.length}`);
-  console.log(`Errores no fatales: ${errors.length}`);
+  console.log(`CMM: ${finalEvents.length} eventos válidos`);
   console.log(`Salida: ${OUTPUT_FILE}`);
-
-  if (!finalEvents.length) {
-    console.warn(
-      "Aviso: no se encontraron emisiones dentro del rango permitido."
-    );
-  }
 }
 
 main().catch(error => {
-  console.error("");
   console.error("Error actualizando CMM:");
   console.error(error);
   process.exit(1);
