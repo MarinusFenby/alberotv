@@ -1,58 +1,116 @@
 {
-  "generatedAt": "2026-07-28T11:03:54.794Z",
+  "generatedAt": "2026-07-28T11:24:11.559Z",
   "degraded": false,
-  "eventCount": 31,
-  "bullfightingEventCount": 31,
+  "eventCount": 37,
+  "bullfightingEventCount": 37,
   "programCount": 0,
   "mergeStats": {
-    "added": 31,
-    "merged": 1
+    "added": 37,
+    "merged": 2
   },
   "sources": {
     "elMuletazo": 30,
     "oneToro": 2,
     "programasTaurinos": 0,
     "canalSur": 0,
-    "cmm": 0
+    "cmm": 7
   },
   "sourceHealth": {
     "elMuletazo": {
       "label": "El Muletazo",
       "status": "ok",
       "eventCount": 30,
-      "fetchedAt": "2026-07-28T11:03:32.099Z",
+      "fetchedAt": "2026-07-28T11:23:04.224Z",
       "error": null
     },
     "oneToro": {
       "label": "OneToro",
       "status": "ok",
       "eventCount": 2,
-      "fetchedAt": "2026-07-28T11:03:31.503Z",
+      "fetchedAt": "2026-07-28T11:23:03.983Z",
       "error": null
     },
     "programasTaurinos": {
       "label": "Programas taurinos",
       "status": "ok",
       "eventCount": 0,
-      "fetchedAt": "2026-07-28T11:03:54.724Z",
+      "fetchedAt": "2026-07-28T11:24:11.471Z",
       "error": null
     },
     "canalSur": {
       "label": "Canal Sur",
       "status": "ok",
       "eventCount": 0,
-      "fetchedAt": "2026-07-28T11:03:49.439Z",
+      "fetchedAt": "2026-07-28T11:23:23.496Z",
       "error": null
     },
     "cmm": {
       "label": "CMM",
       "status": "ok",
-      "eventCount": 0,
-      "fetchedAt": "2026-07-28T11:03:53.686Z",
+      "eventCount": 7,
+      "fetchedAt": "2026-07-28T11:24:11.062Z",
       "error": null
     }
   },
   "events": [
+    {
+      "id": "cmm-2026-07-21-pozuelo-de-calatrava-y-novillada-en-la-solana-sabado-20-y-domingo-21-de-julio-rejones",
+      "date": "2026-07-21",
+      "time": "20:00",
+      "channel": "CMM",
+      "location": "Pozuelo de Calatrava y novillada en La Solana: sábado 20 y domingo 21 de julio",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "Eugenío Frias",
+      "participants": [],
+      "name": "Rejones desde Pozuelo de Calatrava y novillada en La Solana: sábado 20 y domingo 21 de julio - Castilla-La Mancha Media",
+      "title": "Rejones desde Pozuelo de Calatrava y novillada en La Solana: sábado 20 y domingo 21 de julio - Castilla-La Mancha Media",
+      "image": "https://imagenes.cmmedia.es/files/og_thumbnail/uploads/2024/06/12/666980633b2f6.jpeg",
+      "eventUrl": "https://www.cmmedia.es/tv/toros/rejones-pozuelo-calatrava-novillada-solana.html",
+      "sourceUrl": "https://www.cmmedia.es/tv/toros/rejones-pozuelo-calatrava-novillada-solana.html",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/tv/toros/rejones-pozuelo-calatrava-novillada-solana.html",
+          "fetchedAt": "2026-07-28T11:24:11.062Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "cmm-2026-07-28-almaden-anover-de-tajo-y-la-solana-novillada-sin-picadores",
+      "date": "2026-07-28",
+      "time": "19:00",
+      "channel": "CMM",
+      "location": "Almadén, Añover de Tajo y La Solana",
+      "type": "Novillada sin picadores",
+      "contentType": "festejo",
+      "breeding": "este fin de semana",
+      "participants": [],
+      "name": "Último fin de semana de julio con toros desde Almadén, Añover de Tajo y La Solana - Castilla-La Mancha Media",
+      "title": "Último fin de semana de julio con toros desde Almadén, Añover de Tajo y La Solana - Castilla-La Mancha Media",
+      "image": "https://imagenes.cmmedia.es/files/og_thumbnail/uploads/2024/07/22/669e16e15e065.jpeg",
+      "eventUrl": "https://www.cmmedia.es/tv/toros/ultimo-semana-julio-toros-almaden-anover-tajo-solana.html",
+      "sourceUrl": "https://www.cmmedia.es/tv/toros/ultimo-semana-julio-toros-almaden-anover-tajo-solana.html",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/tv/toros/ultimo-semana-julio-toros-almaden-anover-tajo-solana.html",
+          "fetchedAt": "2026-07-28T11:24:11.062Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
     {
       "id": null,
       "date": "2026-07-30",
@@ -80,7 +138,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -113,7 +171,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -155,13 +213,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         },
         {
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/paio-pires-31072026",
-          "fetchedAt": "2026-07-28T11:03:31.503Z"
+          "fetchedAt": "2026-07-28T11:23:03.983Z"
         }
       ],
       "confidence": 100,
@@ -197,7 +255,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -230,7 +288,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -263,7 +321,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -292,7 +350,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 92,
@@ -325,7 +383,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -354,7 +412,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 92,
@@ -387,7 +445,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -420,7 +478,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -453,10 +511,39 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
+      "status": "confirmed"
+    },
+    {
+      "id": "cmm-2026-08-11-socuellamos-y-la-corrida-mixta-desde-villamalea-rejones",
+      "date": "2026-08-11",
+      "time": "19:00",
+      "channel": "CMM",
+      "location": "Socuéllamos y la corrida mixta desde Villamalea",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "José Cruz",
+      "participants": [],
+      "name": "Disfruta de un fin de semana taurino con toros desde Socuéllamos y la corrida mixta desde Villamalea - Castilla-La Mancha Media",
+      "title": "Disfruta de un fin de semana taurino con toros desde Socuéllamos y la corrida mixta desde Villamalea - Castilla-La Mancha Media",
+      "image": "https://imagenes.cmmedia.es/files/og_thumbnail/uploads/2024/08/05/66b07e18ee52d.jpeg",
+      "eventUrl": "https://www.cmmedia.es/tv/toros/disfruta-semana-taurino-toros-socuellamos-corrida-mixta-villamalea.html",
+      "sourceUrl": "https://www.cmmedia.es/tv/toros/disfruta-semana-taurino-toros-socuellamos-corrida-mixta-villamalea.html",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/tv/toros/disfruta-semana-taurino-toros-socuellamos-corrida-mixta-villamalea.html",
+          "fetchedAt": "2026-07-28T11:24:11.062Z"
+        }
+      ],
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -488,7 +575,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -524,7 +611,7 @@
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/abiul-14082026",
-          "fetchedAt": "2026-07-28T11:03:31.503Z"
+          "fetchedAt": "2026-07-28T11:23:03.983Z"
         }
       ],
       "confidence": 98,
@@ -553,11 +640,40 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 92,
       "status": "probable"
+    },
+    {
+      "id": "cmm-2026-08-15-villarrobledo-rejones",
+      "date": "2026-08-15",
+      "time": "21:00",
+      "channel": "CMM",
+      "location": "Villarrobledo",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "El Montecillo",
+      "participants": [],
+      "name": "Toledo, Sigüenza y Ciudad Real: las citas taurinas de la semana en PlayToros.es - Castilla-La Mancha Media",
+      "title": "Toledo, Sigüenza y Ciudad Real: las citas taurinas de la semana en PlayToros.es - Castilla-La Mancha Media",
+      "image": "https://imagenes.cmmedia.es/files/og_thumbnail/uploads/2024/08/12/66b9f7c43e47f.jpeg",
+      "eventUrl": "https://www.cmmedia.es/tv/toros/villarrobledo-toledo-siguenza-ciudad-real-citas-taurinas-semana-playtoros.html",
+      "sourceUrl": "https://www.cmmedia.es/tv/toros/villarrobledo-toledo-siguenza-ciudad-real-citas-taurinas-semana-playtoros.html",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/tv/toros/villarrobledo-toledo-siguenza-ciudad-real-citas-taurinas-semana-playtoros.html",
+          "fetchedAt": "2026-07-28T11:24:11.062Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": null,
@@ -582,7 +698,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 92,
@@ -615,7 +731,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -644,11 +760,40 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 92,
       "status": "probable"
+    },
+    {
+      "id": "cmm-2026-08-27-illescas-concurso-de-recortadores",
+      "date": "2026-08-27",
+      "time": "18:30",
+      "channel": "CMM",
+      "location": "Illescas",
+      "type": "Concurso de recortadores",
+      "contentType": "festejo",
+      "breeding": "Torrealba y tres novillos de Domingo Hernández en una tarde mixta",
+      "participants": [],
+      "name": "Toros en televisión: Illescas, rejones en Riópar, mixta en Sacedón y recortes en Cuenca - Castilla-La Mancha Media",
+      "title": "Toros en televisión: Illescas, rejones en Riópar, mixta en Sacedón y recortes en Cuenca - Castilla-La Mancha Media",
+      "image": "https://imagenes.cmmedia.es/files/og_thumbnail/uploads/2024/08/26/66cc331602be9.jpeg",
+      "eventUrl": "https://www.cmmedia.es/tv/toros/toros-television-illescas-rejones-riopar-mixta-sacedon-recortes-cuenca.html",
+      "sourceUrl": "https://www.cmmedia.es/tv/toros/toros-television-illescas-rejones-riopar-mixta-sacedon-recortes-cuenca.html",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/tv/toros/toros-television-illescas-rejones-riopar-mixta-sacedon-recortes-cuenca.html",
+          "fetchedAt": "2026-07-28T11:24:11.062Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": null,
@@ -673,7 +818,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 92,
@@ -702,7 +847,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 92,
@@ -731,7 +876,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 92,
@@ -764,43 +909,50 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
       "status": "confirmed"
     },
     {
-      "id": null,
+      "id": "cmm-2026-09-04-la-plaza-de-toros-la-sagra-de-la-localidad-toledana-de-villaseca-de-la-sagra-rejones",
       "date": "2026-09-04",
       "time": "18:30",
       "channel": "CMM",
-      "location": "Villaseca de la Sagra (Toledo)",
-      "type": "Novillada con picadores",
+      "location": "la Plaza de Toros \"La Sagra\" de la localidad toledana de Villaseca de la Sagra",
+      "type": "Rejones",
       "contentType": "festejo",
-      "breeding": "Pedraza de Yeltes",
+      "breeding": "Conde Mayalde",
       "participants": [
         "El Mene",
         "Martín Morilla",
         "Simón Andreu"
       ],
-      "name": "Villaseca de la Sagra (Toledo)",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "name": "Alfarero de Oro de Villaseca de la Sagra en directo y gratis en PlayToros.es - Castilla-La Mancha Media",
+      "title": "Alfarero de Oro de Villaseca de la Sagra en directo y gratis en PlayToros.es - Castilla-La Mancha Media",
+      "image": "https://imagenes.cmmedia.es/files/og_thumbnail/uploads/2024/08/29/66d0599bcd8b9.jpeg",
+      "eventUrl": "https://www.cmmedia.es/tv/toros/alfarero-oro-directo-gratis-playtoros.html",
+      "sourceUrl": "https://www.cmmedia.es/tv/toros/alfarero-oro-directo-gratis-playtoros.html",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "CMM"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
+        },
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/tv/toros/alfarero-oro-directo-gratis-playtoros.html",
+          "fetchedAt": "2026-07-28T11:24:11.062Z"
         }
       ],
-      "confidence": 94,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -830,7 +982,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -863,7 +1015,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -896,7 +1048,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -929,7 +1081,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -962,7 +1114,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -995,7 +1147,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 94,
@@ -1024,11 +1176,40 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 92,
       "status": "probable"
+    },
+    {
+      "id": "cmm-2026-09-14-madridejos-rejones",
+      "date": "2026-09-14",
+      "time": "08:00",
+      "channel": "CMM",
+      "location": "Madridejos",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "Alcurrucén",
+      "participants": [],
+      "name": "Los encierros y toros de Guadalajara marcan la semana taurina de CMM - Castilla-La Mancha Media",
+      "title": "Los encierros y toros de Guadalajara marcan la semana taurina de CMM - Castilla-La Mancha Media",
+      "image": "https://imagenes.cmmedia.es/files/og_thumbnail/uploads/2024/09/09/66deadd9d92f0.jpeg",
+      "eventUrl": "https://www.cmmedia.es/tv/toros/encierros-toros-guadalajara-marcan-semana-taurina-cmm.html",
+      "sourceUrl": "https://www.cmmedia.es/tv/toros/encierros-toros-guadalajara-marcan-semana-taurina-cmm.html",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/tv/toros/encierros-toros-guadalajara-marcan-semana-taurina-cmm.html",
+          "fetchedAt": "2026-07-28T11:24:11.062Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": null,
@@ -1053,7 +1234,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-07-28T11:03:32.099Z"
+          "fetchedAt": "2026-07-28T11:23:04.224Z"
         }
       ],
       "confidence": 93,
