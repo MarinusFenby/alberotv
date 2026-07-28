@@ -1,4 +1,3 @@
-
 const timeline = document.getElementById("timeline");
 const hint = document.getElementById("hint");
 const categoryList = document.getElementById("category-list");
@@ -2732,9 +2731,111 @@ async function init() {
     0
   );
 
+  /*
+   * Construimos la cinta usando todas las fechas disponibles
+   * en programacion.json.
+   *
+   * Como mínimo mostramos 30 días pasados y 90 futuros.
+   * Si el JSON contiene eventos más antiguos o más lejanos,
+   * también se incluyen automáticamente.
+   */
+  const validEventDates =
+    events
+      .map(event => String(event.date || ""))
+      .filter(dateKey =>
+        /^\d{4}-\d{2}-\d{2}$/.test(dateKey)
+      )
+      .map(dateKey => {
+        const [year, month, day] =
+          dateKey.split("-").map(Number);
+
+        return new Date(
+          year,
+          month - 1,
+          day,
+          0,
+          0,
+          0,
+          0
+        );
+      })
+      .filter(date =>
+        !Number.isNaN(date.getTime())
+      );
+
+  const minimumVisibleDate =
+    new Date(today);
+
+  minimumVisibleDate.setDate(
+    today.getDate() - 30
+  );
+
+  const maximumVisibleDate =
+    new Date(today);
+
+  maximumVisibleDate.setDate(
+    today.getDate() + 90
+  );
+
+  if (validEventDates.length) {
+    const earliestEventDate =
+      new Date(
+        Math.min(
+          ...validEventDates.map(date =>
+            date.getTime()
+          )
+        )
+      );
+
+    const latestEventDate =
+      new Date(
+        Math.max(
+          ...validEventDates.map(date =>
+            date.getTime()
+          )
+        )
+      );
+
+    if (
+      earliestEventDate <
+      minimumVisibleDate
+    ) {
+      minimumVisibleDate.setTime(
+        earliestEventDate.getTime()
+      );
+    }
+
+    if (
+      latestEventDate >
+      maximumVisibleDate
+    ) {
+      maximumVisibleDate.setTime(
+        latestEventDate.getTime()
+      );
+    }
+  }
+
+  const firstOffset =
+    Math.round(
+      (
+        minimumVisibleDate.getTime() -
+        today.getTime()
+      ) /
+      86400000
+    );
+
+  const lastOffset =
+    Math.round(
+      (
+        maximumVisibleDate.getTime() -
+        today.getTime()
+      ) /
+      86400000
+    );
+
   for (
-    let offset = -5;
-    offset <= 90;
+    let offset = firstOffset;
+    offset <= lastOffset;
     offset++
   ) {
     const date =
