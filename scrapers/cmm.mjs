@@ -3,34 +3,11 @@ import path from "node:path";
 
 const SOURCE = "CMM";
 const GUIDE_URL = "https://www.cmmedia.es/play/programacion/tv";
+const TOROS_URL = "https://www.cmmedia.es/play/tv/toros";
 const OUTPUT = path.resolve("data/cmm.json");
 
 const USER_AGENT =
   "Mozilla/5.0 (compatible; AlberoTV/1.0; +https://alberotv.com)";
-
-const TAURINE_PATTERNS = [
-  /\btoros?\b/i,
-  /\bcorrida\b/i,
-  /\bnovillad[ao]\b/i,
-  /\brejones?\b/i,
-  /\brejoneo\b/i,
-  /\btauromaquia\b/i,
-  /\btaurin[oa]s?\b/i,
-  /\bpromesas de nuestra tierra\b/i,
-  /\bnuestro campo bravo\b/i,
-  /\btiempo de toros\b/i,
-  /\bplaytoros\b/i,
-  /\brecortes?\b/i,
-  /\bganader[ií]as?\b/i,
-  /\btoreo\b/i,
-  /\btorero\b/i
-];
-
-const EXCLUDED_PATTERNS = [
-  /\bnoticias?\b/i,
-  /\binformativo\b/i,
-  /\bcastilla[\s-]+la mancha (?:a las|hoy|despierta)\b/i
-];
 
 function normalizeSpace(value = "") {
   return String(value)
@@ -43,7 +20,7 @@ function normalizeSpace(value = "") {
 }
 
 function decodeHtml(value = "") {
-  const named = {
+  const entities = {
     amp: "&",
     quot: '"',
     apos: "'",
@@ -75,7 +52,7 @@ function decodeHtml(value = "") {
       String.fromCodePoint(parseInt(number, 16))
     )
     .replace(/&([a-zA-Z]+);/g, (whole, name) =>
-      Object.hasOwn(named, name) ? named[name] : whole
+      Object.hasOwn(entities, name) ? entities[name] : whole
     );
 }
 
@@ -93,16 +70,24 @@ function stripHtml(html = "") {
   );
 }
 
-function absoluteUrl(value = "") {
+function absoluteUrl(value = "", base = GUIDE_URL) {
   try {
-    return new URL(decodeHtml(value), GUIDE_URL).href;
+    return new URL(decodeHtml(value), base).href;
   } catch {
-    return GUIDE_URL;
+    return base;
   }
+}
+
+function cleanText(value = "") {
+  return normalizeSpace(stripHtml(value))
+    .replace(/^>\s*/, "")
+    .replace(/<[^>]*$/g, "")
+    .trim();
 }
 
 function dateToIso(year, month, day) {
   const date = new Date(Date.UTC(year, month - 1, day));
+
   if (
     date.getUTCFullYear() !== year ||
     date.getUTCMonth() + 1 !== month ||
@@ -124,7 +109,7 @@ function monthNumber(name = "") {
     .normalize("NFD")
     .replace(/\p{Diacritic}/gu, "");
 
-  const months = {
+  return {
     enero: 1,
     febrero: 2,
     marzo: 3,
@@ -138,166 +123,115 @@ function monthNumber(name = "") {
     octubre: 10,
     noviembre: 11,
     diciembre: 12
-  };
-
-  return months[normalized] || null;
+  }[normalized] || null;
 }
 
 function resolveYear(month, day, reference = new Date()) {
-  const candidates = [
+  const years = [
     reference.getUTCFullYear() - 1,
     reference.getUTCFullYear(),
     reference.getUTCFullYear() + 1
   ];
 
-  let best = candidates[0];
-  let bestDistance = Infinity;
-
-  for (const year of candidates) {
-    const candidate = new Date(Date.UTC(year, month - 1, day));
-    const distance = Math.abs(candidate - reference);
-
-    if (distance < bestDistance) {
-      bestDistance = distance;
-      best = year;
-    }
-  }
-
-  return best;
+  return years
+    .map(year => ({
+      year,
+      distance: Math.abs(
+        new Date(Date.UTC(year, month - 1, day)) - reference
+      )
+    }))
+    .sort((a, b) => a.distance - b.distance)[0].year;
 }
 
 function extractGuideDates(html) {
-  const results = [];
+  const dates = [];
   const seen = new Set();
 
-  const attributePatterns = [
-    /\bdata-(?:date|day|fecha)\s*=\s*["'](\d{4})-(\d{2})-(\d{2})["']/gi,
-    /\b(?:date|fecha)\s*=\s*["'](\d{4})-(\d{2})-(\d{2})["']/gi
-  ];
-
-  for (const pattern of attributePatterns) {
-    for (const match of html.matchAll(pattern)) {
-      const iso = dateToIso(+match[1], +match[2], +match[3]);
-      if (iso && !seen.has(iso)) {
-        seen.add(iso);
-        results.push(iso);
-      }
+  for (const match of html.matchAll(
+    /\bdata-(?:date|day|fecha)\s*=\s*["'](\d{4})-(\d{2})-(\d{2})["']/gi
+  )) {
+    const iso = dateToIso(+match[1], +match[2], +match[3]);
+    if (iso && !seen.has(iso)) {
+      seen.add(iso);
+      dates.push(iso);
     }
   }
 
   const text = stripHtml(html);
-  const fullDatePattern =
-    /\b(?:lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|domingo)?\s*(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)(?:\s+de\s+(\d{4}))?\b/gi;
 
-  for (const match of text.matchAll(fullDatePattern)) {
+  for (const match of text.matchAll(
+    /\b(?:lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|domingo)?\s*(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)(?:\s+de\s+(\d{4}))?\b/gi
+  )) {
     const day = +match[1];
     const month = monthNumber(match[2]);
     const year = match[3]
       ? +match[3]
-      : resolveYear(month, day, new Date());
+      : resolveYear(month, day);
 
     const iso = dateToIso(year, month, day);
+
     if (iso && !seen.has(iso)) {
       seen.add(iso);
-      results.push(iso);
+      dates.push(iso);
     }
   }
 
-  /*
-   * La cabecera visual de la guía muestra una sucesión:
-   * "lunes 20 martes 21 ... domingo 02".
-   * Si el HTML no expone fechas completas, reconstruimos esa secuencia
-   * tomando como referencia la fecha actual.
-   */
-  if (results.length === 0) {
-    const headerMatches = [
-      ...text.matchAll(
-        /\b(lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|domingo)\s+(\d{1,2})\b/gi
-      )
-    ].slice(0, 20);
-
-    if (headerMatches.length) {
-      const now = new Date();
-      const weekdays = {
-        domingo: 0,
-        lunes: 1,
-        martes: 2,
-        miercoles: 3,
-        miércoles: 3,
-        jueves: 4,
-        viernes: 5,
-        sabado: 6,
-        sábado: 6
-      };
-
-      let cursor = new Date(Date.UTC(
-        now.getUTCFullYear(),
-        now.getUTCMonth(),
-        now.getUTCDate() - 10
-      ));
-
-      for (const match of headerMatches) {
-        const weekdayName = match[1].toLowerCase();
-        const targetWeekday = weekdays[weekdayName];
-        const targetDay = +match[2];
-        let found = null;
-
-        for (let offset = 0; offset < 40; offset++) {
-          const candidate = new Date(cursor);
-          candidate.setUTCDate(candidate.getUTCDate() + offset);
-
-          if (
-            candidate.getUTCDate() === targetDay &&
-            candidate.getUTCDay() === targetWeekday
-          ) {
-            found = candidate;
-            break;
-          }
-        }
-
-        if (found) {
-          const iso = found.toISOString().slice(0, 10);
-          if (!seen.has(iso)) {
-            seen.add(iso);
-            results.push(iso);
-          }
-          cursor = new Date(found);
-          cursor.setUTCDate(cursor.getUTCDate() + 1);
-        }
-      }
-    }
-  }
-
-  return results.sort();
+  return dates.sort();
 }
 
-function extractLinks(fragment) {
+function extractLinks(fragment, base = GUIDE_URL) {
   const links = [];
 
   for (const match of String(fragment).matchAll(
     /<a\b[^>]*href\s*=\s*["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi
   )) {
     links.push({
-      url: absoluteUrl(match[1]),
-      text: stripHtml(match[2])
+      url: absoluteUrl(match[1], base),
+      text: cleanText(match[2])
     });
   }
 
   return links;
 }
 
-function isTaurine(title, description = "") {
-  const text = `${title} ${description}`;
-  if (!TAURINE_PATTERNS.some(pattern => pattern.test(text))) return false;
+function extractTitle(fragment) {
+  const heading = fragment.match(
+    /<h[1-6]\b[^>]*>([\s\S]*?)<\/h[1-6]>/i
+  );
 
-  if (
-    EXCLUDED_PATTERNS.some(pattern => pattern.test(title)) &&
-    !/\btoros?\b|\btauromaquia\b|\btaurin[oa]\b/i.test(title)
-  ) {
-    return false;
+  if (heading) {
+    const text = cleanText(heading[1]);
+    if (text) return text;
   }
 
-  return true;
+  const links = extractLinks(fragment);
+  const useful = links.find(link =>
+    link.text &&
+    !/^(play|ver|directo|más información|información)$/i.test(link.text)
+  );
+
+  return useful?.text || "";
+}
+
+function extractSourceUrl(fragment) {
+  const links = extractLinks(fragment);
+  return links.find(link => link.text)?.url || GUIDE_URL;
+}
+
+function isTaurineBroadcast(title = "") {
+  const normalized = title.toUpperCase();
+
+  /*
+   * El scraper CMM se limita a festejos televisados.
+   * Los programas taurinos ya se gestionan en programas-taurinos.mjs.
+   */
+  return (
+    normalized === "TOROS" ||
+    /\bCORRIDA\b/.test(normalized) ||
+    /\bNOVILLADA\b/.test(normalized) ||
+    /\bREJONES?\b/.test(normalized) ||
+    /\bRECORTES?\b/.test(normalized)
+  );
 }
 
 function inferType(title = "", description = "") {
@@ -313,162 +247,41 @@ function inferType(title = "", description = "") {
       : "Novillada";
   }
 
-  if (/\bcorrida\b|\btoros?\b/i.test(text)) {
-    return "Corrida de toros";
+  if (/\brecortes?\b/i.test(text)) {
+    return "Concurso de recortes";
   }
 
-  return "Programa taurino";
+  return "Corrida de toros";
 }
 
-function cleanTitle(title = "") {
-  return normalizeSpace(title)
-    .replace(/\s+\|\s+CMM(?:Play)?$/i, "")
-    .replace(/\s+-\s+CMM(?:Play)?$/i, "")
-    .replace(/\s+\d+$/g, "")
-    .trim();
-}
+function titleFromSlug(url = "") {
+  try {
+    const pathname = new URL(url).pathname;
+    const slug = pathname.split("/").filter(Boolean).pop() || "";
 
-function inferLocation(title = "", description = "") {
-  const text = `${title}. ${description}`;
-
-  const patterns = [
-    /\b(?:desde|en|de)\s+(?:la plaza de toros de\s+)?([A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ' -]{2,45})(?=[,.;]|$)/,
-    /\b(?:toros|novillada|rejones|recortes)\s+(?:en|de)\s+([A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ' -]{2,45})(?=[,.;]|$)/i
-  ];
-
-  for (const pattern of patterns) {
-    const match = text.match(pattern);
-    if (match) {
-      const candidate = normalizeSpace(match[1])
-        .replace(/\b(?:este|esta|el|la|los|las)\b.*$/i, "")
-        .trim();
-
-      if (candidate.length >= 3 && candidate.length <= 50) {
-        return candidate;
-      }
-    }
-  }
-
-  return "Castilla-La Mancha";
-}
-
-function parseScheduleItems(html, dates) {
-  /*
-   * Estrategia principal: convertimos el HTML en bloques delimitados por
-   * cada hora de emisión. Esto evita depender de las clases CSS internas.
-   */
-  const timeMatches = [
-    ...html.matchAll(
-      /(?:^|>|\s)([01]?\d|2[0-3]):([0-5]\d)(?=<|\s|$)/g
-    )
-  ];
-
-  const blocks = [];
-
-  for (let index = 0; index < timeMatches.length; index++) {
-    const match = timeMatches[index];
-    const start = match.index;
-    const end =
-      index + 1 < timeMatches.length
-        ? timeMatches[index + 1].index
-        : html.length;
-
-    const fragment = html.slice(start, end);
-    const time = `${String(+match[1]).padStart(2, "0")}:${match[2]}`;
-    const links = extractLinks(fragment);
-
-    let title = "";
-    let sourceUrl = GUIDE_URL;
-
-    const headingMatch = fragment.match(
-      /<h[1-6]\b[^>]*>([\s\S]*?)<\/h[1-6]>/i
-    );
-
-    if (headingMatch) {
-      title = stripHtml(headingMatch[1]);
-      const headingLinks = extractLinks(headingMatch[1]);
-      sourceUrl = headingLinks[0]?.url || sourceUrl;
-    }
-
-    if (!title) {
-      const usefulLink = links.find(link =>
-        link.text &&
-        !/^(play|ver|directo|más información)$/i.test(link.text)
-      );
-
-      title = usefulLink?.text || "";
-      sourceUrl = usefulLink?.url || sourceUrl;
-    }
-
-    const plain = stripHtml(fragment);
-    let description = plain
-      .replace(new RegExp(`^${time.replace(":", "\\:")}\\s*`), "")
-      .replace(title, "")
-      .replace(/\bPlay\b/gi, "")
+    return slug
+      .replace(/\.html$/i, "")
+      .replace(/-\d{2}-\d{2}-\d{4}(?:-\d+)?$/i, "")
+      .replace(/-/g, " ")
+      .replace(/\b\p{L}/gu, letter => letter.toUpperCase())
       .trim();
-
-    title = cleanTitle(title);
-
-    if (!title || title.length > 180) continue;
-    if (!isTaurine(title, description)) continue;
-
-    blocks.push({
-      time,
-      title,
-      description: normalizeSpace(description).slice(0, 700),
-      sourceUrl
-    });
+  } catch {
+    return "";
   }
-
-  /*
-   * La guía concatena los días. Detectamos el comienzo de cada parrilla:
-   * normalmente 06:00 y, si cambia el horario, cualquier salto claro desde
-   * la madrugada hacia una hora posterior.
-   */
-  let dayIndex = 0;
-  let previousMinutes = null;
-  let itemsInCurrentDay = 0;
-
-  for (const block of blocks) {
-    const [hour, minute] = block.time.split(":").map(Number);
-    const currentMinutes = hour * 60 + minute;
-
-    const startsNewDay =
-      previousMinutes !== null &&
-      itemsInCurrentDay > 0 &&
-      (
-        (previousMinutes <= 5 * 60 + 59 && currentMinutes >= 6 * 60) ||
-        (currentMinutes - previousMinutes >= 5 * 60)
-      );
-
-    if (startsNewDay && dayIndex < dates.length - 1) {
-      dayIndex++;
-      itemsInCurrentDay = 0;
-    }
-
-    block.date = dates[dayIndex] || dates[0] || null;
-    previousMinutes = currentMinutes;
-    itemsInCurrentDay++;
-  }
-
-  return blocks.filter(block => block.date);
 }
 
-function deduplicate(events) {
-  const map = new Map();
+function dateFromUrl(url = "") {
+  const match = url.match(/-(\d{2})-(\d{2})-(\d{4})(?:-\d+)?\.html(?:$|\?)/i);
+  if (!match) return null;
 
-  for (const event of events) {
-    const key = [
-      event.date,
-      event.time,
-      event.title.toLowerCase()
-    ].join("|");
+  return dateToIso(+match[3], +match[2], +match[1]);
+}
 
-    if (!map.has(key)) map.set(key, event);
-  }
-
-  return [...map.values()].sort((a, b) =>
-    `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`)
+function isUsefulTorosArticle(url = "") {
+  return (
+    /\/play\/(?:tv\/)?toros\/[^/]+\.html(?:$|\?)/i.test(url) &&
+    !/\/tiempo-de-toros\//i.test(url) &&
+    !/presentacion|temporada|protagonistas|entrevista|gala|aficionados|premio/i.test(url)
   );
 }
 
@@ -490,17 +303,158 @@ async function fetchHtml(url) {
   return response.text();
 }
 
+async function buildTorosIndex() {
+  const byDate = new Map();
+  const pages = [TOROS_URL];
+
+  for (let page = 2; page <= 4; page++) {
+    pages.push(`${TOROS_URL}/${page}`);
+  }
+
+  for (const pageUrl of pages) {
+    let html;
+
+    try {
+      html = await fetchHtml(pageUrl);
+    } catch {
+      continue;
+    }
+
+    for (const link of extractLinks(html, pageUrl)) {
+      if (!isUsefulTorosArticle(link.url)) continue;
+
+      const date = dateFromUrl(link.url);
+      if (!date) continue;
+
+      const title =
+        cleanText(link.text) ||
+        titleFromSlug(link.url);
+
+      if (!title) continue;
+
+      const candidate = {
+        date,
+        title,
+        url: link.url,
+        type: inferType(title)
+      };
+
+      const existing = byDate.get(date) || [];
+
+      if (!existing.some(item => item.url === candidate.url)) {
+        existing.push(candidate);
+        byDate.set(date, existing);
+      }
+    }
+  }
+
+  return byDate;
+}
+
+function parseAllScheduleBlocks(html, dates) {
+  const timeMatches = [
+    ...html.matchAll(
+      /(?:^|>|\s)([01]?\d|2[0-3]):([0-5]\d)(?=<|\s|$)/g
+    )
+  ];
+
+  const allBlocks = [];
+
+  for (let index = 0; index < timeMatches.length; index++) {
+    const match = timeMatches[index];
+    const start = match.index;
+    const end =
+      index + 1 < timeMatches.length
+        ? timeMatches[index + 1].index
+        : html.length;
+
+    const fragment = html.slice(start, end);
+    const time = `${String(+match[1]).padStart(2, "0")}:${match[2]}`;
+    const title = extractTitle(fragment);
+
+    if (!title) continue;
+
+    const plain = cleanText(fragment);
+    const description = normalizeSpace(
+      plain
+        .replace(new RegExp(`^${time.replace(":", "\\:")}\\s*`), "")
+        .replace(title, "")
+        .replace(/\bPlay\b/gi, "")
+        .replace(/<[^>]*$/g, "")
+    ).slice(0, 700);
+
+    allBlocks.push({
+      time,
+      title,
+      description,
+      sourceUrl: extractSourceUrl(fragment)
+    });
+  }
+
+  /*
+   * Primero asignamos fechas a TODA la parrilla.
+   * Después filtramos los espacios taurinos.
+   * Este orden evita que las fechas se desplacen.
+   */
+  let dayIndex = 0;
+  let previousMinutes = null;
+
+  for (const block of allBlocks) {
+    const [hour, minute] = block.time.split(":").map(Number);
+    const currentMinutes = hour * 60 + minute;
+
+    if (
+      previousMinutes !== null &&
+      currentMinutes < previousMinutes &&
+      dayIndex < dates.length - 1
+    ) {
+      dayIndex++;
+    }
+
+    block.date = dates[dayIndex] || dates[0] || null;
+    previousMinutes = currentMinutes;
+  }
+
+  return allBlocks.filter(
+    block => block.date && isTaurineBroadcast(block.title)
+  );
+}
+
+function chooseArticle(articles = [], usedUrls = new Set()) {
+  const unused = articles.find(article => !usedUrls.has(article.url));
+  return unused || articles[0] || null;
+}
+
+function deduplicate(events) {
+  const map = new Map();
+
+  for (const event of events) {
+    const key = [
+      event.date,
+      event.time,
+      event.title.toLowerCase()
+    ].join("|");
+
+    if (!map.has(key)) map.set(key, event);
+  }
+
+  return [...map.values()].sort((a, b) =>
+    `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`)
+  );
+}
+
 async function main() {
   const generatedAt = new Date().toISOString();
   const errors = [];
-  let html = "";
+  let guideHtml = "";
   let dates = [];
-  let parsedItems = [];
+  let schedule = [];
+  let torosIndex = new Map();
 
   try {
-    html = await fetchHtml(GUIDE_URL);
-    dates = extractGuideDates(html);
-    parsedItems = parseScheduleItems(html, dates);
+    guideHtml = await fetchHtml(GUIDE_URL);
+    dates = extractGuideDates(guideHtml);
+    schedule = parseAllScheduleBlocks(guideHtml, dates);
   } catch (error) {
     errors.push({
       url: GUIDE_URL,
@@ -508,21 +462,48 @@ async function main() {
     });
   }
 
+  try {
+    torosIndex = await buildTorosIndex();
+  } catch (error) {
+    errors.push({
+      url: TOROS_URL,
+      error: error.message
+    });
+  }
+
+  const usedUrls = new Set();
+
   const events = deduplicate(
-    parsedItems.map((item, index) => ({
-      id: `cmm-${item.date}-${item.time.replace(":", "")}-${index + 1}`,
-      source: SOURCE,
-      title: item.title,
-      type: inferType(item.title, item.description),
-      date: item.date,
-      time: item.time,
-      channel: "CMM",
-      location: inferLocation(item.title, item.description),
-      breeding: "",
-      participants: [],
-      description: item.description,
-      sourceUrl: item.sourceUrl || GUIDE_URL
-    }))
+    schedule.map((item, index) => {
+      const candidates = torosIndex.get(item.date) || [];
+      const article =
+        item.title.toUpperCase() === "TOROS"
+          ? chooseArticle(candidates, usedUrls)
+          : null;
+
+      if (article) usedUrls.add(article.url);
+
+      const title =
+        article?.title ||
+        (item.title.toUpperCase() === "TOROS"
+          ? "Toros en CMM"
+          : item.title);
+
+      return {
+        id: `cmm-${item.date}-${item.time.replace(":", "")}-${index + 1}`,
+        source: SOURCE,
+        title,
+        type: article?.type || inferType(title, item.description),
+        date: item.date,
+        time: item.time,
+        channel: "CMM",
+        location: "",
+        breeding: "",
+        participants: [],
+        description: item.description,
+        sourceUrl: article?.url || item.sourceUrl || GUIDE_URL
+      };
+    })
   );
 
   const output = {
@@ -531,7 +512,7 @@ async function main() {
     sourceUrl: GUIDE_URL,
     status: errors.length ? "partial" : "ok",
     eventCount: events.length,
-    checkedPages: html ? 1 : 0,
+    checkedPages: guideHtml ? 5 : 0,
     discoveredDates: dates,
     errorCount: errors.length,
     errors,
@@ -545,7 +526,7 @@ async function main() {
     "utf8"
   );
 
-  console.log(`CMM: ${events.length} emisiones taurinas encontradas.`);
+  console.log(`CMM: ${events.length} festejos encontrados.`);
   console.log(`Fechas detectadas: ${dates.length}.`);
   console.log(`Archivo guardado en ${OUTPUT}.`);
 }
