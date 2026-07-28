@@ -674,6 +674,133 @@ function validateOutput(output, previousOutput = null) {
   return errors;
 }
 
+
+function getDateKeyInTimeZone(date = new Date(), timeZone = "Europe/Madrid") {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(date);
+
+  const values = {};
+
+  for (const part of parts) {
+    if (part.type !== "literal") {
+      values[part.type] = part.value;
+    }
+  }
+
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
+function shouldPreserveHistoricalEvent(event, todayKey) {
+  return (
+    event &&
+    /^\d{4}-\d{2}-\d{2}$/.test(String(event.date || "")) &&
+    String(event.date) <= todayKey
+  );
+}
+
+function normalizeStoredEvent(event = {}) {
+  const contentType =
+    event.contentType === "programa" ||
+    normalizeType(event.type) === "Programa taurino"
+      ? "programa"
+      : "festejo";
+
+  const storedSources =
+    Array.isArray(event.sources) && event.sources.length
+      ? [...new Set(event.sources.filter(Boolean))]
+      : ["Histórico AlberoTV"];
+
+  const storedDetails =
+    Array.isArray(event.sourceDetails)
+      ? uniqueSourceDetails(event.sourceDetails)
+      : [];
+
+  const normalized = {
+    ...event,
+    id: event.id || null,
+    date: event.date || null,
+    time: event.time || null,
+    channel: normalizeChannel(event.channel),
+    location: cleanName(
+      event.location ||
+      event.name ||
+      (contentType === "programa" ? "Televisión" : "Localidad por confirmar")
+    ),
+    type:
+      contentType === "programa"
+        ? "Programa taurino"
+        : normalizeType(event.type),
+    contentType,
+    breeding:
+      contentType === "programa"
+        ? ""
+        : cleanBreeding(event.breeding),
+    participants:
+      contentType === "programa"
+        ? []
+        : cleanParticipants(event.participants),
+    name: cleanName(
+      event.name ||
+      event.title ||
+      event.location ||
+      event.type ||
+      (contentType === "programa" ? "Programa taurino" : "Festejo taurino")
+    ),
+    title: event.title ? cleanName(event.title) : null,
+    image: event.image || null,
+    eventUrl: event.eventUrl || event.sourceUrl || null,
+    sourceUrl: event.sourceUrl || event.eventUrl || null,
+    sources: storedSources,
+    sourceDetails: storedDetails
+  };
+
+  normalized.confidence =
+    Number.isFinite(Number(event.confidence))
+      ? Number(event.confidence)
+      : calculateConfidence(normalized);
+
+  normalized.status =
+    event.status ||
+    (normalized.confidence >= 94 ? "confirmed" : "probable");
+
+  return normalized;
+}
+
+function seedHistoricalEvents(collection, previousOutput, todayKey) {
+  const historicalEvents =
+    Array.isArray(previousOutput?.events)
+      ? previousOutput.events.filter(event =>
+          shouldPreserveHistoricalEvent(event, todayKey)
+        )
+      : [];
+
+  let added = 0;
+  let merged = 0;
+
+  for (const event of historicalEvents) {
+    const result = addOrMergeEvent(
+      collection,
+      normalizeStoredEvent(event)
+    );
+
+    if (result.merged) {
+      merged += 1;
+    } else {
+      added += 1;
+    }
+  }
+
+  return {
+    total: historicalEvents.length,
+    added,
+    merged
+  };
+}
+
 async function readPreviousOutput() {
   try {
     return await readJson(OUTPUT_FILE);
@@ -722,6 +849,15 @@ function sortEvents(events) {
 }
 
 async function main() {
+  /*
+   * Leemos la programación anterior antes de reconstruir la nueva.
+   * Conservamos únicamente los eventos cuya fecha sea hoy o anterior.
+   * Los eventos futuros siempre se reconstruyen con las fuentes actuales,
+   * evitando mantener anuncios cancelados o desactualizados.
+   */
+  const previousOutput = await readPreviousOutput();
+  const todayKey = getDateKeyInTimeZone(new Date(), "Europe/Madrid");
+
   const [muletazo, oneToro, programas, canalSur, cmm] = await Promise.all([
     readSource("elMuletazo"),
     readSource("oneToro"),
@@ -737,7 +873,17 @@ async function main() {
   }
 
   const merged = [];
+
+  const historicalStats =
+    seedHistoricalEvents(
+      merged,
+      previousOutput,
+      todayKey
+    );
+
   const mergeStats = {
+    historicalPreserved: historicalStats.added,
+    historicalDuplicatesMerged: historicalStats.merged,
     added: 0,
     merged: 0
   };
@@ -820,7 +966,6 @@ async function main() {
     events: merged
   };
 
-  const previousOutput = await readPreviousOutput();
   const validationErrors = validateOutput(output, previousOutput);
 
   if (validationErrors.length > 0) {
@@ -848,7 +993,9 @@ async function main() {
   console.log(`Programación fusionada: ${merged.length} elementos`);
   console.log(`Festejos: ${bullfightingEventCount}`);
   console.log(`Programas taurinos: ${programCount}`);
-  console.log(`Coincidencias fusionadas: ${mergeStats.merged}`);
+  console.log(`Eventos históricos conservados: ${mergeStats.historicalPreserved}`);
+  console.log(`Duplicados históricos fusionados: ${mergeStats.historicalDuplicatesMerged}`);
+  console.log(`Coincidencias nuevas fusionadas: ${mergeStats.merged}`);
   console.log(`Fuentes degradadas: ${output.degraded ? "sí" : "no"}`);
   console.log(`Salida: ${OUTPUT_FILE}`);
 
