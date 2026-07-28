@@ -1,4 +1,3 @@
-
 import fs from "node:fs/promises";
 import path from "node:path";
 
@@ -302,20 +301,34 @@ function assignDates(events, dates) {
   });
 }
 
-function isBullfightingBroadcast(title = "") {
-  const text = title.toUpperCase();
+function classifyBroadcast(title = "", description = "") {
+  const text = `${title} ${description}`
+    .toUpperCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "");
 
   /*
-   * No metemos aquí documentales ni programas semanales:
-   * esos se gestionan con programas-taurinos.mjs.
+   * Programa taurino semanal de CMM.
+   * Debe aparecer igual que Toros para Todos, Tendido Cero o Grana y Oro.
    */
-  return (
-    text === "TOROS" ||
+  if (text.includes("TIEMPO DE TOROS")) {
+    return "Programa taurino";
+  }
+
+  /*
+   * Retransmisiones de festejos.
+   */
+  if (
+    /^TOROS(?:\s|$)/.test(text) ||
     /\bCORRIDA(?: DE TOROS| DE REJONES)?\b/.test(text) ||
     /\bNOVILLADA\b/.test(text) ||
     /\bREJONES?\b/.test(text) ||
     /\bRECORTES?\b/.test(text)
-  );
+  ) {
+    return inferType(title, description);
+  }
+
+  return null;
 }
 
 function inferType(title = "", description = "") {
@@ -388,27 +401,6 @@ async function main() {
     headers = extractDateHeaders(html);
     dates = resolveHeaderDates(headers);
     allEvents = assignDates(extractEvents(html), dates);
-console.log("=== EVENTOS CMM DETECTADOS ===");
-
-  for (const event of allEvents) {
-    const searchableText =
-      `${event.title} ${event.description}`.toLowerCase();
-
-    if (
-      searchableText.includes("toro") ||
-      searchableText.includes("novill") ||
-      searchableText.includes("rejon") ||
-      searchableText.includes("recorte")
-    ) {
-      console.log(JSON.stringify({
-        date: event.date,
-        time: event.time,
-        title: event.title,
-        description: event.description,
-        sourceUrl: event.sourceUrl
-      }, null, 2));
-    }
-  }    
   } catch (error) {
     errors.push({
       url: GUIDE_URL,
@@ -417,29 +409,39 @@ console.log("=== EVENTOS CMM DETECTADOS ===");
   }
 
   const broadcasts = allEvents
-    .filter(event =>
-      event.date &&
-      isBullfightingBroadcast(event.title)
-    )
-    .map((event, index) => ({
-      id: `cmm-${event.date}-${event.time.replace(":", "")}-${index + 1}`,
-      source: SOURCE,
-      title:
-        event.title.toUpperCase() === "TOROS"
-          ? "Toros en CMM"
-          : event.title,
-      type: inferType(event.title, event.description),
-      date: event.date,
-      time: event.time,
-      channel: "CMM",
-      location: "",
-      breeding: "",
-      participants: [],
-      description: event.description,
-      sourceUrl: event.sourceUrl
-    }));
+    .map(event => {
+      if (!event.date) return null;
 
-  const events = deduplicate(broadcasts);
+      const type = classifyBroadcast(
+        event.title,
+        event.description
+      );
+
+      if (!type) return null;
+
+      return {
+        source: SOURCE,
+        title:
+          event.title.toUpperCase() === "TOROS"
+            ? "Toros en CMM"
+            : event.title,
+        type,
+        date: event.date,
+        time: event.time,
+        channel: "CMM",
+        location: "",
+        breeding: "",
+        participants: [],
+        description: event.description,
+        sourceUrl: event.sourceUrl
+      };
+    })
+    .filter(Boolean);
+
+  const events = deduplicate(broadcasts).map((event, index) => ({
+    id: `cmm-${event.date}-${event.time.replace(":", "")}-${index + 1}`,
+    ...event
+  }));
 
   if (html && !dates.length) {
     errors.push({
