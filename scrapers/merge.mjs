@@ -122,6 +122,102 @@ function similarity(a = "", b = "") {
   return matches / Math.max(aWords.size, bWords.size);
 }
 
+
+function levenshteinDistance(first = "", second = "") {
+  const a = normalizeText(first);
+  const b = normalizeText(second);
+
+  if (!a) return b.length;
+  if (!b) return a.length;
+
+  const previous = Array.from({ length: b.length + 1 }, (_, index) => index);
+  const current = new Array(b.length + 1);
+
+  for (let i = 1; i <= a.length; i += 1) {
+    current[0] = i;
+
+    for (let j = 1; j <= b.length; j += 1) {
+      const substitutionCost = a[i - 1] === b[j - 1] ? 0 : 1;
+
+      current[j] = Math.min(
+        current[j - 1] + 1,
+        previous[j] + 1,
+        previous[j - 1] + substitutionCost
+      );
+    }
+
+    for (let j = 0; j <= b.length; j += 1) {
+      previous[j] = current[j];
+    }
+  }
+
+  return previous[b.length];
+}
+
+function fuzzyTextSimilarity(first = "", second = "") {
+  const a = normalizeText(first);
+  const b = normalizeText(second);
+
+  if (!a || !b) return 0;
+  if (a === b) return 1;
+
+  const wordScore = similarity(a, b);
+  const distance = levenshteinDistance(a, b);
+  const characterScore = 1 - distance / Math.max(a.length, b.length);
+
+  return Math.max(wordScore, characterScore);
+}
+
+function normalizeLocationForMatch(value = "") {
+  return normalizeText(
+    String(value)
+      .replace(/\([^)]*\)/g, " ")
+      .replace(
+        /\b(españa|spain|portugal|francia|france|méxico|mexico|colombia|perú|peru)\b/gi,
+        " "
+      )
+  );
+}
+
+function locationSimilarity(first = "", second = "") {
+  const a = normalizeLocationForMatch(first);
+  const b = normalizeLocationForMatch(second);
+
+  if (!a || !b) return 0;
+  if (a === b) return 1;
+
+  return fuzzyTextSimilarity(a, b);
+}
+
+function isGenericLabel(value = "") {
+  const text = normalizeText(value);
+
+  return (
+    !text ||
+    text === "television" ||
+    text === "toros en cmm" ||
+    text === "toros 2026" ||
+    text === "festejo taurino" ||
+    text === "cartel por confirmar" ||
+    text === "programa taurino"
+  );
+}
+
+function informationScore(event = {}) {
+  let score = 0;
+
+  if (event.time) score += 4;
+  if (event.location && !isGenericLabel(event.location)) score += 8;
+  if (event.name && !isGenericLabel(event.name)) score += 8;
+  if (event.title && !isGenericLabel(event.title)) score += 5;
+  if (event.type && normalizeType(event.type) !== "Festejo taurino") score += 3;
+  if (event.breeding) score += 4;
+  if (event.participants?.length) score += Math.min(8, event.participants.length * 2);
+  if (event.eventUrl || event.sourceUrl) score += 1;
+
+  return score;
+}
+
 function participantSimilarity(first = [], second = []) {
   const a = first.map(normalizeText).filter(Boolean);
   const b = second.map(normalizeText).filter(Boolean);
@@ -162,23 +258,68 @@ function eventMatchScore(first, second) {
   if (!first?.date || first.date !== second?.date) return 0;
   if (first.contentType !== second.contentType) return 0;
 
-  let score = 40;
-
-  const locationScore = similarity(
-    first.location || first.name,
-    second.location || second.name
-  );
-
-  score += locationScore * 35;
-
   const channelA = normalizeChannel(first.channel);
   const channelB = normalizeChannel(second.channel);
-  if (channelA === channelB) score += 8;
+  const sameChannel = channelA === channelB;
+
+  const firstLabel = first.location || first.name;
+  const secondLabel = second.location || second.name;
+  const locationScore = locationSimilarity(firstLabel, secondLabel);
+
+  const exactTime =
+    Boolean(first.time) &&
+    Boolean(second.time) &&
+    first.time === second.time;
+
+  const oneTimeMissing =
+    Boolean(first.time) !== Boolean(second.time);
+
+  const firstGeneric =
+    isGenericLabel(first.location) ||
+    isGenericLabel(first.name) ||
+    isGenericLabel(first.title);
+
+  const secondGeneric =
+    isGenericLabel(second.location) ||
+    isGenericLabel(second.name) ||
+    isGenericLabel(second.title);
+
+  /*
+   * Caso típico CMM:
+   * una entrada genérica "Televisión" y otra entrada enriquecida,
+   * con la misma fecha, canal y hora.
+   */
+  if (
+    first.contentType === "festejo" &&
+    sameChannel &&
+    exactTime &&
+    (firstGeneric || secondGeneric)
+  ) {
+    return 96;
+  }
+
+  /*
+   * Caso típico OneToro:
+   * "Abiul (Portugal)" con hora y "Abiú" con hora por confirmar.
+   */
+  if (
+    first.contentType === "festejo" &&
+    sameChannel &&
+    oneTimeMissing &&
+    locationScore >= 0.72
+  ) {
+    return 88;
+  }
+
+  let score = 40;
+  score += locationScore * 35;
+
+  if (sameChannel) score += 8;
 
   score += timeCloseness(first.time, second.time) * 7;
   score += participantSimilarity(first.participants, second.participants) * 7;
 
-  const breedingScore = similarity(first.breeding, second.breeding);
+  const breedingScore = fuzzyTextSimilarity(first.breeding, second.breeding);
   score += breedingScore * 3;
 
   return Math.round(score * 100) / 100;
@@ -319,6 +460,31 @@ function chooseValue(firstValue, secondValue, preferSecond = false) {
   return preferSecond ? secondValue : firstValue;
 }
 
+
+function chooseInformativeValue(firstValue, secondValue, preferSecond = false) {
+  const firstEmpty =
+    firstValue === null ||
+    firstValue === undefined ||
+    firstValue === "";
+
+  const secondEmpty =
+    secondValue === null ||
+    secondValue === undefined ||
+    secondValue === "";
+
+  if (firstEmpty && !secondEmpty) return secondValue;
+  if (!firstEmpty && secondEmpty) return firstValue;
+  if (firstEmpty && secondEmpty) return firstValue ?? secondValue ?? null;
+
+  const firstGeneric = isGenericLabel(firstValue);
+  const secondGeneric = isGenericLabel(secondValue);
+
+  if (firstGeneric && !secondGeneric) return secondValue;
+  if (!firstGeneric && secondGeneric) return firstValue;
+
+  return preferSecond ? secondValue : firstValue;
+}
+
 function mergeParticipants(first = [], second = []) {
   const output = [...first];
 
@@ -331,24 +497,59 @@ function mergeParticipants(first = [], second = []) {
 }
 
 function mergeTwoEvents(first, second) {
-  const secondIsOfficial = sourceConfidence(second.sources?.[0]) > sourceConfidence(first.sources?.[0]);
+  const firstConfidence = sourceConfidence(first.sources?.[0]);
+  const secondConfidence = sourceConfidence(second.sources?.[0]);
+
+  const firstInformation = informationScore(first);
+  const secondInformation = informationScore(second);
+
+  /*
+   * La riqueza de datos manda sobre una entrada genérica.
+   * La confianza de la fuente solo desempata cuando ambas son similares.
+   */
+  const preferSecond =
+    secondInformation > firstInformation ||
+    (
+      secondInformation === firstInformation &&
+      secondConfidence > firstConfidence
+    );
 
   const merged = {
     ...first,
-    id: chooseValue(first.id, second.id, secondIsOfficial),
-    date: chooseValue(first.date, second.date, secondIsOfficial),
-    time: chooseValue(first.time, second.time, secondIsOfficial),
-    channel: chooseValue(first.channel, second.channel, secondIsOfficial),
-    location: chooseValue(first.location, second.location, secondIsOfficial),
-    type: chooseValue(first.type, second.type, secondIsOfficial),
+    id: chooseValue(first.id, second.id, preferSecond),
+    date: chooseValue(first.date, second.date, preferSecond),
+    time: chooseValue(first.time, second.time, preferSecond),
+    channel: chooseValue(first.channel, second.channel, preferSecond),
+    location: chooseInformativeValue(
+      first.location,
+      second.location,
+      preferSecond
+    ),
+    type: chooseInformativeValue(
+      first.type,
+      second.type,
+      preferSecond
+    ),
     contentType: first.contentType || second.contentType || "festejo",
-    breeding: chooseValue(first.breeding, second.breeding, secondIsOfficial),
+    breeding: chooseInformativeValue(
+      first.breeding,
+      second.breeding,
+      preferSecond
+    ),
     participants: mergeParticipants(first.participants, second.participants),
-    name: chooseValue(first.name, second.name, secondIsOfficial),
-    title: chooseValue(first.title, second.title, secondIsOfficial),
-    image: chooseValue(first.image, second.image, secondIsOfficial),
-    eventUrl: chooseValue(first.eventUrl, second.eventUrl, secondIsOfficial),
-    sourceUrl: chooseValue(first.sourceUrl, second.sourceUrl, secondIsOfficial),
+    name: chooseInformativeValue(
+      first.name,
+      second.name,
+      preferSecond
+    ),
+    title: chooseInformativeValue(
+      first.title,
+      second.title,
+      preferSecond
+    ),
+    image: chooseValue(first.image, second.image, preferSecond),
+    eventUrl: chooseValue(first.eventUrl, second.eventUrl, preferSecond),
+    sourceUrl: chooseValue(first.sourceUrl, second.sourceUrl, preferSecond),
     sources: [...new Set([...(first.sources || []), ...(second.sources || [])])],
     sourceDetails: uniqueSourceDetails([
       ...(first.sourceDetails || []),
