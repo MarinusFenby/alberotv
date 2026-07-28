@@ -44,6 +44,11 @@ jobs:
         run: |
           node scrapers/cmm.mjs
 
+      - name: Buscar API interna de CMM
+        continue-on-error: true
+        run: |
+          node scrapers/cmm-api-probe.mjs
+
       - name: Actualizar programas taurinos
         run: |
           node scrapers/programas-taurinos.mjs
@@ -66,6 +71,9 @@ jobs:
           echo "=== CMM ==="
           test -f data/cmm.json
 
+          echo "=== CMM API ==="
+          test -f data/cmm-api-probe.json
+
           echo "=== Programas taurinos ==="
           test -f data/programas-taurinos.json
 
@@ -84,6 +92,7 @@ jobs:
             data/elmuletazo.json \
             data/canalsur.json \
             data/cmm.json \
+            data/cmm-api-probe.json \
             data/programas-taurinos.json \
             data/programacion.json
 
@@ -95,6 +104,3 @@ jobs:
 
           git commit -m "Actualizar programación AlberoTV"
           git push
-
-          - name: Buscar API interna de CMM
-  run: node scrapers/cmm-api-probe.mjs
