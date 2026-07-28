@@ -14,12 +14,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-
   update:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Descargar repositorio
         uses: actions/checkout@v4
 
@@ -35,6 +33,11 @@ jobs:
       - name: Actualizar El Muletazo
         run: |
           node scrapers/elmuletazo.mjs
+
+      - name: Actualizar Canal Sur
+        continue-on-error: true
+        run: |
+          node scrapers/canalsur.mjs
 
       - name: Actualizar programas taurinos
         run: |
@@ -52,6 +55,9 @@ jobs:
           echo "=== El Muletazo ==="
           test -f data/elmuletazo.json
 
+          echo "=== Canal Sur ==="
+          test -f data/canalsur.json
+
           echo "=== Programas taurinos ==="
           test -f data/programas-taurinos.json
 
@@ -68,6 +74,7 @@ jobs:
           git add \
             data/onetoro.json \
             data/elmuletazo.json \
+            data/canalsur.json \
             data/programas-taurinos.json \
             data/programacion.json
 
