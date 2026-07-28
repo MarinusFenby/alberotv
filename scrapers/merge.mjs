@@ -9,14 +9,16 @@ const SOURCE_FILES = {
   elMuletazo: path.join(DATA_DIR, "elmuletazo.json"),
   oneToro: path.join(DATA_DIR, "onetoro.json"),
   programasTaurinos: path.join(DATA_DIR, "programas-taurinos.json"),
-  canalSur: path.join(DATA_DIR, "canalsur.json")
+  canalSur: path.join(DATA_DIR, "canalsur.json"),
+  cmm: path.join(DATA_DIR, "cmm.json")
 };
 
 const SOURCE_LABELS = {
   elMuletazo: "El Muletazo",
   oneToro: "OneToro",
   programasTaurinos: "Programas taurinos",
-  canalSur: "Canal Sur"
+  canalSur: "Canal Sur",
+  cmm: "CMM"
 };
 
 const SOURCE_CONFIDENCE = {
@@ -519,14 +521,15 @@ function sortEvents(events) {
 }
 
 async function main() {
-  const [muletazo, oneToro, programas, canalSur] = await Promise.all([
+  const [muletazo, oneToro, programas, canalSur, cmm] = await Promise.all([
     readSource("elMuletazo"),
     readSource("oneToro"),
     readSource("programasTaurinos"),
-    readSource("canalSur")
+    readSource("canalSur"),
+    readSource("cmm")
   ]);
 
-  const sourceResults = [muletazo, oneToro, programas, canalSur];
+  const sourceResults = [muletazo, oneToro, programas, canalSur, cmm];
 
   if (!sourceResults.some(source => source.ok)) {
     throw new Error("Todas las fuentes han fallado. Se conserva programacion.json.");
@@ -558,6 +561,15 @@ async function main() {
     const normalized = event.contentType === "programa"
       ? normalizeProgramEvent(event, "Canal Sur", canalSur.fetchedAt)
       : normalizeGenericEvent(event, "Canal Sur", canalSur.fetchedAt);
+
+    const result = addOrMergeEvent(merged, normalized);
+    mergeStats[result.merged ? "merged" : "added"] += 1;
+  }
+
+  for (const event of cmm.data.events || []) {
+    const normalized = event.contentType === "programa"
+      ? normalizeProgramEvent(event, "CMM", cmm.fetchedAt)
+      : normalizeGenericEvent(event, "CMM", cmm.fetchedAt);
 
     const result = addOrMergeEvent(merged, normalized);
     mergeStats[result.merged ? "merged" : "added"] += 1;
@@ -600,7 +612,8 @@ async function main() {
       elMuletazo: muletazo.eventCount,
       oneToro: oneToro.eventCount,
       programasTaurinos: programas.eventCount,
-      canalSur: canalSur.eventCount
+      canalSur: canalSur.eventCount,
+      cmm: cmm.eventCount
     },
     sourceHealth,
     events: merged
