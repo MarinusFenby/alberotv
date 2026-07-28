@@ -72,6 +72,9 @@ jobs:
           echo "=== Programación fusionada ==="
           test -f data/programacion.json
 
+          echo "=== Histórico permanente ==="
+          test -f data/historico.json
+
           echo "Todos los archivos existen correctamente."
 
       - name: Guardar cambios
@@ -85,7 +88,8 @@ jobs:
             data/canalsur.json \
             data/cmm.json \
             data/programas-taurinos.json \
-            data/programacion.json
+            data/programacion.json \
+            data/historico.json
 
           if git diff --cached --quiet
           then
