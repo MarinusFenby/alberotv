@@ -388,6 +388,27 @@ async function main() {
     headers = extractDateHeaders(html);
     dates = resolveHeaderDates(headers);
     allEvents = assignDates(extractEvents(html), dates);
+console.log("=== EVENTOS CMM DETECTADOS ===");
+
+  for (const event of allEvents) {
+    const searchableText =
+      `${event.title} ${event.description}`.toLowerCase();
+
+    if (
+      searchableText.includes("toro") ||
+      searchableText.includes("novill") ||
+      searchableText.includes("rejon") ||
+      searchableText.includes("recorte")
+    ) {
+      console.log(JSON.stringify({
+        date: event.date,
+        time: event.time,
+        title: event.title,
+        description: event.description,
+        sourceUrl: event.sourceUrl
+      }, null, 2));
+    }
+  }    
   } catch (error) {
     errors.push({
       url: GUIDE_URL,
