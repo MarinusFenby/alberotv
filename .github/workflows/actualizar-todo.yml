@@ -95,3 +95,6 @@ jobs:
 
           git commit -m "Actualizar programación AlberoTV"
           git push
+
+          - name: Buscar API interna de CMM
+  run: node scrapers/cmm-api-probe.mjs
