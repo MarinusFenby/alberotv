@@ -39,6 +39,11 @@ jobs:
         run: |
           node scrapers/canalsur.mjs
 
+      - name: Actualizar CMM
+        continue-on-error: true
+        run: |
+          node scrapers/cmm.mjs
+
       - name: Actualizar programas taurinos
         run: |
           node scrapers/programas-taurinos.mjs
@@ -58,6 +63,9 @@ jobs:
           echo "=== Canal Sur ==="
           test -f data/canalsur.json
 
+          echo "=== CMM ==="
+          test -f data/cmm.json
+
           echo "=== Programas taurinos ==="
           test -f data/programas-taurinos.json
 
@@ -75,6 +83,7 @@ jobs:
             data/onetoro.json \
             data/elmuletazo.json \
             data/canalsur.json \
+            data/cmm.json \
             data/programas-taurinos.json \
             data/programacion.json
 
