@@ -1,16 +1,21 @@
 {
   "source": "CMM",
-  "updatedAt": "2026-07-28T11:35:35.719Z",
+  "updatedAt": "2026-07-28T12:00:54.632Z",
   "eventCount": 0,
   "checkedPages": 60,
   "discoveryPages": 18,
-  "errorCount": 1,
+  "errorCount": 2,
   "events": [],
   "errors": [
     {
       "phase": "detail",
       "url": "https://www.cmmedia.es/tv/toros/espectacular-antonio-ferrera-cuatro-orejas-madridejos.html",
       "error": "HTTP 502 en https://www.cmmedia.es/tv/toros/espectacular-antonio-ferrera-cuatro-orejas-madridejos.html"
+    },
+    {
+      "phase": "detail",
+      "url": "https://www.cmmedia.es/tv/toros/alfarero-plata-asi-primera-novillada-caballos-villaseca-sagra.html",
+      "error": "HTTP 502 en https://www.cmmedia.es/tv/toros/alfarero-plata-asi-primera-novillada-caballos-villaseca-sagra.html"
     }
   ]
 }
