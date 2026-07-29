@@ -44,6 +44,11 @@ jobs:
         run: |
           node scrapers/cmm.mjs
 
+       - name: Actualizar Canal Extremadura
+        continue-on-error: true
+        run: |
+          node scrapers/canalextremadura.mjs
+
       - name: Actualizar programas taurinos
         run: |
           node scrapers/programas-taurinos.mjs
