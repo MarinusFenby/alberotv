@@ -1,4 +1,3 @@
-
 import fs from "node:fs/promises";
 import path from "node:path";
 
@@ -57,16 +56,40 @@ function cleanName(name = "") {
 }
 
 function cleanBreeding(value = "") {
-  const cleaned = cleanName(
-    String(value)
-      .replace(/^(?:ganader[ií]a\s*:\s*)+/i, "")
-      .replace(/\s+/g, " ")
-      .trim()
-  );
+  let cleaned = String(value || "")
+    .replace(/&nbsp;|&#160;/gi, " ")
+    .replace(/&iacute;|&#237;|&#x0*ed;/gi, "í")
+    .replace(/&Iacute;|&#205;|&#x0*cd;/gi, "Í")
+    .replace(/&(?:laquo|raquo|ldquo|rdquo|quot);/gi, " ")
+    .replace(/\u00a0/g, " ")
+    .replace(/[\u200B-\u200D\u2060\uFEFF]/g, "")
+    .replace(/[«»“”"'´`]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const prefixPattern =
+    /^\s*ganader(?:í|i)a\s*(?::|\-|–|—)?\s*/i;
+
+  let previousValue = null;
+
+  while (
+    cleaned &&
+    cleaned !== previousValue &&
+    prefixPattern.test(cleaned)
+  ) {
+    previousValue = cleaned;
+
+    cleaned = cleaned
+      .replace(prefixPattern, "")
+      .replace(/^[\s:–—-]+/, "")
+      .trim();
+  }
+
+  cleaned = cleanName(cleaned);
 
   if (
     !cleaned ||
-    /^ganader[ií]a$/i.test(cleaned) ||
+    /^(?:ganader(?:í|i)a\s*)+$/i.test(cleaned) ||
     cleaned.length > 220 ||
     /servicio gratis|me gusta responder|comentarios?|pulsa aqu[ií]/i.test(cleaned)
   ) {
