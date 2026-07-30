@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-30T12:15:15.899Z",
+  "generatedAt": "2026-07-30T12:58:09.028Z",
   "throughDate": "2026-07-30",
-  "eventCount": 8,
+  "eventCount": 7,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -94,7 +94,7 @@
       "televised": true
     },
     {
-      "id": null,
+      "id": "mundotoro-dde0596352d437",
       "date": "2026-07-30",
       "time": "21:00",
       "channel": "Telemadrid",
@@ -113,7 +113,8 @@
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "Mundotoro"
       ],
       "sourceDetails": [
         {
@@ -121,9 +122,15 @@
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
           "fetchedAt": "2026-07-29T18:17:36.991Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-30T12:15:15.330Z"
         }
       ],
-      "confidence": 94,
+      "confidence": 96,
       "status": "confirmed",
       "televised": true
     },
@@ -177,40 +184,6 @@
         "Julio Norte -hijo-"
       ],
       "name": "Huelva (Huelva) España",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sources": [
-        "Mundotoro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Mundotoro",
-          "confidence": 86,
-          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-07-30T12:15:15.330Z"
-        }
-      ],
-      "confidence": 89,
-      "status": "probable"
-    },
-    {
-      "id": "mundotoro-dde0596352d437",
-      "date": "2026-07-30",
-      "time": null,
-      "channel": "Sin TV",
-      "televised": false,
-      "location": "Las Ventas (Madrid) España",
-      "type": "Corrida de toros",
-      "contentType": "festejo",
-      "breeding": "Carmen Lorenzo Carrasco y El Capea (antes Pedro y Verónica Gutiérrez Lorenzo)",
-      "participants": [
-        "Alejandro Marcos",
-        "Héctor Gutiérrez",
-        "Manuel Diosleguarde"
-      ],
-      "name": "Las Ventas (Madrid) España",
       "title": null,
       "image": null,
       "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
