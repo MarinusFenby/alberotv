@@ -1060,7 +1060,57 @@ function getChannelLogoMarkup(channelName = "") {
 }
 
 
+function isNonTelevisedEvent(event = {}) {
+  if (event.televised === false) {
+    return true;
+  }
+
+  const channel = normalizeText(
+    event.channel || ""
+  );
+
+  const sources = Array.isArray(event.sources)
+    ? event.sources.map(normalizeText)
+    : [];
+
+  const hasRealChannel =
+    channel &&
+    ![
+      "sin tv",
+      "no tv",
+      "no televisado",
+      "no televisada",
+      "sin television"
+    ].includes(channel);
+
+  if (hasRealChannel) {
+    return false;
+  }
+
+  return (
+    !channel ||
+    channel === "sin tv" ||
+    channel === "no tv" ||
+    channel === "no televisado" ||
+    channel === "no televisada" ||
+    channel === "sin television" ||
+    sources.includes("mundotoro")
+  );
+}
+
+
 function buildBroadcastMarkup(event = {}) {
+  if (isNonTelevisedEvent(event)) {
+    return `
+      <div
+        class="non-tv-badge"
+        aria-label="No televisado"
+      >
+        SIN TV
+      </div>
+    `;
+  }
+
   const broadcast =
     getBroadcastPresentation(event);
 
@@ -1081,8 +1131,10 @@ function buildBroadcastMarkup(event = {}) {
   );
 }
 
-
 function buildEventHeaderMarkup(event = {}) {
+  const nonTelevised =
+    isNonTelevisedEvent(event);
+
   const broadcast =
     getBroadcastPresentation(event);
 
@@ -1096,13 +1148,14 @@ function buildEventHeaderMarkup(event = {}) {
         ${buildTemporalStatusMarkup(event)}
 
         ${
-          broadcast.confirmed
-            ? ""
-            : `
+          !nonTelevised &&
+          !broadcast.confirmed
+            ? `
               <div class="broadcast-unconfirmed-label">
                 Sin emisión confirmada
               </div>
             `
+            : ""
         }
       </div>
 
@@ -1112,7 +1165,6 @@ function buildEventHeaderMarkup(event = {}) {
     </div>
   `;
 }
-
 
 function scrollToToday() {
   const todayCard =
@@ -2255,7 +2307,11 @@ function buildBullfightingEvent(event) {
     getLocationLengthClass(location);
 
   return `
-    <article class="event bullfighting-event ${typeClass}">
+    <article class="event bullfighting-event ${typeClass} ${
+      isNonTelevisedEvent(event)
+        ? "event-non-televised"
+        : "event-televised"
+    }">
 
       ${buildEventHeaderMarkup(event)}
 
