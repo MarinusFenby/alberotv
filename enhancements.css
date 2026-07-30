@@ -211,157 +211,99 @@
   }
 }
 
-
 /* ==================================================
-   FESTEJOS TELEVISADOS / SIN TV
-   Diseño aprobado:
-   - misma anchura para todas las tarjetas;
-   - las televisadas conservan protagonismo;
-   - las no televisadas son grises, compactas y con texto menor.
+   FORMATO TV / SIN TV — VERSIÓN LIMPIA
    ================================================== */
 
-.bullfighting-event.event-televised,
-.bullfighting-event.event-non-televised {
-  width: 100% !important;
-  max-width: none !important;
-  box-sizing: border-box !important;
-}
-
-/* Televisadas: texto aproximadamente un 5 % mayor. */
-
-
-/* Sin TV: misma anchura, menos altura y jerarquía secundaria. */
-.bullfighting-event.event-non-televised {
-  padding: 16px 18px !important;
-  border: 1px dashed rgba(173, 184, 196, 0.58) !important;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(57, 66, 76, 0.97),
-      rgba(31, 39, 48, 0.98)
-    ) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.035),
-    0 10px 24px rgba(0, 0, 0, 0.16) !important;
-}
-
-.bullfighting-event.event-non-televised .event-compact-header {
-  margin-bottom: 10px !important;
-  padding-bottom: 10px !important;
-  border-bottom: 1px solid rgba(198, 208, 218, 0.20) !important;
-}
-
-.bullfighting-event.event-non-televised .event-content-stack {
-  margin-top: 0 !important;
-}
-
-.bullfighting-event.event-non-televised .time-main {
-  font-size: 0.90em !important;
-}
-
-.bullfighting-event.event-non-televised .time-origin,
-.bullfighting-event.event-non-televised .event-status,
-.bullfighting-event.event-non-televised .event-type,
-.bullfighting-event.event-non-televised .event-title,
-.bullfighting-event.event-non-televised .people,
-.bullfighting-event.event-non-televised .breeding {
-  font-size: 0.90em !important;
-}
-
-.bullfighting-event.event-non-televised .event-type {
-  padding: 6px 10px !important;
-}
-
-.bullfighting-event.event-non-televised .event-title {
-  margin-top: 10px !important;
-  color: rgba(255, 255, 255, 0.96) !important;
-}
-
-.bullfighting-event.event-non-televised .participants-row {
-  margin-top: 9px !important;
-}
-
-.bullfighting-event.event-non-televised .breeding-row {
-  margin-top: 7px !important;
-}
-
-.bullfighting-event.event-non-televised .people {
-  margin-top: 0 !important;
-  color: rgba(255, 255, 255, 0.88) !important;
-}
-
-.bullfighting-event.event-non-televised .breeding {
-  margin-top: 0 !important;
-}
-
-.bullfighting-event.event-non-televised .country-corner {
-  width: 34px !important;
-  height: 34px !important;
-  opacity: 0.95;
-}
-
-.non-tv-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 28px;
-  padding: 5px 11px;
-  border: 1px solid rgba(203, 213, 225, 0.15);
-  border-radius: 10px;
-  background: rgba(148, 163, 184, 0.20);
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 0.70rem;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-
-.bullfighting-event.event-non-televised .event-header-channel {
-  align-items: flex-start !important;
-  justify-content: flex-end !important;
-}
-
-@media (max-width: 800px) {
-  .bullfighting-event.event-non-televised {
-    padding: 14px 15px !important;
-  }
-
-  .bullfighting-event.event-non-televised .event-compact-header {
-    margin-bottom: 9px !important;
-    padding-bottom: 9px !important;
-  }
-
-  .non-tv-badge {
-    min-height: 26px;
-    padding: 5px 9px;
-    font-size: 0.66rem;
-  }
-}
-
-
-/* ==================================================
-   FORMATO FINAL APROBADO — TV / SIN TV
-   ================================================== */
-
+/* Todas las tarjetas ocupan exactamente la misma anchura. */
 .bullfighting-event.event-televised,
 .bullfighting-event.event-non-televised {
   width: 100% !important;
   max-width: 100% !important;
+  min-width: 0 !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
   box-sizing: border-box !important;
 }
 
+/* Más espacio para que el nombre del canal no se parta. */
+.bullfighting-event .event-compact-header {
+  grid-template-columns: minmax(0, 1fr) 84px !important;
+  gap: 12px !important;
+}
+
+.bullfighting-event .event-header-channel,
+.bullfighting-event .channel-identity {
+  width: 84px !important;
+  min-width: 84px !important;
+}
+
+.bullfighting-event .channel-name {
+  width: 84px !important;
+  max-width: 84px !important;
+  font-size: 0.62rem !important;
+  line-height: 1.05 !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  hyphens: none !important;
+}
+
+/* TELEVISADAS: tamaño normal, sin aumentos porcentuales. */
+.bullfighting-event.event-televised {
+  padding: 18px !important;
+}
+
+.bullfighting-event.event-televised .time-main {
+  font-size: 1.28rem !important;
+}
+
+.bullfighting-event.event-televised .time-origin {
+  font-size: 0.66rem !important;
+}
+
+.bullfighting-event.event-televised .event-status {
+  font-size: 0.64rem !important;
+}
+
+.bullfighting-event.event-televised .event-type {
+  font-size: 0.70rem !important;
+  padding: 7px 11px !important;
+}
+
+.bullfighting-event.event-televised .event-title.location-short {
+  font-size: 1.30rem !important;
+}
+
+.bullfighting-event.event-televised .event-title.location-medium {
+  font-size: 1.16rem !important;
+}
+
+.bullfighting-event.event-televised .event-title.location-long {
+  font-size: 1.02rem !important;
+  line-height: 1.15 !important;
+}
+
+.bullfighting-event.event-televised .event-title.location-xlong {
+  font-size: 0.92rem !important;
+  line-height: 1.17 !important;
+}
+
+.bullfighting-event.event-televised .people,
+.bullfighting-event.event-televised .breeding {
+  font-size: 0.78rem !important;
+  line-height: 1.34 !important;
+}
+
+/* SIN TV: gris, misma anchura, menos altura y texto un 10 % menor. */
 .bullfighting-event.event-non-televised {
-  padding: 14px 16px !important;
+  padding: 13px 15px !important;
+  border: 1px dashed rgba(173, 184, 196, 0.58) !important;
   background:
     linear-gradient(
       135deg,
       rgba(57, 66, 76, 0.98),
       rgba(31, 39, 48, 0.99)
     ) !important;
-  border: 1px dashed rgba(173, 184, 196, 0.58) !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.035),
     0 10px 24px rgba(0, 0, 0, 0.16) !important;
@@ -372,67 +314,106 @@
   padding-bottom: 9px !important;
 }
 
+.bullfighting-event.event-non-televised .time-main {
+  font-size: 1.10rem !important;
+}
+
+.bullfighting-event.event-non-televised .time-origin {
+  font-size: 0.58rem !important;
+}
+
+.bullfighting-event.event-non-televised .event-status {
+  font-size: 0.56rem !important;
+}
+
 .bullfighting-event.event-non-televised .event-type {
+  font-size: 0.63rem !important;
   padding: 6px 10px !important;
 }
 
-.bullfighting-event.event-non-televised .event-title,
-.bullfighting-event.event-non-televised .people,
-.bullfighting-event.event-non-televised .breeding,
-.bullfighting-event.event-non-televised .time-main,
-.bullfighting-event.event-non-televised .time-origin,
-.bullfighting-event.event-non-televised .event-status {
-  font-size: 90% !important;
+/* Conserva el color propio de Corrida, Rejones, Novillada, etc. */
+.bullfighting-event.event-non-televised .event-title.location-short {
+  font-size: 1.08rem !important;
 }
 
+.bullfighting-event.event-non-televised .event-title.location-medium {
+  font-size: 0.98rem !important;
+}
 
+.bullfighting-event.event-non-televised .event-title.location-long {
+  font-size: 0.88rem !important;
+  line-height: 1.15 !important;
+}
+
+.bullfighting-event.event-non-televised .event-title.location-xlong {
+  font-size: 0.80rem !important;
+  line-height: 1.17 !important;
+}
+
+.bullfighting-event.event-non-televised .people,
+.bullfighting-event.event-non-televised .breeding {
+  font-size: 0.70rem !important;
+  line-height: 1.30 !important;
+}
+
+.bullfighting-event.event-non-televised .participants-row {
+  margin-top: 8px !important;
+}
+
+.bullfighting-event.event-non-televised .breeding-row {
+  margin-top: 6px !important;
+}
+
+.bullfighting-event.event-non-televised .country-corner {
+  width: 31px !important;
+  height: 31px !important;
+}
+
+.non-tv-badge {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 25px;
+  padding: 5px 9px;
+  border: 1px solid rgba(203, 213, 225, 0.16);
+  border-radius: 9px;
+  background: rgba(148, 163, 184, 0.20);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
 
 .bullfighting-event.event-non-televised .broadcast-unconfirmed-label,
 .bullfighting-event.event-non-televised .channel-logo-unconfirmed {
   display: none !important;
 }
 
+@media (max-width: 800px) {
+  .bullfighting-event .event-compact-header {
+    grid-template-columns: minmax(0, 1fr) 76px !important;
+    gap: 10px !important;
+  }
 
-/* ==================================================
-   AJUSTE FINO FINAL
-   - Las televisadas recuperan su tamaño original.
-   - Solo las SIN TV se ven más compactas.
-   ================================================== */
+  .bullfighting-event .event-header-channel,
+  .bullfighting-event .channel-identity {
+    width: 76px !important;
+    min-width: 76px !important;
+  }
 
-.bullfighting-event.event-televised .event-title,
-.bullfighting-event.event-televised .people,
-.bullfighting-event.event-televised .breeding,
-.bullfighting-event.event-televised .time-main,
-.bullfighting-event.event-televised .time-origin,
-.bullfighting-event.event-televised .event-status,
-.bullfighting-event.event-televised .channel-name {
-  font-size: inherit !important;
-}
+  .bullfighting-event .channel-name {
+    width: 76px !important;
+    max-width: 76px !important;
+    font-size: 0.58rem !important;
+  }
 
-.bullfighting-event.event-televised .event-header-information,
-.bullfighting-event.event-televised .event-content-stack,
-.bullfighting-event.event-televised .event-details {
-  max-width: none !important;
-}
+  .bullfighting-event.event-televised {
+    padding: 16px !important;
+  }
 
-.bullfighting-event.event-non-televised {
-  padding: 13px 15px !important;
-}
-
-.bullfighting-event.event-non-televised .event-title,
-.bullfighting-event.event-non-televised .people,
-.bullfighting-event.event-non-televised .breeding,
-.bullfighting-event.event-non-televised .time-main,
-.bullfighting-event.event-non-televised .time-origin,
-.bullfighting-event.event-non-televised .event-status {
-  font-size: 90% !important;
-}
-
-.bullfighting-event.event-non-televised .event-type {
-  padding: 6px 10px !important;
-}
-
-.bullfighting-event.event-non-televised .broadcast-unconfirmed-label,
-.bullfighting-event.event-non-televised .channel-logo-unconfirmed {
-  display: none !important;
+  .bullfighting-event.event-non-televised {
+    padding: 12px 14px !important;
+  }
 }
