@@ -101,24 +101,24 @@ function normalizeText(value = "") {
 function cleanBreedingDisplay(value = "") {
   let cleaned = String(value || "")
     .replace(/&nbsp;/gi, " ")
+    .replace(/&(?:laquo|raquo|ldquo|rdquo|quot);/gi, " ")
     .replace(/\u00a0/g, " ")
+    .replace(/[«»“”"'´`]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 
   /*
-   * Elimina uno o varios prefijos repetidos:
-   * "Ganadería: Jandilla"
-   * "Ganadería: Ganadería: Jandilla"
-   * "Ganadería Ganadería Jandilla"
+   * Elimina todos los prefijos repetidos, incluso cuando llegan
+   * precedidos por comillas o caracteres extraños de la fuente.
    */
   cleaned = cleaned
-    .replace(/^(?:ganader[ií]a\s*(?:[:\-–—]\s*)?)+/i, "")
+    .replace(/^(?:(?:ganader[ií]a)\s*(?:[:\-–—]\s*)?)+/i, "")
     .replace(/\s+/g, " ")
     .trim();
 
   if (
     !cleaned ||
-    /^ganader[ií]a$/i.test(cleaned)
+    /^(?:ganader[ií]a\s*)+$/i.test(cleaned)
   ) {
     return "";
   }
@@ -1289,6 +1289,8 @@ function injectAlberoEnhancementStyles() {
     }
 
     .event-content-stack .event-type {
+      position: relative !important;
+      z-index: 4;
       align-self: flex-start !important;
       width: fit-content !important;
       max-width: 100% !important;
@@ -1361,10 +1363,12 @@ function injectAlberoEnhancementStyles() {
     }
 
     .country-corner {
-      position: absolute;
+      position: absolute !important;
       z-index: 3;
-      top: 0;
-      right: 0;
+      top: 0 !important;
+      right: 0 !important;
+      margin: 0 !important;
+      transform: none !important;
       width: 40px;
       height: 40px;
       clip-path: polygon(100% 0, 100% 100%, 0 0);
@@ -1846,8 +1850,3252 @@ function injectAlberoEnhancementStyles() {
       .country-corner {
         width: 32px;
         height: 32px;
-        top: 0;
-        right: 0;
+        top: 0 !important;
+        right: 0 !important;
+        margin: 0 !important;
+        transform: none !important;
+      }
+
+      .event-detail-row {
+        grid-template-columns: 21px minmax(0, 1fr);
+        gap: 8px;
+      }
+
+      .event-detail-icon {
+        width: 21px;
+        height: 21px;
+        flex-basis: 21px;
+      }
+
+      .event-content-stack .event-title {
+        margin-top: 10px !important;
+      }
+
+      .event-content-stack .people {
+        margin-top: 10px !important;
+      }
+
+      .event-content-stack .event-title.location-long {
+        font-size: clamp(1rem, 4.9vw, 1.22rem) !important;
+      }
+
+      .event-content-stack .event-title.location-xlong {
+        font-size: clamp(0.90rem, 4.45vw, 1.08rem) !important;
+      }
+
+      .channel-logo-unconfirmed {
+        width: 34px;
+        height: 34px;
+        flex-basis: 34px;
+      }
+
+      .broadcast-unconfirmed-label {
+        font-size: 0.58rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .event-status-live .event-status-light,
+      .event:has(.event-status-live) .channel-logo-circle:not(.channel-logo-unconfirmed) {
+        animation: none;
+      }
+    }
+  `;
+
+  document.head.appendChild(
+    style
+  );
+}
+
+
+/* ==================================================
+   CATEGORÍAS DE LA CABECERA
+   ================================================== */
+
+function getHeaderCategory(event = {}) {
+  if (isProgram(event)) {
+    return "programas";
+  }
+
+  const type = normalizeText(event.type);
+
+  if (
+    type.includes("rejones") ||
+    type.includes("rejoneo") ||
+    type.includes("rejoneadores")
+  ) {
+    return "rejones";
+  }
+
+  if (
+    type.includes("novillada") ||
+    type.includes("novillos")
+  ) {
+    return "novilladas";
+  }
+
+  if (
+    type.includes("recortes") ||
+    type.includes("recortadores") ||
+    type.includes("concurso de recortes")
+  ) {
+    return "recortes";
+  }
+
+  if (
+    type.includes("corrida") ||
+    type.includes("toros")
+  ) {
+    return "corridas";
+  }
+
+  return "otros";
+}
+
+
+function scrollToCategory(categoryKey) {
+  const todayKey = toLocalISO(new Date());
+
+  const matchingEvent = loadedEvents
+    .filter(event => getHeaderCategory(event) === categoryKey)
+    .sort((eventA, eventB) => {
+      const dateComparison = String(eventA.date || "").localeCompare(
+        String(eventB.date || "")
+      );
+
+      if (dateComparison !== 0) {
+        return dateComparison;
+      }
+
+      return String(eventA.time || "99:99").localeCompare(
+        String(eventB.time || "99:99")
+      );
+    })
+    .find(event => String(event.date || "") >= todayKey);
+
+  if (!matchingEvent) {
+    return;
+  }
+
+  const targetCard = cards.find(
+    card => card.dataset.date === matchingEvent.date
+  );
+
+  if (!targetCard) {
+    return;
+  }
+
+  timeline.scrollTo({
+    left:
+      targetCard.offsetLeft -
+      timeline.clientWidth / 2 +
+      targetCard.offsetWidth / 2,
+    behavior: "smooth"
+  });
+
+}
+
+
+function renderCategoryNavigation(events = []) {
+  if (!categoryList) return;
+  const categoryDefinitions = [
+    { key: "corridas", icon: "🐂", label: "CORRIDAS" },
+    { key: "rejones", icon: "🐎", label: "REJONES" },
+    { key: "novilladas", icon: "🐂", label: "NOVILLADAS" },
+    { key: "recortes", icon: "🤸", label: "RECORTES" },
+    { key: "programas", icon: "📺", label: "PROGRAMAS" }
+  ];
+  const categoryCounts = events.reduce((counts, event) => {
+    const category = getHeaderCategory(event);
+    if (Object.prototype.hasOwnProperty.call(counts, category)) counts[category] += 1;
+    return counts;
+  }, { corridas: 0, rejones: 0, novilladas: 0, recortes: 0, programas: 0 });
+  const visibleCategories = categoryDefinitions.filter(category => categoryCounts[category.key] > 0);
+  categoryList.innerHTML = visibleCategories.map(category => `
+    <button class="category-pill ${category.key}" type="button" data-category="${category.key}" aria-label="Ir al próximo contenido de ${category.label.toLowerCase()}. ${categoryCounts[category.key]} elementos.">
+      <span class="category-icon" aria-hidden="true">${category.icon}</span>
+      <span class="category-name">${category.label}</span>
+      <span class="category-count" aria-hidden="true">${categoryCounts[category.key]}</span>
+    </button>
+  `).join("");
+  categoryList.querySelectorAll(".category-pill").forEach(button => {
+    button.addEventListener("click", () => scrollToCategory(button.dataset.category));
+  });
+}
+
+function updateActiveCategories() {
+  if (!activeCard || !categoryList) return;
+  const activeDate = activeCard.dataset.date;
+  const categoriesForActiveDay = new Set(
+    loadedEvents.filter(event => event.date === activeDate).map(getHeaderCategory)
+  );
+  categoryList.querySelectorAll(".category-pill").forEach(button => {
+    const isActive = categoriesForActiveDay.has(button.dataset.category);
+    button.classList.toggle("active-category", isActive);
+    button.setAttribute("aria-pressed", isActive ? "true" : "false");
+  });
+}
+
+
+/* ==================================================
+   CLASIFICACIÓN DEL TIPO DE FESTEJO
+   ================================================== */
+
+function getTypeClass(type = "") {
+  const normalizedType = normalizeText(type);
+
+  if (
+    normalizedType.includes("rejones") ||
+    normalizedType.includes("rejoneo") ||
+    normalizedType.includes("rejoneadores")
+  ) {
+    return "type-rejones";
+  }
+
+  if (
+    normalizedType.includes("novillada con picadores") ||
+    normalizedType.includes("novillada picada") ||
+    normalizedType.includes("novillos con picadores")
+  ) {
+    return "type-novillada-picadores";
+  }
+
+  if (
+    normalizedType.includes("novillada sin picadores") ||
+    normalizedType.includes("novillada sin caballos") ||
+    normalizedType.includes("novillos sin picadores")
+  ) {
+    return "type-novillada-sin-picadores";
+  }
+
+  if (
+    normalizedType.includes("novillada")
+  ) {
+    return "type-novillada";
+  }
+
+  if (
+    normalizedType.includes("festival")
+  ) {
+    return "type-festival";
+  }
+
+  if (
+    normalizedType.includes("recortes") ||
+    normalizedType.includes("recortadores") ||
+    normalizedType.includes("concurso de recortes")
+  ) {
+    return "type-recortes";
+  }
+
+  if (
+    normalizedType.includes("clase practica") ||
+    normalizedType.includes("clase práctica")
+  ) {
+    return "type-clase-practica";
+  }
+
+  if (
+    normalizedType.includes("becerrada") ||
+    normalizedType.includes("becerros")
+  ) {
+    return "type-becerrada";
+  }
+
+  if (
+    normalizedType.includes("tentadero") ||
+    normalizedType.includes("tienta")
+  ) {
+    return "type-tentadero";
+  }
+
+  if (
+    normalizedType.includes("mixta") ||
+    normalizedType.includes("mixto")
+  ) {
+    return "type-mixta";
+  }
+
+  if (
+    normalizedType.includes("corrida de toros") ||
+    normalizedType.includes("corrida") ||
+    normalizedType.includes("toros")
+  ) {
+    return "type-corrida";
+  }
+
+  return "type-other";
+}
+
+
+/* ==================================================
+   CREAR PROGRAMA TAURINO
+   ================================================== */
+
+function buildProgram(event) {
+  const title =
+    event.title ||
+    event.name ||
+    "Programa taurino";
+
+  const channel =
+    event.channel ||
+    event.source ||
+    "Canal por confirmar";
+
+  const eventUrl =
+    event.eventUrl ||
+    event.sourceUrl ||
+    "";
+
+  return `
+    <article class="event program-event">
+
+      <div class="program-heading">
+
+        <span
+          class="program-icon"
+          aria-hidden="true"
+        >
+          📺
+        </span>
+
+        <span class="program-label">
+          PROGRAMA TAURINO
+        </span>
+
+      </div>
+
+      ${buildEventHeaderMarkup(event)}
+
+      <h2 class="event-title program-title">
+        ${escapeHtml(title)}
+      </h2>
+
+      <div class="program-description">
+        Actualidad y contenidos del mundo taurino
+      </div>
+
+      ${
+        eventUrl
+          ? `
+            <a
+              class="event-link program-link"
+              href="${escapeHtml(eventUrl)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver emisión
+            </a>
+          `
+          : ""
+      }
+
+    </article>
+  `;
+}
+
+
+/* ==================================================
+   CREAR FESTEJO
+   ================================================== */
+
+function buildBullfightingEvent(event) {
+  const type =
+    event.type ||
+    "Festejo taurino";
+
+  const typeClass =
+    getTypeClass(type);
+
+  const location =
+    event.location ||
+    event.name ||
+    "Localidad por confirmar";
+
+  const participants =
+    formatParticipants(
+      event.participants || []
+    );
+
+  const breeding =
+    cleanBreedingDisplay(
+      event.breeding
+    );
+
+  const locationLengthClass =
+    getLocationLengthClass(location);
+
+  return `
+    <article class="event bullfighting-event ${typeClass}">
+
+      ${buildEventHeaderMarkup(event)}
+
+      <div class="event-content-stack">
+
+        ${buildCountryCornerMarkup(event)}
+
+        <div class="event-type ${typeClass}">
+          ${escapeHtml(type)}
+        </div>
+
+        <h2 class="event-title ${locationLengthClass}">
+          ${escapeHtml(location)}
+        </h2>
+
+        <div class="event-detail-row participants-row">
+          ${buildPersonIconMarkup(event)}
+
+          ${
+            participants
+              ? `
+                <div class="people">
+                  ${participants}
+                </div>
+              `
+              : `
+                <div class="people pending">
+                  Cartel por confirmar
+                </div>
+              `
+          }
+        </div>
+
+        ${
+          breeding
+            ? `
+              <div class="event-detail-row breeding-row">
+                ${buildBreedingIconMarkup(event)}
+
+                <div class="breeding">
+                  <strong>Ganadería:</strong>
+                  ${escapeHtml(breeding)}
+                </div>
+              </div>
+            `
+            : ""
+        }
+
+      </div>
+
+    </article>
+  `;
+}
+
+
+/* ==================================================
+   CREAR EVENTO SEGÚN SU CONTENIDO
+   ================================================== */
+
+function buildEvent(event) {
+  try {
+    if (isProgram(event)) {
+      return buildProgram(event);
+    }
+
+    return buildBullfightingEvent(event);
+  } catch (error) {
+    console.error(
+      "AlberoTV: error renderizando un evento",
+      event,
+      error
+    );
+
+    return `
+      <article class="event bullfighting-event event-render-error">
+        <div class="event-content-stack">
+          <div class="event-type type-other">
+            FESTEJO TAURINO
+          </div>
+
+          <h2 class="event-title location-short">
+            ${escapeHtml(
+              event?.location ||
+              event?.name ||
+              event?.title ||
+              "Información temporalmente no disponible"
+            )}
+          </h2>
+
+          <div class="people pending">
+            Revisa los datos de este evento.
+          </div>
+        </div>
+      </article>
+    `;
+  }
+}
+
+
+/* ==================================================
+   CREAR TARJETA DEL DÍA
+   ================================================== */
+
+function buildDayCard(date, offset, events) {
+  const card =
+    document.createElement("article");
+
+  const dateKey =
+    toLocalISO(date);
+
+  card.className =
+    offset === 0
+      ? "day today"
+      : "day";
+
+  card.dataset.offset =
+    String(offset);
+
+  card.dataset.date =
+    dateKey;
+
+  const dayEvents =
+    events
+      .filter(
+        event =>
+          event.date === dateKey
+      )
+      .sort(
+        (eventA, eventB) => {
+          const timeComparison =
+            String(
+              eventA.time || "99:99"
+            ).localeCompare(
+              String(
+                eventB.time || "99:99"
+              )
+            );
+
+          if (timeComparison !== 0) {
+            return timeComparison;
+          }
+
+          return String(
+            eventA.title ||
+            eventA.name ||
+            eventA.location ||
+            ""
+          ).localeCompare(
+            String(
+              eventB.title ||
+              eventB.name ||
+              eventB.location ||
+              ""
+            ),
+            "es"
+          );
+        }
+      );
+
+  card.innerHTML = `
+
+    <div class="day-header">
+
+      <div class="label">
+        ${getDayLabel(offset)}
+      </div>
+
+      <div class="date">
+        ${date.getDate()}
+        de
+        ${months[date.getMonth()].toUpperCase()}
+      </div>
+
+      <div class="weekday">
+        ${weekdays[date.getDay()]}
+      </div>
+
+    </div>
+
+    <div class="events">
+
+      ${
+        dayEvents.length
+          ? dayEvents
+              .map(buildEvent)
+              .join("")
+          : `
+              <div class="empty">
+
+                <b>
+                  Sin emisiones programadas
+                </b>
+
+                <span>
+                  No hay festejos ni programas
+                  taurinos publicados para este día.
+                </span>
+
+              </div>
+            `
+      }
+
+    </div>
+
+    <div class="day-scroll-indicator">
+      Desplaza para ver el día completo
+    </div>
+
+  `;
+
+  return card;
+}
+
+
+/* ==================================================
+   CALCULAR EL TAMAÑO MÁXIMO DE LA TARJETA CENTRAL
+   ================================================== */
+
+function getMaximumCenterScale() {
+  if (!timeline || !cards.length) {
+    return 1;
+  }
+
+  const timelineRect =
+    timeline.getBoundingClientRect();
+
+  const referenceCard =
+    cards[0];
+
+  const cardHeight =
+    referenceCard.offsetHeight;
+
+  if (!cardHeight) {
+    return 1;
+  }
+
+  const safetyMargin =
+    window.innerWidth <= 800
+      ? 24
+      : 38;
+
+  const availableHeight =
+    timelineRect.height -
+    safetyMargin;
+
+  const maximumScaleThatFits =
+    availableHeight /
+    cardHeight;
+
+  return Math.max(
+    1,
+    Math.min(
+      1.18,
+      maximumScaleThatFits
+    )
+  );
+}
+
+
+/* ==================================================
+   EFECTO DE CINTA Y LUPA CENTRAL
+   ================================================== */
+
+function updateVisuals() {
+  if (!cards.length) {
+    return;
+  }
+
+  const timelineRect =
+    timeline.getBoundingClientRect();
+
+  const viewportCenter =
+    timelineRect.left +
+    timelineRect.width / 2;
+
+  const centerScale =
+    getMaximumCenterScale();
+
+  const sideScale =
+    window.innerWidth <= 800
+      ? 0.72
+      : 0.64;
+
+  let closestCard = null;
+  let closestIndex = 0;
+  let closestDistance = Infinity;
+
+  cards.forEach((card, index) => {
+    const cardCenter =
+      timelineRect.left +
+      card.offsetLeft -
+      timeline.scrollLeft +
+      card.offsetWidth / 2;
+
+    const signedDistance =
+      cardCenter -
+      viewportCenter;
+
+    const absoluteDistance =
+      Math.abs(signedDistance);
+
+    if (
+      absoluteDistance <
+      closestDistance
+    ) {
+      closestDistance =
+        absoluteDistance;
+
+      closestCard =
+        card;
+
+      closestIndex =
+        index;
+    }
+
+    const influenceDistance =
+      Math.max(
+        timelineRect.width * 0.45,
+        1
+      );
+
+    const normalizedDistance =
+      Math.min(
+        absoluteDistance /
+        influenceDistance,
+        1
+      );
+
+    const scale =
+      centerScale -
+      normalizedDistance *
+      (centerScale - sideScale);
+
+    const opacity =
+      1 -
+      normalizedDistance * 0.70;
+
+    const blur =
+      normalizedDistance * 1.6;
+
+    const brightnessReduction =
+      signedDistance < 0
+        ? 0.50
+        : 0.38;
+
+    const brightness =
+      1 -
+      normalizedDistance *
+      brightnessReduction;
+
+    const maximumVerticalOffset =
+      window.innerWidth <= 800
+        ? 15
+        : 25;
+
+    const verticalOffset =
+      normalizedDistance *
+      maximumVerticalOffset;
+
+    card.style.transform =
+      `
+        translateY(${verticalOffset}px)
+        scale(${scale})
+      `;
+
+    card.style.opacity =
+      String(opacity);
+
+    card.style.filter =
+      `
+        blur(${blur}px)
+        brightness(${brightness})
+      `;
+
+    card.style.zIndex =
+      String(
+        Math.round(
+          100 -
+          normalizedDistance * 90
+        )
+      );
+  });
+
+  activeCard =
+    closestCard;
+
+  activeIndex =
+    closestIndex;
+
+  cards.forEach(card => {
+    const isActive =
+      card === activeCard;
+
+    card.classList.toggle(
+      "active",
+      isActive
+    );
+
+    card.setAttribute(
+      "aria-current",
+      isActive
+        ? "date"
+        : "false"
+    );
+  });
+
+  updateActiveCategories();
+  updateTodayButtonState();
+}
+
+
+function requestVisualUpdate() {
+  if (animationFrameRequested) {
+    return;
+  }
+
+  animationFrameRequested =
+    true;
+
+  requestAnimationFrame(() => {
+    updateVisuals();
+
+    animationFrameRequested =
+      false;
+  });
+}
+
+
+/* ==================================================
+   CARGAR PROGRAMACIÓN
+   ================================================== */
+
+async function loadEvents() {
+  const response =
+    await fetch(
+      `data/programacion.json?ts=${Date.now()}`,
+      {
+        cache: "no-store"
+      }
+    );
+
+  if (!response.ok) {
+    throw new Error(
+      `No se pudo cargar programacion.json: ${response.status}`
+    );
+  }
+
+  const data =
+    await response.json();
+
+  return data.events || [];
+}
+
+
+/* ==================================================
+   MOSTRAR ERROR
+   ================================================== */
+
+function showLoadingError(error) {
+  console.error(
+    "Error cargando la programación:",
+    error
+  );
+
+  timeline.innerHTML = `
+    <article class="day active error-card">
+
+      <div class="day-header">
+
+        <div class="label">
+          ERROR
+        </div>
+
+        <div class="date">
+          Programación no disponible
+        </div>
+
+        <div class="weekday">
+          No se ha podido cargar
+          programacion.json
+        </div>
+
+      </div>
+
+      <div class="events">
+
+        <div class="empty">
+
+          <b>
+            Revisa la actualización
+            automática de AlberoTV.
+          </b>
+
+        </div>
+
+      </div>
+
+    </article>
+  `;
+}
+
+
+/* ==================================================
+   INICIAR WEB
+   ================================================== */
+
+async function init() {
+  injectAlberoEnhancementStyles();
+
+  let events = [];
+
+  try {
+    events =
+      await loadEvents();
+
+    loadedEvents = events;
+
+    console.log(
+      `AlberoTV: ${events.length} elementos cargados`
+    );
+
+    renderCategoryNavigation(events);
+  } catch (error) {
+    showLoadingError(error);
+
+    return;
+  }
+
+  const today =
+    new Date();
+
+  today.setHours(
+    0,
+    0,
+    0,
+    0
+  );
+
+  /*
+   * Construimos la cinta usando todas las fechas disponibles
+   * en programacion.json.
+   *
+   * Como mínimo mostramos 30 días pasados y 90 futuros.
+   * Si el JSON contiene eventos más antiguos o más lejanos,
+   * también se incluyen automáticamente.
+   */
+  const validEventDates =
+    events
+      .map(event => String(event.date || ""))
+      .filter(dateKey =>
+        /^\d{4}-\d{2}-\d{2}$/.test(dateKey)
+      )
+      .map(dateKey => {
+        const [year, month, day] =
+          dateKey.split("-").map(Number);
+
+        return new Date(
+          year,
+          month - 1,
+          day,
+          0,
+          0,
+          0,
+          0
+        );
+      })
+      .filter(date =>
+        !Number.isNaN(date.getTime())
+      );
+
+  const minimumVisibleDate =
+    new Date(today);
+
+  minimumVisibleDate.setDate(
+    today.getDate() - 30
+  );
+
+  const maximumVisibleDate =
+    new Date(today);
+
+  maximumVisibleDate.setDate(
+    today.getDate() + 90
+  );
+
+  if (validEventDates.length) {
+    const earliestEventDate =
+      new Date(
+        Math.min(
+          ...validEventDates.map(date =>
+            date.getTime()
+          )
+        )
+      );
+
+    const latestEventDate =
+      new Date(
+        Math.max(
+          ...validEventDates.map(date =>
+            date.getTime()
+          )
+        )
+      );
+
+    if (
+      earliestEventDate <
+      minimumVisibleDate
+    ) {
+      minimumVisibleDate.setTime(
+        earliestEventDate.getTime()
+      );
+    }
+
+    if (
+      latestEventDate >
+      maximumVisibleDate
+    ) {
+      maximumVisibleDate.setTime(
+        latestEventDate.getTime()
+      );
+    }
+  }
+
+  const firstOffset =
+    Math.round(
+      (
+        minimumVisibleDate.getTime() -
+        today.getTime()
+      ) /
+      86400000
+    );
+
+  const lastOffset =
+    Math.round(
+      (
+        maximumVisibleDate.getTime() -
+        today.getTime()
+      ) /
+      86400000
+    );
+
+  for (
+    let offset = firstOffset;
+    offset <= lastOffset;
+    offset++
+  ) {
+    const date =
+      new Date(today);
+
+    date.setDate(
+      today.getDate() +
+      offset
+    );
+
+    timeline.appendChild(
+      buildDayCard(
+        date,
+        offset,
+        events
+      )
+    );
+  }
+
+  cards = [
+    ...document.querySelectorAll(
+      ".day"
+    )
+  ];
+
+  const todayCard =
+    cards.find(
+      card =>
+        card.dataset.offset === "0"
+    );
+
+  requestAnimationFrame(() => {
+    if (todayCard) {
+      timeline.scrollLeft =
+        todayCard.offsetLeft -
+        timeline.clientWidth / 2 +
+        todayCard.offsetWidth / 2;
+    }
+
+    updateVisuals();
+    startTemporalStatusUpdates();
+    addTodayButton();
+  });
+}
+
+
+/* ==================================================
+   SCROLL HORIZONTAL CONTINUO
+   ================================================== */
+
+timeline.addEventListener(
+  "scroll",
+  () => {
+    hint?.classList.add(
+      "hidden"
+    );
+
+    requestVisualUpdate();
+  },
+  {
+    passive: true
+  }
+);
+
+
+/* ==================================================
+   RUEDA Y TRACKPAD
+   ================================================== */
+
+timeline.addEventListener(
+  "wheel",
+  event => {
+    const horizontalMovement =
+      Math.abs(event.deltaX);
+
+    const verticalMovement =
+      Math.abs(event.deltaY);
+
+    const isHorizontalGesture =
+      horizontalMovement >
+      verticalMovement * 1.05;
+
+    const isShiftWheel =
+      event.shiftKey &&
+      verticalMovement > 0;
+
+    if (
+      isHorizontalGesture ||
+      isShiftWheel
+    ) {
+      event.preventDefault();
+
+      timeline.scrollLeft +=
+        isShiftWheel
+          ? event.deltaY
+          : event.deltaX;
+
+      requestVisualUpdate();
+
+      return;
+    }
+
+    if (
+      verticalMovement > 0 &&
+      activeCard
+    ) {
+      const eventsContainer =
+        activeCard.querySelector(
+          ".events"
+        );
+
+      if (eventsContainer) {
+        event.preventDefault();
+
+        eventsContainer.scrollTop +=
+          event.deltaY;
+      }
+    }
+  },
+  {
+    passive: false
+  }
+);
+
+
+/* ==================================================
+   ARRASTRAR LA CINTA CON EL RATÓN
+   ================================================== */
+
+timeline.addEventListener(
+  "pointerdown",
+  event => {
+    if (
+      event.pointerType === "mouse" &&
+      event.button !== 0
+    ) {
+      return;
+    }
+
+    if (
+      event.target.closest(
+        "a, button"
+      )
+    ) {
+      return;
+    }
+
+    isDragging =
+      true;
+
+    dragMoved =
+      false;
+
+    dragStartX =
+      event.clientX;
+
+    dragStartScrollLeft =
+      timeline.scrollLeft;
+
+    timeline.classList.add(
+      "is-dragging"
+    );
+
+    timeline.setPointerCapture?.(
+      event.pointerId
+    );
+  }
+);
+
+
+timeline.addEventListener(
+  "pointermove",
+  event => {
+    if (!isDragging) {
+      return;
+    }
+
+    const movement =
+      event.clientX -
+      dragStartX;
+
+    if (
+      Math.abs(movement) >
+      4
+    ) {
+      dragMoved =
+        true;
+    }
+
+    timeline.scrollLeft =
+      dragStartScrollLeft -
+      movement;
+
+    requestVisualUpdate();
+  }
+);
+
+
+function stopDragging(event) {
+  if (!isDragging) {
+    return;
+  }
+
+  isDragging =
+    false;
+
+  timeline.classList.remove(
+    "is-dragging"
+  );
+
+  if (
+    event?.pointerId !==
+    undefined
+  ) {
+    try {
+      timeline.releasePointerCapture?.(
+        event.pointerId
+      );
+    } catch {
+      /*
+        El navegador puede haber liberado
+        ya el puntero.
+      */
+    }
+  }
+}
+
+
+timeline.addEventListener(
+  "pointerup",
+  stopDragging
+);
+
+
+timeline.addEventListener(
+  "pointercancel",
+  stopDragging
+);
+
+
+/* ==================================================
+   FLECHAS
+   ================================================== */
+
+document
+  .querySelector(
+    ".edge-arrow.left"
+  )
+  ?.addEventListener(
+    "click",
+    () => {
+      timeline.scrollBy({
+        left: -260,
+        behavior: "smooth"
+      });
+    }
+  );
+
+
+document
+  .querySelector(
+    ".edge-arrow.right"
+  )
+  ?.addEventListener(
+    "click",
+    () => {
+      timeline.scrollBy({
+        left: 260,
+        behavior: "smooth"
+      });
+    }
+  );
+
+
+/* ==================================================
+   TECLADO
+   ================================================== */
+
+timeline.addEventListener(
+  "keydown",
+  event => {
+    if (
+      event.key === "ArrowLeft"
+    ) {
+      event.preventDefault();
+
+      timeline.scrollBy({
+        left: -180,
+        behavior: "smooth"
+      });
+    }
+
+    if (
+      event.key === "ArrowRight"
+    ) {
+      event.preventDefault();
+
+      timeline.scrollBy({
+        left: 180,
+        behavior: "smooth"
+      });
+    }
+
+    if (
+      event.key === "ArrowDown" &&
+      activeCard
+    ) {
+      event.preventDefault();
+
+      activeCard
+        .querySelector(".events")
+        ?.scrollBy({
+          top: 100,
+          behavior: "smooth"
+        });
+    }
+
+    if (
+      event.key === "ArrowUp" &&
+      activeCard
+    ) {
+      event.preventDefault();
+
+      activeCard
+        .querySelector(".events")
+        ?.scrollBy({
+          top: -100,
+          behavior: "smooth"
+        });
+    }
+  }
+);
+
+
+/* ==================================================
+   AJUSTE AL CAMBIAR EL TAMAÑO DE LA VENTANA
+   ================================================== */
+
+window.addEventListener(
+  "resize",
+  requestVisualUpdate
+);
+
+
+/* ==================================================
+   ACTUALIZAR AL VOLVER A LA PESTAÑA
+   ================================================== */
+
+document.addEventListener(
+  "visibilitychange",
+  () => {
+    if (!document.hidden) {
+      updateTemporalStatuses();
+    }
+  }
+);
+
+
+/* ==================================================
+   ARRANCAR
+   ================================================== */
+
+init();
+
+Biblioteca
+/
+script-alberotv-corregido-v2.js.txt
+
+
+const timeline = document.getElementById("timeline");
+const hint = document.getElementById("hint");
+const categoryList = document.getElementById("category-list");
+
+const months = [
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre"
+];
+
+const weekdays = [
+  "Domingo",
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado"
+];
+
+let cards = [];
+let activeCard = null;
+let activeIndex = 0;
+
+let isDragging = false;
+let dragStartX = 0;
+let dragStartScrollLeft = 0;
+let dragMoved = false;
+
+let animationFrameRequested = false;
+let loadedEvents = [];
+let eventStatusTimer = null;
+
+
+/* ==================================================
+   UTILIDADES
+   ================================================== */
+
+function toLocalISO(date) {
+  return [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, "0"),
+    String(date.getDate()).padStart(2, "0")
+  ].join("-");
+}
+
+
+function getDayLabel(offset) {
+  if (offset === -1) {
+    return "AYER";
+  }
+
+  if (offset === 0) {
+    return "HOY";
+  }
+
+  if (offset === 1) {
+    return "MAÑANA";
+  }
+
+  return "";
+}
+
+
+function escapeHtml(value = "") {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+function formatParticipants(participants = []) {
+  return participants
+    .filter(Boolean)
+    .map(escapeHtml)
+    .join(" · ");
+}
+
+
+function normalizeText(value = "") {
+  return String(value)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
+
+function cleanBreedingDisplay(value = "") {
+  let cleaned = String(value || "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&(?:laquo|raquo|ldquo|rdquo|quot);/gi, " ")
+    .replace(/\u00a0/g, " ")
+    .replace(/[«»“”"'´`]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  /*
+   * Elimina todos los prefijos repetidos, incluso cuando llegan
+   * precedidos por comillas o caracteres extraños de la fuente.
+   */
+  cleaned = cleaned
+    .replace(/^(?:(?:ganader[ií]a)\s*(?:[:\-–—]\s*)?)+/i, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (
+    !cleaned ||
+    /^(?:ganader[ií]a\s*)+$/i.test(cleaned)
+  ) {
+    return "";
+  }
+
+  return cleaned;
+}
+
+
+function isProgram(event = {}) {
+  return (
+    normalizeText(event.contentType) === "programa" ||
+    normalizeText(event.type).includes("programa taurino")
+  );
+}
+
+
+/* ==================================================
+   HORARIO LOCAL DEL USUARIO
+   Origen de las emisiones: Europe/Madrid
+   ================================================== */
+
+const SOURCE_TIME_ZONE = "Europe/Madrid";
+const USER_TIME_ZONE = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+
+function hasValidEventTime(event = {}) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(String(event.date || "")) && /^\d{1,2}:\d{2}$/.test(String(event.time || ""));
+}
+
+function getTimeZoneOffsetMilliseconds(date, timeZone) {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23"
+  }).formatToParts(date);
+  const values = {};
+  parts.forEach(part => {
+    if (part.type !== "literal") values[part.type] = Number(part.value);
+  });
+  return Date.UTC(values.year, values.month - 1, values.day, values.hour, values.minute, values.second) - date.getTime();
+}
+
+function madridDateTimeToUtc(dateKey, timeValue) {
+  const [year, month, day] = dateKey.split("-").map(Number);
+  const [hour, minute] = timeValue.split(":").map(Number);
+  const initialGuess = new Date(Date.UTC(year, month - 1, day, hour, minute, 0));
+  let utcMilliseconds = initialGuess.getTime();
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const offset = getTimeZoneOffsetMilliseconds(new Date(utcMilliseconds), SOURCE_TIME_ZONE);
+    const corrected = initialGuess.getTime() - offset;
+    if (Math.abs(corrected - utcMilliseconds) < 1000) {
+      utcMilliseconds = corrected;
+      break;
+    }
+    utcMilliseconds = corrected;
+  }
+  return new Date(utcMilliseconds);
+}
+
+function getDatePartsInTimeZone(date, timeZone) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(date);
+  const values = {};
+  parts.forEach(part => {
+    if (part.type !== "literal") values[part.type] = part.value;
+  });
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
+function getDayDifferenceLabel(sourceDateKey, localDateKey) {
+  const sourceDate = new Date(`${sourceDateKey}T00:00:00Z`);
+  const localDate = new Date(`${localDateKey}T00:00:00Z`);
+  const difference = Math.round((localDate.getTime() - sourceDate.getTime()) / 86400000);
+  if (difference === 1) return "+1 día";
+  if (difference === -1) return "−1 día";
+  if (difference > 1) return `+${difference} días`;
+  if (difference < -1) return `−${Math.abs(difference)} días`;
+  return "";
+}
+
+function getEventTimePresentation(event = {}) {
+  if (!hasValidEventTime(event)) {
+    return { main: event.time || "Hora por confirmar", original: "", dayShift: "", title: "" };
+  }
+  const instant = madridDateTimeToUtc(event.date, event.time);
+  const localTime = new Intl.DateTimeFormat("es-ES", {
+    timeZone: USER_TIME_ZONE,
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23"
+  }).format(instant);
+  const localDateKey = getDatePartsInTimeZone(instant, USER_TIME_ZONE);
+  const dayShift = getDayDifferenceLabel(event.date, localDateKey);
+  const zoneName = new Intl.DateTimeFormat("es-ES", {
+    timeZone: USER_TIME_ZONE,
+    timeZoneName: "long"
+  }).formatToParts(instant).find(part => part.type === "timeZoneName")?.value || USER_TIME_ZONE;
+  return {
+    main: localTime,
+    original: event.time,
+    dayShift,
+    title: `Hora local: ${localTime}${dayShift ? ` (${dayShift})` : ""}. Hora en España: ${event.time}. ${zoneName}.`
+  };
+}
+
+function buildTimeMarkup(event = {}) {
+  const presentation = getEventTimePresentation(event);
+  if (!presentation.original) {
+    return `<div class="time">${escapeHtml(presentation.main)}</div>`;
+  }
+  return `
+    <div class="time time-local" title="${escapeHtml(presentation.title)}" tabindex="0" aria-label="${escapeHtml(presentation.title)}">
+      <span class="time-main">${escapeHtml(presentation.main)}</span>
+      ${presentation.dayShift ? `<span class="time-day-shift">${escapeHtml(presentation.dayShift)}</span>` : ""}
+      <span class="time-origin">España: ${escapeHtml(presentation.original)}</span>
+    </div>
+  `;
+}
+
+
+/* ==================================================
+   CUENTA ATRÁS, CONTEXTO DEL DÍA Y ESTADO DE EMISIÓN
+   ================================================== */
+
+function getEstimatedDurationMinutes(event = {}) {
+  if (Number(event.durationMinutes) > 0) {
+    return Number(event.durationMinutes);
+  }
+
+  if (isProgram(event)) {
+    return 60;
+  }
+
+  const type = normalizeText(event.type);
+
+  if (
+    type.includes("recortes") ||
+    type.includes("recortadores")
+  ) {
+    return 120;
+  }
+
+  if (
+    type.includes("tentadero") ||
+    type.includes("tienta") ||
+    type.includes("clase practica")
+  ) {
+    return 90;
+  }
+
+  return 150;
+}
+
+
+function getEventStartInstant(event = {}) {
+  if (!hasValidEventTime(event)) {
+    return null;
+  }
+
+  return madridDateTimeToUtc(
+    event.date,
+    event.time
+  );
+}
+
+
+function getLocalCalendarDifference(startInstant, now = new Date()) {
+  const startDateKey =
+    getDatePartsInTimeZone(
+      startInstant,
+      USER_TIME_ZONE
+    );
+
+  const todayDateKey =
+    getDatePartsInTimeZone(
+      now,
+      USER_TIME_ZONE
+    );
+
+  const startDate =
+    new Date(
+      `${startDateKey}T00:00:00Z`
+    );
+
+  const todayDate =
+    new Date(
+      `${todayDateKey}T00:00:00Z`
+    );
+
+  return Math.round(
+    (
+      startDate.getTime() -
+      todayDate.getTime()
+    ) /
+    86400000
+  );
+}
+
+
+function getRemainingTimeParts(totalMinutes) {
+  const safeMinutes =
+    Math.max(
+      0,
+      Math.ceil(totalMinutes)
+    );
+
+  const days =
+    Math.floor(
+      safeMinutes /
+      1440
+    );
+
+  const hours =
+    Math.floor(
+      (
+        safeMinutes %
+        1440
+      ) /
+      60
+    );
+
+  const minutes =
+    safeMinutes %
+    60;
+
+  return {
+    days,
+    hours,
+    minutes
+  };
+}
+
+
+function pluralize(value, singular, plural) {
+  return value === 1
+    ? singular
+    : plural;
+}
+
+
+function buildLongRemainingLabel(parts) {
+  const chunks = [];
+
+  if (parts.days > 0) {
+    chunks.push(
+      `${parts.days} ${pluralize(parts.days, "día", "días")}`
+    );
+  }
+
+  if (parts.hours > 0) {
+    chunks.push(
+      `${parts.hours} h`
+    );
+  }
+
+  if (
+    parts.days === 0 &&
+    parts.minutes > 0
+  ) {
+    chunks.push(
+      `${parts.minutes} min`
+    );
+  }
+
+  if (
+    parts.days > 0 &&
+    parts.hours === 0 &&
+    parts.minutes > 0
+  ) {
+    chunks.push(
+      `${parts.minutes} min`
+    );
+  }
+
+  return chunks.join(" ");
+}
+
+
+function buildUpcomingStatusLabel(startInstant, minutesUntilStart) {
+  const parts =
+    getRemainingTimeParts(
+      minutesUntilStart
+    );
+
+  const calendarDifference =
+    getLocalCalendarDifference(
+      startInstant
+    );
+
+  if (minutesUntilStart <= 15) {
+    return {
+      key: "starting-soon",
+      label: `COMIENZA EN ${Math.max(1, parts.minutes)} MIN`
+    };
+  }
+
+  if (calendarDifference === 0) {
+    return {
+      key: "today",
+      label: `HOY · ${buildLongRemainingLabel(parts).toUpperCase()}`
+    };
+  }
+
+  if (calendarDifference === 1) {
+    return {
+      key: "tomorrow",
+      label: `MAÑANA · ${buildLongRemainingLabel(parts).toUpperCase()}`
+    };
+  }
+
+  if (calendarDifference > 1) {
+    const residualParts = {
+      days: 0,
+      hours: parts.hours,
+      minutes:
+        parts.hours === 0
+          ? parts.minutes
+          : 0
+    };
+
+    const residualLabel =
+      buildLongRemainingLabel(
+        residualParts
+      );
+
+    return {
+      key: "future",
+      label:
+        residualLabel
+          ? `EN ${calendarDifference} DÍAS · ${residualLabel.toUpperCase()}`
+          : `EN ${calendarDifference} DÍAS`
+    };
+  }
+
+  return {
+    key: "upcoming",
+    label: `EMPIEZA EN ${buildLongRemainingLabel(parts).toUpperCase()}`
+  };
+}
+
+
+function getTemporalStatus(event = {}, now = new Date()) {
+  const startInstant =
+    getEventStartInstant(event);
+
+  if (!startInstant) {
+    return null;
+  }
+
+  const durationMinutes =
+    getEstimatedDurationMinutes(event);
+
+  const endInstant =
+    new Date(
+      startInstant.getTime() +
+      durationMinutes * 60000
+    );
+
+  const millisecondsUntilStart =
+    startInstant.getTime() -
+    now.getTime();
+
+  if (millisecondsUntilStart > 0) {
+    return buildUpcomingStatusLabel(
+      startInstant,
+      millisecondsUntilStart /
+      60000
+    );
+  }
+
+  if (
+    now.getTime() <
+    endInstant.getTime()
+  ) {
+    return {
+      key: "live",
+      label: "EN DIRECTO"
+    };
+  }
+
+  return {
+    key: "finished",
+    label: "FINALIZADO"
+  };
+}
+
+
+function buildTemporalStatusMarkup(event = {}) {
+  const status =
+    getTemporalStatus(event);
+
+  const startInstant =
+    getEventStartInstant(event);
+
+  if (!status || !startInstant) {
+    return "";
+  }
+
+  return `
+    <div
+      class="event-status event-status-${status.key}"
+      data-event-start="${escapeHtml(startInstant.toISOString())}"
+      data-event-duration="${escapeHtml(getEstimatedDurationMinutes(event))}"
+      role="status"
+      aria-live="polite"
+    >
+      <span class="event-status-light" aria-hidden="true"></span>
+      <span class="event-status-text">${escapeHtml(status.label)}</span>
+    </div>
+  `;
+}
+
+
+function getStatusFromStoredElement(element, now = new Date()) {
+  const startInstant =
+    new Date(
+      element.dataset.eventStart
+    );
+
+  const durationMinutes =
+    Number(
+      element.dataset.eventDuration
+    );
+
+  if (
+    Number.isNaN(startInstant.getTime()) ||
+    !Number.isFinite(durationMinutes)
+  ) {
+    return null;
+  }
+
+  const endInstant =
+    new Date(
+      startInstant.getTime() +
+      durationMinutes * 60000
+    );
+
+  const millisecondsUntilStart =
+    startInstant.getTime() -
+    now.getTime();
+
+  if (millisecondsUntilStart > 0) {
+    return buildUpcomingStatusLabel(
+      startInstant,
+      millisecondsUntilStart /
+      60000
+    );
+  }
+
+  if (
+    now.getTime() <
+    endInstant.getTime()
+  ) {
+    return {
+      key: "live",
+      label: "EN DIRECTO"
+    };
+  }
+
+  return {
+    key: "finished",
+    label: "FINALIZADO"
+  };
+}
+
+
+function updateTemporalStatuses() {
+  const now =
+    new Date();
+
+  document
+    .querySelectorAll(".event-status")
+    .forEach(element => {
+      const status =
+        getStatusFromStoredElement(
+          element,
+          now
+        );
+
+      if (!status) {
+        return;
+      }
+
+      element.className =
+        `event-status event-status-${status.key}`;
+
+      const text =
+        element.querySelector(
+          ".event-status-text"
+        );
+
+      if (text) {
+        text.textContent =
+          status.label;
+      }
+    });
+}
+
+
+function startTemporalStatusUpdates() {
+  if (eventStatusTimer) {
+    clearInterval(
+      eventStatusTimer
+    );
+  }
+
+  updateTemporalStatuses();
+
+  eventStatusTimer =
+    setInterval(
+      updateTemporalStatuses,
+      30000
+    );
+}
+
+
+function getBroadcastPresentation(event = {}) {
+  const rawChannel =
+    String(
+      event.channel ||
+      event.broadcastChannel ||
+      event.source ||
+      ""
+    ).trim();
+
+  const normalizedChannel =
+    normalizeText(rawChannel);
+
+  const confirmedByFlag =
+    event.televised === true ||
+    event.isTelevised === true ||
+    event.broadcastConfirmed === true;
+
+  const explicitlyUnconfirmed =
+    event.televised === false ||
+    event.isTelevised === false ||
+    event.broadcastConfirmed === false;
+
+  const genericValues = [
+    "",
+    "canal por confirmar",
+    "por confirmar",
+    "sin confirmar",
+    "no confirmado",
+    "ninguno"
+  ];
+
+  const hasNamedChannel =
+    !genericValues.includes(
+      normalizedChannel
+    );
+
+  if (
+    explicitlyUnconfirmed ||
+    (!confirmedByFlag && !hasNamedChannel)
+  ) {
+    return {
+      confirmed: false,
+      label: "Sin emisión confirmada",
+      normalizedChannel: ""
+    };
+  }
+
+  return {
+    confirmed: true,
+    label: rawChannel || "Emisión confirmada",
+    normalizedChannel
+  };
+}
+
+
+const CHANNEL_LOGOS = [
+  {
+    matches: ["onetoro", "one toro"],
+    src: "assets/channels/onetoro.png",
+    alt: "OneToro"
+  },
+  {
+    matches: ["canal sur", "canal sur 1", "canal sur andalucia"],
+    src: "assets/channels/canal-sur.png",
+    alt: "Canal Sur"
+  },
+  {
+    matches: ["cmm", "castilla-la mancha", "castilla la mancha", "castilla de mancha"],
+    src: "assets/channels/cmm.png",
+    alt: "Castilla-La Mancha Media"
+  },
+  {
+    matches: ["telemadrid", "tele madrid"],
+    src: "assets/channels/telemadrid.png",
+    alt: "Telemadrid"
+  },
+  {
+    matches: ["aragon tv", "aragón tv", "atv"],
+    src: "assets/channels/aragon-tv.png",
+    alt: "Aragón TV"
+  },
+  {
+    matches: ["la 1", "tve 1", "tve1"],
+    src: "assets/channels/tve-1.png",
+    alt: "La 1"
+  },
+  {
+    matches: ["la 2", "tve 2", "tve2"],
+    src: "assets/channels/tve-2.png",
+    alt: "La 2"
+  }
+];
+
+
+function getChannelLogoData(channelName = "") {
+  const normalized =
+    normalizeText(channelName);
+
+  return CHANNEL_LOGOS.find(channel =>
+    channel.matches.some(match =>
+      normalized === normalizeText(match) ||
+      normalized.includes(normalizeText(match))
+    )
+  ) || null;
+}
+
+
+function getChannelInitials(channelName = "") {
+  const words =
+    String(channelName)
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
+
+  if (!words.length) {
+    return "TV";
+  }
+
+  if (words.length === 1) {
+    return words[0]
+      .slice(0, 3)
+      .toUpperCase();
+  }
+
+  return words
+    .slice(0, 3)
+    .map(word => word[0])
+    .join("")
+    .toUpperCase();
+}
+
+
+function getLocationLengthClass(location = "") {
+  const length = String(location).trim().length;
+
+  if (length >= 42) {
+    return "location-xlong";
+  }
+
+  if (length >= 28) {
+    return "location-long";
+  }
+
+  if (length >= 18) {
+    return "location-medium";
+  }
+
+  return "location-short";
+}
+
+
+
+const COUNTRY_PRESENTATIONS = {
+  ES: { name: "España", className: "country-es" },
+  FR: { name: "Francia", className: "country-fr" },
+  PT: { name: "Portugal", className: "country-pt" },
+  MX: { name: "México", className: "country-mx" },
+  CO: { name: "Colombia", className: "country-co" },
+  PE: { name: "Perú", className: "country-pe" },
+  EC: { name: "Ecuador", className: "country-ec" }
+};
+
+
+function getEventCountryCode(event = {}) {
+  const explicitCode =
+    String(
+      event.countryCode ||
+      event.country_code ||
+      ""
+    )
+      .trim()
+      .toUpperCase();
+
+  if (COUNTRY_PRESENTATIONS[explicitCode]) {
+    return explicitCode;
+  }
+
+  const searchableText =
+    normalizeText(
+      [
+        event.country,
+        event.location,
+        event.name,
+        event.title
+      ]
+        .filter(Boolean)
+        .join(" ")
+    );
+
+  const countryRules = [
+    {
+      code: "FR",
+      terms: [
+        "francia", "france", "nimes", "arles", "beziers",
+        "dax", "bayona", "bayonne", "mont de marsan",
+        "vic fezensac"
+      ]
+    },
+    {
+      code: "PT",
+      terms: [
+        "portugal", "lisboa", "santarem", "vilafranca de xira",
+        "vila franca de xira", "campo pequeno", "moita"
+      ]
+    },
+    {
+      code: "MX",
+      terms: [
+        "mexico", "aguascalientes", "guadalajara",
+        "queretaro", "tlaxcala", "zacatecas"
+      ]
+    },
+    {
+      code: "CO",
+      terms: [
+        "colombia", "bogota", "cali", "manizales", "medellin"
+      ]
+    },
+    {
+      code: "PE",
+      terms: [
+        "peru", "lima", "acho", "cajabamba"
+      ]
+    },
+    {
+      code: "EC",
+      terms: [
+        "ecuador", "quito", "riobamba", "latacunga"
+      ]
+    },
+    {
+      code: "ES",
+      terms: [
+        "espana"
+      ]
+    }
+  ];
+
+  for (const rule of countryRules) {
+    if (
+      rule.terms.some(term =>
+        searchableText.includes(
+          normalizeText(term)
+        )
+      )
+    ) {
+      return rule.code;
+    }
+  }
+
+  return "ES";
+}
+
+
+function buildCountryCornerMarkup(event = {}) {
+  const countryCode =
+    getEventCountryCode(event);
+
+  const presentation =
+    COUNTRY_PRESENTATIONS[countryCode];
+
+  if (!presentation) {
+    return "";
+  }
+
+  return `
+    <span
+      class="country-corner ${presentation.className}"
+      title="${escapeHtml(presentation.name)}"
+      aria-label="Evento en ${escapeHtml(presentation.name)}"
+    ></span>
+  `;
+}
+
+
+function getEventAccentClass(event = {}) {
+  return getTypeClass(event.type || "");
+}
+
+
+function buildPersonIconMarkup(event = {}) {
+  const type = normalizeText(event.type);
+
+  if (
+    type.includes("rejones") ||
+    type.includes("rejoneo") ||
+    type.includes("rejoneadores")
+  ) {
+    return `
+      <span class="event-detail-icon person-detail-icon event-icon-rejones" aria-hidden="true">
+        <svg viewBox="0 0 48 48" focusable="false">
+          <circle cx="20" cy="9" r="3.4"></circle>
+          <path d="M16.2 13.2c2.1-2.2 6.1-2.3 8.4-.3l3.2 2.8 7.1-7.2 1.8 1.7-7.1 7.3 1.4 4.4-4.2 1.4-2.1-5.2-4.4-1.6Z"></path>
+          <path d="M5.2 32.3c3.3-6.9 10.1-10.5 18.3-10.5 7.6 0 13.7 3 18.2 8.9-5.4-1.1-10.1-.9-14.3.7-6 2.2-12.7 2.4-22.2.9Z"></path>
+          <path d="M10.8 31.8 8.8 43h4l2.2-10.1M33.2 31.6l2.2 11.4h4l-1.9-12M22.4 22.2l-2.8 12.6"></path>
+          <path d="M38.6 27.9c2.6.4 4.2 1.5 5.1 3.5-2.7-.1-4.9-.7-6.6-1.8Z"></path>
+        </svg>
+      </span>
+    `;
+  }
+
+  if (
+    type.includes("recortes") ||
+    type.includes("recortadores") ||
+    type.includes("concurso de recortes")
+  ) {
+    return `
+      <span class="event-detail-icon person-detail-icon event-icon-recortes" aria-hidden="true">
+        <svg viewBox="0 0 48 48" focusable="false">
+          <circle cx="30.5" cy="8.5" r="4"></circle>
+          <path d="m27.6 13-8.2 8.5 5.9 5.5 6.8-4.6"></path>
+          <path d="m19.4 21.5-9.5 2.8M25.3 27l-4.7 13M32.1 22.4l8 9.6"></path>
+        </svg>
+      </span>
+    `;
+  }
+
+  return `
+    <span class="event-detail-icon person-detail-icon event-icon-torero" aria-hidden="true">
+      <svg viewBox="0 0 48 48" focusable="false">
+        <path d="M10.2 10.7C12.8 6.9 17.4 5 24 5s11.2 1.9 13.8 5.7c-3.1 1.6-7.7 2.4-13.8 2.4s-10.7-.8-13.8-2.4Z"></path>
+        <path d="M15 13h18v4.7c0 5.2-4 9.3-9 9.3s-9-4.1-9-9.3Z"></path>
+        <path d="M7.2 44c.7-10.9 4.1-17.2 11.1-19.7L24 29.8l5.7-5.5c7 2.5 10.4 8.8 11.1 19.7Z"></path>
+        <path d="m18.3 24.7 5.7 5.1 5.7-5.1M24 29.8V44"></path>
+        <circle cx="17.6" cy="34.3" r="1.1"></circle>
+        <circle cx="30.4" cy="34.3" r="1.1"></circle>
+        <circle cx="17.6" cy="39.2" r="1.1"></circle>
+        <circle cx="30.4" cy="39.2" r="1.1"></circle>
+      </svg>
+    </span>
+  `;
+}
+
+
+function buildBreedingIconMarkup(event = {}) {
+  return `
+    <span class="event-detail-icon breeding-detail-icon event-icon-bull" aria-hidden="true">
+      <svg viewBox="0 0 48 48" focusable="false">
+        <path d="M17.2 15.1C12.4 14.6 7.3 11 4 5.5c7.4-.4 12.8 2 15.6 7"></path>
+        <path d="M30.8 15.1C35.6 14.6 40.7 11 44 5.5c-7.4-.4-12.8 2-15.6 7"></path>
+        <path d="M15.7 14.4c2.4-3.9 5.2-5.7 8.3-5.7s5.9 1.8 8.3 5.7c2.1 3.4 2.6 7.4 1.5 11.6-1.5 5.9-5.5 10.2-9.8 10.2s-8.3-4.3-9.8-10.2c-1.1-4.2-.6-8.2 1.5-11.6Z"></path>
+        <path d="M17.5 20.1c1.8-1.5 4-2.2 6.5-2.2s4.7.7 6.5 2.2"></path>
+        <circle cx="19.1" cy="24.4" r="1.4"></circle>
+        <circle cx="28.9" cy="24.4" r="1.4"></circle>
+        <path d="M18.8 29.7c3.1 2 7.3 2 10.4 0"></path>
+        <path d="M18.2 35.4 16 43M29.8 35.4 32 43"></path>
+      </svg>
+    </span>
+  `;
+}
+
+
+function getChannelLogoMarkup(channelName = "") {
+  const logo =
+    getChannelLogoData(channelName);
+
+  if (logo) {
+    return `
+      <div class="channel-identity">
+        <span
+        class="channel-logo-circle"
+        title="${escapeHtml(logo.alt)}"
+        aria-label="${escapeHtml(logo.alt)}"
+      >
+        <img
+          src="${escapeHtml(logo.src)}"
+          alt="${escapeHtml(logo.alt)}"
+          loading="lazy"
+          onerror="this.closest('.channel-logo-circle').classList.add('logo-missing'); this.remove();"
+        >
+        <span class="channel-logo-fallback" aria-hidden="true">
+          ${escapeHtml(getChannelInitials(logo.alt))}
+        </span>
+      </span>
+      <span class="channel-name">${escapeHtml(logo.alt)}</span>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="channel-identity">
+      <span
+        class="channel-logo-circle channel-logo-generic"
+        title="${escapeHtml(channelName)}"
+        aria-label="${escapeHtml(channelName)}"
+      >
+        <span class="channel-logo-fallback">
+          ${escapeHtml(getChannelInitials(channelName))}
+        </span>
+      </span>
+      <span class="channel-name">
+        ${escapeHtml(channelName)}
+      </span>
+    </div>
+  `;
+}
+
+
+function buildBroadcastMarkup(event = {}) {
+  const broadcast =
+    getBroadcastPresentation(event);
+
+  if (!broadcast.confirmed) {
+    return `
+      <div
+        class="channel-logo-circle channel-logo-unconfirmed"
+        title="Sin emisión confirmada"
+        aria-label="Sin emisión confirmada"
+      >
+        <span aria-hidden="true">?</span>
+      </div>
+    `;
+  }
+
+  return getChannelLogoMarkup(
+    broadcast.label
+  );
+}
+
+
+function buildEventHeaderMarkup(event = {}) {
+  const broadcast =
+    getBroadcastPresentation(event);
+
+  return `
+    <div class="event-compact-header">
+      <div class="event-header-information">
+        <div class="event-topline">
+          ${buildTimeMarkup(event)}
+        </div>
+
+        ${buildTemporalStatusMarkup(event)}
+
+        ${
+          broadcast.confirmed
+            ? ""
+            : `
+              <div class="broadcast-unconfirmed-label">
+                Sin emisión confirmada
+              </div>
+            `
+        }
+      </div>
+
+      <div class="event-header-channel">
+        ${buildBroadcastMarkup(event)}
+      </div>
+    </div>
+  `;
+}
+
+
+function scrollToToday() {
+  const todayCard =
+    document.querySelector(
+      '.day[data-offset="0"]'
+    );
+
+  if (!todayCard || !timeline) {
+    return;
+  }
+
+  timeline.scrollTo({
+    left:
+      todayCard.offsetLeft -
+      timeline.clientWidth / 2 +
+      todayCard.offsetWidth / 2,
+    behavior: "smooth"
+  });
+
+  todayCard
+    .querySelector(".events")
+    ?.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+}
+
+
+function addTodayButton() {
+  if (
+    document.getElementById(
+      "today-button"
+    )
+  ) {
+    return;
+  }
+
+  const brand =
+    document.querySelector(
+      ".topbar .brand"
+    );
+
+  if (!brand) {
+    return;
+  }
+
+  const button =
+    document.createElement("button");
+
+  button.id =
+    "today-button";
+
+  button.className =
+    "today-button";
+
+  button.type =
+    "button";
+
+  button.innerHTML = `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3.5" y="5.5" width="17" height="15" rx="2.5"></rect>
+      <path d="M7.5 3.5v4M16.5 3.5v4M3.5 10h17"></path>
+      <path d="M8 13.5h.01M12 13.5h.01M16 13.5h.01M8 17h.01M12 17h.01"></path>
+    </svg>
+    <span>HOY</span>
+  `;
+
+  button.addEventListener(
+    "click",
+    scrollToToday
+  );
+
+  brand.insertAdjacentElement(
+    "afterend",
+    button
+  );
+
+  updateTodayButtonState();
+}
+
+
+function updateTodayButtonState() {
+  const button =
+    document.getElementById(
+      "today-button"
+    );
+
+  if (!button) {
+    return;
+  }
+
+  const isToday =
+    activeCard?.dataset.offset === "0";
+
+  button.classList.toggle(
+    "is-today",
+    isToday
+  );
+
+  button.setAttribute(
+    "aria-pressed",
+    isToday
+      ? "true"
+      : "false"
+  );
+
+  button.title =
+    isToday
+      ? "Estás viendo el día de hoy"
+      : "Volver al día de hoy";
+}
+
+
+function injectAlberoEnhancementStyles() {
+  if (
+    document.getElementById(
+      "alberotv-live-enhancements"
+    )
+  ) {
+    return;
+  }
+
+  const style =
+    document.createElement("style");
+
+  style.id =
+    "alberotv-live-enhancements";
+
+  style.textContent = `
+    .event-compact-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 72px;
+      align-items: start;
+      gap: 16px;
+      width: 100%;
+      margin: 0 0 20px;
+      padding: 0 0 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    .event-header-information {
+      min-width: 0;
+    }
+
+    .event-header-channel {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      align-self: start;
+    }
+
+    .channel-identity {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      min-width: 0;
+      text-align: center;
+    }
+
+    .channel-name {
+      display: block;
+      width: 100%;
+      margin-top: 6px;
+      color: rgba(255, 255, 255, 0.94);
+      font-size: 0.72rem;
+      font-weight: 750;
+      line-height: 1.1;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .bullfighting-event {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      grid-template-columns: none !important;
+    }
+
+    .bullfighting-event .event-compact-header {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+
+    .event-content-stack {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      grid-column: 1 / -1 !important;
+    }
+
+    .event-content-stack .event-type {
+      position: relative !important;
+      z-index: 4;
+      align-self: flex-start !important;
+      width: fit-content !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+    }
+
+    .event-content-stack .event-title {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      margin: 12px 0 0 !important;
+      padding: 0 !important;
+      align-self: stretch !important;
+      text-align: left !important;
+      line-height: 1.12 !important;
+      overflow-wrap: normal !important;
+      word-break: normal !important;
+      hyphens: none !important;
+      white-space: normal !important;
+    }
+
+    .event-content-stack .event-title.location-short {
+      font-size: clamp(1.35rem, 4.7vw, 1.75rem) !important;
+    }
+
+    .event-content-stack .event-title.location-medium {
+      font-size: clamp(1.20rem, 4.2vw, 1.55rem) !important;
+    }
+
+    .event-content-stack .event-title.location-long {
+      font-size: clamp(1.06rem, 3.7vw, 1.35rem) !important;
+      line-height: 1.15 !important;
+    }
+
+    .event-content-stack .event-title.location-xlong {
+      font-size: clamp(0.94rem, 3.35vw, 1.18rem) !important;
+      line-height: 1.18 !important;
+    }
+
+    .event-content-stack .people,
+    .event-content-stack .breeding {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      align-self: stretch !important;
+      text-align: left !important;
+      overflow-wrap: break-word !important;
+      word-break: normal !important;
+      hyphens: none !important;
+    }
+
+    .event-content-stack .people {
+      margin: 12px 0 0 !important;
+    }
+
+    .event-content-stack .breeding {
+      margin: 10px 0 0 !important;
+    }
+
+    .event-content-stack .event-link {
+      align-self: flex-start !important;
+      margin: 12px 0 0 !important;
+    }
+
+
+    .event-content-stack {
+      position: relative !important;
+    }
+
+    .country-corner {
+      position: absolute !important;
+      z-index: 3;
+      top: 0 !important;
+      right: 0 !important;
+      margin: 0 !important;
+      transform: none !important;
+      width: 40px;
+      height: 40px;
+      clip-path: polygon(100% 0, 100% 100%, 0 0);
+      pointer-events: none;
+      filter: saturate(1.08);
+    }
+
+    .country-corner::after {
+      display: none;
+      content: none;
+    }
+
+    .country-es {
+      background: linear-gradient(
+        135deg,
+        #c8102e 0 31%,
+        #ffcd00 31% 69%,
+        #c8102e 69% 100%
+      );
+    }
+
+    .country-fr {
+      background: linear-gradient(
+        135deg,
+        #0055a4 0 33.33%,
+        #ffffff 33.33% 66.66%,
+        #ef4135 66.66% 100%
+      );
+    }
+
+    .country-pt {
+      background: linear-gradient(
+        135deg,
+        #046a38 0 40%,
+        #da291c 40% 100%
+      );
+    }
+
+    .country-mx {
+      background: linear-gradient(
+        135deg,
+        #006847 0 33.33%,
+        #ffffff 33.33% 66.66%,
+        #ce1126 66.66% 100%
+      );
+    }
+
+    .country-co {
+      background: linear-gradient(
+        135deg,
+        #fcd116 0 50%,
+        #003893 50% 75%,
+        #ce1126 75% 100%
+      );
+    }
+
+    .country-pe {
+      background: linear-gradient(
+        135deg,
+        #d91023 0 33.33%,
+        #ffffff 33.33% 66.66%,
+        #d91023 66.66% 100%
+      );
+    }
+
+    .country-ec {
+      background: linear-gradient(
+        135deg,
+        #ffdd00 0 50%,
+        #034ea2 50% 75%,
+        #ed1c24 75% 100%
+      );
+    }
+
+    .bullfighting-event {
+      --event-accent: #e83e8c;
+    }
+
+    .bullfighting-event.type-corrida {
+      --event-accent: #e83e8c;
+    }
+
+    .bullfighting-event.type-rejones {
+      --event-accent: #a64cc3;
+    }
+
+    .bullfighting-event.type-novillada,
+    .bullfighting-event.type-novillada-picadores,
+    .bullfighting-event.type-novillada-sin-picadores {
+      --event-accent: #e6aa00;
+    }
+
+    .bullfighting-event.type-recortes {
+      --event-accent: #2fc18c;
+    }
+
+    .bullfighting-event.type-festival,
+    .bullfighting-event.type-mixta,
+    .bullfighting-event.type-other {
+      --event-accent: #8799ad;
+    }
+
+    .bullfighting-event.type-tentadero,
+    .bullfighting-event.type-clase-practica,
+    .bullfighting-event.type-becerrada {
+      --event-accent: #59a8e8;
+    }
+
+    .bullfighting-event .event-detail-icon {
+      color: var(--event-accent) !important;
+    }
+
+    .today-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 36px;
+      padding: 8px 14px;
+      margin-left: 10px;
+      border: 1px solid rgba(255, 224, 102, 0.72);
+      border-radius: 10px;
+      background: rgba(255, 230, 128, 0.42);
+      color: rgba(255, 248, 205, 0.92);
+      box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.14),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: 0.035em;
+      cursor: pointer;
+      transition:
+        background 170ms ease,
+        color 170ms ease,
+        border-color 170ms ease,
+        box-shadow 170ms ease,
+        transform 170ms ease;
+    }
+
+    .today-button:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 231, 128, 0.58);
+      border-color: rgba(255, 230, 118, 0.92);
+      color: #fff8cf;
+    }
+
+    .today-button.is-today {
+      background: linear-gradient(
+        180deg,
+        #fff3a0 0%,
+        #ffe46a 100%
+      );
+      border-color: #fff2a2;
+      color: #4a3900;
+      box-shadow:
+        0 0 0 1px rgba(255, 241, 149, 0.38),
+        0 0 18px rgba(255, 222, 73, 0.55),
+        0 7px 18px rgba(0, 0, 0, 0.20);
+    }
+
+    .today-button.is-today:hover {
+      background: linear-gradient(
+        180deg,
+        #fff7b9 0%,
+        #ffe977 100%
+      );
+      color: #3f3000;
+    }
+
+    .today-button:active {
+      transform: translateY(0);
+    }
+
+    .today-button:focus-visible {
+      outline: 3px solid rgba(255, 226, 91, 0.35);
+      outline-offset: 3px;
+    }
+
+    .today-button svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .event-detail-row {
+      display: grid !important;
+      grid-template-columns: 24px minmax(0, 1fr);
+      align-items: start;
+      gap: 9px;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .event-detail-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      margin-top: -1px;
+      color: #e83e8c;
+      flex: 0 0 24px;
+    }
+
+    .event-detail-icon svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      fill: currentColor;
+      stroke: currentColor;
+      stroke-width: 1.45;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .event-detail-row .people,
+    .event-detail-row .breeding {
+      margin: 0 !important;
+    }
+
+    .event-detail-row.participants-row {
+      margin-top: 12px;
+    }
+
+    .event-detail-row.breeding-row {
+      margin-top: 10px;
+    }
+
+    .event-compact-header .event-topline {
+      margin: 0;
+    }
+
+    .event-compact-header .time-local {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px 7px;
+    }
+
+    .event-compact-header .time-main {
+      font-size: 1.55rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.035em;
+    }
+
+    .event-compact-header .time-origin {
+      flex-basis: 100%;
+      margin-top: 4px;
+      color: rgba(255, 255, 255, 0.56);
+      font-size: 0.72rem;
+      font-weight: 650;
+      line-height: 1.2;
+    }
+
+    .event-compact-header .time-day-shift {
+      padding: 3px 6px;
+      border-radius: 999px;
+      font-size: 0.56rem;
+      line-height: 1;
+    }
+
+    .event-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      max-width: 100%;
+      margin: 9px 0 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      font-size: 0.72rem;
+      font-weight: 850;
+      line-height: 1.2;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .event-status-light {
+      width: 7px;
+      height: 7px;
+      flex: 0 0 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 0 0 currentColor;
+    }
+
+    .event-status-today {
+      color: #73d99c;
+    }
+
+    .event-status-tomorrow {
+      color: #65b7ff;
+    }
+
+    .event-status-future,
+    .event-status-upcoming {
+      color: rgba(255, 255, 255, 0.66);
+    }
+
+    .event-status-starting-soon {
+      color: #ffb052;
+    }
+
+    .event-status-live {
+      color: #ff595f;
+    }
+
+    .event-status-live .event-status-light {
+      animation: alberotv-live-light 1.25s ease-in-out infinite;
+    }
+
+    .event-status-finished {
+      color: rgba(255, 255, 255, 0.38);
+    }
+
+    .channel-logo-circle {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow:
+        0 7px 18px rgba(0, 0, 0, 0.18),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.035);
+    }
+
+    .channel-logo-circle img {
+      display: block;
+      width: 72%;
+      height: 72%;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .channel-logo-fallback {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 5px;
+      color: #17304e;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.66rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+
+    .channel-logo-generic .channel-logo-fallback,
+    .channel-logo-circle.logo-missing .channel-logo-fallback {
+      display: flex;
+    }
+
+    .channel-logo-unconfirmed {
+      width: 38px;
+      height: 38px;
+      flex-basis: 38px;
+      border-style: dashed;
+      background: rgba(255, 255, 255, 0.045);
+      color: rgba(255, 255, 255, 0.34);
+      box-shadow: none;
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .broadcast-unconfirmed-label {
+      margin-top: 6px;
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 0.62rem;
+      font-weight: 650;
+      line-height: 1.2;
+      letter-spacing: 0.015em;
+    }
+
+    .event:has(.event-status-live) .channel-logo-circle:not(.channel-logo-unconfirmed) {
+      border-color: rgba(255, 89, 95, 0.82);
+      animation: alberotv-channel-live-ring 1.45s ease-in-out infinite;
+    }
+
+    @keyframes alberotv-live-light {
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow:
+          0 0 0 0 rgba(255, 89, 95, 0.55),
+          0 0 8px 2px rgba(255, 89, 95, 0.4);
+      }
+
+      50% {
+        opacity: 0.45;
+        transform: scale(0.72);
+        box-shadow:
+          0 0 0 7px rgba(255, 89, 95, 0),
+          0 0 3px 1px rgba(255, 89, 95, 0.2);
+      }
+    }
+
+    @keyframes alberotv-channel-live-ring {
+      0%,
+      100% {
+        box-shadow:
+          0 0 0 0 rgba(255, 89, 95, 0.42),
+          0 7px 18px rgba(0, 0, 0, 0.18);
+      }
+
+      50% {
+        box-shadow:
+          0 0 0 6px rgba(255, 89, 95, 0),
+          0 7px 18px rgba(0, 0, 0, 0.18);
+      }
+    }
+
+    @media (max-width: 800px) {
+      .today-button {
+        min-height: 32px;
+        padding: 7px 10px;
+        margin-left: 7px;
+        font-size: 0.70rem;
+      }
+
+      .today-button svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .event-compact-header {
+        grid-template-columns: minmax(0, 1fr) 64px;
+        gap: 12px;
+        margin-bottom: 13px;
+        padding-bottom: 12px;
+      }
+
+      .event-status {
+        margin-top: 7px;
+        font-size: 0.64rem;
+        letter-spacing: 0.035em;
+      }
+
+      .event-compact-header .time-main {
+        font-size: 1.38rem;
+      }
+
+      .event-compact-header .time-origin {
+        font-size: 0.66rem;
+      }
+
+      .channel-logo-circle {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+      }
+
+      .channel-name {
+        margin-top: 5px;
+        font-size: 0.66rem;
+        line-height: 1.08;
+      }
+
+
+      .country-corner {
+        width: 32px;
+        height: 32px;
+        top: 0 !important;
+        right: 0 !important;
+        margin: 0 !important;
+        transform: none !important;
       }
 
       .event-detail-row {
