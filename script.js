@@ -98,46 +98,38 @@ function normalizeText(value = "") {
 }
 
 
-function cleanBreedingDisplay(value = "") {
-  let cleaned = String(value || "")
-    .replace(/&nbsp;/gi, " ")
+function decodeBasicHtmlEntities(value = "") {
+  return String(value)
+    .replace(/&nbsp;|&#160;/gi, " ")
+    .replace(/&iacute;|&#237;|&#x0*ed;/gi, "í")
+    .replace(/&Iacute;|&#205;|&#x0*cd;/gi, "Í")
     .replace(/&(?:laquo|raquo|ldquo|rdquo|quot);/gi, " ")
+    .replace(/&amp;/gi, "&");
+}
+
+
+function cleanBreedingDisplay(value = "") {
+  let cleaned = decodeBasicHtmlEntities(value)
     .replace(/\u00a0/g, " ")
+    .replace(/[\u200B-\u200D\u2060\uFEFF]/g, "")
     .replace(/[«»“”"'´`]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 
   /*
-   * El dato puede llegar como:
-   * "Ganadería: Miura"
-   * "Ganadería: Ganadería: Miura"
-   * "Ganadería Ganadería Miura"
-   * o con comillas procedentes de la fuente.
-   *
-   * Repetimos la limpieza hasta que no quede ningún prefijo.
+   * Elimina tantos prefijos iniciales como existan:
+   * Ganadería: Miura
+   * Ganadería: Ganadería: Miura
+   * «Ganadería: Ganadería: Miura»
    */
-  let previousValue = "";
+  const prefixPattern =
+    /^\s*ganader(?:í|i)a\s*(?::|\-|–|—)?\s*/i;
 
-  while (
-    cleaned &&
-    cleaned !== previousValue
-  ) {
-    previousValue = cleaned;
-
+  while (prefixPattern.test(cleaned)) {
     cleaned = cleaned
-      .replace(
-        /^\s*(?:ganader[ií]a)\s*(?::|\-|–|—)?\s*/i,
-        ""
-      )
-      .replace(/\s+/g, " ")
+      .replace(prefixPattern, "")
+      .replace(/^[\s:–—-]+/, "")
       .trim();
-  }
-
-  if (
-    !cleaned ||
-    /^(?:ganader[ií]a\s*)+$/i.test(cleaned)
-  ) {
-    return "";
   }
 
   return cleaned;
@@ -952,13 +944,13 @@ function buildPersonIconMarkup(event = {}) {
         class="event-detail-icon person-detail-icon event-icon-rejones"
         aria-hidden="true"
       >
-        <svg viewBox="0 0 32 32" focusable="false">
-          <circle cx="19.5" cy="6.5" r="2.2"></circle>
-          <path d="M17.5 9.5 13 14l3 2.6 4.4-3.8 2.7-5"></path>
-          <path d="M8 22c2.8-5.3 7-7.8 12.2-7.8 4.4 0 7.7 1.8 10 5.4-3.7-.7-6.6-.5-9.1.7-3.8 1.7-8.2 2.3-13.1 1.7Z"></path>
-          <path d="m11.5 21.6-1.4 6.1"></path>
-          <path d="m23.5 20.8 1.7 6.9"></path>
-          <path d="m22.5 10 5.2-6.2"></path>
+        <svg viewBox="0 0 36 36" focusable="false">
+          <circle cx="21.5" cy="7" r="2.4"></circle>
+          <path d="m20 10-5.2 5.2 3.2 2.7 5-4.2 2.4-4.5"></path>
+          <path d="M5 25c3.2-6.2 8.3-9.3 14.8-9.3 5.4 0 9.5 2.1 12.2 6.5-4.3-.8-8-.5-11.1 1-4.6 2.1-9.9 2.7-15.9 1.8Z"></path>
+          <path d="m9.2 24.3-1.6 7"></path>
+          <path d="m25.2 23.4 2 7.9"></path>
+          <path d="m25.5 10.2 5.8-7"></path>
         </svg>
       </span>
     `;
@@ -974,12 +966,12 @@ function buildPersonIconMarkup(event = {}) {
         class="event-detail-icon person-detail-icon event-icon-recortes"
         aria-hidden="true"
       >
-        <svg viewBox="0 0 32 32" focusable="false">
-          <circle cx="20.5" cy="5.5" r="2.2"></circle>
-          <path d="m18.8 8-5.6 5.5 4 3.5 5.4-3.8"></path>
-          <path d="m13.2 13.5-6.8 2.2"></path>
-          <path d="m17.2 17-3.1 9.4"></path>
-          <path d="m22.6 13.2 5 6.4"></path>
+        <svg viewBox="0 0 36 36" focusable="false">
+          <circle cx="23" cy="6.2" r="2.5"></circle>
+          <path d="m21 9-6.5 6.3 4.4 3.8 6.1-4.4"></path>
+          <path d="m14.5 15.3-7.8 2.5"></path>
+          <path d="m18.9 19.1-3.6 10.7"></path>
+          <path d="m25 14.7 5.8 7.4"></path>
         </svg>
       </span>
     `;
@@ -990,12 +982,13 @@ function buildPersonIconMarkup(event = {}) {
       class="event-detail-icon person-detail-icon event-icon-torero"
       aria-hidden="true"
     >
-      <svg viewBox="0 0 32 32" focusable="false">
-        <path d="M9.5 8.2c1.8-2.3 4-3.4 6.5-3.4s4.7 1.1 6.5 3.4"></path>
-        <path d="M7.5 8.6c2.7 1 5.5 1.5 8.5 1.5s5.8-.5 8.5-1.5"></path>
-        <path d="M11 10.4v2.2c0 3 2.2 5.3 5 5.3s5-2.3 5-5.3v-2.2"></path>
-        <path d="M9.5 18.2c-3 1.8-4.7 4.7-5 8.8h23c-.3-4.1-2-7-5-8.8L16 22.5Z"></path>
-        <path d="M16 22.5V27"></path>
+      <svg viewBox="0 0 36 36" focusable="false">
+        <path d="M9.2 8.7C11.6 5.9 14.5 4.5 18 4.5s6.4 1.4 8.8 4.2"></path>
+        <path d="M6.5 9.3c3.5 1.4 7.3 2.1 11.5 2.1s8-.7 11.5-2.1"></path>
+        <path d="M11.8 11.2v2.4c0 3.8 2.7 6.7 6.2 6.7s6.2-2.9 6.2-6.7v-2.4"></path>
+        <path d="M10.5 20.5c-4 2.2-6.1 5.9-6.5 11h28c-.4-5.1-2.5-8.8-6.5-11L18 25.7Z"></path>
+        <path d="M18 25.7v5.8"></path>
+        <path d="M12.8 23.2 18 27l5.2-3.8"></path>
       </svg>
     </span>
   `;
@@ -1008,13 +1001,14 @@ function buildBreedingIconMarkup(event = {}) {
       class="event-detail-icon breeding-detail-icon event-icon-bull"
       aria-hidden="true"
     >
-      <svg viewBox="0 0 32 32" focusable="false">
-        <path d="M10.2 10.2C7.6 10 5.1 8.2 3.8 5.5c3.5-.1 6.1 1 7.7 3.3"></path>
-        <path d="M21.8 10.2c2.6-.2 5.1-2 6.4-4.7-3.5-.1-6.1 1-7.7 3.3"></path>
-        <path d="M10.8 10c1.5-2.5 3.2-3.7 5.2-3.7s3.7 1.2 5.2 3.7c1.3 2.1 1.6 4.6.9 7.1-1 3.7-3.3 6.4-6.1 6.4s-5.1-2.7-6.1-6.4c-.7-2.5-.4-5 .9-7.1Z"></path>
-        <circle cx="13.2" cy="15.4" r=".7"></circle>
-        <circle cx="18.8" cy="15.4" r=".7"></circle>
-        <path d="M13.4 19c1.6 1.2 3.6 1.2 5.2 0"></path>
+      <svg viewBox="0 0 36 36" focusable="false">
+        <path d="M11.3 11.2C7.7 11 4.5 8.9 2.8 5.5c4.4-.2 7.7 1.2 9.7 4"></path>
+        <path d="M24.7 11.2c3.6-.2 6.8-2.3 8.5-5.7-4.4-.2-7.7 1.2-9.7 4"></path>
+        <path d="M11.8 10.9c1.8-3.1 3.9-4.6 6.2-4.6s4.4 1.5 6.2 4.6c1.5 2.6 1.9 5.5 1 8.6-1.2 4.6-4 7.9-7.2 7.9s-6-3.3-7.2-7.9c-.9-3.1-.5-6 1-8.6Z"></path>
+        <path d="M13.8 15.8c1.2-.9 2.6-1.4 4.2-1.4s3 .5 4.2 1.4"></path>
+        <circle cx="15.1" cy="18.1" r=".75"></circle>
+        <circle cx="20.9" cy="18.1" r=".75"></circle>
+        <path d="M15 22.1c1.8 1.4 4.2 1.4 6 0"></path>
       </svg>
     </span>
   `;
@@ -1586,9 +1580,9 @@ function injectAlberoEnhancementStyles() {
 
     .event-detail-row {
       display: grid !important;
-      grid-template-columns: 24px minmax(0, 1fr);
+      grid-template-columns: 25px minmax(0, 1fr);
       align-items: start;
-      gap: 10px;
+      gap: 11px;
       width: 100%;
       min-width: 0;
     }
@@ -1597,12 +1591,12 @@ function injectAlberoEnhancementStyles() {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 24px;
-      height: 24px;
-      margin-top: 1px;
+      width: 25px;
+      height: 25px;
+      margin-top: 0;
       color: var(--event-accent);
-      flex: 0 0 24px;
-      opacity: 0.96;
+      flex: 0 0 25px;
+      opacity: 1;
     }
 
     .event-detail-icon svg {
@@ -1612,7 +1606,7 @@ function injectAlberoEnhancementStyles() {
       overflow: visible;
       fill: none;
       stroke: currentColor;
-      stroke-width: 1.65;
+      stroke-width: 1.75;
       stroke-linecap: round;
       stroke-linejoin: round;
       vector-effect: non-scaling-stroke;
