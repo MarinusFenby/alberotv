@@ -424,15 +424,15 @@
    ================================================== */
 
 .day {
-  width: 430px !important;
-  min-width: 430px !important;
-  flex: 0 0 430px !important;
+  width: 387px !important;
+  min-width: 387px !important;
+  flex: 0 0 387px !important;
 }
 
 .day.active {
-  width: 560px !important;
-  min-width: 560px !important;
-  flex-basis: 560px !important;
+  width: 504px !important;
+  min-width: 504px !important;
+  flex-basis: 504px !important;
 }
 
 .day.active .events,
@@ -446,8 +446,8 @@
 @media (max-width: 800px) {
   .day,
   .day.active {
-    width: calc(100vw - 20px) !important;
-    min-width: calc(100vw - 20px) !important;
-    flex: 0 0 calc(100vw - 20px) !important;
+    width: calc(100vw - 36px) !important;
+    min-width: calc(100vw - 36px) !important;
+    flex: 0 0 calc(100vw - 36px) !important;
   }
 }
