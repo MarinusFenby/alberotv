@@ -1,4 +1,3 @@
-
 const timeline = document.getElementById("timeline");
 const hint = document.getElementById("hint");
 const categoryList = document.getElementById("category-list");
