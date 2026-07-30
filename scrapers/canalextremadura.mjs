@@ -56,6 +56,48 @@ function isTaurine(value = "") {
   return TAURINE_TERMS.some((term) => text.includes(normalized(term)));
 }
 
+function cleanTaurineTitle(rawTitle = "") {
+  let title = clean(rawTitle)
+    .replace(/\bEXN2\b/gi, "")
+    .replace(/\bEXN\b/gi, "")
+    .replace(/\bCEX\b/gi, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const search = normalized(title);
+
+  // El PDF suele arrastrar programas anteriores y posteriores en la misma celda.
+  // Para este espacio usamos el título canónico.
+  if (search.includes("TIERRA DE TOROS")) {
+    return "Extremadura Tierra de Toros";
+  }
+
+  // Para festejos en directo conservamos desde la palabra TOROS.
+  const torosIndex = search.indexOf("TOROS");
+  if (torosIndex >= 0) {
+    const originalUpper = title.toUpperCase();
+    const originalIndex = originalUpper.indexOf("TOROS");
+    if (originalIndex >= 0) {
+      title = title.slice(originalIndex);
+    }
+  }
+
+  title = title
+    .replace(/\bDIP\.\s*BADAJOZ\b/gi, "Diputación de Badajoz")
+    .replace(/\bDIPUTACION\b/gi, "Diputación")
+    .replace(/\s*-\s*/g, " – ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (/^TOROS\b/i.test(title)) {
+    title = title
+      .replace(/^TOROS\s*/i, "TOROS – ")
+      .replace(/^TOROS\s*–\s*/i, "TOROS – ");
+  }
+
+  return title;
+}
+
 function makeId(date, time, title) {
   return `canal-extremadura-${crypto
     .createHash("sha1")
@@ -114,7 +156,6 @@ function parseWeekDates(pdfUrl, pageText) {
   const start = new Date(Date.UTC(year, startMonth - 1, startDay));
   const end = new Date(Date.UTC(year, endMonth - 1, endDay));
 
-  // Corrige semanas que cruzan de diciembre a enero.
   if (end < start) end.setUTCFullYear(year + 1);
 
   const dates = [];
@@ -161,7 +202,11 @@ function parseTime(value) {
 async function findWeeklyPdf(page) {
   await page.goto(GUIDE_URL, { waitUntil: "networkidle", timeout: 90000 });
 
-  const href = await page.locator('a:has-text("Descargar parrilla")').first().getAttribute("href");
+  const href = await page
+    .locator('a:has-text("Descargar parrilla")')
+    .first()
+    .getAttribute("href");
+
   if (!href) throw new Error("No se encontró el enlace «Descargar parrilla».");
 
   return new URL(href, GUIDE_URL).href;
@@ -212,14 +257,15 @@ function detectDayColumns(items) {
   ];
 
   const headers = items
-    .filter((item) => dayWords.some((day) => normalized(item.text).startsWith(day.toUpperCase())))
+    .filter((item) =>
+      dayWords.some((day) => normalized(item.text).startsWith(day.toUpperCase()))
+    )
     .sort((a, b) => a.x - b.x);
 
   if (headers.length >= 7) {
     return headers.slice(0, 7).map((item) => item.x + item.width / 2);
   }
 
-  // Plan B: usa el ancho ocupado por la tabla, dejando fuera las horas laterales.
   const xs = items.map((item) => item.x).sort((a, b) => a - b);
   const minX = xs[Math.floor(xs.length * 0.08)];
   const maxX = xs[Math.floor(xs.length * 0.92)];
@@ -274,11 +320,10 @@ function eventTimeForY(timeRows, y) {
 }
 
 function collectEventTitle(items, columnCenters, columnIndex, keywordItem) {
-  const centers = columnCenters;
   const assigned = items
     .filter((item) => {
       const center = item.x + item.width / 2;
-      return nearestIndex(centers, center) === columnIndex;
+      return nearestIndex(columnCenters, center) === columnIndex;
     })
     .filter((item) => Math.abs(item.y - keywordItem.y) <= 45)
     .filter((item) => !parseTime(item.text))
@@ -287,11 +332,8 @@ function collectEventTitle(items, columnCenters, columnIndex, keywordItem) {
       return a.x - b.x;
     });
 
-  const title = clean(assigned.map((item) => item.text).join(" "));
-
-  // Evita títulos gigantes si el PDF agrupa demasiadas piezas cercanas.
-  const words = title.split(" ");
-  return words.slice(0, 35).join(" ");
+  const rawTitle = clean(assigned.map((item) => item.text).join(" "));
+  return cleanTaurineTitle(rawTitle);
 }
 
 function extractEvents(items, dates, pdfUrl) {
