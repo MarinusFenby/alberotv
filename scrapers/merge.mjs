@@ -1,3 +1,4 @@
+
 import fs from "node:fs/promises";
 import path from "node:path";
 
@@ -56,9 +57,16 @@ function cleanName(name = "") {
 }
 
 function cleanBreeding(value = "") {
-  const cleaned = cleanName(String(value).replace(/^ganader[ií]a\s*:\s*/i, ""));
+  const cleaned = cleanName(
+    String(value)
+      .replace(/^(?:ganader[ií]a\s*:\s*)+/i, "")
+      .replace(/\s+/g, " ")
+      .trim()
+  );
 
   if (
+    !cleaned ||
+    /^ganader[ií]a$/i.test(cleaned) ||
     cleaned.length > 220 ||
     /servicio gratis|me gusta responder|comentarios?|pulsa aqu[ií]/i.test(cleaned)
   ) {
