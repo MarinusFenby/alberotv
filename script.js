@@ -1442,8 +1442,30 @@ function buildEventHeaderMarkup(event = {}) {
   const nonTelevised =
     isNonTelevisedEvent(event);
 
+  const hasTime =
+    hasValidEventTime(event);
+
   const broadcast =
     getBroadcastPresentation(event);
+
+  /*
+   * Para un festejo SIN TV cuya hora aún no está publicada:
+   * - no mostramos “Hora por confirmar”;
+   * - colocamos la etiqueta SIN TV a la izquierda;
+   * - dejamos libre la zona derecha.
+   */
+  if (
+    nonTelevised &&
+    !hasTime
+  ) {
+    return `
+      <div class="event-compact-header non-tv-without-time">
+        <div class="event-header-information">
+          ${buildBroadcastMarkup(event)}
+        </div>
+      </div>
+    `;
+  }
 
   return `
     <div class="event-compact-header">
