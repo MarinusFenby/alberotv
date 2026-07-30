@@ -10,7 +10,8 @@ const SOURCE_FILES = {
   oneToro: path.join(DATA_DIR, "onetoro.json"),
   programasTaurinos: path.join(DATA_DIR, "programas-taurinos.json"),
   canalSur: path.join(DATA_DIR, "canalsur.json"),
-  cmm: path.join(DATA_DIR, "cmm.json")
+  cmm: path.join(DATA_DIR, "cmm.json"),
+  canalExtremadura: path.join(DATA_DIR, "canalextremadura.json")
 };
 
 const SOURCE_LABELS = {
@@ -18,7 +19,8 @@ const SOURCE_LABELS = {
   oneToro: "OneToro",
   programasTaurinos: "Programas taurinos",
   canalSur: "Canal Sur",
-  cmm: "CMM"
+  cmm: "CMM",
+  canalExtremadura: "Canal Extremadura"
 };
 
 const SOURCE_CONFIDENCE = {
@@ -948,13 +950,15 @@ async function main() {
     oneToro,
     programas,
     canalSur,
-    cmm
+    cmm,
+    canalExtremadura
   ] = await Promise.all([
     readSource("elMuletazo"),
     readSource("oneToro"),
     readSource("programasTaurinos"),
     readSource("canalSur"),
-    readSource("cmm")
+    readSource("cmm"),
+    readSource("canalExtremadura")
   ]);
 
   const sourceResults = [
@@ -962,7 +966,8 @@ async function main() {
     oneToro,
     programas,
     canalSur,
-    cmm
+    cmm,
+    canalExtremadura
   ];
 
   if (!sourceResults.some(source => source.ok)) {
@@ -1085,6 +1090,34 @@ async function main() {
     ] += 1;
   }
 
+  for (const event of canalExtremadura.data.events || []) {
+    const normalized =
+      event.contentType === "programa" ||
+      normalizeType(event.type) === "Programa taurino"
+        ? normalizeProgramEvent(
+            event,
+            "Canal Extremadura",
+            canalExtremadura.fetchedAt
+          )
+        : normalizeGenericEvent(
+            event,
+            "Canal Extremadura",
+            canalExtremadura.fetchedAt
+          );
+
+    const result =
+      addOrMergeEvent(
+        merged,
+        normalized
+      );
+
+    mergeStats[
+      result.merged
+        ? "merged"
+        : "added"
+    ] += 1;
+  }
+
   for (const event of programas.data.events || []) {
     const result = addOrMergeEvent(
       merged,
@@ -1169,7 +1202,10 @@ async function main() {
         canalSur.eventCount,
 
       cmm:
-        cmm.eventCount
+        cmm.eventCount,
+
+      canalExtremadura:
+        canalExtremadura.eventCount
     },
 
     sourceHealth,
