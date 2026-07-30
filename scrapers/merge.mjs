@@ -314,6 +314,39 @@ function eventMatchScore(first, second) {
     return 96;
   }
 
+  /*
+   * Algunas parrillas publican una hora aproximada y las fuentes del cartel
+   * otra hora con 30 minutos de diferencia. Si uno de los dos registros es
+   * genérico ("Televisión", "cartel por confirmar", etc.) y el otro contiene
+   * datos reales del festejo, deben tratarse como el mismo evento.
+   */
+  const closeTime =
+    Boolean(first.time) &&
+    Boolean(second.time) &&
+    timeCloseness(first.time, second.time) >= 0.8;
+
+  const firstHasDetails =
+    Boolean(first.location && !isGenericLabel(first.location)) ||
+    Boolean(first.participants?.length) ||
+    Boolean(first.breeding);
+
+  const secondHasDetails =
+    Boolean(second.location && !isGenericLabel(second.location)) ||
+    Boolean(second.participants?.length) ||
+    Boolean(second.breeding);
+
+  if (
+    first.contentType === "festejo" &&
+    sameChannel &&
+    closeTime &&
+    (
+      (firstGeneric && secondHasDetails) ||
+      (secondGeneric && firstHasDetails)
+    )
+  ) {
+    return 94;
+  }
+
   if (
     first.contentType === "festejo" &&
     sameChannel &&
