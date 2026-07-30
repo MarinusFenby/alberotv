@@ -1,3 +1,4 @@
+
 /* ALBERO TV — MEJORAS DE FECHA, HOY, HORAS Y MENÚ */
 
 .date {
@@ -453,9 +454,37 @@
 }
 
 /* ==================================================
-   SIN TV SIN HORA CONFIRMADA
+   AJUSTE SIN TV + BOTÓN HOY
    ================================================== */
 
+/* Oculta el calendario aunque el navegador conserve HTML antiguo. */
+.today-button svg {
+  display: none !important;
+}
+
+.today-button {
+  gap: 0 !important;
+  background: #c7ad52 !important;
+  border-color: rgba(225, 203, 119, 0.72) !important;
+  color: #27200c !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+}
+
+.today-button:hover,
+.today-button.is-today,
+.today-button.is-today:hover {
+  background: #d0b85f !important;
+  border-color: rgba(229, 209, 132, 0.82) !important;
+  color: #241d09 !important;
+  box-shadow:
+    0 5px 14px rgba(0, 0, 0, 0.17),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+/* Cuando un festejo SIN TV no tiene hora:
+   elimina por completo “Hora por confirmar” y deja SIN TV a la izquierda. */
 .bullfighting-event.event-non-televised
 .event-compact-header.non-tv-without-time {
   display: block !important;
@@ -467,30 +496,39 @@
 .bullfighting-event.event-non-televised
 .event-compact-header.non-tv-without-time
 .event-header-information {
+  display: block !important;
   width: 100% !important;
   min-width: 0 !important;
 }
 
 .bullfighting-event.event-non-televised
-.event-compact-header.non-tv-without-time
+.non-tv-badge-left {
+  display: flex !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+}
+
+.bullfighting-event.event-non-televised
 .non-tv-badge {
   display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
   min-height: 27px;
   padding: 6px 11px;
-  border: 1px solid rgba(190, 91, 91, 0.42) !important;
+  border: 1px solid rgba(181, 101, 101, 0.46) !important;
   border-radius: 9px;
-  background: rgba(142, 58, 58, 0.48) !important;
-  color: rgba(255, 232, 232, 0.96) !important;
+  background: rgba(135, 67, 67, 0.56) !important;
+  color: rgba(255, 232, 232, 0.95) !important;
   box-shadow: none !important;
   font-size: 0.64rem !important;
   letter-spacing: 0.045em;
 }
 
-/* El resto de etiquetas SIN TV conserva el mismo rojo pálido. */
+/* Protección adicional: nunca mostrar mensajes de emisión
+   dentro de una tarjeta que ya está marcada como SIN TV. */
 .bullfighting-event.event-non-televised
-.non-tv-badge {
-  border-color: rgba(190, 91, 91, 0.42) !important;
-  background: rgba(142, 58, 58, 0.48) !important;
-  color: rgba(255, 232, 232, 0.96) !important;
-  box-shadow: none !important;
+.broadcast-unconfirmed-label,
+.bullfighting-event.event-non-televised
+.channel-logo-unconfirmed {
+  display: none !important;
 }
