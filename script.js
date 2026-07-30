@@ -107,19 +107,13 @@ function cleanBreedingDisplay(value = "") {
     .replace(/\s+/g, " ")
     .trim();
 
-  /*
-   * Elimina todos los prefijos repetidos, incluso cuando llegan
-   * precedidos por comillas o caracteres extraños de la fuente.
-   */
-  cleaned = cleaned
-    .replace(/^(?:(?:ganader[ií]a)\s*(?:[:\-–—]\s*)?)+/i, "")
-    .replace(/\s+/g, " ")
-    .trim();
+  while (/^ganader[ií]a\b/i.test(cleaned)) {
+    cleaned = cleaned
+      .replace(/^ganader[ií]a\s*[:\-–—]?\s*/i, "")
+      .trim();
+  }
 
-  if (
-    !cleaned ||
-    /^(?:ganader[ií]a\s*)+$/i.test(cleaned)
-  ) {
+  if (!cleaned || /^ganader[ií]a$/i.test(cleaned)) {
     return "";
   }
 
@@ -934,14 +928,13 @@ function buildPersonIconMarkup(event = {}) {
     return `
       <span class="event-detail-icon person-detail-icon event-icon-rejones" aria-hidden="true">
         <svg viewBox="0 0 64 64" focusable="false">
-          <path d="M11 43c5-10 12-15 22-15 9 0 17 4 24 12-7-2-12-2-18 0-8 3-17 4-28 3Z"></path>
-          <path d="M18 42l-3 12h5l3-11"></path>
-          <path d="M42 42l4 12h5l-4-13"></path>
-          <path d="M36 20c3 0 5 2 5 5s-2 5-5 5-5-2-5-5 2-5 5-5Z"></path>
-          <path d="M33 30l-8 7 5 4 8-7 4-8-4-2-5 6Z"></path>
-          <path d="M24 19l10 7"></path>
-          <path d="M41 23l10-12 3 2-10 12"></path>
-          <path d="M54 10l4-5"></path>
+          <circle cx="38" cy="14" r="4"></circle>
+          <path d="M20 40c6-10 14-15 24-15 9 0 16 4 21 12-5-1-10-1-15 1-8 3-18 4-30 2Z"></path>
+          <path d="M25 39l-3 13h5l3-11"></path>
+          <path d="M46 39l4 13h5l-4-13"></path>
+          <path d="M35 19l-7 7 5 4 7-6 4-8-4-2-5 5Z"></path>
+          <path d="M44 18l10-11 3 2-10 11"></path>
+          <path d="M29 18l8 6"></path>
         </svg>
       </span>
     `;
@@ -955,12 +948,12 @@ function buildPersonIconMarkup(event = {}) {
     return `
       <span class="event-detail-icon person-detail-icon event-icon-recortes" aria-hidden="true">
         <svg viewBox="0 0 64 64" focusable="false">
-          <path d="M40 10c3 0 5 2 5 5s-2 5-5 5-5-2-5-5 2-5 5-5Z"></path>
-          <path d="M36 20l-10 10 8 6 10-7"></path>
-          <path d="M26 30l-13 4"></path>
-          <path d="M34 36l-6 18"></path>
-          <path d="M43 29l11 14"></path>
-          <path d="M29 26l-6-6"></path>
+          <circle cx="42" cy="11" r="4"></circle>
+          <path d="M38 16 27 27l8 6 10-8"></path>
+          <path d="M27 27 14 31"></path>
+          <path d="M35 33l-5 18"></path>
+          <path d="M45 24l10 14"></path>
+          <path d="M31 23l-6-7"></path>
         </svg>
       </span>
     `;
@@ -969,34 +962,31 @@ function buildPersonIconMarkup(event = {}) {
   return `
     <span class="event-detail-icon person-detail-icon event-icon-torero" aria-hidden="true">
       <svg viewBox="0 0 64 64" focusable="false">
-        <path d="M22 9c3-3 7-5 10-5s7 2 10 5c3 3 5 7 5 12 0 8-7 15-15 15S17 29 17 21c0-5 2-9 5-12Z"></path>
-        <path d="M17 18c4 2 9 3 15 3s11-1 15-3"></path>
-        <path d="M22 35l10 8 10-8c8 3 13 11 14 21H8c1-10 6-18 14-21Z"></path>
-        <path d="M32 43v13"></path>
-        <path d="M23 45h18"></path>
-        <circle cx="25" cy="49" r="1.5"></circle>
-        <circle cx="39" cy="49" r="1.5"></circle>
-        <circle cx="25" cy="54" r="1.5"></circle>
-        <circle cx="39" cy="54" r="1.5"></circle>
+        <circle cx="32" cy="14" r="6"></circle>
+        <path d="M20 23c4 2 8 3 12 3s8-1 12-3"></path>
+        <path d="M22 25c2-5 6-8 10-8s8 3 10 8v7c0 6-4 10-10 10s-10-4-10-10Z"></path>
+        <path d="M19 41l13 9 13-9c7 3 11 9 12 16H7c1-7 5-13 12-16Z"></path>
+        <path d="M32 50v7"></path>
+        <circle cx="25.5" cy="49" r="1.4"></circle>
+        <circle cx="38.5" cy="49" r="1.4"></circle>
+        <circle cx="25.5" cy="54" r="1.4"></circle>
+        <circle cx="38.5" cy="54" r="1.4"></circle>
       </svg>
     </span>
   `;
 }
 
-
 function buildBreedingIconMarkup(event = {}) {
   return `
     <span class="event-detail-icon breeding-detail-icon event-icon-bull" aria-hidden="true">
       <svg viewBox="0 0 64 64" focusable="false">
-        <path d="M17 20c-5 0-10-4-13-10 7 0 12 2 15 7"></path>
-        <path d="M47 20c5 0 10-4 13-10-7 0-12 2-15 7"></path>
-        <path d="M19 20c3-6 8-9 13-9s10 3 13 9c2 4 3 8 2 13-2 8-7 14-15 14S19 41 17 33c-1-5 0-9 2-13Z"></path>
-        <circle cx="25" cy="30" r="1.8"></circle>
-        <circle cx="39" cy="30" r="1.8"></circle>
-        <path d="M27 36c3 2 7 2 10 0"></path>
-        <path d="M29.5 33v5M34.5 33v5"></path>
-        <path d="M24 47l-2 9"></path>
-        <path d="M40 47l2 9"></path>
+        <path d="M19 19c-5-1-10-4-13-10 8 0 13 2 16 7"></path>
+        <path d="M45 19c5-1 10-4 13-10-8 0-13 2-16 7"></path>
+        <path d="M21 20c3-5 7-8 11-8s8 3 11 8c2 3 3 7 3 11 0 9-6 16-14 16s-14-7-14-16c0-4 1-8 3-11Z"></path>
+        <circle cx="27" cy="30" r="1.8"></circle>
+        <circle cx="37" cy="30" r="1.8"></circle>
+        <path d="M28 36c2 2 6 2 8 0"></path>
+        <path d="M31 34v4M33 34v4"></path>
       </svg>
     </span>
   `;
@@ -1568,9 +1558,9 @@ function injectAlberoEnhancementStyles() {
 
     .event-detail-row {
       display: grid !important;
-      grid-template-columns: 24px minmax(0, 1fr);
-      align-items: start;
-      gap: 9px;
+      grid-template-columns: 22px minmax(0, 1fr);
+      align-items: flex-start;
+      gap: 12px;
       width: 100%;
       min-width: 0;
     }
@@ -1579,11 +1569,11 @@ function injectAlberoEnhancementStyles() {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 24px;
-      height: 24px;
-      margin-top: -1px;
+      width: 22px;
+      height: 22px;
+      margin-top: 2px;
       color: #e83e8c;
-      flex: 0 0 24px;
+      flex: 0 0 22px;
     }
 
     .event-detail-icon svg {
@@ -1591,9 +1581,9 @@ function injectAlberoEnhancementStyles() {
       width: 100%;
       height: 100%;
       overflow: visible;
-      fill: currentColor;
+      fill: none;
       stroke: currentColor;
-      stroke-width: 1.45;
+      stroke-width: 2.2;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
@@ -1864,14 +1854,15 @@ function injectAlberoEnhancementStyles() {
       }
 
       .event-detail-row {
-        grid-template-columns: 21px minmax(0, 1fr);
-        gap: 8px;
+        grid-template-columns: 20px minmax(0, 1fr);
+        gap: 9px;
       }
 
       .event-detail-icon {
-        width: 21px;
-        height: 21px;
-        flex-basis: 21px;
+        width: 20px;
+        height: 20px;
+        flex-basis: 20px;
+        margin-top: 2px;
       }
 
       .event-content-stack .event-title {
