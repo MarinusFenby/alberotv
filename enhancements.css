@@ -170,6 +170,26 @@
 }
 
 
+/* ==================================================
+   QUITAR ICONOS DE TOREROS, REJONEADORES Y GANADERÍA
+   ================================================== */
+
+.event-detail-icon {
+  display: none !important;
+}
+
+.event-detail-row {
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 0 !important;
+}
+
+.event-detail-row .people,
+.event-detail-row .breeding {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+
 @media (max-width: 800px) {
   .category-pill {
     gap: 6px;
