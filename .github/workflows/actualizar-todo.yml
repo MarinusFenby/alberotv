@@ -1,3 +1,4 @@
+
 name: Actualizar programación
 
 on:
@@ -26,9 +27,9 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Instalar Playwright
+      - name: Instalar Playwright y PDF.js
         run: |
-          npm install playwright
+          npm install playwright pdfjs-dist
           npx playwright install --with-deps chromium
 
       - name: Actualizar OneToro
