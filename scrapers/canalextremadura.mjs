@@ -199,17 +199,73 @@ function parseTime(value) {
   return `${pad(Number(match[1]))}:${match[2]}`;
 }
 
+function decodeHtmlEntities(value = "") {
+  return value
+    .replace(/&amp;/g, "&")
+    .replace(/&#0*38;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#0*39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
 async function findWeeklyPdf(page) {
-  await page.goto(GUIDE_URL, { waitUntil: "networkidle", timeout: 90000 });
+  // Primer intento: leer directamente el HTML. Evita que GitHub Actions
+  // se quede esperando a que terminen analíticas, anuncios u otras conexiones.
+  try {
+    const response = await fetch(GUIDE_URL, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/126 Safari/537.36"
+      },
+      signal: AbortSignal.timeout(30000)
+    });
 
-  const href = await page
-    .locator('a:has-text("Descargar parrilla")')
-    .first()
-    .getAttribute("href");
+    if (response.ok) {
+      const html = await response.text();
 
-  if (!href) throw new Error("No se encontró el enlace «Descargar parrilla».");
+      const matches = [
+        ...html.matchAll(
+          /href=["']([^"']*(?:PARRILLA|parrilla)[^"']*\.pdf(?:\?[^"']*)?)["']/gi
+        )
+      ];
 
-  return new URL(href, GUIDE_URL).href;
+      if (matches.length > 0) {
+        const href = decodeHtmlEntities(matches[0][1]);
+        return new URL(href, GUIDE_URL).href;
+      }
+    }
+  } catch (error) {
+    console.warn(
+      `[Canal Extremadura] No se pudo localizar el PDF mediante fetch: ${error.message}`
+    );
+  }
+
+  // Segundo intento: navegador, pero sin esperar a "networkidle".
+  // Esa condición puede no llegar nunca en páginas con conexiones permanentes.
+  await page.goto(GUIDE_URL, {
+    waitUntil: "domcontentloaded",
+    timeout: 45000
+  });
+
+  const link = page
+    .locator(
+      'a:has-text("Descargar parrilla"), a[href*="PARRILLA"][href$=".pdf"], a[href*="parrilla"][href*=".pdf"]'
+    )
+    .first();
+
+  await link.waitFor({
+    state: "attached",
+    timeout: 20000
+  });
+
+  const href = await link.getAttribute("href");
+
+  if (!href) {
+    throw new Error("No se encontró el enlace «Descargar parrilla».");
+  }
+
+  return new URL(decodeHtmlEntities(href), GUIDE_URL).href;
 }
 
 async function readPdf(pdfUrl) {
