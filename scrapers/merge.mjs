@@ -322,6 +322,77 @@ function timeCloseness(first, second) {
   return 0;
 }
 
+function canonicalLocation(value = "") {
+  const text = normalizeText(value)
+    .replace(/\bespana\b/g, " ")
+    .replace(/\bplaza de toros\b/g, " ")
+    .replace(/\bmonumental\b/g, " ")
+    .replace(/\breal maestranza\b/g, " maestranza ")
+    .replace(/\blas ventas\b/g, " madrid ")
+    .replace(/[()[\],.;:]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const aliases = [
+    ["madrid", "madrid"],
+    ["azpeitia", "azpeitia"],
+    ["pamplona", "pamplona"],
+    ["sevilla", "sevilla"],
+    ["huelva", "huelva"],
+    ["malaga", "malaga"],
+    ["bilbao", "bilbao"],
+    ["valencia", "valencia"],
+    ["cordoba", "cordoba"],
+    ["santander", "santander"],
+    ["san sebastian", "san sebastian"],
+    ["dax", "dax"],
+    ["beziers", "beziers"],
+    ["nimes", "nimes"],
+    ["arles", "arles"]
+  ];
+
+  for (const [needle, canonical] of aliases) {
+    if (text.includes(needle)) {
+      return canonical;
+    }
+  }
+
+  return text;
+}
+
+
+function participantOverlap(first = [], second = []) {
+  const firstSet = new Set(
+    (first || [])
+      .map(normalizeText)
+      .filter(Boolean)
+  );
+
+  const secondSet = new Set(
+    (second || [])
+      .map(normalizeText)
+      .filter(Boolean)
+  );
+
+  if (!firstSet.size || !secondSet.size) {
+    return 0;
+  }
+
+  let matches = 0;
+
+  for (const name of firstSet) {
+    if (secondSet.has(name)) {
+      matches += 1;
+    }
+  }
+
+  return matches / Math.min(
+    firstSet.size,
+    secondSet.size
+  );
+}
+
+
 function eventMatchScore(first, second) {
   if (!first?.date || first.date !== second?.date) return 0;
   if (first.contentType !== second.contentType) return 0;
@@ -333,6 +404,26 @@ function eventMatchScore(first, second) {
   const firstLabel = first.location || first.name;
   const secondLabel = second.location || second.name;
   const locationScore = locationSimilarity(firstLabel, secondLabel);
+
+  const canonicalA = canonicalLocation(firstLabel);
+  const canonicalB = canonicalLocation(secondLabel);
+
+  const sameCanonicalLocation =
+    canonicalA &&
+    canonicalB &&
+    canonicalA === canonicalB;
+
+  const participantScore =
+    participantOverlap(
+      first.participants,
+      second.participants
+    );
+
+  const breedingScore =
+    fuzzyTextSimilarity(
+      first.breeding,
+      second.breeding
+    );
 
   const exactTime =
     Boolean(first.time) &&
@@ -354,6 +445,22 @@ function eventMatchScore(first, second) {
 
   if (
     first.contentType === "festejo" &&
+    sameCanonicalLocation &&
+    participantScore >= 0.5
+  ) {
+    return 98;
+  }
+
+  if (
+    first.contentType === "festejo" &&
+    sameCanonicalLocation &&
+    breedingScore >= 0.72
+  ) {
+    return 94;
+  }
+
+  if (
+    first.contentType === "festejo" &&
     sameChannel &&
     exactTime &&
     (firstGeneric || secondGeneric)
@@ -361,12 +468,6 @@ function eventMatchScore(first, second) {
     return 96;
   }
 
-  /*
-   * Algunas parrillas publican una hora aproximada y las fuentes del cartel
-   * otra hora con 30 minutos de diferencia. Si uno de los dos registros es
-   * genérico ("Televisión", "cartel por confirmar", etc.) y el otro contiene
-   * datos reales del festejo, deben tratarse como el mismo evento.
-   */
   const closeTime =
     Boolean(first.time) &&
     Boolean(second.time) &&
@@ -406,11 +507,12 @@ function eventMatchScore(first, second) {
   let score = 40;
   score += locationScore * 35;
 
+  if (sameCanonicalLocation) score += 18;
   if (sameChannel) score += 8;
 
   score += timeCloseness(first.time, second.time) * 7;
-  score += participantSimilarity(first.participants, second.participants) * 7;
-  score += fuzzyTextSimilarity(first.breeding, second.breeding) * 3;
+  score += participantScore * 12;
+  score += breedingScore * 5;
 
   return Math.round(score * 100) / 100;
 }
@@ -668,8 +770,21 @@ function mergeTwoEvents(first, second) {
                 )
           ),
     televised:
-      first.televised !== false ||
-      second.televised !== false,
+      !isNonTelevisedChannel(
+        isNonTelevisedChannel(first.channel) &&
+        !isNonTelevisedChannel(second.channel)
+          ? second.channel
+          : (
+              !isNonTelevisedChannel(first.channel) &&
+              isNonTelevisedChannel(second.channel)
+                ? first.channel
+                : chooseValue(
+                    first.channel,
+                    second.channel,
+                    preferSecond
+                  )
+            )
+      ),
     location: chooseInformativeValue(
       first.location,
       second.location,
