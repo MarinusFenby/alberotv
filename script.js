@@ -98,6 +98,35 @@ function normalizeText(value = "") {
 }
 
 
+function cleanBreedingDisplay(value = "") {
+  let cleaned = String(value || "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/\u00a0/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  /*
+   * Elimina uno o varios prefijos repetidos:
+   * "Ganadería: Jandilla"
+   * "Ganadería: Ganadería: Jandilla"
+   * "Ganadería Ganadería Jandilla"
+   */
+  cleaned = cleaned
+    .replace(/^(?:ganader[ií]a\s*(?:[:\-–—]\s*)?)+/i, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (
+    !cleaned ||
+    /^ganader[ií]a$/i.test(cleaned)
+  ) {
+    return "";
+  }
+
+  return cleaned;
+}
+
+
 function isProgram(event = {}) {
   return (
     normalizeText(event.contentType) === "programa" ||
@@ -1334,8 +1363,8 @@ function injectAlberoEnhancementStyles() {
     .country-corner {
       position: absolute;
       z-index: 3;
-      top: 6px;
-      right: 6px;
+      top: 0;
+      right: 0;
       width: 40px;
       height: 40px;
       clip-path: polygon(100% 0, 100% 100%, 0 0);
@@ -1528,7 +1557,7 @@ function injectAlberoEnhancementStyles() {
 
     .event-detail-row {
       display: grid !important;
-      grid-template-columns: 22px minmax(0, 1fr);
+      grid-template-columns: 24px minmax(0, 1fr);
       align-items: start;
       gap: 9px;
       width: 100%;
@@ -1539,10 +1568,11 @@ function injectAlberoEnhancementStyles() {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 22px;
-      height: 22px;
-      margin-top: 0;
+      width: 24px;
+      height: 24px;
+      margin-top: -1px;
       color: #e83e8c;
+      flex: 0 0 24px;
     }
 
     .event-detail-icon svg {
@@ -1552,7 +1582,7 @@ function injectAlberoEnhancementStyles() {
       overflow: visible;
       fill: currentColor;
       stroke: currentColor;
-      stroke-width: 1.25;
+      stroke-width: 1.45;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
@@ -1816,18 +1846,19 @@ function injectAlberoEnhancementStyles() {
       .country-corner {
         width: 32px;
         height: 32px;
-        top: 5px;
-        right: 5px;
+        top: 0;
+        right: 0;
       }
 
       .event-detail-row {
-        grid-template-columns: 19px minmax(0, 1fr);
+        grid-template-columns: 21px minmax(0, 1fr);
         gap: 8px;
       }
 
       .event-detail-icon {
-        width: 18px;
-        height: 18px;
+        width: 21px;
+        height: 21px;
+        flex-basis: 21px;
       }
 
       .event-content-stack .event-title {
@@ -2182,11 +2213,9 @@ function buildBullfightingEvent(event) {
     );
 
   const breeding =
-    String(event.breeding || "")
-      .replace(/&nbsp;/gi, " ")
-      .replace(/\u00a0/g, " ")
-      .replace(/^(?:\s*ganader[ií]a\s*[:\-–—]\s*)+/i, "")
-      .trim();
+    cleanBreedingDisplay(
+      event.breeding
+    );
 
   const locationLengthClass =
     getLocationLengthClass(location);
