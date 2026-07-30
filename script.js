@@ -135,6 +135,313 @@ function cleanBreedingDisplay(value = "") {
   return cleaned;
 }
 
+
+function canonicalEventLocation(value = "") {
+  const text = normalizeText(value)
+    .replace(/\bespana\b/g, " ")
+    .replace(/\bplaza de toros\b/g, " ")
+    .replace(/\bmonumental\b/g, " ")
+    .replace(/\breal maestranza\b/g, " maestranza ")
+    .replace(/\blas ventas\b/g, " madrid ")
+    .replace(/[()[\],.;:]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const aliases = [
+    ["madrid", "madrid"],
+    ["pamplona", "pamplona"],
+    ["azpeitia", "azpeitia"],
+    ["sevilla", "sevilla"],
+    ["huelva", "huelva"],
+    ["malaga", "malaga"],
+    ["bilbao", "bilbao"],
+    ["valencia", "valencia"],
+    ["cordoba", "cordoba"],
+    ["santander", "santander"],
+    ["san sebastian", "san sebastian"],
+    ["dax", "dax"],
+    ["beziers", "beziers"],
+    ["nimes", "nimes"],
+    ["arles", "arles"]
+  ];
+
+  for (const [needle, canonical] of aliases) {
+    if (text.includes(needle)) {
+      return canonical;
+    }
+  }
+
+  return text;
+}
+
+
+function participantOverlapRatio(first = [], second = []) {
+  const firstSet = new Set(
+    (first || [])
+      .map(normalizeText)
+      .filter(Boolean)
+  );
+
+  const secondSet = new Set(
+    (second || [])
+      .map(normalizeText)
+      .filter(Boolean)
+  );
+
+  if (!firstSet.size || !secondSet.size) {
+    return 0;
+  }
+
+  let matches = 0;
+
+  for (const name of firstSet) {
+    if (secondSet.has(name)) {
+      matches += 1;
+    }
+  }
+
+  return matches / Math.min(
+    firstSet.size,
+    secondSet.size
+  );
+}
+
+
+function stringSimilarity(first = "", second = "") {
+  const a = normalizeText(first);
+  const b = normalizeText(second);
+
+  if (!a || !b) {
+    return 0;
+  }
+
+  if (a === b) {
+    return 1;
+  }
+
+  if (a.includes(b) || b.includes(a)) {
+    return 0.92;
+  }
+
+  const firstTokens = new Set(a.split(/\s+/).filter(Boolean));
+  const secondTokens = new Set(b.split(/\s+/).filter(Boolean));
+
+  if (!firstTokens.size || !secondTokens.size) {
+    return 0;
+  }
+
+  let matches = 0;
+
+  for (const token of firstTokens) {
+    if (secondTokens.has(token)) {
+      matches += 1;
+    }
+  }
+
+  return matches / Math.max(
+    firstTokens.size,
+    secondTokens.size
+  );
+}
+
+
+function isRealTelevisedChannel(channel = "") {
+  const normalized = normalizeText(channel);
+
+  return Boolean(
+    normalized &&
+    ![
+      "sin tv",
+      "no tv",
+      "no televisado",
+      "no televisada",
+      "sin television",
+      "sin televisión"
+    ].includes(normalized)
+  );
+}
+
+
+function areSameBullfightingEvent(first = {}, second = {}) {
+  if (isProgram(first) || isProgram(second)) {
+    return false;
+  }
+
+  if (
+    !first.date ||
+    !second.date ||
+    first.date !== second.date
+  ) {
+    return false;
+  }
+
+  const firstLocation = canonicalEventLocation(
+    first.location || first.name || first.title || ""
+  );
+
+  const secondLocation = canonicalEventLocation(
+    second.location || second.name || second.title || ""
+  );
+
+  if (
+    !firstLocation ||
+    !secondLocation ||
+    firstLocation !== secondLocation
+  ) {
+    return false;
+  }
+
+  const sameType =
+    normalizeText(first.type) === normalizeText(second.type);
+
+  if (!sameType) {
+    return false;
+  }
+
+  const participantsOverlap =
+    participantOverlapRatio(
+      first.participants,
+      second.participants
+    );
+
+  const breedingSimilarity =
+    stringSimilarity(
+      cleanBreedingDisplay(first.breeding),
+      cleanBreedingDisplay(second.breeding)
+    );
+
+  return (
+    participantsOverlap >= 0.5 ||
+    breedingSimilarity >= 0.72
+  );
+}
+
+
+function chooseMoreInformativeLocation(first = "", second = "") {
+  const a = String(first || "").trim();
+  const b = String(second || "").trim();
+
+  if (!a) return b;
+  if (!b) return a;
+
+  const score = value => {
+    let total = value.length;
+
+    if (/plaza de toros/i.test(value)) total += 30;
+    if (/monumental/i.test(value)) total += 20;
+    if (/\(/.test(value)) total += 10;
+    if (/españa/i.test(value)) total -= 8;
+
+    return total;
+  };
+
+  return score(a) >= score(b)
+    ? a
+    : b;
+}
+
+
+function mergeDuplicateDisplayEvents(first = {}, second = {}) {
+  const televisedFirst =
+    !isNonTelevisedEvent(first);
+
+  const televisedSecond =
+    !isNonTelevisedEvent(second);
+
+  const preferred =
+    televisedFirst && !televisedSecond
+      ? first
+      : (
+          televisedSecond && !televisedFirst
+            ? second
+            : first
+        );
+
+  const secondary =
+    preferred === first
+      ? second
+      : first;
+
+  const mergedSources = [
+    ...new Set(
+      [
+        ...(Array.isArray(first.sources) ? first.sources : [first.source].filter(Boolean)),
+        ...(Array.isArray(second.sources) ? second.sources : [second.source].filter(Boolean))
+      ].filter(Boolean)
+    )
+  ];
+
+  const realChannel =
+    isRealTelevisedChannel(first.channel)
+      ? first.channel
+      : (
+          isRealTelevisedChannel(second.channel)
+            ? second.channel
+            : (preferred.channel || secondary.channel || null)
+        );
+
+  return {
+    ...secondary,
+    ...preferred,
+    location: chooseMoreInformativeLocation(
+      first.location,
+      second.location
+    ),
+    title: chooseMoreInformativeLocation(
+      first.title,
+      second.title
+    ),
+    name: chooseMoreInformativeLocation(
+      first.name,
+      second.name
+    ),
+    breeding: cleanBreedingDisplay(
+      preferred.breeding || secondary.breeding || ""
+    ),
+    participants:
+      (preferred.participants && preferred.participants.length)
+        ? preferred.participants
+        : (secondary.participants || []),
+    time:
+      preferred.time || secondary.time || "",
+    channel: realChannel,
+    televised:
+      televisedFirst || televisedSecond,
+    sources: mergedSources
+  };
+}
+
+
+function deduplicateDisplayEvents(events = []) {
+  const deduplicated = [];
+
+  for (const event of events) {
+    const current = {
+      ...event,
+      breeding: cleanBreedingDisplay(event.breeding || "")
+    };
+
+    const existingIndex =
+      deduplicated.findIndex(existing =>
+        areSameBullfightingEvent(existing, current)
+      );
+
+    if (existingIndex >= 0) {
+      deduplicated[existingIndex] =
+        mergeDuplicateDisplayEvents(
+          deduplicated[existingIndex],
+          current
+        );
+
+      continue;
+    }
+
+    deduplicated.push(current);
+  }
+
+  return deduplicated;
+}
+
 function isProgram(event = {}) {
   return (
     normalizeText(event.contentType) === "programa" ||
@@ -2762,7 +3069,10 @@ async function loadEvents() {
   const data =
     await response.json();
 
-  return data.events || [];
+  const events =
+    data.events || [];
+
+  return deduplicateDisplayEvents(events);
 }
 
 
