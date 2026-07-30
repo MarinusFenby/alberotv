@@ -451,3 +451,46 @@
     flex: 0 0 calc(100vw - 36px) !important;
   }
 }
+
+/* ==================================================
+   SIN TV SIN HORA CONFIRMADA
+   ================================================== */
+
+.bullfighting-event.event-non-televised
+.event-compact-header.non-tv-without-time {
+  display: block !important;
+  grid-template-columns: none !important;
+  margin-bottom: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.bullfighting-event.event-non-televised
+.event-compact-header.non-tv-without-time
+.event-header-information {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.bullfighting-event.event-non-televised
+.event-compact-header.non-tv-without-time
+.non-tv-badge {
+  display: inline-flex !important;
+  min-height: 27px;
+  padding: 6px 11px;
+  border: 1px solid rgba(190, 91, 91, 0.42) !important;
+  border-radius: 9px;
+  background: rgba(142, 58, 58, 0.48) !important;
+  color: rgba(255, 232, 232, 0.96) !important;
+  box-shadow: none !important;
+  font-size: 0.64rem !important;
+  letter-spacing: 0.045em;
+}
+
+/* El resto de etiquetas SIN TV conserva el mismo rojo pálido. */
+.bullfighting-event.event-non-televised
+.non-tv-badge {
+  border-color: rgba(190, 91, 91, 0.42) !important;
+  background: rgba(142, 58, 58, 0.48) !important;
+  color: rgba(255, 232, 232, 0.96) !important;
+  box-shadow: none !important;
+}
