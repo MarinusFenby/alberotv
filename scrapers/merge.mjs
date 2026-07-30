@@ -348,7 +348,9 @@ function canonicalLocation(value = "") {
     ["dax", "dax"],
     ["beziers", "beziers"],
     ["nimes", "nimes"],
-    ["arles", "arles"]
+    ["arles", "arles"],
+    ["guipuzcoa", "azpeitia"],
+    ["las ventas", "madrid"]
   ];
 
   for (const [needle, canonical] of aliases) {
@@ -852,7 +854,7 @@ function addOrMergeEvent(collection, candidate) {
   const threshold =
     candidate.contentType === "programa"
       ? 82
-      : 68;
+      : 62;
 
   if (bestIndex >= 0 && bestScore >= threshold) {
     collection[bestIndex] =
