@@ -11,7 +11,8 @@ const SOURCE_FILES = {
   programasTaurinos: path.join(DATA_DIR, "programas-taurinos.json"),
   canalSur: path.join(DATA_DIR, "canalsur.json"),
   cmm: path.join(DATA_DIR, "cmm.json"),
-  canalExtremadura: path.join(DATA_DIR, "canalextremadura.json")
+  canalExtremadura: path.join(DATA_DIR, "canalextremadura.json"),
+  mundoToro: path.join(DATA_DIR, "mundotoro.json")
 };
 
 const SOURCE_LABELS = {
@@ -20,7 +21,8 @@ const SOURCE_LABELS = {
   programasTaurinos: "Programas taurinos",
   canalSur: "Canal Sur",
   cmm: "CMM",
-  canalExtremadura: "Canal Extremadura"
+  canalExtremadura: "Canal Extremadura",
+  mundoToro: "Mundotoro"
 };
 
 const SOURCE_CONFIDENCE = {
@@ -29,6 +31,7 @@ const SOURCE_CONFIDENCE = {
   OneToro: 96,
   "El Muletazo": 90,
   "Programas taurinos": 88,
+  Mundotoro: 86,
   Telemadrid: 98,
   CMM: 98,
   RTVE: 98,
@@ -129,6 +132,19 @@ function normalizeChannel(channel = "") {
 
   return cleanName(channel) || "Televisión";
 }
+
+function isNonTelevisedChannel(channel = "") {
+  const value = normalizeText(channel);
+
+  return (
+    !value ||
+    value === "sin tv" ||
+    value === "no televisado" ||
+    value === "no televisada" ||
+    value === "sin television"
+  );
+}
+
 
 function normalizeType(type = "") {
   const value = normalizeText(type);
@@ -453,6 +469,12 @@ function normalizeGenericEvent(event, sourceName, fetchedAt = null) {
     date: event.date || null,
     time: event.time || null,
     channel: normalizeChannel(event.channel || sourceName),
+    televised:
+      event.televised === false
+        ? false
+        : !isNonTelevisedChannel(
+            event.channel || sourceName
+          ),
     location: cleanName(event.location || event.name || "Televisión"),
     type:
       contentType === "programa"
@@ -517,6 +539,20 @@ function normalizeMuletazoEvent(event, fetchedAt = null) {
     fetchedAt
   );
 }
+
+function normalizeMundoToroEvent(event, fetchedAt = null) {
+  return normalizeGenericEvent(
+    {
+      ...event,
+      channel: "Sin TV",
+      televised: false,
+      contentType: "festejo"
+    },
+    "Mundotoro",
+    fetchedAt
+  );
+}
+
 
 function normalizeProgramEvent(
   event,
@@ -617,7 +653,23 @@ function mergeTwoEvents(first, second) {
     id: chooseValue(first.id, second.id, preferSecond),
     date: chooseValue(first.date, second.date, preferSecond),
     time: chooseValue(first.time, second.time, preferSecond),
-    channel: chooseValue(first.channel, second.channel, preferSecond),
+    channel:
+      isNonTelevisedChannel(first.channel) &&
+      !isNonTelevisedChannel(second.channel)
+        ? second.channel
+        : (
+            !isNonTelevisedChannel(first.channel) &&
+            isNonTelevisedChannel(second.channel)
+              ? first.channel
+              : chooseValue(
+                  first.channel,
+                  second.channel,
+                  preferSecond
+                )
+          ),
+    televised:
+      first.televised !== false ||
+      second.televised !== false,
     location: chooseInformativeValue(
       first.location,
       second.location,
@@ -862,6 +914,10 @@ function normalizeStoredEvent(event = {}) {
     date: event.date || null,
     time: event.time || null,
     channel: normalizeChannel(event.channel),
+    televised:
+      event.televised === false
+        ? false
+        : !isNonTelevisedChannel(event.channel),
     location: cleanName(
       event.location ||
       event.name ||
@@ -1015,14 +1071,16 @@ async function main() {
     programas,
     canalSur,
     cmm,
-    canalExtremadura
+    canalExtremadura,
+    mundoToro
   ] = await Promise.all([
     readSource("elMuletazo"),
     readSource("oneToro"),
     readSource("programasTaurinos"),
     readSource("canalSur"),
     readSource("cmm"),
-    readSource("canalExtremadura")
+    readSource("canalExtremadura"),
+    readSource("mundoToro")
   ]);
 
   const sourceResults = [
@@ -1031,7 +1089,8 @@ async function main() {
     programas,
     canalSur,
     cmm,
-    canalExtremadura
+    canalExtremadura,
+    mundoToro
   ];
 
   if (!sourceResults.some(source => source.ok)) {
@@ -1182,6 +1241,22 @@ async function main() {
     ] += 1;
   }
 
+  for (const event of mundoToro.data.events || []) {
+    const result = addOrMergeEvent(
+      merged,
+      normalizeMundoToroEvent(
+        event,
+        mundoToro.fetchedAt
+      )
+    );
+
+    mergeStats[
+      result.merged
+        ? "merged"
+        : "added"
+    ] += 1;
+  }
+
   for (const event of programas.data.events || []) {
     const result = addOrMergeEvent(
       merged,
@@ -1269,7 +1344,10 @@ async function main() {
         cmm.eventCount,
 
       canalExtremadura:
-        canalExtremadura.eventCount
+        canalExtremadura.eventCount,
+
+      mundoToro:
+        mundoToro.eventCount
     },
 
     sourceHealth,
