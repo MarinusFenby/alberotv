@@ -417,3 +417,37 @@
     padding: 12px 14px !important;
   }
 }
+
+/* ==================================================
+   ENSANCHAR LA VENTANA DEL DÍA
+   Mantiene intacto el diseño interior.
+   ================================================== */
+
+.day {
+  width: 430px !important;
+  min-width: 430px !important;
+  flex: 0 0 430px !important;
+}
+
+.day.active {
+  width: 560px !important;
+  min-width: 560px !important;
+  flex-basis: 560px !important;
+}
+
+.day.active .events,
+.day.active .event,
+.day.active .bullfighting-event {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 800px) {
+  .day,
+  .day.active {
+    width: calc(100vw - 20px) !important;
+    min-width: calc(100vw - 20px) !important;
+    flex: 0 0 calc(100vw - 20px) !important;
+  }
+}
