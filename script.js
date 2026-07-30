@@ -1448,20 +1448,18 @@ function buildEventHeaderMarkup(event = {}) {
   const broadcast =
     getBroadcastPresentation(event);
 
-  /*
-   * Para un festejo SIN TV cuya hora aún no está publicada:
-   * - no mostramos “Hora por confirmar”;
-   * - colocamos la etiqueta SIN TV a la izquierda;
-   * - dejamos libre la zona derecha.
-   */
   if (
     nonTelevised &&
     !hasTime
   ) {
     return `
-      <div class="event-compact-header non-tv-without-time">
+      <div
+        class="event-compact-header non-tv-without-time"
+      >
         <div class="event-header-information">
-          ${buildBroadcastMarkup(event)}
+          <div class="non-tv-badge-left">
+            ${buildBroadcastMarkup(event)}
+          </div>
         </div>
       </div>
     `;
@@ -1553,11 +1551,6 @@ function addTodayButton() {
     "button";
 
   button.innerHTML = `
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <rect x="3.5" y="5.5" width="17" height="15" rx="2.5"></rect>
-      <path d="M7.5 3.5v4M16.5 3.5v4M3.5 10h17"></path>
-      <path d="M8 13.5h.01M12 13.5h.01M16 13.5h.01M8 17h.01M12 17h.01"></path>
-    </svg>
     <span>HOY</span>
   `;
 
