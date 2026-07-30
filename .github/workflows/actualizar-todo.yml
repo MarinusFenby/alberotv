@@ -1,4 +1,3 @@
-
 name: Actualizar programación
 
 on:
@@ -55,6 +54,11 @@ jobs:
         run: |
           node scrapers/canalextremadura.mjs
 
+      - name: Actualizar Mundotoro
+        continue-on-error: true
+        run: |
+          node scrapers/mundotoro.mjs
+
       - name: Actualizar programas taurinos
         run: |
           node scrapers/programas-taurinos.mjs
@@ -79,6 +83,9 @@ jobs:
 
           echo "=== Canal Extremadura ==="
           test -f data/canalextremadura.json || true
+
+          echo "=== Mundotoro ==="
+          test -f data/mundotoro.json || true
 
           echo "=== Programas taurinos ==="
           test -f data/programas-taurinos.json
