@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-29T18:19:28.224Z",
-  "throughDate": "2026-07-29",
-  "eventCount": 3,
+  "generatedAt": "2026-07-30T00:18:08.102Z",
+  "throughDate": "2026-07-30",
+  "eventCount": 4,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -88,6 +88,39 @@
         }
       ],
       "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": null,
+      "date": "2026-07-30",
+      "time": "21:00",
+      "channel": "Telemadrid",
+      "location": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "El Capea» y Carmen Lorenzo",
+      "participants": [
+        "Alejandro Marcos",
+        "Héctor Gutiérrez",
+        "Manuel Diosleguarde"
+      ],
+      "name": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-07-29T18:17:36.991Z"
+        }
+      ],
+      "confidence": 94,
       "status": "confirmed"
     }
   ]
