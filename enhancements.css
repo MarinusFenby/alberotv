@@ -228,19 +228,7 @@
 }
 
 /* Televisadas: texto aproximadamente un 5 % mayor. */
-.bullfighting-event.event-televised .time-main {
-  font-size: 1.05em !important;
-}
 
-.bullfighting-event.event-televised .event-type,
-.bullfighting-event.event-televised .event-title,
-.bullfighting-event.event-televised .people,
-.bullfighting-event.event-televised .breeding,
-.bullfighting-event.event-televised .event-status,
-.bullfighting-event.event-televised .time-origin,
-.bullfighting-event.event-televised .channel-name {
-  font-size: 1.05em !important;
-}
 
 /* Sin TV: misma anchura, menos altura y jerarquía secundaria. */
 .bullfighting-event.event-non-televised {
@@ -397,13 +385,51 @@
   font-size: 90% !important;
 }
 
+
+
+.bullfighting-event.event-non-televised .broadcast-unconfirmed-label,
+.bullfighting-event.event-non-televised .channel-logo-unconfirmed {
+  display: none !important;
+}
+
+
+/* ==================================================
+   AJUSTE FINO FINAL
+   - Las televisadas recuperan su tamaño original.
+   - Solo las SIN TV se ven más compactas.
+   ================================================== */
+
 .bullfighting-event.event-televised .event-title,
 .bullfighting-event.event-televised .people,
 .bullfighting-event.event-televised .breeding,
 .bullfighting-event.event-televised .time-main,
 .bullfighting-event.event-televised .time-origin,
-.bullfighting-event.event-televised .event-status {
-  font-size: 105% !important;
+.bullfighting-event.event-televised .event-status,
+.bullfighting-event.event-televised .channel-name {
+  font-size: inherit !important;
+}
+
+.bullfighting-event.event-televised .event-header-information,
+.bullfighting-event.event-televised .event-content-stack,
+.bullfighting-event.event-televised .event-details {
+  max-width: none !important;
+}
+
+.bullfighting-event.event-non-televised {
+  padding: 13px 15px !important;
+}
+
+.bullfighting-event.event-non-televised .event-title,
+.bullfighting-event.event-non-televised .people,
+.bullfighting-event.event-non-televised .breeding,
+.bullfighting-event.event-non-televised .time-main,
+.bullfighting-event.event-non-televised .time-origin,
+.bullfighting-event.event-non-televised .event-status {
+  font-size: 90% !important;
+}
+
+.bullfighting-event.event-non-televised .event-type {
+  padding: 6px 10px !important;
 }
 
 .bullfighting-event.event-non-televised .broadcast-unconfirmed-label,
