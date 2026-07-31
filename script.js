@@ -1,3 +1,4 @@
+
 const timeline = document.getElementById("timeline");
 const hint = document.getElementById("hint");
 const categoryList = document.getElementById("category-list");
@@ -30,6 +31,7 @@ const weekdays = [
 let cards = [];
 let activeCard = null;
 let activeIndex = 0;
+let previousActiveCard = null;
 
 let isDragging = false;
 let dragStartX = 0;
@@ -1493,7 +1495,12 @@ function buildEventHeaderMarkup(event = {}) {
   `;
 }
 
-function scrollToToday() {
+function scrollToToday(options = {}) {
+  const {
+    behavior = "smooth",
+    resetVertical = true
+  } = options;
+
   const todayCard =
     document.querySelector(
       '.day[data-offset="0"]'
@@ -1503,22 +1510,64 @@ function scrollToToday() {
     return;
   }
 
-  timeline.scrollTo({
-    left:
-      todayCard.offsetLeft -
-      timeline.clientWidth / 2 +
-      todayCard.offsetWidth / 2,
-    behavior: "smooth"
-  });
+  const targetLeft =
+    todayCard.offsetLeft -
+    timeline.clientWidth / 2 +
+    todayCard.offsetWidth / 2;
 
-  todayCard
-    .querySelector(".events")
-    ?.scrollTo({
-      top: 0,
-      behavior: "smooth"
+  if (behavior === "auto") {
+    timeline.scrollLeft =
+      targetLeft;
+  } else {
+    timeline.scrollTo({
+      left: targetLeft,
+      behavior
     });
+  }
+
+  if (resetVertical) {
+    const eventsContainer =
+      todayCard.querySelector(
+        ".events"
+      );
+
+    if (eventsContainer) {
+      if (behavior === "auto") {
+        eventsContainer.scrollTop = 0;
+      } else {
+        eventsContainer.scrollTo({
+          top: 0,
+          behavior
+        });
+      }
+    }
+  }
 }
 
+
+function forceTodayOnOpen() {
+  /*
+   * iOS puede restaurar la posición horizontal anterior
+   * al abrir un acceso de la pantalla de inicio.
+   * Recentramos HOY varias veces para imponernos a esa restauración.
+   */
+  const delays = [
+    0,
+    120,
+    450
+  ];
+
+  delays.forEach(delay => {
+    window.setTimeout(() => {
+      scrollToToday({
+        behavior: "auto",
+        resetVertical: true
+      });
+
+      updateVisuals();
+    }, delay);
+  });
+}
 
 function addTodayButton() {
   if (
@@ -3017,11 +3066,28 @@ function updateVisuals() {
       );
   });
 
+  previousActiveCard =
+    activeCard;
+
   activeCard =
     closestCard;
 
   activeIndex =
     closestIndex;
+
+  if (
+    activeCard &&
+    activeCard !== previousActiveCard
+  ) {
+    const activeEvents =
+      activeCard.querySelector(
+        ".events"
+      );
+
+    if (activeEvents) {
+      activeEvents.scrollTop = 0;
+    }
+  }
 
   cards.forEach(card => {
     const isActive =
@@ -3313,15 +3379,16 @@ async function init() {
 
   requestAnimationFrame(() => {
     if (todayCard) {
-      timeline.scrollLeft =
-        todayCard.offsetLeft -
-        timeline.clientWidth / 2 +
-        todayCard.offsetWidth / 2;
+      scrollToToday({
+        behavior: "auto",
+        resetVertical: true
+      });
     }
 
     updateVisuals();
     startTemporalStatusUpdates();
     addTodayButton();
+    forceTodayOnOpen();
   });
 }
 
@@ -3643,3 +3710,20 @@ document.addEventListener(
    ================================================== */
 
 init();
+
+/* ==================================================
+   APERTURA DESDE PANTALLA DE INICIO
+   ================================================== */
+
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
+window.addEventListener(
+  "pageshow",
+  () => {
+    if (cards.length) {
+      forceTodayOnOpen();
+    }
+  }
+);
