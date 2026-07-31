@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-30T18:52:47.057Z",
-  "throughDate": "2026-07-30",
-  "eventCount": 7,
+  "generatedAt": "2026-07-31T01:00:29.572Z",
+  "throughDate": "2026-07-31",
+  "eventCount": 12,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -231,6 +231,198 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-07-30T12:15:15.330Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-66abc4cb636489",
+      "date": "2026-07-31",
+      "time": "20:00",
+      "channel": "Canal Sur",
+      "televised": true,
+      "location": "Huelva",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Miura",
+      "participants": [
+        "«El Fandi»",
+        "Manuel Escribano",
+        "Alejandro Conquero"
+      ],
+      "name": "Huelva",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-07-30T18:52:18.099Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-30T18:52:45.942Z"
+        }
+      ],
+      "confidence": 96,
+      "status": "confirmed"
+    },
+    {
+      "id": "6cd09893-7746-4219-b336-03e0f99d3f6b",
+      "date": "2026-07-31",
+      "time": "22:30",
+      "channel": "OneToro",
+      "televised": true,
+      "location": "Paio Pires (Portugal)",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "Benítez Cubero, Villamarta, Casa Prudêncio, Canas Vigouroux, Monteviejo y Passanha Sobral",
+      "participants": [
+        "Gilberto Filipe",
+        "Miguel Moura",
+        "António Prates",
+        "los forcados de Lisboa",
+        "Coruche",
+        "Victorino Martin",
+        "Benítez-Cubero Pallarés",
+        "Portugal",
+        "Sobral",
+        "Villamarta",
+        "Mundo Ecuestre"
+      ],
+      "name": "Paio Pires (Portugal)",
+      "title": null,
+      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2Frf0z-0257dda1-3008-46b6-b73f-b50722e0d019.landscapes.high.webp",
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "OneToro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-07-30T18:52:18.099Z"
+        },
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/paio-pires-31072026",
+          "fetchedAt": "2026-07-30T18:52:17.817Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-ad4ebce6bd3522",
+      "date": "2026-07-31",
+      "time": null,
+      "channel": "Sin TV",
+      "televised": false,
+      "location": "Azpeitia (Guipúzcoa) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Murteira Grave",
+      "participants": [
+        "Borja Jiménez",
+        "Emilio de Justo",
+        "Víctor Hernández"
+      ],
+      "name": "Azpeitia (Guipúzcoa) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-30T18:52:45.942Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-928bb7c83efb28",
+      "date": "2026-07-31",
+      "time": null,
+      "channel": "Sin TV",
+      "televised": false,
+      "location": "El Puerto de Santa María (Cádiz) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Cortijo de la Sierra, S.L. y Rocío de la Cámara Ysern",
+      "participants": [
+        "Gonzalo Capdevila",
+        "otro",
+        "Samuel Castrejón",
+        "Víctor Barroso"
+      ],
+      "name": "El Puerto de Santa María (Cádiz) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-30T18:52:45.942Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-32be4fd1ae0018",
+      "date": "2026-07-31",
+      "time": null,
+      "channel": "Sin TV",
+      "televised": false,
+      "location": "Lodosa (Navarra) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Sociedad Agrícola Couto de Fornilhos",
+      "participants": [
+        "Paco Velasques",
+        "Sebastián Fernández"
+      ],
+      "name": "Lodosa (Navarra) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-30T18:52:45.942Z"
         }
       ],
       "confidence": 89,
