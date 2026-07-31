@@ -1569,6 +1569,1132 @@ function forceTodayOnOpen() {
   });
 }
 
+
+function ensureTopbarActionsRow() {
+  let row =
+    document.getElementById(
+      "topbar-actions-row"
+    );
+
+  if (row) {
+    return row;
+  }
+
+  const topbarInner =
+    document.querySelector(
+      ".topbar .topbar-inner"
+    ) ||
+    document.querySelector(
+      ".topbar"
+    );
+
+  if (!topbarInner) {
+    return null;
+  }
+
+  row =
+    document.createElement("div");
+
+  row.id =
+    "topbar-actions-row";
+
+  row.className =
+    "topbar-actions-row";
+
+  const categoryNav =
+    topbarInner.querySelector(
+      ".category-nav"
+    );
+
+  if (categoryNav) {
+    topbarInner.insertBefore(
+      row,
+      categoryNav
+    );
+  } else {
+    topbarInner.appendChild(
+      row
+    );
+  }
+
+  return row;
+}
+
+
+
+/* ==================================================
+   EXPLORAR POR UBICACIÓN
+   ================================================== */
+
+function ensureLocationExplorerButton() {
+  let button =
+    document.getElementById(
+      "location-explorer-button"
+    );
+
+  if (button) {
+    return button;
+  }
+
+  const actionsRow =
+    ensureTopbarActionsRow();
+
+  if (!actionsRow) {
+    return null;
+  }
+
+  button =
+    document.createElement("button");
+
+  button.id =
+    "location-explorer-button";
+
+  button.className =
+    "location-explorer-button";
+
+  button.type =
+    "button";
+
+  button.setAttribute(
+    "aria-label",
+    "Buscar festejos por ubicación"
+  );
+
+  button.innerHTML = `
+    <span aria-hidden="true">📍</span>
+  `;
+
+  actionsRow.prepend(button);
+
+  return button;
+}
+
+
+function ensureLocationExplorerSheet() {
+  let sheet =
+    document.getElementById(
+      "location-explorer-sheet"
+    );
+
+  if (sheet) {
+    return sheet;
+  }
+
+  sheet =
+    document.createElement("div");
+
+  sheet.id =
+    "location-explorer-sheet";
+
+  sheet.className =
+    "location-explorer-sheet";
+
+  sheet.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  sheet.innerHTML = `
+    <div
+      class="location-explorer-backdrop"
+      data-close-location-explorer
+    ></div>
+
+    <section
+      class="location-explorer-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="location-explorer-title"
+    >
+      <div class="location-explorer-handle"></div>
+
+      <h2 id="location-explorer-title">
+        Explorar por ubicación
+      </h2>
+
+      <p class="location-explorer-description">
+        Busca festejos cerca de ti o alrededor
+        de una ciudad que vayas a visitar.
+      </p>
+
+      <button
+        type="button"
+        class="location-current-button"
+        data-use-current-location
+      >
+        📍 Usar mi ubicación
+      </button>
+
+      <div class="location-divider">
+        <span>o buscar una ciudad</span>
+      </div>
+
+      <form
+        class="location-city-form"
+        id="location-city-form"
+      >
+        <input
+          id="location-city-input"
+          type="search"
+          placeholder="Ejemplo: Alicante"
+          autocomplete="off"
+          required
+        >
+
+        <button type="submit">
+          Buscar
+        </button>
+      </form>
+
+      <div class="location-filter-row">
+        <label>
+          Radio
+          <select id="location-radius">
+            <option value="50">50 km</option>
+            <option value="100" selected>100 km</option>
+            <option value="250">250 km</option>
+          </select>
+        </label>
+
+        <label>
+          Fechas
+          <select id="location-days">
+            <option value="7">7 días</option>
+            <option value="30" selected>30 días</option>
+            <option value="365">Toda la programación</option>
+          </select>
+        </label>
+      </div>
+
+      <div
+        class="location-results"
+        id="location-results"
+      >
+        <div class="location-empty-state">
+          Elige tu ubicación o busca una ciudad.
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="location-explorer-close"
+        data-close-location-explorer
+      >
+        Cerrar
+      </button>
+    </section>
+  `;
+
+  document.body.appendChild(sheet);
+
+  return sheet;
+}
+
+
+function openLocationExplorer() {
+  const sheet =
+    ensureLocationExplorerSheet();
+
+  sheet.classList.add("is-open");
+
+  sheet.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  document.body.classList.add(
+    "location-explorer-open"
+  );
+}
+
+
+function closeLocationExplorer() {
+  const sheet =
+    document.getElementById(
+      "location-explorer-sheet"
+    );
+
+  if (!sheet) {
+    return;
+  }
+
+  sheet.classList.remove("is-open");
+
+  sheet.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  document.body.classList.remove(
+    "location-explorer-open"
+  );
+}
+
+
+
+const LOCATION_CACHE_KEY =
+  "alberotv-location-cache-v1";
+
+
+function getLocationCache() {
+  try {
+    return JSON.parse(
+      localStorage.getItem(
+        LOCATION_CACHE_KEY
+      ) || "{}"
+    );
+  } catch {
+    return {};
+  }
+}
+
+
+function saveLocationCache(cache) {
+  localStorage.setItem(
+    LOCATION_CACHE_KEY,
+    JSON.stringify(cache)
+  );
+}
+
+
+function cleanLocationSearchName(value) {
+  let cleaned =
+    String(value || "")
+      .replace(
+        /\b(plaza de toros|plaza monumental|coso taurino)\b/gi,
+        " "
+      )
+      .replace(/\s+/g, " ")
+      .trim();
+
+  /*
+   * Ejemplo:
+   * "Azpeitia (Guipúzcoa) España"
+   * pasa a:
+   * "Azpeitia, España"
+   */
+  const cityMatch =
+    cleaned.match(
+      /^([^,(]+)/
+    );
+
+  const city =
+    cityMatch
+      ? cityMatch[1].trim()
+      : cleaned;
+
+  const countryMatch =
+    cleaned.match(
+      /\b(España|Portugal|Francia|México|Colombia|Perú|Ecuador)\b/i
+    );
+
+  const country =
+    countryMatch
+      ? countryMatch[1]
+      : "";
+
+  return [
+    city,
+    country
+  ]
+    .filter(Boolean)
+    .join(", ");
+}
+
+
+function getEventSearchLocation(event) {
+  const location =
+    cleanLocationSearchName(
+      event.location ||
+      event.name ||
+      ""
+    );
+
+  const country =
+    String(
+      event.country ||
+      event.countryName ||
+      ""
+    ).trim();
+
+  return [
+    location,
+    country
+  ]
+    .filter(Boolean)
+    .join(", ");
+}
+
+
+async function geocodeLocationName(name) {
+  const cleanedName =
+    cleanLocationSearchName(name);
+
+  if (!cleanedName) {
+    return null;
+  }
+
+  const cache =
+    getLocationCache();
+
+  const cacheKey =
+    normalizeFavoriteValue(
+      cleanedName
+    );
+
+  if (
+    Object.prototype.hasOwnProperty.call(
+      cache,
+      cacheKey
+    )
+  ) {
+    return cache[cacheKey];
+  }
+
+  try {
+    const url =
+      "https://geocoding-api.open-meteo.com/v1/search" +
+      `?name=${encodeURIComponent(cleanedName)}` +
+      "&count=1" +
+      "&language=es" +
+      "&format=json";
+
+    const response =
+      await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(
+        `Geocodificación: ${response.status}`
+      );
+    }
+
+    const data =
+      await response.json();
+
+    const result =
+      data.results?.[0];
+
+    const location =
+      result
+        ? {
+            latitude:
+              Number(result.latitude),
+
+            longitude:
+              Number(result.longitude),
+
+            name:
+              result.name || cleanedName,
+
+            admin:
+              result.admin1 || "",
+
+            country:
+              result.country || ""
+          }
+        : null;
+
+    /*
+     * Solo guardamos resultados válidos.
+     * Un fallo temporal no debe quedar
+     * almacenado para siempre.
+     */
+    if (location) {
+      cache[cacheKey] =
+        location;
+
+      saveLocationCache(cache);
+    }
+
+    return location;
+  } catch (error) {
+    console.error(
+      "AlberoTV: error geocodificando",
+      cleanedName,
+      error
+    );
+
+    return null;
+  }
+}
+
+
+function degreesToRadians(value) {
+  return value * Math.PI / 180;
+}
+
+
+function calculateDistanceKm(
+  latitudeA,
+  longitudeA,
+  latitudeB,
+  longitudeB
+) {
+  const earthRadiusKm =
+    6371;
+
+  const latitudeDifference =
+    degreesToRadians(
+      latitudeB - latitudeA
+    );
+
+  const longitudeDifference =
+    degreesToRadians(
+      longitudeB - longitudeA
+    );
+
+  const a =
+    Math.sin(
+      latitudeDifference / 2
+    ) ** 2 +
+    Math.cos(
+      degreesToRadians(latitudeA)
+    ) *
+    Math.cos(
+      degreesToRadians(latitudeB)
+    ) *
+    Math.sin(
+      longitudeDifference / 2
+    ) ** 2;
+
+  return (
+    earthRadiusKm *
+    2 *
+    Math.atan2(
+      Math.sqrt(a),
+      Math.sqrt(1 - a)
+    )
+  );
+}
+
+
+function getLocationSearchSettings() {
+  return {
+    radius:
+      Number(
+        document.getElementById(
+          "location-radius"
+        )?.value || 100
+      ),
+
+    days:
+      Number(
+        document.getElementById(
+          "location-days"
+        )?.value || 30
+      )
+  };
+}
+
+
+function eventIsInsideDateWindow(
+  event,
+  numberOfDays
+) {
+  if (!event.date) {
+    return false;
+  }
+
+  const eventDate =
+    new Date(
+      `${event.date}T00:00:00`
+    );
+
+  const today =
+    new Date();
+
+  today.setHours(
+    0,
+    0,
+    0,
+    0
+  );
+
+  const finalDate =
+    new Date(today);
+
+  finalDate.setDate(
+    finalDate.getDate() +
+    numberOfDays
+  );
+
+  return (
+    eventDate >= today &&
+    eventDate <= finalDate
+  );
+}
+
+
+function formatNearbyEventDate(dateValue) {
+  const date =
+    new Date(
+      `${dateValue}T00:00:00`
+    );
+
+  return date.toLocaleDateString(
+    "es-ES",
+    {
+      day:
+        "numeric",
+
+      month:
+        "long"
+    }
+  );
+}
+
+
+function getNearbyEventKey(event) {
+  return [
+    event.date || "",
+    event.time || "",
+    event.location ||
+      event.name ||
+      "",
+    event.type || ""
+  ].join("|");
+}
+
+
+function buildNearbyEventMarkup(item) {
+  const event =
+    item.event;
+
+  const channel =
+    getEventChannel(event) ||
+    "Sin TV";
+
+  const time =
+    event.time ||
+    "Hora por confirmar";
+
+  return `
+    <article class="nearby-event-card">
+
+      <div class="nearby-event-distance">
+        A ${Math.round(item.distance)} km
+      </div>
+
+      <div class="nearby-event-type">
+        ${escapeHtml(
+          event.type ||
+          "Festejo taurino"
+        )}
+      </div>
+
+      <h3>
+        ${escapeHtml(
+          event.location ||
+          event.name ||
+          "Localidad por confirmar"
+        )}
+      </h3>
+
+      <p>
+        ${escapeHtml(
+          formatNearbyEventDate(
+            event.date
+          )
+        )}
+        ·
+        ${escapeHtml(time)}
+        ·
+        ${escapeHtml(channel)}
+      </p>
+
+      <button
+        type="button"
+        data-open-nearby-event="${
+          encodeURIComponent(
+            JSON.stringify({
+              date:
+                event.date,
+
+              key:
+                getNearbyEventKey(
+                  event
+                )
+            })
+          )
+        }"
+      >
+        Ver en programación
+      </button>
+
+    </article>
+  `;
+}
+
+
+async function findNearbyEvents({
+  latitude,
+  longitude,
+  referenceName
+}) {
+  const results =
+    document.getElementById(
+      "location-results"
+    );
+
+  const settings =
+    getLocationSearchSettings();
+
+  const candidateEvents =
+    loadedEvents.filter(
+      event =>
+        eventIsInsideDateWindow(
+          event,
+          settings.days
+        )
+    );
+
+  const uniqueLocations =
+    [
+      ...new Set(
+        candidateEvents
+          .map(
+            getEventSearchLocation
+          )
+          .filter(Boolean)
+      )
+    ];
+
+  results.innerHTML = `
+    <div class="location-loading">
+      Buscando festejos alrededor de
+      <strong>${escapeHtml(referenceName)}</strong>…
+      <br>
+      0 de ${uniqueLocations.length} localidades
+    </div>
+  `;
+
+  const coordinatesByLocation =
+    new Map();
+
+  for (
+    let index = 0;
+    index < uniqueLocations.length;
+    index += 1
+  ) {
+    const locationName =
+      uniqueLocations[index];
+
+    const coordinates =
+      await geocodeLocationName(
+        locationName
+      );
+
+    if (coordinates) {
+      coordinatesByLocation.set(
+        locationName,
+        coordinates
+      );
+    }
+
+    if (
+      index % 4 === 0 ||
+      index === uniqueLocations.length - 1
+    ) {
+      results.innerHTML = `
+        <div class="location-loading">
+          Buscando festejos alrededor de
+          <strong>${escapeHtml(referenceName)}</strong>…
+          <br>
+          ${index + 1} de
+          ${uniqueLocations.length}
+          localidades
+        </div>
+      `;
+    }
+  }
+
+  const nearbyEvents =
+    candidateEvents
+      .map(event => {
+        const searchLocation =
+          getEventSearchLocation(event);
+
+        const coordinates =
+          coordinatesByLocation.get(
+            searchLocation
+          );
+
+        if (!coordinates) {
+          return null;
+        }
+
+        const distance =
+          calculateDistanceKm(
+            latitude,
+            longitude,
+            coordinates.latitude,
+            coordinates.longitude
+          );
+
+        return {
+          event,
+          distance
+        };
+      })
+      .filter(Boolean)
+      .filter(
+        item =>
+          item.distance <=
+          settings.radius
+      )
+      .sort(
+        (itemA, itemB) => {
+          const dateComparison =
+            String(
+              itemA.event.date
+            ).localeCompare(
+              String(
+                itemB.event.date
+              )
+            );
+
+          if (dateComparison !== 0) {
+            return dateComparison;
+          }
+
+          return (
+            itemA.distance -
+            itemB.distance
+          );
+        }
+      );
+
+  if (!nearbyEvents.length) {
+    results.innerHTML = `
+      <div class="location-empty-state">
+        No hay festejos a menos de
+        ${settings.radius} km de
+        <strong>${escapeHtml(referenceName)}</strong>
+        durante el periodo seleccionado.
+      </div>
+    `;
+
+    return;
+  }
+
+  results.innerHTML = `
+    <div class="location-results-heading">
+      <strong>
+        ${escapeHtml(referenceName)}
+      </strong>
+
+      <span>
+        ${nearbyEvents.length}
+        ${
+          nearbyEvents.length === 1
+            ? "festejo encontrado"
+            : "festejos encontrados"
+        }
+      </span>
+    </div>
+
+    <div class="nearby-events-list">
+      ${
+        nearbyEvents
+          .map(
+            buildNearbyEventMarkup
+          )
+          .join("")
+      }
+    </div>
+
+    <div class="location-attribution">
+      Distancias aproximadas al centro de
+      cada localidad · Geocodificación:
+      Open-Meteo / GeoNames
+    </div>
+  `;
+}
+
+
+function openNearbyEvent(date) {
+  closeLocationExplorer();
+
+  const dayCard =
+    document.querySelector(
+      `.day[data-date="${CSS.escape(date)}"]`
+    );
+
+  if (!dayCard) {
+    alert(
+      "Ese día no está disponible en la programación actual."
+    );
+
+    return;
+  }
+
+  /*
+   * Evitamos que scrollIntoView desplace
+   * verticalmente toda la aplicación.
+   */
+  window.scrollTo({
+    top: 0,
+    behavior: "auto"
+  });
+
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
+  dayCard.scrollIntoView({
+    behavior: "smooth",
+    block: "nearest",
+    inline: "center"
+  });
+
+  window.setTimeout(() => {
+    document
+      .querySelectorAll(".day")
+      .forEach(card => {
+        const isActive =
+          card === dayCard;
+
+        card.classList.toggle(
+          "active",
+          isActive
+        );
+
+        card.setAttribute(
+          "aria-current",
+          isActive
+            ? "date"
+            : "false"
+        );
+      });
+
+    activeCard =
+      dayCard;
+
+    dayCard.querySelector(
+      ".events"
+    )?.scrollTo({
+      top: 0,
+      behavior: "auto"
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "auto"
+    });
+
+    updateActiveCategories();
+    updateTodayButtonState();
+  }, 350);
+}
+
+
+async function requestCurrentLocation() {
+  const Geolocation =
+    window.Capacitor?.Plugins?.Geolocation;
+
+  if (!Geolocation) {
+    alert(
+      "La ubicación solo está disponible dentro de la app."
+    );
+
+    return;
+  }
+
+  let permission =
+    await Geolocation.checkPermissions();
+
+  if (
+    permission.location !== "granted" &&
+    permission.coarseLocation !== "granted"
+  ) {
+    permission =
+      await Geolocation.requestPermissions();
+  }
+
+  if (
+    permission.location !== "granted" &&
+    permission.coarseLocation !== "granted"
+  ) {
+    alert(
+      "Debes permitir la ubicación para buscar festejos cercanos."
+    );
+
+    return;
+  }
+
+  const results =
+    document.getElementById(
+      "location-results"
+    );
+
+  results.innerHTML = `
+    <div class="location-loading">
+      Obteniendo tu ubicación…
+    </div>
+  `;
+
+  try {
+    const position =
+      await Geolocation.getCurrentPosition({
+        enableHighAccuracy: false,
+        timeout: 12000,
+        maximumAge: 300000
+      });
+
+    await findNearbyEvents({
+      latitude:
+        position.coords.latitude,
+
+      longitude:
+        position.coords.longitude,
+
+      referenceName:
+        "tu ubicación"
+    });
+  } catch (error) {
+    console.error(
+      "AlberoTV: error obteniendo ubicación",
+      error
+    );
+
+    results.innerHTML = `
+      <div class="location-error-state">
+        No se ha podido obtener la ubicación.
+      </div>
+    `;
+  }
+}
+
+
+document.addEventListener(
+  "click",
+  async clickEvent => {
+    if (
+      clickEvent.target.closest(
+        "#location-explorer-button"
+      )
+    ) {
+      openLocationExplorer();
+      return;
+    }
+
+    if (
+      clickEvent.target.closest(
+        "[data-close-location-explorer]"
+      )
+    ) {
+      closeLocationExplorer();
+      return;
+    }
+
+    if (
+      clickEvent.target.closest(
+        "[data-use-current-location]"
+      )
+    ) {
+      await requestCurrentLocation();
+      return;
+    }
+
+    const nearbyButton =
+      clickEvent.target.closest(
+        "[data-open-nearby-event]"
+      );
+
+    if (nearbyButton) {
+      const eventData =
+        JSON.parse(
+          decodeURIComponent(
+            nearbyButton.dataset
+              .openNearbyEvent
+          )
+        );
+
+      openNearbyEvent(
+        eventData.date
+      );
+    }
+  }
+);
+
+
+document.addEventListener(
+  "submit",
+  submitEvent => {
+    if (
+      submitEvent.target.id !==
+      "location-city-form"
+    ) {
+      return;
+    }
+
+    submitEvent.preventDefault();
+
+    const city =
+      document
+        .getElementById(
+          "location-city-input"
+        )
+        .value
+        .trim();
+
+    const results =
+      document.getElementById(
+        "location-results"
+      );
+
+    results.innerHTML = `
+      <div class="location-loading">
+        Buscando la ciudad…
+      </div>
+    `;
+
+    geocodeLocationName(city)
+      .then(location => {
+        if (!location) {
+          results.innerHTML = `
+            <div class="location-error-state">
+              No hemos encontrado esa ciudad.
+              Prueba escribiendo también el país.
+            </div>
+          `;
+
+          return;
+        }
+
+        const referenceName = [
+          location.name,
+          location.admin,
+          location.country
+        ]
+          .filter(Boolean)
+          .join(", ");
+
+        return findNearbyEvents({
+          latitude:
+            location.latitude,
+
+          longitude:
+            location.longitude,
+
+          referenceName
+        });
+      })
+      .catch(error => {
+        console.error(
+          "AlberoTV: error buscando ciudad",
+          error
+        );
+
+        results.innerHTML = `
+          <div class="location-error-state">
+            No se ha podido realizar la búsqueda.
+          </div>
+        `;
+      });
+  }
+);
+
+
 function addTodayButton() {
   if (
     document.getElementById(
@@ -1578,12 +2704,10 @@ function addTodayButton() {
     return;
   }
 
-  const brand =
-    document.querySelector(
-      ".topbar .brand"
-    );
+  const actionsRow =
+    ensureTopbarActionsRow();
 
-  if (!brand) {
+  if (!actionsRow) {
     return;
   }
 
@@ -1608,8 +2732,7 @@ function addTodayButton() {
     scrollToToday
   );
 
-  brand.insertAdjacentElement(
-    "afterend",
+  actionsRow.prepend(
     button
   );
 
@@ -2651,6 +3774,2564 @@ function buildProgram(event) {
    CREAR FESTEJO
    ================================================== */
 
+
+/* ==================================================
+   NOTIFICACIONES LOCALES
+   ================================================== */
+
+let pendingNotificationEvent = null;
+let pendingNotificationButton = null;
+
+const DEFAULT_NOTIFICATION_MINUTES = 30;
+const MIN_NOTIFICATION_MINUTES = 5;
+const MAX_NOTIFICATION_MINUTES = 24 * 60;
+
+
+function getLocalNotificationsPlugin() {
+  return (
+    window.Capacitor?.Plugins?.LocalNotifications ||
+    null
+  );
+}
+
+
+function getEventNotificationId(event) {
+  const text = [
+    event.date || "",
+    event.time || "",
+    event.location || event.name || "",
+    event.type || ""
+  ].join("|");
+
+  let hash = 0;
+
+  for (
+    let index = 0;
+    index < text.length;
+    index += 1
+  ) {
+    hash =
+      ((hash << 5) - hash) +
+      text.charCodeAt(index);
+
+    hash |= 0;
+  }
+
+  return Math.abs(hash) || 1;
+}
+
+
+function getNotificationStorageKey(event) {
+  return (
+    "alberotv-notification-" +
+    getEventNotificationId(event)
+  );
+}
+
+
+function getStoredNotificationMinutes(event) {
+  const storedValue =
+    localStorage.getItem(
+      getNotificationStorageKey(event)
+    );
+
+  const minutes =
+    Number(storedValue);
+
+  if (
+    Number.isFinite(minutes) &&
+    minutes >= MIN_NOTIFICATION_MINUTES &&
+    minutes <= MAX_NOTIFICATION_MINUTES
+  ) {
+    return minutes;
+  }
+
+  return null;
+}
+
+
+function getLastNotificationMinutes() {
+  const storedValue =
+    Number(
+      localStorage.getItem(
+        "alberotv-last-notification-minutes"
+      )
+    );
+
+  if (
+    Number.isFinite(storedValue) &&
+    storedValue >= MIN_NOTIFICATION_MINUTES &&
+    storedValue <= MAX_NOTIFICATION_MINUTES
+  ) {
+    return storedValue;
+  }
+
+  return DEFAULT_NOTIFICATION_MINUTES;
+}
+
+
+function formatNotificationLeadTime(minutes) {
+  if (minutes === 60) {
+    return "1 hora";
+  }
+
+  if (
+    minutes > 60 &&
+    minutes % 60 === 0
+  ) {
+    return `${minutes / 60} horas`;
+  }
+
+  return `${minutes} min`;
+}
+
+
+function buildNotificationButtonMarkup(event) {
+  const isNativeApp =
+    window.Capacitor?.isNativePlatform?.() === true;
+
+  if (
+    !isNativeApp ||
+    !event.date ||
+    !event.time
+  ) {
+    return "";
+  }
+
+  const activeMinutes =
+    getStoredNotificationMinutes(event);
+
+  const encodedEvent =
+    encodeURIComponent(
+      JSON.stringify({
+        date: event.date,
+        time: event.time,
+        location:
+          event.location ||
+          event.name ||
+          "Festejo taurino",
+        type:
+          event.type ||
+          "Festejo taurino"
+      })
+    );
+
+  return `
+    <button
+      class="event-notification-button ${
+        activeMinutes
+          ? "notification-active"
+          : ""
+      }"
+      type="button"
+      data-notification-event="${encodedEvent}"
+    >
+      ${
+        activeMinutes
+          ? `✓ Aviso: ${formatNotificationLeadTime(
+              activeMinutes
+            )}`
+          : "🔔 Avisarme"
+      }
+    </button>
+  `;
+}
+
+
+function getEventStartDate(event) {
+  /*
+   * La hora publicada del festejo corresponde a Madrid.
+   * La convertimos primero a un instante UTC real.
+   *
+   * El iPhone mostrará y programará ese instante
+   * automáticamente en la hora local del usuario.
+   */
+  return getEventStartInstant(event);
+}
+
+
+function ensureNotificationSheet() {
+  let sheet =
+    document.getElementById(
+      "notification-sheet"
+    );
+
+  if (sheet) {
+    return sheet;
+  }
+
+  sheet =
+    document.createElement("div");
+
+  sheet.id =
+    "notification-sheet";
+
+  sheet.className =
+    "notification-sheet";
+
+  sheet.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  sheet.innerHTML = `
+    <div
+      class="notification-sheet-backdrop"
+      data-close-notification-sheet
+    ></div>
+
+    <section
+      class="notification-sheet-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="notification-sheet-title"
+    >
+      <div class="notification-sheet-handle"></div>
+
+      <h2 id="notification-sheet-title">
+        ¿Cuándo quieres el aviso?
+      </h2>
+
+      <p class="notification-sheet-event">
+      </p>
+
+      <div class="notification-options">
+        <button
+          type="button"
+          data-notification-minutes="15"
+        >
+          15 minutos antes
+        </button>
+
+        <button
+          type="button"
+          data-notification-minutes="30"
+        >
+          30 minutos antes
+        </button>
+
+        <button
+          type="button"
+          data-notification-minutes="60"
+        >
+          1 hora antes
+        </button>
+
+        <button
+          type="button"
+          class="notification-custom-toggle"
+          data-open-custom-notification
+        >
+          Personalizar
+        </button>
+      </div>
+
+      <div
+        class="notification-custom-area"
+        hidden
+      >
+        <label for="notification-custom-minutes">
+          Minutos antes
+        </label>
+
+        <div class="notification-custom-row">
+          <input
+            id="notification-custom-minutes"
+            type="number"
+            inputmode="numeric"
+            min="5"
+            max="1440"
+            step="1"
+            value="30"
+          >
+
+          <button
+            type="button"
+            data-confirm-custom-notification
+          >
+            Guardar
+          </button>
+        </div>
+
+        <small>
+          Entre 5 minutos y 24 horas.
+        </small>
+      </div>
+
+      <button
+        type="button"
+        class="notification-cancel-active"
+        data-cancel-event-notification
+        hidden
+      >
+        Cancelar aviso
+      </button>
+
+      <button
+        type="button"
+        class="notification-sheet-close"
+        data-close-notification-sheet
+      >
+        Cerrar
+      </button>
+    </section>
+  `;
+
+  document.body.appendChild(sheet);
+
+  return sheet;
+}
+
+
+function openNotificationSheet(
+  event,
+  button
+) {
+  const sheet =
+    ensureNotificationSheet();
+
+  pendingNotificationEvent =
+    event;
+
+  pendingNotificationButton =
+    button;
+
+  const eventText =
+    sheet.querySelector(
+      ".notification-sheet-event"
+    );
+
+  const customInput =
+    sheet.querySelector(
+      "#notification-custom-minutes"
+    );
+
+  const customArea =
+    sheet.querySelector(
+      ".notification-custom-area"
+    );
+
+  const cancelButton =
+    sheet.querySelector(
+      ".notification-cancel-active"
+    );
+
+  const activeMinutes =
+    getStoredNotificationMinutes(event);
+
+  eventText.textContent =
+    `${event.type} · ${event.location} · ${event.time}`;
+
+  customInput.value =
+    activeMinutes ||
+    getLastNotificationMinutes();
+
+  customArea.hidden =
+    true;
+
+  cancelButton.hidden =
+    !activeMinutes;
+
+  sheet.classList.add(
+    "is-open"
+  );
+
+  sheet.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  document.body.classList.add(
+    "notification-sheet-open"
+  );
+}
+
+
+function closeNotificationSheet() {
+  const sheet =
+    document.getElementById(
+      "notification-sheet"
+    );
+
+  if (!sheet) {
+    return;
+  }
+
+  sheet.classList.remove(
+    "is-open"
+  );
+
+  sheet.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  document.body.classList.remove(
+    "notification-sheet-open"
+  );
+
+  pendingNotificationEvent =
+    null;
+
+  pendingNotificationButton =
+    null;
+}
+
+
+async function cancelEventNotification(
+  event,
+  button
+) {
+  const LocalNotifications =
+    getLocalNotificationsPlugin();
+
+  if (!LocalNotifications) {
+    return;
+  }
+
+  const notificationId =
+    getEventNotificationId(event);
+
+  await LocalNotifications.cancel({
+    notifications: [
+      {
+        id: notificationId
+      }
+    ]
+  });
+
+  localStorage.removeItem(
+    getNotificationStorageKey(event)
+  );
+
+  if (button) {
+    button.classList.remove(
+      "notification-active"
+    );
+
+    button.textContent =
+      "🔔 Avisarme";
+  }
+
+  closeNotificationSheet();
+}
+
+
+async function scheduleEventNotification(
+  event,
+  button,
+  minutesBefore
+) {
+  const LocalNotifications =
+    getLocalNotificationsPlugin();
+
+  if (!LocalNotifications) {
+    alert(
+      "Las notificaciones solo están disponibles dentro de la app."
+    );
+
+    return;
+  }
+
+  const minutes =
+    Number(minutesBefore);
+
+  if (
+    !Number.isInteger(minutes) ||
+    minutes < MIN_NOTIFICATION_MINUTES ||
+    minutes > MAX_NOTIFICATION_MINUTES
+  ) {
+    alert(
+      "Elige un tiempo entre 5 minutos y 24 horas."
+    );
+
+    return;
+  }
+
+  let permission =
+    await LocalNotifications.checkPermissions();
+
+  if (permission.display !== "granted") {
+    permission =
+      await LocalNotifications.requestPermissions();
+  }
+
+  if (permission.display !== "granted") {
+    alert(
+      "Debes permitir las notificaciones en los ajustes del iPhone."
+    );
+
+    return;
+  }
+
+  const eventStart =
+    getEventStartDate(event);
+
+  if (!eventStart) {
+    alert(
+      "No se ha podido interpretar la fecha del festejo."
+    );
+
+    return;
+  }
+
+  const notificationDate =
+    new Date(
+      eventStart.getTime() -
+      minutes * 60 * 1000
+    );
+
+  if (
+    notificationDate.getTime() <=
+    Date.now()
+  ) {
+    alert(
+      `Ya es demasiado tarde para programar el aviso ${formatNotificationLeadTime(
+        minutes
+      )} antes.`
+    );
+
+    return;
+  }
+
+  const notificationId =
+    getEventNotificationId(event);
+
+  /*
+   * Cancelamos cualquier aviso anterior del mismo festejo
+   * antes de programar el nuevo.
+   */
+  await LocalNotifications.cancel({
+    notifications: [
+      {
+        id: notificationId
+      }
+    ]
+  });
+
+  await LocalNotifications.schedule({
+    notifications: [
+      {
+        id: notificationId,
+
+        title:
+          `AlberoTV · Comienza en ${formatNotificationLeadTime(
+            minutes
+          )}`,
+
+        body:
+          `${event.type} en ${event.location}, a las ${event.time}`,
+
+        schedule: {
+          at: notificationDate
+        },
+
+        sound:
+          "default",
+
+        extra: {
+          date:
+            event.date,
+
+          time:
+            event.time,
+
+          location:
+            event.location,
+
+          minutesBefore:
+            minutes
+        }
+      }
+    ]
+  });
+
+  localStorage.setItem(
+    getNotificationStorageKey(event),
+    String(minutes)
+  );
+
+  localStorage.setItem(
+    "alberotv-last-notification-minutes",
+    String(minutes)
+  );
+
+  if (button) {
+    button.classList.add(
+      "notification-active"
+    );
+
+    button.textContent =
+      `✓ Aviso: ${formatNotificationLeadTime(
+        minutes
+      )}`;
+  }
+
+  closeNotificationSheet();
+}
+
+
+document.addEventListener(
+  "click",
+  async clickEvent => {
+    const notificationButton =
+      clickEvent.target.closest(
+        ".event-notification-button"
+      );
+
+    if (notificationButton) {
+      clickEvent.preventDefault();
+      clickEvent.stopPropagation();
+
+      try {
+        const eventData =
+          JSON.parse(
+            decodeURIComponent(
+              notificationButton.dataset
+                .notificationEvent
+            )
+          );
+
+        openNotificationSheet(
+          eventData,
+          notificationButton
+        );
+      } catch (error) {
+        console.error(
+          "AlberoTV: error abriendo las opciones del aviso",
+          error
+        );
+      }
+
+      return;
+    }
+
+    if (
+      clickEvent.target.closest(
+        "[data-close-notification-sheet]"
+      )
+    ) {
+      closeNotificationSheet();
+      return;
+    }
+
+    const minutesButton =
+      clickEvent.target.closest(
+        "[data-notification-minutes]"
+      );
+
+    if (
+      minutesButton &&
+      pendingNotificationEvent
+    ) {
+      try {
+        await scheduleEventNotification(
+          pendingNotificationEvent,
+          pendingNotificationButton,
+          Number(
+            minutesButton.dataset
+              .notificationMinutes
+          )
+        );
+      } catch (error) {
+        console.error(
+          "AlberoTV: error programando el aviso",
+          error
+        );
+
+        alert(
+          "No se ha podido configurar el aviso."
+        );
+      }
+
+      return;
+    }
+
+    if (
+      clickEvent.target.closest(
+        "[data-open-custom-notification]"
+      )
+    ) {
+      const sheet =
+        ensureNotificationSheet();
+
+      const customArea =
+        sheet.querySelector(
+          ".notification-custom-area"
+        );
+
+      customArea.hidden =
+        false;
+
+      window.setTimeout(() => {
+        sheet
+          .querySelector(
+            "#notification-custom-minutes"
+          )
+          .focus();
+      }, 50);
+
+      return;
+    }
+
+    if (
+      clickEvent.target.closest(
+        "[data-confirm-custom-notification]"
+      ) &&
+      pendingNotificationEvent
+    ) {
+      const sheet =
+        ensureNotificationSheet();
+
+      const customMinutes =
+        Number(
+          sheet.querySelector(
+            "#notification-custom-minutes"
+          ).value
+        );
+
+      try {
+        await scheduleEventNotification(
+          pendingNotificationEvent,
+          pendingNotificationButton,
+          customMinutes
+        );
+      } catch (error) {
+        console.error(
+          "AlberoTV: error programando el aviso personalizado",
+          error
+        );
+
+        alert(
+          "No se ha podido configurar el aviso."
+        );
+      }
+
+      return;
+    }
+
+    if (
+      clickEvent.target.closest(
+        "[data-cancel-event-notification]"
+      ) &&
+      pendingNotificationEvent
+    ) {
+      try {
+        await cancelEventNotification(
+          pendingNotificationEvent,
+          pendingNotificationButton
+        );
+      } catch (error) {
+        console.error(
+          "AlberoTV: error cancelando el aviso",
+          error
+        );
+
+        alert(
+          "No se ha podido cancelar el aviso."
+        );
+      }
+    }
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  keyboardEvent => {
+    if (
+      keyboardEvent.key === "Escape"
+    ) {
+      closeNotificationSheet();
+    }
+  }
+);
+
+
+
+/* ==================================================
+   FAVORITOS
+   ================================================== */
+
+const FAVORITES_STORAGE_KEY =
+  "alberotv-favorites-v1";
+
+const FAVORITE_NOTIFICATION_IDS_KEY =
+  "alberotv-favorite-notification-ids-v1";
+
+let pendingFavoriteEvent = null;
+
+
+function getEmptyFavorites() {
+  return {
+    events: [],
+    locations: [],
+    channels: [],
+    participants: []
+  };
+}
+
+
+function getFavorites() {
+  try {
+    const stored =
+      JSON.parse(
+        localStorage.getItem(
+          FAVORITES_STORAGE_KEY
+        ) || "{}"
+      );
+
+    return {
+      events:
+        Array.isArray(stored.events)
+          ? stored.events
+          : [],
+
+      locations:
+        Array.isArray(stored.locations)
+          ? stored.locations
+          : [],
+
+      channels:
+        Array.isArray(stored.channels)
+          ? stored.channels
+          : [],
+
+      participants:
+        Array.isArray(stored.participants)
+          ? stored.participants
+          : []
+    };
+  } catch (error) {
+    console.error(
+      "AlberoTV: error leyendo favoritos",
+      error
+    );
+
+    return getEmptyFavorites();
+  }
+}
+
+
+function saveFavorites(favorites) {
+  localStorage.setItem(
+    FAVORITES_STORAGE_KEY,
+    JSON.stringify(favorites)
+  );
+}
+
+
+function normalizeFavoriteValue(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(
+      /[\u0300-\u036f]/g,
+      ""
+    )
+    .trim()
+    .toLowerCase();
+}
+
+
+function getEventChannel(event) {
+  return String(
+    event.channel ||
+    event.broadcaster ||
+    event.platform ||
+    ""
+  ).trim();
+}
+
+
+function getEventParticipantNames(event) {
+  const source =
+    Array.isArray(event.participants)
+      ? event.participants
+      : (
+          event.participants
+            ? [event.participants]
+            : []
+        );
+
+  return source
+    .map(participant => {
+      if (
+        typeof participant === "string"
+      ) {
+        return participant.trim();
+      }
+
+      return String(
+        participant?.name ||
+        participant?.displayName ||
+        participant?.title ||
+        ""
+      ).trim();
+    })
+    .filter(Boolean);
+}
+
+
+function getFavoriteEventKey(event) {
+  return [
+    event.date || "",
+    event.time || "",
+    event.type || "",
+    event.location ||
+      event.name ||
+      ""
+  ]
+    .map(normalizeFavoriteValue)
+    .join("|");
+}
+
+
+function getFavoriteEventLabel(event) {
+  const type =
+    event.type ||
+    "Festejo taurino";
+
+  const location =
+    event.location ||
+    event.name ||
+    "Localidad por confirmar";
+
+  const date =
+    event.date || "";
+
+  const time =
+    event.time || "";
+
+  return [
+    type,
+    location,
+    date,
+    time
+  ]
+    .filter(Boolean)
+    .join(" · ");
+}
+
+
+function includesFavorite(
+  favoriteValues,
+  candidate
+) {
+  const normalizedCandidate =
+    normalizeFavoriteValue(candidate);
+
+  return favoriteValues.some(
+    favorite =>
+      normalizeFavoriteValue(
+        favorite
+      ) === normalizedCandidate
+  );
+}
+
+
+function eventMatchesFavorites(
+  event,
+  favorites = getFavorites()
+) {
+  const matches = [];
+
+  const eventKey =
+    getFavoriteEventKey(event);
+
+  if (
+    favorites.events.some(
+      favorite =>
+        favorite?.key === eventKey
+    )
+  ) {
+    matches.push(
+      "este festejo"
+    );
+  }
+
+  const location =
+    event.location ||
+    event.name ||
+    "";
+
+  if (
+    location &&
+    includesFavorite(
+      favorites.locations,
+      location
+    )
+  ) {
+    matches.push(
+      `la plaza de ${location}`
+    );
+  }
+
+  const channel =
+    getEventChannel(event);
+
+  if (
+    channel &&
+    includesFavorite(
+      favorites.channels,
+      channel
+    )
+  ) {
+    matches.push(
+      `el canal ${channel}`
+    );
+  }
+
+  const participants =
+    getEventParticipantNames(event);
+
+  participants.forEach(
+    participant => {
+      if (
+        includesFavorite(
+          favorites.participants,
+          participant
+        )
+      ) {
+        matches.push(participant);
+      }
+    }
+  );
+
+  return [
+    ...new Set(matches)
+  ];
+}
+
+
+function isEventRelatedToFavorites(event) {
+  return (
+    eventMatchesFavorites(event)
+      .length > 0
+  );
+}
+
+
+function encodeFavoriteEvent(event) {
+  return encodeURIComponent(
+    JSON.stringify({
+      date:
+        event.date || "",
+
+      time:
+        event.time || "",
+
+      type:
+        event.type ||
+        "Festejo taurino",
+
+      location:
+        event.location ||
+        event.name ||
+        "Localidad por confirmar",
+
+      channel:
+        getEventChannel(event),
+
+      participants:
+        getEventParticipantNames(event)
+    })
+  );
+}
+
+
+function buildFavoriteButtonMarkup(event) {
+  const active =
+    isEventRelatedToFavorites(event);
+
+  return `
+    <button
+      class="event-favorite-button ${
+        active
+          ? "favorite-active"
+          : ""
+      }"
+      type="button"
+      data-favorite-event="${
+        encodeFavoriteEvent(event)
+      }"
+    >
+      ${
+        active
+          ? "★ Favorito"
+          : "☆ Favorito"
+      }
+    </button>
+  `;
+}
+
+
+function ensureFavoritesSheet() {
+  let sheet =
+    document.getElementById(
+      "favorites-sheet"
+    );
+
+  if (sheet) {
+    return sheet;
+  }
+
+  sheet =
+    document.createElement("div");
+
+  sheet.id =
+    "favorites-sheet";
+
+  sheet.className =
+    "favorites-sheet";
+
+  sheet.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  sheet.innerHTML = `
+    <div
+      class="favorites-sheet-backdrop"
+      data-close-favorites-sheet
+    ></div>
+
+    <section
+      class="favorites-sheet-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="favorites-sheet-title"
+    >
+      <div class="favorites-sheet-handle">
+      </div>
+
+      <h2 id="favorites-sheet-title">
+        Añadir a favoritos
+      </h2>
+
+      <p class="favorites-sheet-description">
+        Te recordaremos el día anterior
+        cuando alguno de estos favoritos
+        vaya a ser televisado.
+      </p>
+
+      <div
+        class="favorites-options"
+        id="favorites-options"
+      >
+      </div>
+
+      <button
+        type="button"
+        class="favorites-save-button"
+        data-save-favorites
+      >
+        Guardar favoritos
+      </button>
+
+      <button
+        type="button"
+        class="favorites-sheet-close"
+        data-close-favorites-sheet
+      >
+        Cerrar
+      </button>
+    </section>
+  `;
+
+  document.body.appendChild(sheet);
+
+  return sheet;
+}
+
+
+function buildFavoriteOption({
+  category,
+  value,
+  label,
+  checked
+}) {
+  const encodedValue =
+    encodeURIComponent(value);
+
+  return `
+    <label class="favorite-option">
+      <input
+        type="checkbox"
+        data-favorite-category="${
+          category
+        }"
+        data-favorite-value="${
+          encodedValue
+        }"
+        ${
+          checked
+            ? "checked"
+            : ""
+        }
+      >
+
+      <span class="favorite-option-check">
+      </span>
+
+      <span class="favorite-option-text">
+        ${escapeHtml(label)}
+      </span>
+    </label>
+  `;
+}
+
+
+function openFavoritesSheet(
+  event,
+  button
+) {
+  pendingFavoriteEvent =
+    event;
+
+  const sheet =
+    ensureFavoritesSheet();
+
+  const favorites =
+    getFavorites();
+
+  const optionsContainer =
+    sheet.querySelector(
+      "#favorites-options"
+    );
+
+  const eventKey =
+    getFavoriteEventKey(event);
+
+  const location =
+    event.location || "";
+
+  const channel =
+    getEventChannel(event);
+
+  const participants =
+    getEventParticipantNames(event);
+
+  const options = [];
+
+  options.push(
+    buildFavoriteOption({
+      category:
+        "events",
+
+      value:
+        eventKey,
+
+      label:
+        `Festejo: ${
+          getFavoriteEventLabel(event)
+        }`,
+
+      checked:
+        favorites.events.some(
+          favorite =>
+            favorite?.key === eventKey
+        )
+    })
+  );
+
+  if (location) {
+    options.push(
+      buildFavoriteOption({
+        category:
+          "locations",
+
+        value:
+          location,
+
+        label:
+          `Plaza: ${location}`,
+
+        checked:
+          includesFavorite(
+            favorites.locations,
+            location
+          )
+      })
+    );
+  }
+
+  if (channel) {
+    options.push(
+      buildFavoriteOption({
+        category:
+          "channels",
+
+        value:
+          channel,
+
+        label:
+          `Canal: ${channel}`,
+
+        checked:
+          includesFavorite(
+            favorites.channels,
+            channel
+          )
+      })
+    );
+  }
+
+  participants.forEach(
+    participant => {
+      options.push(
+        buildFavoriteOption({
+          category:
+            "participants",
+
+          value:
+            participant,
+
+          label:
+            `Torero: ${participant}`,
+
+          checked:
+            includesFavorite(
+              favorites.participants,
+              participant
+            )
+        })
+      );
+    }
+  );
+
+  optionsContainer.innerHTML =
+    options.join("");
+
+  sheet.classList.add(
+    "is-open"
+  );
+
+  sheet.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  document.body.classList.add(
+    "favorites-sheet-open"
+  );
+
+  sheet.dataset.buttonEvent =
+    button?.dataset
+      ?.favoriteEvent || "";
+}
+
+
+function closeFavoritesSheet() {
+  const sheet =
+    document.getElementById(
+      "favorites-sheet"
+    );
+
+  if (!sheet) {
+    return;
+  }
+
+  sheet.classList.remove(
+    "is-open"
+  );
+
+  sheet.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  document.body.classList.remove(
+    "favorites-sheet-open"
+  );
+
+  pendingFavoriteEvent =
+    null;
+}
+
+
+function addUniqueFavorite(
+  values,
+  value
+) {
+  if (
+    includesFavorite(
+      values,
+      value
+    )
+  ) {
+    return values;
+  }
+
+  return [
+    ...values,
+    value
+  ];
+}
+
+
+function removeFavoriteValue(
+  values,
+  value
+) {
+  const normalizedValue =
+    normalizeFavoriteValue(value);
+
+  return values.filter(
+    currentValue =>
+      normalizeFavoriteValue(
+        currentValue
+      ) !== normalizedValue
+  );
+}
+
+
+async function saveFavoriteSelections() {
+  if (!pendingFavoriteEvent) {
+    return;
+  }
+
+  const sheet =
+    ensureFavoritesSheet();
+
+  const favorites =
+    getFavorites();
+
+  const checkboxes = [
+    ...sheet.querySelectorAll(
+      "[data-favorite-category]"
+    )
+  ];
+
+  const eventKey =
+    getFavoriteEventKey(
+      pendingFavoriteEvent
+    );
+
+  /*
+   * Festejo concreto
+   */
+  const eventCheckbox =
+    checkboxes.find(
+      checkbox =>
+        checkbox.dataset
+          .favoriteCategory ===
+          "events"
+    );
+
+  favorites.events =
+    favorites.events.filter(
+      favorite =>
+        favorite?.key !== eventKey
+    );
+
+  if (
+    eventCheckbox?.checked
+  ) {
+    favorites.events.push({
+      key:
+        eventKey,
+
+      label:
+        getFavoriteEventLabel(
+          pendingFavoriteEvent
+        )
+    });
+  }
+
+  /*
+   * Plaza, canal y toreros
+   */
+  checkboxes
+    .filter(
+      checkbox =>
+        checkbox.dataset
+          .favoriteCategory !==
+          "events"
+    )
+    .forEach(
+      checkbox => {
+        const category =
+          checkbox.dataset
+            .favoriteCategory;
+
+        const value =
+          decodeURIComponent(
+            checkbox.dataset
+              .favoriteValue
+          );
+
+        if (
+          !Array.isArray(
+            favorites[category]
+          )
+        ) {
+          return;
+        }
+
+        if (checkbox.checked) {
+          favorites[category] =
+            addUniqueFavorite(
+              favorites[category],
+              value
+            );
+        } else {
+          favorites[category] =
+            removeFavoriteValue(
+              favorites[category],
+              value
+            );
+        }
+      }
+    );
+
+  saveFavorites(favorites);
+
+  updateFavoriteButtons();
+
+  closeFavoritesSheet();
+
+  await syncFavoriteNotifications(
+    loadedEvents,
+    true
+  );
+}
+
+
+function updateFavoriteButtons() {
+  document
+    .querySelectorAll(
+      ".event-favorite-button"
+    )
+    .forEach(button => {
+      try {
+        const event =
+          JSON.parse(
+            decodeURIComponent(
+              button.dataset
+                .favoriteEvent
+            )
+          );
+
+        const active =
+          isEventRelatedToFavorites(
+            event
+          );
+
+        button.classList.toggle(
+          "favorite-active",
+          active
+        );
+
+        button.textContent =
+          active
+            ? "★ Favorito"
+            : "☆ Favorito";
+      } catch (error) {
+        console.error(
+          "AlberoTV: error actualizando favorito",
+          error
+        );
+      }
+    });
+}
+
+
+function getFavoriteNotificationId(
+  event
+) {
+  const text =
+    "favorite|" +
+    getFavoriteEventKey(event);
+
+  let hash = 0;
+
+  for (
+    let index = 0;
+    index < text.length;
+    index += 1
+  ) {
+    hash =
+      ((hash << 5) - hash) +
+      text.charCodeAt(index);
+
+    hash |= 0;
+  }
+
+  /*
+   * Reservamos una zona distinta
+   * de los avisos manuales.
+   */
+  return (
+    Math.abs(hash % 800000000) +
+    100000000
+  );
+}
+
+
+function getFavoriteReminderDate(event) {
+  if (!event.date) {
+    return null;
+  }
+
+  const dateParts =
+    String(event.date)
+      .split("-")
+      .map(Number);
+
+  if (
+    dateParts.length !== 3 ||
+    dateParts.some(
+      value =>
+        !Number.isFinite(value)
+    )
+  ) {
+    return null;
+  }
+
+  const reminderDate =
+    new Date(
+      dateParts[0],
+      dateParts[1] - 1,
+      dateParts[2],
+      20,
+      0,
+      0,
+      0
+    );
+
+  reminderDate.setDate(
+    reminderDate.getDate() - 1
+  );
+
+  return reminderDate;
+}
+
+
+function getStoredFavoriteNotificationIds() {
+  try {
+    const stored =
+      JSON.parse(
+        localStorage.getItem(
+          FAVORITE_NOTIFICATION_IDS_KEY
+        ) || "[]"
+      );
+
+    return Array.isArray(stored)
+      ? stored.filter(
+          Number.isInteger
+        )
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+
+async function cancelOldFavoriteNotifications(
+  LocalNotifications
+) {
+  const previousIds =
+    getStoredFavoriteNotificationIds();
+
+  if (!previousIds.length) {
+    return;
+  }
+
+  await LocalNotifications.cancel({
+    notifications:
+      previousIds.map(id => ({
+        id
+      }))
+  });
+
+  localStorage.removeItem(
+    FAVORITE_NOTIFICATION_IDS_KEY
+  );
+}
+
+
+async function syncFavoriteNotifications(
+  events,
+  requestPermission = false
+) {
+  const LocalNotifications =
+    getLocalNotificationsPlugin();
+
+  if (
+    !LocalNotifications ||
+    !Array.isArray(events)
+  ) {
+    return;
+  }
+
+  const favorites =
+    getFavorites();
+
+  const hasFavorites =
+    favorites.events.length ||
+    favorites.locations.length ||
+    favorites.channels.length ||
+    favorites.participants.length;
+
+  await cancelOldFavoriteNotifications(
+    LocalNotifications
+  );
+
+  if (!hasFavorites) {
+    return;
+  }
+
+  let permission =
+    await LocalNotifications
+      .checkPermissions();
+
+  if (
+    permission.display !==
+      "granted" &&
+    requestPermission
+  ) {
+    permission =
+      await LocalNotifications
+        .requestPermissions();
+  }
+
+  if (
+    permission.display !==
+    "granted"
+  ) {
+    return;
+  }
+
+  const now =
+    new Date();
+
+  const notifications = [];
+
+  events.forEach(event => {
+    /*
+     * Solo avisamos de festejos
+     * televisados y con fecha.
+     */
+    if (
+      isNonTelevisedEvent(event) ||
+      !event.date
+    ) {
+      return;
+    }
+
+    const matches =
+      eventMatchesFavorites(
+        event,
+        favorites
+      );
+
+    if (!matches.length) {
+      return;
+    }
+
+    const reminderDate =
+      getFavoriteReminderDate(
+        event
+      );
+
+    if (
+      !reminderDate ||
+      reminderDate <= now
+    ) {
+      return;
+    }
+
+    const location =
+      event.location ||
+      event.name ||
+      "Localidad por confirmar";
+
+    const type =
+      event.type ||
+      "Festejo taurino";
+
+    const channel =
+      getEventChannel(event);
+
+    const time =
+      event.time
+        ? ` a las ${event.time}`
+        : "";
+
+    const channelText =
+      channel
+        ? ` · ${channel}`
+        : "";
+
+    notifications.push({
+      id:
+        getFavoriteNotificationId(
+          event
+        ),
+
+      title:
+        "AlberoTV · Mañana tienes un favorito",
+
+      body:
+        `${type} en ${location}${time}${channelText}. Coincide con ${matches.join(
+          ", "
+        )}.`,
+
+      schedule: {
+        at:
+          reminderDate
+      },
+
+      sound:
+        "default",
+
+      extra: {
+        source:
+          "favorite",
+
+        date:
+          event.date,
+
+        time:
+          event.time || "",
+
+        location,
+
+        favoriteMatches:
+          matches
+      }
+    });
+  });
+
+  /*
+   * iOS tiene un límite de avisos
+   * locales pendientes. Dejamos
+   * margen para los avisos manuales.
+   */
+  const limitedNotifications =
+    notifications
+      .sort(
+        (a, b) =>
+          new Date(
+            a.schedule.at
+          ) -
+          new Date(
+            b.schedule.at
+          )
+      )
+      .slice(0, 40);
+
+  if (!limitedNotifications.length) {
+    return;
+  }
+
+  await LocalNotifications.schedule({
+    notifications:
+      limitedNotifications
+  });
+
+  localStorage.setItem(
+    FAVORITE_NOTIFICATION_IDS_KEY,
+    JSON.stringify(
+      limitedNotifications.map(
+        notification =>
+          notification.id
+      )
+    )
+  );
+
+  console.log(
+    `AlberoTV: ${
+      limitedNotifications.length
+    } avisos de favoritos programados`
+  );
+}
+
+
+document.addEventListener(
+  "click",
+  async clickEvent => {
+    const favoriteButton =
+      clickEvent.target.closest(
+        ".event-favorite-button"
+      );
+
+    if (favoriteButton) {
+      clickEvent.preventDefault();
+      clickEvent.stopPropagation();
+
+      try {
+        const event =
+          JSON.parse(
+            decodeURIComponent(
+              favoriteButton.dataset
+                .favoriteEvent
+            )
+          );
+
+        openFavoritesSheet(
+          event,
+          favoriteButton
+        );
+      } catch (error) {
+        console.error(
+          "AlberoTV: error abriendo favoritos",
+          error
+        );
+      }
+
+      return;
+    }
+
+    if (
+      clickEvent.target.closest(
+        "[data-close-favorites-sheet]"
+      )
+    ) {
+      closeFavoritesSheet();
+      return;
+    }
+
+    if (
+      clickEvent.target.closest(
+        "[data-save-favorites]"
+      )
+    ) {
+      try {
+        await saveFavoriteSelections();
+      } catch (error) {
+        console.error(
+          "AlberoTV: error guardando favoritos",
+          error
+        );
+
+        alert(
+          "No se han podido guardar los favoritos."
+        );
+      }
+    }
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  keyboardEvent => {
+    if (
+      keyboardEvent.key === "Escape"
+    ) {
+      closeFavoritesSheet();
+    }
+  }
+);
+
+
+
+/* ==================================================
+   PANTALLA MIS FAVORITOS
+   ================================================== */
+
+function ensureFavoritesManagerButton() {
+  let button =
+    document.getElementById(
+      "favorites-manager-button"
+    );
+
+  if (button) {
+    return button;
+  }
+
+  button =
+    document.createElement("button");
+
+  button.id =
+    "favorites-manager-button";
+
+  button.className =
+    "favorites-manager-button";
+
+  button.type =
+    "button";
+
+  button.setAttribute(
+    "aria-label",
+    "Abrir mis favoritos"
+  );
+
+  button.innerHTML = `
+    <span aria-hidden="true">
+      ★
+    </span>
+
+    <span>
+      Mis favoritos
+    </span>
+  `;
+
+  const actionsRow =
+    ensureTopbarActionsRow();
+
+  if (actionsRow) {
+    actionsRow.appendChild(
+      button
+    );
+  } else {
+    document.body.appendChild(
+      button
+    );
+  }
+
+  return button;
+}
+
+
+function ensureFavoritesManagerSheet() {
+  let sheet =
+    document.getElementById(
+      "favorites-manager-sheet"
+    );
+
+  if (sheet) {
+    return sheet;
+  }
+
+  sheet =
+    document.createElement("div");
+
+  sheet.id =
+    "favorites-manager-sheet";
+
+  sheet.className =
+    "favorites-manager-sheet";
+
+  sheet.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  sheet.innerHTML = `
+    <div
+      class="favorites-manager-backdrop"
+      data-close-favorites-manager
+    ></div>
+
+    <section
+      class="favorites-manager-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="favorites-manager-title"
+    >
+      <div class="favorites-manager-handle">
+      </div>
+
+      <div class="favorites-manager-heading">
+        <div>
+          <h2 id="favorites-manager-title">
+            Mis favoritos
+          </h2>
+
+          <p>
+            Toreros, plazas, canales y festejos
+            que estás siguiendo.
+          </p>
+        </div>
+
+        <div
+          class="favorites-manager-count"
+          id="favorites-manager-count"
+        >
+          0
+        </div>
+      </div>
+
+      <div
+        class="favorites-manager-content"
+        id="favorites-manager-content"
+      >
+      </div>
+
+      <button
+        type="button"
+        class="favorites-delete-all"
+        data-delete-all-favorites
+        hidden
+      >
+        Borrar todos los favoritos
+      </button>
+
+      <button
+        type="button"
+        class="favorites-manager-close"
+        data-close-favorites-manager
+      >
+        Cerrar
+      </button>
+    </section>
+  `;
+
+  document.body.appendChild(sheet);
+
+  return sheet;
+}
+
+
+function getFavoritesTotal(favorites) {
+  return (
+    favorites.events.length +
+    favorites.locations.length +
+    favorites.channels.length +
+    favorites.participants.length
+  );
+}
+
+
+function buildFavoritesManagerItem({
+  category,
+  value,
+  label
+}) {
+  const encodedValue =
+    encodeURIComponent(
+      JSON.stringify(value)
+    );
+
+  return `
+    <div class="favorites-manager-item">
+
+      <div class="favorites-manager-item-label">
+        ${escapeHtml(label)}
+      </div>
+
+      <button
+        type="button"
+        class="favorites-manager-remove"
+        data-remove-favorite-category="${category}"
+        data-remove-favorite-value="${encodedValue}"
+        aria-label="Eliminar ${escapeHtml(label)}"
+      >
+        ×
+      </button>
+
+    </div>
+  `;
+}
+
+
+function buildFavoritesManagerSection({
+  title,
+  icon,
+  category,
+  items
+}) {
+  if (!items.length) {
+    return "";
+  }
+
+  return `
+    <section class="favorites-manager-section">
+
+      <h3>
+        <span aria-hidden="true">
+          ${icon}
+        </span>
+
+        ${escapeHtml(title)}
+
+        <span class="favorites-section-count">
+          ${items.length}
+        </span>
+      </h3>
+
+      <div class="favorites-manager-list">
+        ${
+          items
+            .map(item =>
+              buildFavoritesManagerItem({
+                category,
+                value: item.value,
+                label: item.label
+              })
+            )
+            .join("")
+        }
+      </div>
+
+    </section>
+  `;
+}
+
+
+function renderFavoritesManager() {
+  const sheet =
+    ensureFavoritesManagerSheet();
+
+  const favorites =
+    getFavorites();
+
+  const total =
+    getFavoritesTotal(favorites);
+
+  const content =
+    sheet.querySelector(
+      "#favorites-manager-content"
+    );
+
+  const count =
+    sheet.querySelector(
+      "#favorites-manager-count"
+    );
+
+  const deleteAllButton =
+    sheet.querySelector(
+      "[data-delete-all-favorites]"
+    );
+
+  count.textContent =
+    String(total);
+
+  deleteAllButton.hidden =
+    total === 0;
+
+  if (!total) {
+    content.innerHTML = `
+      <div class="favorites-manager-empty">
+
+        <div class="favorites-manager-empty-icon">
+          ☆
+        </div>
+
+        <h3>
+          Todavía no tienes favoritos
+        </h3>
+
+        <p>
+          Pulsa el botón Favorito en cualquier
+          festejo para seguir toreros, plazas,
+          canales o eventos concretos.
+        </p>
+
+      </div>
+    `;
+
+    return;
+  }
+
+  const eventItems =
+    favorites.events.map(
+      favorite => ({
+        value:
+          favorite,
+
+        label:
+          favorite?.label ||
+          "Festejo guardado"
+      })
+    );
+
+  const locationItems =
+    favorites.locations.map(
+      location => ({
+        value:
+          location,
+
+        label:
+          location
+      })
+    );
+
+  const channelItems =
+    favorites.channels.map(
+      channel => ({
+        value:
+          channel,
+
+        label:
+          channel
+      })
+    );
+
+  const participantItems =
+    favorites.participants.map(
+      participant => ({
+        value:
+          participant,
+
+        label:
+          participant
+      })
+    );
+
+  content.innerHTML = [
+    buildFavoritesManagerSection({
+      title:
+        "Toreros",
+
+      icon:
+        "👤",
+
+      category:
+        "participants",
+
+      items:
+        participantItems
+    }),
+
+    buildFavoritesManagerSection({
+      title:
+        "Plazas",
+
+      icon:
+        "🏟",
+
+      category:
+        "locations",
+
+      items:
+        locationItems
+    }),
+
+    buildFavoritesManagerSection({
+      title:
+        "Canales",
+
+      icon:
+        "📺",
+
+      category:
+        "channels",
+
+      items:
+        channelItems
+    }),
+
+    buildFavoritesManagerSection({
+      title:
+        "Festejos",
+
+      icon:
+        "★",
+
+      category:
+        "events",
+
+      items:
+        eventItems
+    })
+  ].join("");
+}
+
+
+function openFavoritesManager() {
+  const sheet =
+    ensureFavoritesManagerSheet();
+
+  renderFavoritesManager();
+
+  sheet.classList.add(
+    "is-open"
+  );
+
+  sheet.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  document.body.classList.add(
+    "favorites-manager-open"
+  );
+}
+
+
+function closeFavoritesManager() {
+  const sheet =
+    document.getElementById(
+      "favorites-manager-sheet"
+    );
+
+  if (!sheet) {
+    return;
+  }
+
+  sheet.classList.remove(
+    "is-open"
+  );
+
+  sheet.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  document.body.classList.remove(
+    "favorites-manager-open"
+  );
+}
+
+
+async function refreshFavoritesAfterChange() {
+  updateFavoriteButtons();
+
+  renderFavoritesManager();
+
+  await syncFavoriteNotifications(
+    loadedEvents,
+    false
+  );
+}
+
+
+async function removeFavoriteFromManager(
+  category,
+  storedValue
+) {
+  const favorites =
+    getFavorites();
+
+  if (
+    !Object.prototype.hasOwnProperty.call(
+      favorites,
+      category
+    )
+  ) {
+    return;
+  }
+
+  if (category === "events") {
+    const eventKey =
+      storedValue?.key;
+
+    favorites.events =
+      favorites.events.filter(
+        favorite =>
+          favorite?.key !== eventKey
+      );
+  } else {
+    favorites[category] =
+      removeFavoriteValue(
+        favorites[category],
+        storedValue
+      );
+  }
+
+  saveFavorites(favorites);
+
+  await refreshFavoritesAfterChange();
+}
+
+
+async function deleteAllFavorites() {
+  const confirmed =
+    window.confirm(
+      "¿Quieres borrar todos tus favoritos y sus recordatorios automáticos?"
+    );
+
+  if (!confirmed) {
+    return;
+  }
+
+  saveFavorites(
+    getEmptyFavorites()
+  );
+
+  await refreshFavoritesAfterChange();
+}
+
+
+document.addEventListener(
+  "click",
+  async clickEvent => {
+    if (
+      clickEvent.target.closest(
+        "#favorites-manager-button"
+      )
+    ) {
+      clickEvent.preventDefault();
+
+      openFavoritesManager();
+
+      return;
+    }
+
+    if (
+      clickEvent.target.closest(
+        "[data-close-favorites-manager]"
+      )
+    ) {
+      closeFavoritesManager();
+
+      return;
+    }
+
+    const removeButton =
+      clickEvent.target.closest(
+        "[data-remove-favorite-category]"
+      );
+
+    if (removeButton) {
+      const category =
+        removeButton.dataset
+          .removeFavoriteCategory;
+
+      const storedValue =
+        JSON.parse(
+          decodeURIComponent(
+            removeButton.dataset
+              .removeFavoriteValue
+          )
+        );
+
+      try {
+        await removeFavoriteFromManager(
+          category,
+          storedValue
+        );
+      } catch (error) {
+        console.error(
+          "AlberoTV: error eliminando favorito",
+          error
+        );
+
+        alert(
+          "No se ha podido eliminar el favorito."
+        );
+      }
+
+      return;
+    }
+
+    if (
+      clickEvent.target.closest(
+        "[data-delete-all-favorites]"
+      )
+    ) {
+      try {
+        await deleteAllFavorites();
+      } catch (error) {
+        console.error(
+          "AlberoTV: error borrando favoritos",
+          error
+        );
+
+        alert(
+          "No se han podido borrar los favoritos."
+        );
+      }
+    }
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  keyboardEvent => {
+    if (
+      keyboardEvent.key === "Escape"
+    ) {
+      closeFavoritesManager();
+    }
+  }
+);
+
+
 function buildBullfightingEvent(event) {
   const type =
     event.type ||
@@ -2730,6 +6411,11 @@ function buildBullfightingEvent(event) {
             `
             : ""
         }
+
+        <div class="event-action-row">
+          ${buildNotificationButtonMarkup(event)}
+          ${buildFavoriteButtonMarkup(event)}
+        </div>
 
       </div>
 
@@ -3135,7 +6821,7 @@ function requestVisualUpdate() {
 async function loadEvents() {
   const response =
     await fetch(
-      `data/programacion.json?ts=${Date.now()}`,
+      `https://alberotv.com/data/programacion.json?ts=${Date.now()}`,
       {
         cache: "no-store"
       }
@@ -3211,6 +6897,8 @@ function showLoadingError(error) {
 
 async function init() {
   injectAlberoEnhancementStyles();
+  ensureFavoritesManagerButton();
+  ensureLocationExplorerButton();
 
   let events = [];
 
@@ -3225,6 +6913,10 @@ async function init() {
     );
 
     renderCategoryNavigation(events);
+
+    await syncFavoriteNotifications(
+      events
+    );
   } catch (error) {
     showLoadingError(error);
 
@@ -3727,3 +7419,48 @@ window.addEventListener(
     }
   }
 );
+
+/* ==================================================
+   NUEVA CABECERA ALBEROTV
+   ================================================== */
+
+function installAlberoTVBrandHeader() {
+  const currentTitle =
+    document.querySelector(".brand");
+
+  if (!currentTitle) {
+    return;
+  }
+
+  if (
+    currentTitle.querySelector(
+      ".alberotv-brand"
+    )
+  ) {
+    return;
+  }
+
+  currentTitle.innerHTML = `
+    <span class="alberotv-brand">
+      <img
+        class="alberotv-brand__icon"
+        src="assets/alberotv-logo.png"
+        alt="AlberoTV"
+      >
+      <span class="alberotv-brand__name">
+        <span class="alberotv-brand__albero">ALBERO</span>
+        <span class="alberotv-brand__tv">TV</span>
+      </span>
+    </span>
+  `;
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener(
+    "DOMContentLoaded",
+    installAlberoTVBrandHeader
+  );
+} else {
+  installAlberoTVBrandHeader();
+}
+
