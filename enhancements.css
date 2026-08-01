@@ -2815,3 +2815,270 @@ input:checked +
   touch-action: pan-y !important;
 }
 
+
+/* ==================================================
+   WEB DE ESCRITORIO CON VENTANA ESTRECHA
+   No afecta a la app ni al iPhone
+   ================================================== */
+
+@media
+  (max-width: 800px)
+  and (hover: hover)
+  and (pointer: fine) {
+
+  /*
+   * Cabecera compacta en dos filas:
+   * logo y botones arriba, categorías debajo.
+   */
+  .topbar {
+    height: 120px !important;
+
+    padding:
+      8px
+      14px
+      7px
+      !important;
+
+    align-items: stretch !important;
+  }
+
+  .topbar-inner {
+    height: 100% !important;
+
+    display: grid !important;
+    grid-template-columns:
+      minmax(0, 1fr)
+      auto !important;
+
+    grid-template-rows:
+      48px
+      48px !important;
+
+    align-items: center !important;
+
+    column-gap: 12px !important;
+    row-gap: 5px !important;
+  }
+
+  /*
+   * Logo
+   */
+  .brand {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+
+    align-self: center !important;
+
+    width: auto !important;
+    max-width: 260px !important;
+
+    margin: 0 !important;
+
+    font-size: 24px !important;
+    transform: none !important;
+
+    overflow: hidden !important;
+  }
+
+  .alberotv-brand {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 9px !important;
+
+    width: auto !important;
+    max-width: 100% !important;
+
+    white-space: nowrap !important;
+  }
+
+  .alberotv-brand__icon {
+    display: block !important;
+
+    width: 40px !important;
+    height: 40px !important;
+
+    min-width: 40px !important;
+    max-width: 40px !important;
+
+    object-fit: contain !important;
+  }
+
+  .alberotv-brand__name {
+    display: inline-flex !important;
+    align-items: baseline !important;
+
+    font-size: 25px !important;
+    line-height: 1 !important;
+    letter-spacing: -1px !important;
+
+    transform: none !important;
+  }
+
+  /*
+   * Botones superiores
+   */
+  .topbar-actions-row {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+
+    width: auto !important;
+    margin: 0 !important;
+  }
+
+  #location-explorer-button {
+    width: 42px !important;
+    min-width: 42px !important;
+    height: 42px !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border-radius: 11px !important;
+
+    font-size: 18px !important;
+  }
+
+  #favorites-manager-button {
+    width: auto !important;
+    min-width: 0 !important;
+    height: 42px !important;
+
+    padding:
+      0
+      14px
+      !important;
+
+    margin: 0 !important;
+
+    border-radius: 999px !important;
+
+    gap: 6px !important;
+
+    font-size: 13px !important;
+    white-space: nowrap !important;
+  }
+
+  /*
+   * Categorías en la segunda fila
+   */
+  .category-nav {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+
+    overflow: hidden !important;
+  }
+
+  .category-list {
+    width: 100% !important;
+
+    gap: 7px !important;
+
+    padding:
+      3px
+      2px
+      !important;
+
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+  }
+
+  .category-pill {
+    min-height: 38px !important;
+
+    padding:
+      7px
+      12px
+      !important;
+
+    gap: 6px !important;
+
+    border-radius: 999px !important;
+
+    font-size: 11px !important;
+    line-height: 1 !important;
+  }
+
+  /*
+   * El contenido debe descontar la nueva
+   * altura compacta de la cabecera.
+   */
+  .main-content,
+  main {
+    height:
+      calc(
+        100dvh - 120px
+      )
+      !important;
+  }
+
+  /*
+   * Evita que la tarjeta del día se convierta
+   * en una tarjeta gigantesca de ancho completo.
+   */
+  .timeline {
+    gap: 12px !important;
+
+    padding:
+      14px
+      calc(
+        50vw - 160px
+      )
+      !important;
+  }
+
+  .timeline .day,
+  .day {
+    flex:
+      0
+      0
+      320px
+      !important;
+
+    width: 320px !important;
+    max-width: 320px !important;
+
+    height:
+      min(
+        590px,
+        calc(
+          100% - 28px
+        )
+      )
+      !important;
+
+    min-height: 360px !important;
+  }
+
+  .day-header {
+    padding:
+      16px
+      18px
+      13px
+      !important;
+  }
+
+  .date {
+    font-size: 25px !important;
+  }
+
+  .events {
+    padding:
+      11px
+      12px
+      90px
+      !important;
+  }
+
+  .event {
+    padding: 12px !important;
+  }
+}
+
