@@ -3742,28 +3742,37 @@ function buildProgram(event) {
 
       ${buildEventHeaderMarkup(event)}
 
-      <h2 class="event-title program-title">
-        ${escapeHtml(title)}
-      </h2>
+      <div class="event-content-stack">
 
-      <div class="program-description">
-        Actualidad y contenidos del mundo taurino
+        <h2 class="event-title program-title">
+          ${escapeHtml(title)}
+        </h2>
+
+        <div class="program-description">
+          Actualidad y contenidos del mundo taurino
+        </div>
+
+        ${
+          eventUrl
+            ? `
+              <a
+                class="event-link program-link"
+                href="${escapeHtml(eventUrl)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ver emisión
+              </a>
+            `
+            : ""
+        }
+
+        <div class="event-action-row">
+          ${buildNotificationButtonMarkup(event)}
+          ${buildFavoriteButtonMarkup(event)}
+        </div>
+
       </div>
-
-      ${
-        eventUrl
-          ? `
-            <a
-              class="event-link program-link"
-              href="${escapeHtml(eventUrl)}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Ver emisión
-            </a>
-          `
-          : ""
-      }
 
     </article>
   `;
@@ -4030,20 +4039,35 @@ function ensureNotificationSheet() {
         class="notification-custom-area"
         hidden
       >
-        <label for="notification-custom-minutes">
-          Minutos antes
+        <label for="notification-custom-amount">
+          Avisarme
         </label>
 
         <div class="notification-custom-row">
+
           <input
-            id="notification-custom-minutes"
+            id="notification-custom-amount"
             type="number"
             inputmode="numeric"
-            min="5"
+            min="1"
             max="1440"
             step="1"
             value="30"
+            aria-label="Cantidad de tiempo"
           >
+
+          <select
+            id="notification-custom-unit"
+            aria-label="Unidad de tiempo"
+          >
+            <option value="minutes">
+              minutos antes
+            </option>
+
+            <option value="hours">
+              horas antes
+            </option>
+          </select>
 
           <button
             type="button"
@@ -4051,10 +4075,11 @@ function ensureNotificationSheet() {
           >
             Guardar
           </button>
+
         </div>
 
         <small>
-          Entre 5 minutos y 24 horas.
+          Mínimo 5 minutos y máximo 24 horas.
         </small>
       </div>
 
@@ -4101,9 +4126,14 @@ function openNotificationSheet(
       ".notification-sheet-event"
     );
 
-  const customInput =
+  const customAmountInput =
     sheet.querySelector(
-      "#notification-custom-minutes"
+      "#notification-custom-amount"
+    );
+
+  const customUnitSelect =
+    sheet.querySelector(
+      "#notification-custom-unit"
     );
 
   const customArea =
@@ -4122,9 +4152,26 @@ function openNotificationSheet(
   eventText.textContent =
     `${event.type} · ${event.location} · ${event.time}`;
 
-  customInput.value =
+  const selectedMinutes =
     activeMinutes ||
     getLastNotificationMinutes();
+
+  if (
+    selectedMinutes >= 60 &&
+    selectedMinutes % 60 === 0
+  ) {
+    customAmountInput.value =
+      selectedMinutes / 60;
+
+    customUnitSelect.value =
+      "hours";
+  } else {
+    customAmountInput.value =
+      selectedMinutes;
+
+    customUnitSelect.value =
+      "minutes";
+  }
 
   customArea.hidden =
     true;
@@ -4466,7 +4513,7 @@ document.addEventListener(
       window.setTimeout(() => {
         sheet
           .querySelector(
-            "#notification-custom-minutes"
+            "#notification-custom-amount"
           )
           .focus();
       }, 50);
@@ -4483,12 +4530,33 @@ document.addEventListener(
       const sheet =
         ensureNotificationSheet();
 
-      const customMinutes =
+      const customAmount =
         Number(
           sheet.querySelector(
-            "#notification-custom-minutes"
+            "#notification-custom-amount"
           ).value
         );
+
+      const customUnit =
+        sheet.querySelector(
+          "#notification-custom-unit"
+        ).value;
+
+      if (
+        !Number.isInteger(customAmount) ||
+        customAmount <= 0
+      ) {
+        alert(
+          "Introduce una cantidad válida."
+        );
+
+        return;
+      }
+
+      const customMinutes =
+        customUnit === "hours"
+          ? customAmount * 60
+          : customAmount;
 
       try {
         await scheduleEventNotification(
@@ -4562,14 +4630,18 @@ const FAVORITE_NOTIFICATION_IDS_KEY =
 let pendingFavoriteEvent = null;
 
 
+
 function getEmptyFavorites() {
   return {
     events: [],
     locations: [],
     channels: [],
-    participants: []
+    participants: [],
+    breedings: [],
+    programs: []
   };
 }
+
 
 
 function getFavorites() {
@@ -4600,6 +4672,16 @@ function getFavorites() {
       participants:
         Array.isArray(stored.participants)
           ? stored.participants
+          : [],
+
+      breedings:
+        Array.isArray(stored.breedings)
+          ? stored.breedings
+          : [],
+
+      programs:
+        Array.isArray(stored.programs)
+          ? stored.programs
           : []
     };
   } catch (error) {
@@ -4729,6 +4811,51 @@ function includesFavorite(
 }
 
 
+
+function getEventBreedingName(event = {}) {
+  return cleanBreedingDisplay(
+    event.breeding || ""
+  );
+}
+
+
+function getProgramFavoriteName(event = {}) {
+  if (!isProgram(event)) {
+    return "";
+  }
+
+  const candidates = [
+    event.title,
+    event.name,
+    event.programName,
+    event.location
+  ];
+
+  const ignored = new Set([
+    "",
+    "television",
+    "televisión",
+    "programa taurino"
+  ]);
+
+  return String(
+    candidates.find(candidate => {
+      const normalized =
+        normalizeFavoriteValue(candidate);
+
+      return (
+        normalized &&
+        !ignored.has(normalized)
+      );
+    }) ||
+    event.title ||
+    event.name ||
+    "Programa taurino"
+  ).trim();
+}
+
+
+
 function eventMatchesFavorites(
   event,
   favorites = getFavorites()
@@ -4745,7 +4872,9 @@ function eventMatchesFavorites(
     )
   ) {
     matches.push(
-      "este festejo"
+      isProgram(event)
+        ? "este programa"
+        : "este festejo"
     );
   }
 
@@ -4781,11 +4910,38 @@ function eventMatchesFavorites(
     );
   }
 
-  const participants =
-    getEventParticipantNames(event);
+  const breeding =
+    getEventBreedingName(event);
 
-  participants.forEach(
-    participant => {
+  if (
+    breeding &&
+    includesFavorite(
+      favorites.breedings,
+      breeding
+    )
+  ) {
+    matches.push(
+      `la ganadería ${breeding}`
+    );
+  }
+
+  const program =
+    getProgramFavoriteName(event);
+
+  if (
+    program &&
+    includesFavorite(
+      favorites.programs,
+      program
+    )
+  ) {
+    matches.push(
+      `el programa ${program}`
+    );
+  }
+
+  getEventParticipantNames(event)
+    .forEach(participant => {
       if (
         includesFavorite(
           favorites.participants,
@@ -4794,12 +4950,9 @@ function eventMatchesFavorites(
       ) {
         matches.push(participant);
       }
-    }
-  );
+    });
 
-  return [
-    ...new Set(matches)
-  ];
+  return matches;
 }
 
 
@@ -4809,6 +4962,7 @@ function isEventRelatedToFavorites(event) {
       .length > 0
   );
 }
+
 
 
 function encodeFavoriteEvent(event) {
@@ -4824,6 +4978,15 @@ function encodeFavoriteEvent(event) {
         event.type ||
         "Festejo taurino",
 
+      contentType:
+        event.contentType || "",
+
+      title:
+        event.title || "",
+
+      name:
+        event.name || "",
+
       location:
         event.location ||
         event.name ||
@@ -4833,7 +4996,10 @@ function encodeFavoriteEvent(event) {
         getEventChannel(event),
 
       participants:
-        getEventParticipantNames(event)
+        getEventParticipantNames(event),
+
+      breeding:
+        getEventBreedingName(event)
     })
   );
 }
@@ -4981,6 +5147,7 @@ function buildFavoriteOption({
 }
 
 
+
 function openFavoritesSheet(
   event,
   button
@@ -5011,6 +5178,12 @@ function openFavoritesSheet(
   const participants =
     getEventParticipantNames(event);
 
+  const breeding =
+    getEventBreedingName(event);
+
+  const program =
+    getProgramFavoriteName(event);
+
   const options = [];
 
   options.push(
@@ -5022,7 +5195,11 @@ function openFavoritesSheet(
         eventKey,
 
       label:
-        `Festejo: ${
+        `${
+          isProgram(event)
+            ? "Emisión"
+            : "Festejo"
+        }: ${
           getFavoriteEventLabel(event)
         }`,
 
@@ -5034,7 +5211,52 @@ function openFavoritesSheet(
     })
   );
 
-  if (location) {
+  if (program) {
+    options.push(
+      buildFavoriteOption({
+        category:
+          "programs",
+
+        value:
+          program,
+
+        label:
+          `Programa: ${program}`,
+
+        checked:
+          includesFavorite(
+            favorites.programs,
+            program
+          )
+      })
+    );
+  }
+
+  if (breeding) {
+    options.push(
+      buildFavoriteOption({
+        category:
+          "breedings",
+
+        value:
+          breeding,
+
+        label:
+          `Ganadería: ${breeding}`,
+
+        checked:
+          includesFavorite(
+            favorites.breedings,
+            breeding
+          )
+      })
+    );
+  }
+
+  if (
+    location &&
+    !isProgram(event)
+  ) {
     options.push(
       buildFavoriteOption({
         category:
@@ -5471,7 +5693,9 @@ async function syncFavoriteNotifications(
     favorites.events.length ||
     favorites.locations.length ||
     favorites.channels.length ||
-    favorites.participants.length;
+    favorites.participants.length ||
+    favorites.breedings.length ||
+    favorites.programs.length;
 
   await cancelOldFavoriteNotifications(
     LocalNotifications
@@ -5875,12 +6099,15 @@ function ensureFavoritesManagerSheet() {
 }
 
 
+
 function getFavoritesTotal(favorites) {
   return (
     favorites.events.length +
     favorites.locations.length +
     favorites.channels.length +
-    favorites.participants.length
+    favorites.participants.length +
+    favorites.breedings.length +
+    favorites.programs.length
   );
 }
 
@@ -5961,6 +6188,7 @@ function buildFavoritesManagerSection({
 }
 
 
+
 function renderFavoritesManager() {
   const sheet =
     ensureFavoritesManagerSheet();
@@ -6005,8 +6233,8 @@ function renderFavoritesManager() {
         </h3>
 
         <p>
-          Pulsa el botón Favorito en cualquier
-          festejo para seguir toreros, plazas,
+          Pulsa Favorito para seguir toreros,
+          ganaderías, programas, plazas,
           canales o eventos concretos.
         </p>
 
@@ -6024,7 +6252,7 @@ function renderFavoritesManager() {
 
         label:
           favorite?.label ||
-          "Festejo guardado"
+          "Evento guardado"
       })
     );
 
@@ -6061,7 +6289,57 @@ function renderFavoritesManager() {
       })
     );
 
+  const breedingItems =
+    favorites.breedings.map(
+      breeding => ({
+        value:
+          breeding,
+
+        label:
+          breeding
+      })
+    );
+
+  const programItems =
+    favorites.programs.map(
+      program => ({
+        value:
+          program,
+
+        label:
+          program
+      })
+    );
+
   content.innerHTML = [
+    buildFavoritesManagerSection({
+      title:
+        "Programas",
+
+      icon:
+        "📺",
+
+      category:
+        "programs",
+
+      items:
+        programItems
+    }),
+
+    buildFavoritesManagerSection({
+      title:
+        "Ganaderías",
+
+      icon:
+        "🐂",
+
+      category:
+        "breedings",
+
+      items:
+        breedingItems
+    }),
+
     buildFavoritesManagerSection({
       title:
         "Toreros",
@@ -6095,7 +6373,7 @@ function renderFavoritesManager() {
         "Canales",
 
       icon:
-        "📺",
+        "📡",
 
       category:
         "channels",
@@ -6106,10 +6384,10 @@ function renderFavoritesManager() {
 
     buildFavoritesManagerSection({
       title:
-        "Festejos",
+        "Eventos concretos",
 
       icon:
-        "★",
+        "⭐",
 
       category:
         "events",
@@ -7463,4 +7741,1437 @@ if (document.readyState === "loading") {
 } else {
   installAlberoTVBrandHeader();
 }
+
+
+/* ==================================================
+   CENTRADO AUTOMÁTICO DEL CARRUSEL DE DÍAS
+   ================================================== */
+
+function installTimelineAutoCenter() {
+  const timelineElement =
+    document.getElementById("timeline");
+
+  if (
+    !timelineElement ||
+    timelineElement.dataset.autoCenterInstalled === "true"
+  ) {
+    return;
+  }
+
+  timelineElement.dataset.autoCenterInstalled =
+    "true";
+
+  let scrollTimer = null;
+  let userIsTouching = false;
+  let automaticCentering = false;
+
+  function getNearestDayCard() {
+    const dayCards = [
+      ...timelineElement.querySelectorAll(".day")
+    ];
+
+    if (!dayCards.length) {
+      return null;
+    }
+
+    const timelineRect =
+      timelineElement.getBoundingClientRect();
+
+    const timelineCenter =
+      timelineRect.left +
+      timelineRect.width / 2;
+
+    return dayCards.reduce(
+      (nearest, card) => {
+        const cardRect =
+          card.getBoundingClientRect();
+
+        const cardCenter =
+          cardRect.left +
+          cardRect.width / 2;
+
+        const distance =
+          Math.abs(
+            cardCenter -
+            timelineCenter
+          );
+
+        if (
+          !nearest ||
+          distance < nearest.distance
+        ) {
+          return {
+            card,
+            distance
+          };
+        }
+
+        return nearest;
+      },
+      null
+    )?.card || null;
+  }
+
+  function centerNearestDay() {
+    if (
+      userIsTouching ||
+      automaticCentering
+    ) {
+      return;
+    }
+
+    const nearestCard =
+      getNearestDayCard();
+
+    if (!nearestCard) {
+      return;
+    }
+
+    const targetLeft =
+      nearestCard.offsetLeft -
+      timelineElement.clientWidth / 2 +
+      nearestCard.offsetWidth / 2;
+
+    if (
+      Math.abs(
+        timelineElement.scrollLeft -
+        targetLeft
+      ) < 2
+    ) {
+      return;
+    }
+
+    automaticCentering = true;
+
+    timelineElement.scrollTo({
+      left: targetLeft,
+      behavior: "smooth"
+    });
+
+    window.setTimeout(() => {
+      automaticCentering = false;
+
+      document
+        .querySelectorAll(".day")
+        .forEach(card => {
+          const isActive =
+            card === nearestCard;
+
+          card.classList.toggle(
+            "active",
+            isActive
+          );
+
+          card.setAttribute(
+            "aria-current",
+            isActive
+              ? "date"
+              : "false"
+          );
+        });
+
+      if (
+        typeof activeCard !== "undefined"
+      ) {
+        activeCard =
+          nearestCard;
+      }
+
+      if (
+        typeof updateTodayButtonState ===
+        "function"
+      ) {
+        updateTodayButtonState();
+      }
+    }, 350);
+  }
+
+  function scheduleCentering() {
+    window.clearTimeout(
+      scrollTimer
+    );
+
+    scrollTimer =
+      window.setTimeout(
+        centerNearestDay,
+        140
+      );
+  }
+
+  timelineElement.addEventListener(
+    "touchstart",
+    () => {
+      userIsTouching = true;
+
+      window.clearTimeout(
+        scrollTimer
+      );
+    },
+    {
+      passive: true
+    }
+  );
+
+  timelineElement.addEventListener(
+    "touchend",
+    () => {
+      userIsTouching = false;
+
+      scheduleCentering();
+    },
+    {
+      passive: true
+    }
+  );
+
+  timelineElement.addEventListener(
+    "pointerdown",
+    () => {
+      userIsTouching = true;
+
+      window.clearTimeout(
+        scrollTimer
+      );
+    },
+    {
+      passive: true
+    }
+  );
+
+  window.addEventListener(
+    "pointerup",
+    () => {
+      if (!userIsTouching) {
+        return;
+      }
+
+      userIsTouching = false;
+
+      scheduleCentering();
+    },
+    {
+      passive: true
+    }
+  );
+
+  timelineElement.addEventListener(
+    "scroll",
+    scheduleCentering,
+    {
+      passive: true
+    }
+  );
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener(
+    "DOMContentLoaded",
+    installTimelineAutoCenter
+  );
+} else {
+  installTimelineAutoCenter();
+}
+
+window.addEventListener(
+  "pageshow",
+  installTimelineAutoCenter
+);
+
+
+/* ==================================================
+   AVISOS AUTOMÁTICOS POR CATEGORÍA
+   ================================================== */
+
+const CATEGORY_ALERTS_STORAGE_KEY =
+  "alberotv-category-alerts-v1";
+
+const CATEGORY_ALERT_IDS_STORAGE_KEY =
+  "alberotv-category-alert-ids-v1";
+
+const CATEGORY_ALERT_OPTIONS = [
+  {
+    key: "corridas",
+    label: "Todas las corridas"
+  },
+  {
+    key: "rejones",
+    label: "Todos los rejones"
+  },
+  {
+    key: "novilladas",
+    label: "Todas las novilladas"
+  },
+  {
+    key: "recortes",
+    label: "Todos los recortes"
+  },
+  {
+    key: "programas",
+    label: "Todos los programas"
+  }
+];
+
+
+function getCategoryAlertSettings() {
+  try {
+    const stored =
+      JSON.parse(
+        localStorage.getItem(
+          CATEGORY_ALERTS_STORAGE_KEY
+        ) || "{}"
+      );
+
+    return {
+      categories:
+        Array.isArray(stored.categories)
+          ? stored.categories
+          : [],
+
+      minutesBefore:
+        Number.isInteger(
+          Number(stored.minutesBefore)
+        )
+          ? Number(stored.minutesBefore)
+          : 30
+    };
+  } catch {
+    return {
+      categories: [],
+      minutesBefore: 30
+    };
+  }
+}
+
+
+function saveCategoryAlertSettings(settings) {
+  localStorage.setItem(
+    CATEGORY_ALERTS_STORAGE_KEY,
+    JSON.stringify(settings)
+  );
+}
+
+
+function getCategoryAlertId(event) {
+  const text = [
+    "category",
+    event.date || "",
+    event.time || "",
+    event.type || "",
+    event.title || "",
+    event.name || "",
+    event.location || ""
+  ].join("|");
+
+  let hash = 0;
+
+  for (
+    let index = 0;
+    index < text.length;
+    index += 1
+  ) {
+    hash =
+      ((hash << 5) - hash) +
+      text.charCodeAt(index);
+
+    hash |= 0;
+  }
+
+  return (
+    1200000000 +
+    Math.abs(hash % 800000000)
+  );
+}
+
+
+function getStoredCategoryAlertIds() {
+  try {
+    const stored =
+      JSON.parse(
+        localStorage.getItem(
+          CATEGORY_ALERT_IDS_STORAGE_KEY
+        ) || "[]"
+      );
+
+    return Array.isArray(stored)
+      ? stored.filter(Number.isInteger)
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+
+async function cancelOldCategoryAlerts(
+  LocalNotifications
+) {
+  const previousIds =
+    getStoredCategoryAlertIds();
+
+  if (!previousIds.length) {
+    return;
+  }
+
+  await LocalNotifications.cancel({
+    notifications:
+      previousIds.map(id => ({
+        id
+      }))
+  });
+
+  localStorage.removeItem(
+    CATEGORY_ALERT_IDS_STORAGE_KEY
+  );
+}
+
+
+function getCategoryAlertEventName(event) {
+  if (isProgram(event)) {
+    return (
+      event.title ||
+      event.name ||
+      "Programa taurino"
+    );
+  }
+
+  return (
+    event.type ||
+    "Festejo taurino"
+  );
+}
+
+
+async function syncCategoryAlerts(
+  events = loadedEvents,
+  requestPermission = false
+) {
+  const LocalNotifications =
+    getLocalNotificationsPlugin();
+
+  if (
+    !LocalNotifications ||
+    !Array.isArray(events)
+  ) {
+    return;
+  }
+
+  const settings =
+    getCategoryAlertSettings();
+
+  await cancelOldCategoryAlerts(
+    LocalNotifications
+  );
+
+  if (!settings.categories.length) {
+    return;
+  }
+
+  let permission =
+    await LocalNotifications
+      .checkPermissions();
+
+  if (
+    permission.display !== "granted" &&
+    requestPermission
+  ) {
+    permission =
+      await LocalNotifications
+        .requestPermissions();
+  }
+
+  if (
+    permission.display !== "granted"
+  ) {
+    return;
+  }
+
+  const now = Date.now();
+
+  const notifications = [];
+
+  events.forEach(event => {
+    if (
+      !event?.date ||
+      !event?.time
+    ) {
+      return;
+    }
+
+    const category =
+      getHeaderCategory(event);
+
+    if (
+      !settings.categories.includes(
+        category
+      )
+    ) {
+      return;
+    }
+
+    /*
+     * Si ya existe un aviso manual para este
+     * evento, evitamos enviar otro idéntico.
+     */
+    if (
+      getStoredNotificationMinutes(event)
+    ) {
+      return;
+    }
+
+    const eventStart =
+      getEventStartDate(event);
+
+    if (!eventStart) {
+      return;
+    }
+
+    const notificationDate =
+      new Date(
+        eventStart.getTime() -
+        settings.minutesBefore *
+        60 *
+        1000
+      );
+
+    if (
+      notificationDate.getTime() <= now
+    ) {
+      return;
+    }
+
+    const name =
+      getCategoryAlertEventName(event);
+
+    const location =
+      event.location ||
+      event.name ||
+      "";
+
+    const channel =
+      getEventChannel(event);
+
+    notifications.push({
+      id:
+        getCategoryAlertId(event),
+
+      title:
+        `AlberoTV · ${name}`,
+
+      body:
+        [
+          `Empieza en ${
+            formatNotificationLeadTime(
+              settings.minutesBefore
+            )
+          }`,
+          location,
+          channel
+        ]
+          .filter(Boolean)
+          .join(" · "),
+
+      schedule: {
+        at:
+          notificationDate
+      },
+
+      sound:
+        "default",
+
+      extra: {
+        source:
+          "category",
+
+        category,
+
+        date:
+          event.date,
+
+        time:
+          event.time,
+
+        location
+      }
+    });
+  });
+
+  /*
+   * Dejamos margen para avisos manuales
+   * y avisos de favoritos.
+   */
+  const limitedNotifications =
+    notifications
+      .sort(
+        (first, second) =>
+          new Date(
+            first.schedule.at
+          ) -
+          new Date(
+            second.schedule.at
+          )
+      )
+      .slice(0, 20);
+
+  if (!limitedNotifications.length) {
+    return;
+  }
+
+  await LocalNotifications.schedule({
+    notifications:
+      limitedNotifications
+  });
+
+  localStorage.setItem(
+    CATEGORY_ALERT_IDS_STORAGE_KEY,
+    JSON.stringify(
+      limitedNotifications.map(
+        notification =>
+          notification.id
+      )
+    )
+  );
+
+  console.log(
+    `AlberoTV: ${
+      limitedNotifications.length
+    } avisos por categoría programados`
+  );
+}
+
+
+function buildCategoryAlertsMarkup() {
+  const settings =
+    getCategoryAlertSettings();
+
+  const activeCount =
+    settings.categories.length;
+
+  return `
+    <section class="category-alerts-section">
+
+      <div class="category-alerts-heading">
+        <div>
+          <h3>
+            🔔 Avisos por categoría
+          </h3>
+
+          <p>
+            Recibe un aviso antes de todos los
+            eventos de las categorías seleccionadas.
+          </p>
+        </div>
+
+        <span class="category-alerts-count">
+          ${activeCount}
+        </span>
+      </div>
+
+      <div class="category-alerts-options">
+        ${
+          CATEGORY_ALERT_OPTIONS
+            .map(option => `
+              <label class="category-alert-option">
+
+                <input
+                  type="checkbox"
+                  data-category-alert="${option.key}"
+                  ${
+                    settings.categories
+                      .includes(option.key)
+                        ? "checked"
+                        : ""
+                  }
+                >
+
+                <span class="category-alert-switch">
+                </span>
+
+                <span>
+                  ${escapeHtml(option.label)}
+                </span>
+
+              </label>
+            `)
+            .join("")
+        }
+      </div>
+
+      <label class="category-alert-time">
+        <span>
+          Avisar
+        </span>
+
+        <select
+          id="category-alert-minutes"
+          aria-label="Tiempo de aviso por categoría"
+        >
+          <option
+            value="15"
+            ${
+              settings.minutesBefore === 15
+                ? "selected"
+                : ""
+            }
+          >
+            15 minutos antes
+          </option>
+
+          <option
+            value="30"
+            ${
+              settings.minutesBefore === 30
+                ? "selected"
+                : ""
+            }
+          >
+            30 minutos antes
+          </option>
+
+          <option
+            value="60"
+            ${
+              settings.minutesBefore === 60
+                ? "selected"
+                : ""
+            }
+          >
+            1 hora antes
+          </option>
+
+          <option
+            value="120"
+            ${
+              settings.minutesBefore === 120
+                ? "selected"
+                : ""
+            }
+          >
+            2 horas antes
+          </option>
+
+          <option
+            value="300"
+            ${
+              settings.minutesBefore === 300
+                ? "selected"
+                : ""
+            }
+          >
+            5 horas antes
+          </option>
+        </select>
+      </label>
+
+      <button
+        type="button"
+        class="category-alerts-save"
+        data-save-category-alerts
+      >
+        Guardar avisos
+      </button>
+
+      <div
+        class="category-alerts-status"
+        role="status"
+        aria-live="polite"
+      >
+      </div>
+
+    </section>
+  `;
+}
+
+
+function renderCategoryAlertsManager() {
+  const content =
+    document.getElementById(
+      "favorites-manager-content"
+    );
+
+  if (!content) {
+    return;
+  }
+
+  content
+    .querySelector(
+      ".category-alerts-section"
+    )
+    ?.remove();
+
+  content.insertAdjacentHTML(
+    "afterbegin",
+    buildCategoryAlertsMarkup()
+  );
+}
+
+
+/*
+ * Añadimos la sección cada vez que se
+ * renderiza la ventana Mis favoritos.
+ */
+const originalRenderFavoritesManager =
+  renderFavoritesManager;
+
+renderFavoritesManager =
+  function renderFavoritesManagerWithAlerts() {
+    originalRenderFavoritesManager();
+
+    renderCategoryAlertsManager();
+  };
+
+
+/*
+ * Cuando se sincronizan los favoritos,
+ * sincronizamos también las categorías.
+ */
+const originalSyncFavoriteNotifications =
+  syncFavoriteNotifications;
+
+syncFavoriteNotifications =
+  async function syncAllAutomaticNotifications(
+    events,
+    requestPermission = false
+  ) {
+    await originalSyncFavoriteNotifications(
+      events,
+      requestPermission
+    );
+
+    await syncCategoryAlerts(
+      events,
+      requestPermission
+    );
+  };
+
+
+document.addEventListener(
+  "click",
+  async clickEvent => {
+    const saveButton =
+      clickEvent.target.closest(
+        "[data-save-category-alerts]"
+      );
+
+    if (!saveButton) {
+      return;
+    }
+
+    clickEvent.preventDefault();
+
+    const selectedCategories = [
+      ...document.querySelectorAll(
+        "[data-category-alert]:checked"
+      )
+    ].map(
+      checkbox =>
+        checkbox.dataset.categoryAlert
+    );
+
+    const minutesBefore =
+      Number(
+        document.getElementById(
+          "category-alert-minutes"
+        )?.value || 30
+      );
+
+    saveCategoryAlertSettings({
+      categories:
+        selectedCategories,
+
+      minutesBefore
+    });
+
+    try {
+      await syncCategoryAlerts(
+        loadedEvents,
+        true
+      );
+
+      const status =
+        saveButton
+          .closest(
+            ".category-alerts-section"
+          )
+          ?.querySelector(
+            ".category-alerts-status"
+          );
+
+      saveButton.textContent =
+        "✓ Avisos guardados";
+
+      saveButton.classList.add(
+        "is-saved"
+      );
+
+      if (status) {
+        status.textContent =
+          selectedCategories.length
+            ? `${
+                selectedCategories.length
+              } categoría${
+                selectedCategories.length === 1
+                  ? ""
+                  : "s"
+              } activada${
+                selectedCategories.length === 1
+                  ? ""
+                  : "s"
+              } · ${formatNotificationLeadTime(
+                minutesBefore
+              )} antes`
+            : "Avisos por categoría desactivados";
+      }
+
+      window.setTimeout(() => {
+        saveButton.textContent =
+          "Guardar avisos";
+
+        saveButton.classList.remove(
+          "is-saved"
+        );
+      }, 2200);
+    } catch (error) {
+      console.error(
+        "AlberoTV: error guardando avisos por categoría",
+        error
+      );
+
+      alert(
+        "No se han podido guardar los avisos por categoría."
+      );
+    }
+  }
+);
+
+
+/*
+ * Actualizamos los avisos al volver a abrir
+ * la aplicación, por si la programación cambió.
+ */
+window.addEventListener(
+  "pageshow",
+  () => {
+    window.setTimeout(() => {
+      syncCategoryAlerts(
+        loadedEvents,
+        false
+      ).catch(error => {
+        console.error(
+          "AlberoTV: error actualizando avisos por categoría",
+          error
+        );
+      });
+    }, 1200);
+  }
+);
+
+
+/* ==================================================
+   CERRAR MIS FAVORITOS DESLIZANDO HACIA ABAJO
+   ================================================== */
+
+function installFavoritesManagerSwipeToClose() {
+  const sheet =
+    ensureFavoritesManagerSheet();
+
+  const panel =
+    sheet.querySelector(
+      ".favorites-manager-panel"
+    );
+
+  if (
+    !panel ||
+    panel.dataset.swipeCloseInstalled === "true"
+  ) {
+    return;
+  }
+
+  panel.dataset.swipeCloseInstalled =
+    "true";
+
+  let startY = 0;
+  let currentY = 0;
+  let startTime = 0;
+  let dragging = false;
+
+  function getScrollableContent() {
+    return panel.querySelector(
+      ".favorites-manager-content"
+    );
+  }
+
+  panel.addEventListener(
+    "touchstart",
+    touchEvent => {
+      if (
+        touchEvent.touches.length !== 1
+      ) {
+        return;
+      }
+
+      const content =
+        getScrollableContent();
+
+      const panelRect =
+        panel.getBoundingClientRect();
+
+      const touchY =
+        touchEvent.touches[0].clientY;
+
+      const startedNearTop =
+        touchY - panelRect.top <= 110;
+
+      const contentAtTop =
+        !content ||
+        content.scrollTop <= 0;
+
+      if (
+        !startedNearTop &&
+        !contentAtTop
+      ) {
+        return;
+      }
+
+      startY = touchY;
+      currentY = touchY;
+      startTime = Date.now();
+      dragging = true;
+
+      panel.classList.add(
+        "is-swipe-dragging"
+      );
+    },
+    {
+      passive: true
+    }
+  );
+
+  panel.addEventListener(
+    "touchmove",
+    touchEvent => {
+      if (
+        !dragging ||
+        touchEvent.touches.length !== 1
+      ) {
+        return;
+      }
+
+      currentY =
+        touchEvent.touches[0].clientY;
+
+      const distance =
+        Math.max(
+          0,
+          currentY - startY
+        );
+
+      if (distance <= 0) {
+        return;
+      }
+
+      panel.style.transform =
+        `translateY(${distance}px)`;
+
+      const progress =
+        Math.min(
+          distance / 320,
+          0.55
+        );
+
+      panel.style.opacity =
+        String(1 - progress);
+    },
+    {
+      passive: true
+    }
+  );
+
+  function finishSwipe() {
+    if (!dragging) {
+      return;
+    }
+
+    dragging = false;
+
+    const distance =
+      Math.max(
+        0,
+        currentY - startY
+      );
+
+    const elapsed =
+      Math.max(
+        Date.now() - startTime,
+        1
+      );
+
+    const velocity =
+      distance / elapsed;
+
+    const shouldClose =
+      distance >= 105 ||
+      (
+        distance >= 55 &&
+        velocity >= 0.55
+      );
+
+    panel.classList.remove(
+      "is-swipe-dragging"
+    );
+
+    if (shouldClose) {
+      panel.classList.add(
+        "is-swipe-closing"
+      );
+
+      panel.style.transform =
+        "translateY(110%)";
+
+      panel.style.opacity =
+        "0";
+
+      window.setTimeout(() => {
+        closeFavoritesManager();
+
+        panel.classList.remove(
+          "is-swipe-closing"
+        );
+
+        panel.style.transform = "";
+        panel.style.opacity = "";
+      }, 220);
+
+      return;
+    }
+
+    panel.style.transform = "";
+    panel.style.opacity = "";
+  }
+
+  panel.addEventListener(
+    "touchend",
+    finishSwipe,
+    {
+      passive: true
+    }
+  );
+
+  panel.addEventListener(
+    "touchcancel",
+    finishSwipe,
+    {
+      passive: true
+    }
+  );
+}
+
+
+document.addEventListener(
+  "DOMContentLoaded",
+  installFavoritesManagerSwipeToClose
+);
+
+window.addEventListener(
+  "pageshow",
+  installFavoritesManagerSwipeToClose
+);
+
+
+/* ==================================================
+   CERRAR UBICACIÓN DESLIZANDO HACIA ABAJO
+   ================================================== */
+
+function installLocationExplorerSwipeToClose() {
+  const sheet =
+    ensureLocationExplorerSheet();
+
+  const panel =
+    sheet.querySelector(
+      ".location-explorer-panel"
+    );
+
+  if (
+    !panel ||
+    panel.dataset.swipeCloseInstalled === "true"
+  ) {
+    return;
+  }
+
+  panel.dataset.swipeCloseInstalled =
+    "true";
+
+  let startY = 0;
+  let currentY = 0;
+  let startTime = 0;
+  let dragging = false;
+
+  function getScrollableContent() {
+    return panel.querySelector(
+      ".location-results"
+    );
+  }
+
+  panel.addEventListener(
+    "touchstart",
+    touchEvent => {
+      if (
+        touchEvent.touches.length !== 1
+      ) {
+        return;
+      }
+
+      const content =
+        getScrollableContent();
+
+      const panelRect =
+        panel.getBoundingClientRect();
+
+      const touchY =
+        touchEvent.touches[0].clientY;
+
+      const startedNearTop =
+        touchY - panelRect.top <= 110;
+
+      const contentAtTop =
+        !content ||
+        content.scrollTop <= 0;
+
+      if (
+        !startedNearTop &&
+        !contentAtTop
+      ) {
+        return;
+      }
+
+      startY = touchY;
+      currentY = touchY;
+      startTime = Date.now();
+      dragging = true;
+
+      panel.classList.add(
+        "is-swipe-dragging"
+      );
+    },
+    {
+      passive: true
+    }
+  );
+
+  panel.addEventListener(
+    "touchmove",
+    touchEvent => {
+      if (
+        !dragging ||
+        touchEvent.touches.length !== 1
+      ) {
+        return;
+      }
+
+      currentY =
+        touchEvent.touches[0].clientY;
+
+      const distance =
+        Math.max(
+          0,
+          currentY - startY
+        );
+
+      if (distance <= 0) {
+        return;
+      }
+
+      panel.style.transform =
+        `translateY(${distance}px)`;
+
+      const progress =
+        Math.min(
+          distance / 320,
+          0.55
+        );
+
+      panel.style.opacity =
+        String(1 - progress);
+    },
+    {
+      passive: true
+    }
+  );
+
+  function finishSwipe() {
+    if (!dragging) {
+      return;
+    }
+
+    dragging = false;
+
+    const distance =
+      Math.max(
+        0,
+        currentY - startY
+      );
+
+    const elapsed =
+      Math.max(
+        Date.now() - startTime,
+        1
+      );
+
+    const velocity =
+      distance / elapsed;
+
+    const shouldClose =
+      distance >= 105 ||
+      (
+        distance >= 55 &&
+        velocity >= 0.55
+      );
+
+    panel.classList.remove(
+      "is-swipe-dragging"
+    );
+
+    if (shouldClose) {
+      panel.classList.add(
+        "is-swipe-closing"
+      );
+
+      panel.style.transform =
+        "translateY(110%)";
+
+      panel.style.opacity =
+        "0";
+
+      window.setTimeout(() => {
+        closeLocationExplorer();
+
+        panel.classList.remove(
+          "is-swipe-closing"
+        );
+
+        panel.style.transform = "";
+        panel.style.opacity = "";
+      }, 220);
+
+      return;
+    }
+
+    panel.style.transform = "";
+    panel.style.opacity = "";
+  }
+
+  panel.addEventListener(
+    "touchend",
+    finishSwipe,
+    {
+      passive: true
+    }
+  );
+
+  panel.addEventListener(
+    "touchcancel",
+    finishSwipe,
+    {
+      passive: true
+    }
+  );
+}
+
+
+document.addEventListener(
+  "DOMContentLoaded",
+  installLocationExplorerSwipeToClose
+);
+
+window.addEventListener(
+  "pageshow",
+  installLocationExplorerSwipeToClose
+);
+
+
+/* ==================================================
+   ACTUALIZAR LA APP CUANDO CAMBIA EL DÍA
+   ================================================== */
+
+let alberoCurrentDateKey =
+  toLocalISO(new Date());
+
+let alberoDateRefreshInProgress =
+  false;
+
+
+function refreshAlberoTVIfDateChanged() {
+  if (alberoDateRefreshInProgress) {
+    return;
+  }
+
+  const newDateKey =
+    toLocalISO(new Date());
+
+  if (
+    newDateKey === alberoCurrentDateKey
+  ) {
+    return;
+  }
+
+  alberoDateRefreshInProgress =
+    true;
+
+  console.log(
+    `AlberoTV: cambio de fecha detectado, de ${
+      alberoCurrentDateKey
+    } a ${newDateKey}`
+  );
+
+  /*
+   * Recargamos la interfaz completa para:
+   * - volver a calcular HOY, AYER y MAÑANA;
+   * - descargar la programación más reciente;
+   * - centrar automáticamente el día actual;
+   * - actualizar favoritos y avisos.
+   */
+  window.location.reload();
+}
+
+
+/*
+ * Se ejecuta cuando la app vuelve
+ * desde segundo plano.
+ */
+document.addEventListener(
+  "visibilitychange",
+  () => {
+    if (
+      document.visibilityState ===
+      "visible"
+    ) {
+      window.setTimeout(
+        refreshAlberoTVIfDateChanged,
+        150
+      );
+    }
+  }
+);
+
+
+/*
+ * Refuerzo para Safari, PWA y WebView de iOS.
+ */
+window.addEventListener(
+  "pageshow",
+  () => {
+    window.setTimeout(
+      refreshAlberoTVIfDateChanged,
+      150
+    );
+  }
+);
+
+
+/*
+ * También detecta el cambio de día si la
+ * aplicación permanece abierta a medianoche.
+ */
+window.setInterval(
+  refreshAlberoTVIfDateChanged,
+  60 * 1000
+);
 

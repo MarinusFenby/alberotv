@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Dependencias
+node_modules/
+
+# Archivos web generados para Capacitor
+www/
+
+# Copias de seguridad locales
+*.backup-*
+script.js.backup-*
+enhancements.css.backup-*
+
+# Xcode
+DerivedData/
+ios/App/CapApp-SPM/.build/
+ios/App/CapApp-SPM/.swiftpm/
+ios/App/App.xcworkspace/xcuserdata/
+ios/App/App.xcodeproj/xcuserdata/
+*.xcuserstate
