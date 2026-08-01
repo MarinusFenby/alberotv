@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-31T18:49:32.412Z",
-  "throughDate": "2026-07-31",
-  "eventCount": 12,
+  "generatedAt": "2026-08-01T00:16:01.683Z",
+  "throughDate": "2026-08-01",
+  "eventCount": 24,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -423,6 +423,445 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-07-30T18:52:45.942Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "cmm-2026-08-01-1245-4",
+      "date": "2026-08-01",
+      "time": "12:45",
+      "channel": "CMM",
+      "televised": true,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "TIEMPO DE TOROS",
+      "title": "TIEMPO DE TOROS",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "cmm-2026-08-01-1900-5",
+      "date": "2026-08-01",
+      "time": "19:00",
+      "channel": "CMM",
+      "televised": true,
+      "location": "Villapalacios (Albacete)",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "Valdealcalde",
+      "participants": [
+        "Luis Zambrano",
+        "Martín Ruiz",
+        "Manuel Sánchez «Panita»",
+        "Luis Sánchez Zambrano",
+        "otro"
+      ],
+      "name": "Villapalacios (Albacete)",
+      "title": "TOROS 2026",
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "CMM",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-07-31T18:49:02.496Z"
+        },
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-31T18:49:31.432Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-1de9cd4b4485d3",
+      "date": "2026-08-01",
+      "time": "20:00",
+      "channel": "Canal Sur",
+      "televised": true,
+      "location": "El Puerto de Santa María (Cádiz)",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Álvaro Núñez",
+      "participants": [
+        "Morante de la Puebla",
+        "Alejandro Talavante",
+        "Juan Ortega"
+      ],
+      "name": "El Puerto de Santa María (Cádiz)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-07-31T18:49:02.496Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-31T18:49:31.432Z"
+        }
+      ],
+      "confidence": 96,
+      "status": "confirmed"
+    },
+    {
+      "id": "canal-extremadura-a8e06091b77d8c",
+      "date": "2026-08-01",
+      "time": "21:00",
+      "channel": "Canal Extremadura",
+      "televised": true,
+      "location": "Fregenal de la Sierra (Badajoz)",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Jandilla",
+      "participants": [
+        "Ángel Parrado",
+        "Fernando Donoso",
+        "Vicente Sánchez"
+      ],
+      "name": "Fregenal de la Sierra (Badajoz)",
+      "title": "TOROS – XIV CERTAMEN TROFEO Diputación de Badajoz",
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-07-31T18:49:02.496Z"
+        },
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/PARRILLA%20DE%20PROGRAMACION%2027%20JULIO%20A%202%20DE%20AGOSTO%20DE%202026%20CEX.pdf",
+          "fetchedAt": "2026-07-31T18:49:26.427Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-d9a53804ee9d32",
+      "date": "2026-08-01",
+      "time": null,
+      "channel": "Sin TV",
+      "televised": false,
+      "location": "Azpeitia (Guipúzcoa) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Ana Romero",
+      "participants": [
+        "Ismael Martín",
+        "Jesús Enrique Colombo",
+        "Morenito de Aranda"
+      ],
+      "name": "Azpeitia (Guipúzcoa) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-31T18:49:31.432Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-4fdf33c1328847",
+      "date": "2026-08-01",
+      "time": null,
+      "channel": "Sin TV",
+      "televised": false,
+      "location": "Berja (Almería) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Julio A. de la Puerta y Castro",
+      "participants": [
+        "El Fandi",
+        "Emilio de Justo",
+        "Olga Casado"
+      ],
+      "name": "Berja (Almería) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-31T18:49:31.432Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-36473c5b28a960",
+      "date": "2026-08-01",
+      "time": null,
+      "channel": "Sin TV",
+      "televised": false,
+      "location": "Huelva (Huelva) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Juan Pedro Domecq",
+      "participants": [
+        "David de Miranda",
+        "Miguel Ángel Perera",
+        "Roca Rey",
+        "Cristiano Torres",
+        "David Galván",
+        "Manuel Diosleguarde"
+      ],
+      "name": "Huelva (Huelva) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-31T18:49:31.432Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-9e5e76951f00aa",
+      "date": "2026-08-01",
+      "time": null,
+      "channel": "Sin TV",
+      "televised": false,
+      "location": "Lodosa (Navarra) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "José Antonio Baigorri El Pincha",
+      "participants": [
+        "Alberto Donaire",
+        "Nacho Torrejón"
+      ],
+      "name": "Lodosa (Navarra) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-31T18:49:31.432Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-ad43ca21ab9212",
+      "date": "2026-08-01",
+      "time": null,
+      "channel": "Sin TV",
+      "televised": false,
+      "location": "Nazaré (Leiria) Portugal",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "David Ribeiro Telles y Passanha",
+      "participants": [
+        "Daniel Luque",
+        "Francisco Palha",
+        "Guillermo Hermoso de Mendoza"
+      ],
+      "name": "Nazaré (Leiria) Portugal",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-31T18:49:31.432Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-58f366ad6da8b6",
+      "date": "2026-08-01",
+      "time": null,
+      "channel": "Sin TV",
+      "televised": false,
+      "location": "Ondara (Alicante) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Núñez de Tarifa (Antes Benjumea)",
+      "participants": [
+        "Borja Jiménez",
+        "José María Manzanares",
+        "Sebastián Castella"
+      ],
+      "name": "Ondara (Alicante) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-31T18:49:31.432Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-101a1dc5e1729d",
+      "date": "2026-08-01",
+      "time": null,
+      "channel": "Sin TV",
+      "televised": false,
+      "location": "Saint Vincent de Tyrosse (Landes) Francia",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Pages-Mailhan",
+      "participants": [
+        "Álvaro Lorenzo",
+        "Carlos Olsina",
+        "Samuel Navalón"
+      ],
+      "name": "Saint Vincent de Tyrosse (Landes) Francia",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-31T18:49:31.432Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-ae4f730b388296",
+      "date": "2026-08-01",
+      "time": null,
+      "channel": "Sin TV",
+      "televised": false,
+      "location": "Villanueva de Córdoba (Córdoba) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Manuel Santiago Corvo (El Canario) y Valdefresno",
+      "participants": [
+        "Fortes",
+        "Sebastián Fernández",
+        "Víctor Hernández",
+        "Ian Bermejo",
+        "Javier Aparicio",
+        "Simón Andreu"
+      ],
+      "name": "Villanueva de Córdoba (Córdoba) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-07-31T18:49:31.432Z"
         }
       ],
       "confidence": 89,
