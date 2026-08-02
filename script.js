@@ -7163,28 +7163,234 @@ function requestVisualUpdate() {
    CARGAR PROGRAMACIÓN
    ================================================== */
 
-async function loadEvents() {
-  const response =
-    await fetch(
-      `https://alberotv.com/data/programacion.json?ts=${Date.now()}`,
-      {
-        cache: "no-store"
-      }
-    );
+const PROGRAMMING_CACHE_KEY =
+  "alberotv-programming-cache-v1";
 
-  if (!response.ok) {
-    throw new Error(
-      `No se pudo cargar programacion.json: ${response.status}`
+let programmingLoadSource =
+  "network";
+
+let programmingCacheDate =
+  "";
+
+
+function saveProgrammingCache(events) {
+  try {
+    localStorage.setItem(
+      PROGRAMMING_CACHE_KEY,
+      JSON.stringify({
+        savedAt:
+          new Date().toISOString(),
+
+        events
+      })
+    );
+  } catch (error) {
+    console.warn(
+      "AlberoTV: no se pudo guardar la programación",
+      error
+    );
+  }
+}
+
+
+function getProgrammingCache() {
+  try {
+    const stored =
+      JSON.parse(
+        localStorage.getItem(
+          PROGRAMMING_CACHE_KEY
+        ) || "null"
+      );
+
+    if (
+      !stored ||
+      !Array.isArray(stored.events) ||
+      !stored.events.length
+    ) {
+      return null;
+    }
+
+    return stored;
+  } catch {
+    return null;
+  }
+}
+
+
+function showOfflineProgrammingNotice() {
+  document
+    .getElementById(
+      "offline-programming-notice"
+    )
+    ?.remove();
+
+  if (
+    programmingLoadSource === "network"
+  ) {
+    return;
+  }
+
+  const notice =
+    document.createElement("div");
+
+  notice.id =
+    "offline-programming-notice";
+
+  notice.setAttribute(
+    "role",
+    "status"
+  );
+
+  notice.style.cssText = `
+    position: fixed;
+    left: 50%;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    z-index: 10000;
+    max-width: calc(100vw - 48px);
+    padding: 7px 11px;
+    border: 1px solid rgba(255,110,110,.45);
+    border-radius: 999px;
+    background: rgba(135,24,32,.94);
+    color: #fff;
+    font: 600 11px/1.2 -apple-system,
+      BlinkMacSystemFont, sans-serif;
+    text-align: center;
+    box-shadow: 0 5px 16px rgba(0,0,0,.22);
+    white-space: nowrap;
+  `;
+
+  if (
+    programmingLoadSource === "cache"
+  ) {
+    notice.textContent =
+      "Sin conexión · mostrando datos guardados";
+  } else {
+    notice.textContent =
+      "Sin conexión · mostrando la programación incluida en la app";
+  }
+
+  document.body.appendChild(
+    notice
+  );
+
+  window.setTimeout(() => {
+    notice.remove();
+  }, 3000);
+}
+
+
+async function loadEvents() {
+  try {
+    const response =
+      await fetch(
+        `https://alberotv.com/data/programacion.json?ts=${Date.now()}`,
+        {
+          cache: "no-store"
+        }
+      );
+
+    if (!response.ok) {
+      throw new Error(
+        `Servidor: ${response.status}`
+      );
+    }
+
+    const data =
+      await response.json();
+
+    const events =
+      deduplicateDisplayEvents(
+        data.events || []
+      );
+
+    if (!events.length) {
+      throw new Error(
+        "La programación descargada está vacía"
+      );
+    }
+
+    programmingLoadSource =
+      "network";
+
+    saveProgrammingCache(events);
+
+    return events;
+  } catch (networkError) {
+    console.warn(
+      "AlberoTV: conexión no disponible",
+      networkError
     );
   }
 
-  const data =
-    await response.json();
+  const cached =
+    getProgrammingCache();
 
-  const events =
-    data.events || [];
+  if (cached) {
+    programmingLoadSource =
+      "cache";
 
-  return deduplicateDisplayEvents(events);
+    programmingCacheDate =
+      cached.savedAt
+        ? new Intl.DateTimeFormat(
+            "es-ES",
+            {
+              day: "numeric",
+              month: "short",
+              hour: "2-digit",
+              minute: "2-digit"
+            }
+          ).format(
+            new Date(cached.savedAt)
+          )
+        : "";
+
+    return deduplicateDisplayEvents(
+      cached.events
+    );
+  }
+
+  try {
+    const localResponse =
+      await fetch(
+        "data/programacion.json",
+        {
+          cache: "no-store"
+        }
+      );
+
+    if (!localResponse.ok) {
+      throw new Error(
+        `Archivo local: ${localResponse.status}`
+      );
+    }
+
+    const localData =
+      await localResponse.json();
+
+    const localEvents =
+      deduplicateDisplayEvents(
+        localData.events || []
+      );
+
+    if (!localEvents.length) {
+      throw new Error(
+        "La programación local está vacía"
+      );
+    }
+
+    programmingLoadSource =
+      "bundled";
+
+    return localEvents;
+  } catch (localError) {
+    console.error(
+      "AlberoTV: tampoco se pudo cargar la copia local",
+      localError
+    );
+
+    throw localError;
+  }
 }
 
 
@@ -7256,6 +7462,8 @@ async function init() {
     console.log(
       `AlberoTV: ${events.length} elementos cargados`
     );
+
+    showOfflineProgrammingNotice();
 
     renderCategoryNavigation(events);
 
