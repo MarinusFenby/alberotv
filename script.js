@@ -1168,7 +1168,7 @@ function getEventCountryCode(event = {}) {
     {
       code: "MX",
       terms: [
-        "mexico", "aguascalientes", "guadalajara",
+        "mexico", "aguascalientes",
         "queretaro", "tlaxcala", "zacatecas"
       ]
     },
@@ -3530,34 +3530,62 @@ function getHeaderCategory(event = {}) {
 function scrollToCategory(categoryKey) {
   const todayKey = toLocalISO(new Date());
 
-  const matchingEvent = loadedEvents
-    .filter(event => getHeaderCategory(event) === categoryKey)
+  const matchingEvents = loadedEvents
+    .filter(
+      event =>
+        getHeaderCategory(event) === categoryKey &&
+        String(event.date || "") >= todayKey
+    )
     .sort((eventA, eventB) => {
-      const dateComparison = String(eventA.date || "").localeCompare(
-        String(eventB.date || "")
-      );
+      const dateComparison =
+        String(eventA.date || "").localeCompare(
+          String(eventB.date || "")
+        );
 
       if (dateComparison !== 0) {
         return dateComparison;
       }
 
-      return String(eventA.time || "99:99").localeCompare(
+      return String(
+        eventA.time || "99:99"
+      ).localeCompare(
         String(eventB.time || "99:99")
       );
-    })
-    .find(event => String(event.date || "") >= todayKey);
+    });
+
+  const matchingEvent = matchingEvents[0];
 
   if (!matchingEvent) {
     return;
   }
 
   const targetCard = cards.find(
-    card => card.dataset.date === matchingEvent.date
+    card =>
+      card.dataset.date === matchingEvent.date
   );
 
   if (!targetCard) {
     return;
   }
+
+  const eventsForDay = loadedEvents
+    .filter(
+      event =>
+        event.date === matchingEvent.date
+    )
+    .sort((eventA, eventB) =>
+      String(
+        eventA.time || "99:99"
+      ).localeCompare(
+        String(eventB.time || "99:99")
+      )
+    );
+
+  const matchingIndex =
+    eventsForDay.findIndex(
+      event =>
+        event === matchingEvent
+    );
 
   timeline.scrollTo({
     left:
@@ -3567,6 +3595,37 @@ function scrollToCategory(categoryKey) {
     behavior: "smooth"
   });
 
+  window.setTimeout(() => {
+    const eventsContainer =
+      targetCard.querySelector(".events");
+
+    if (!eventsContainer) {
+      return;
+    }
+
+    const eventCards = [
+      ...eventsContainer.querySelectorAll(
+        ".event"
+      )
+    ];
+
+    const targetEvent =
+      eventCards[matchingIndex];
+
+    if (!targetEvent) {
+      return;
+    }
+
+    eventsContainer.scrollTo({
+      top: Math.max(
+        0,
+        targetEvent.offsetTop -
+        eventsContainer.offsetTop -
+        10
+      ),
+      behavior: "smooth"
+    });
+  }, 450);
 }
 
 
