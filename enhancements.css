@@ -3241,3 +3241,487 @@ input:checked +
   }
 }
 
+
+/* ==================================================
+   APP IOS - ÚLTIMO EVENTO VISIBLE + TARJETA COMPLETA
+   ================================================== */
+
+@media (hover: none), (pointer: coarse), (max-width: 900px) {
+
+  .timeline {
+    align-items: stretch !important;
+    touch-action: pan-x !important;
+  }
+
+  .day {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    min-height: 0 !important;
+    border-radius: 28px !important;
+  }
+
+  .day.active {
+    overflow: hidden !important;
+  }
+
+  .day-header {
+    flex: 0 0 auto !important;
+  }
+
+  .events {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain !important;
+    touch-action: pan-y !important;
+
+    box-sizing: border-box !important;
+
+    padding: 16px 14px 120px !important;
+    scroll-padding-bottom: 120px !important;
+  }
+
+  .events::after {
+    content: "" !important;
+    display: block !important;
+    width: 100% !important;
+    height: 110px !important;
+    flex: 0 0 110px !important;
+  }
+
+  .events > .event:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+
+/* ==================================================
+   DISEÑO WEB FLUIDO PARA CUALQUIER ANCHO
+   Se aplica en ordenadores con ratón o trackpad.
+   No modifica la aplicación del iPhone.
+   ================================================== */
+
+@media
+  (hover: hover)
+  and (pointer: fine) {
+
+  :root {
+    --albero-web-header-height:
+      clamp(118px, 8vw, 132px);
+
+    --albero-web-day-width:
+      clamp(320px, 38vw, 620px);
+  }
+
+  /*
+   * CABECERA
+   * Primera fila: logo + acciones
+   * Segunda fila: las cinco categorías
+   */
+
+  .topbar {
+    width: 100% !important;
+    height:
+      var(--albero-web-header-height)
+      !important;
+
+    padding:
+      8px
+      clamp(12px, 2vw, 34px)
+      7px
+      !important;
+
+    align-items: stretch !important;
+  }
+
+  .topbar-inner {
+    position: relative !important;
+
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      auto
+      !important;
+
+    grid-template-rows:
+      minmax(48px, 1fr)
+      48px
+      !important;
+
+    align-items: center !important;
+
+    column-gap:
+      clamp(8px, 1.4vw, 20px)
+      !important;
+
+    row-gap: 6px !important;
+  }
+
+  /*
+   * LOGO
+   */
+
+  .brand {
+    position: static !important;
+
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+
+    justify-self: start !important;
+    align-self: center !important;
+
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+
+    transform: none !important;
+
+    overflow: hidden !important;
+  }
+
+  .alberotv-brand {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap:
+      clamp(7px, 0.8vw, 12px)
+      !important;
+
+    width: auto !important;
+    max-width: 100% !important;
+
+    white-space: nowrap !important;
+  }
+
+  .alberotv-brand__icon {
+    display: block !important;
+
+    width:
+      clamp(38px, 3vw, 50px)
+      !important;
+
+    height:
+      clamp(38px, 3vw, 50px)
+      !important;
+
+    min-width:
+      clamp(38px, 3vw, 50px)
+      !important;
+
+    object-fit: contain !important;
+  }
+
+  .alberotv-brand__name {
+    display: inline-flex !important;
+    align-items: baseline !important;
+
+    min-width: 0 !important;
+
+    font-size:
+      clamp(22px, 2.4vw, 42px)
+      !important;
+
+    line-height: 1 !important;
+    letter-spacing:
+      clamp(-1.6px, -0.1vw, -0.8px)
+      !important;
+
+    white-space: nowrap !important;
+  }
+
+  /*
+   * HOY, UBICACIÓN Y MIS FAVORITOS
+   */
+
+  .topbar-actions-row {
+    position: static !important;
+
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+
+    justify-self: end !important;
+    align-self: center !important;
+
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    width: auto !important;
+    min-width: 0 !important;
+    height: auto !important;
+
+    gap:
+      clamp(5px, 0.7vw, 10px)
+      !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: visible !important;
+
+    transform: none !important;
+
+    z-index: 10 !important;
+  }
+
+  #today-button,
+  #location-explorer-button,
+  #favorites-manager-button {
+    position: static !important;
+
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    flex-shrink: 0 !important;
+
+    height:
+      clamp(38px, 3vw, 44px)
+      !important;
+
+    margin: 0 !important;
+
+    transform: none !important;
+
+    white-space: nowrap !important;
+  }
+
+  #today-button {
+    width: auto !important;
+
+    min-width:
+      clamp(52px, 4.5vw, 66px)
+      !important;
+
+    padding:
+      0
+      clamp(9px, 1vw, 15px)
+      !important;
+
+    font-size:
+      clamp(10px, 0.8vw, 13px)
+      !important;
+  }
+
+  #location-explorer-button {
+    width:
+      clamp(38px, 3vw, 44px)
+      !important;
+
+    min-width:
+      clamp(38px, 3vw, 44px)
+      !important;
+
+    padding: 0 !important;
+
+    font-size:
+      clamp(16px, 1.3vw, 20px)
+      !important;
+  }
+
+  #favorites-manager-button {
+    width: auto !important;
+    min-width: max-content !important;
+
+    padding:
+      0
+      clamp(10px, 1.2vw, 17px)
+      !important;
+
+    gap:
+      clamp(4px, 0.5vw, 7px)
+      !important;
+
+    font-size:
+      clamp(10px, 0.85vw, 14px)
+      !important;
+  }
+
+  /*
+   * CATEGORÍAS
+   * Las cinco se reparten siempre el ancho disponible.
+   */
+
+  .category-nav {
+    position: static !important;
+
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+
+    overflow: hidden !important;
+  }
+
+  .category-list {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+      repeat(
+        5,
+        minmax(0, 1fr)
+      )
+      !important;
+
+    align-items: center !important;
+
+    gap:
+      clamp(5px, 0.9vw, 16px)
+      !important;
+
+    padding: 3px 0 !important;
+
+    overflow: visible !important;
+  }
+
+  .category-pill {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+
+    min-height:
+      clamp(36px, 3vw, 42px)
+      !important;
+
+    padding:
+      6px
+      clamp(5px, 1vw, 18px)
+      !important;
+
+    gap:
+      clamp(3px, 0.45vw, 7px)
+      !important;
+
+    font-size:
+      clamp(9px, 0.85vw, 14px)
+      !important;
+
+    line-height: 1 !important;
+    white-space: nowrap !important;
+
+    overflow: hidden !important;
+  }
+
+  .category-pill > * {
+    min-width: 0 !important;
+  }
+
+  /*
+   * CONTENIDO
+   */
+
+  .main-content,
+  main {
+    height:
+      calc(
+        100dvh -
+        var(--albero-web-header-height)
+      )
+      !important;
+  }
+
+  /*
+   * CARRUSEL FLUIDO
+   * La tarjeta crece y disminuye con la ventana.
+   */
+
+  .timeline {
+    gap:
+      clamp(10px, 1.2vw, 20px)
+      !important;
+
+    padding:
+      clamp(12px, 1.4vw, 20px)
+      calc(
+        50vw -
+        var(--albero-web-day-width) / 2
+      )
+      !important;
+  }
+
+  .timeline .day,
+  .day {
+    flex:
+      0
+      0
+      var(--albero-web-day-width)
+      !important;
+
+    width:
+      var(--albero-web-day-width)
+      !important;
+
+    min-width:
+      var(--albero-web-day-width)
+      !important;
+
+    max-width:
+      var(--albero-web-day-width)
+      !important;
+
+    height:
+      min(
+        650px,
+        calc(100% - 28px)
+      )
+      !important;
+
+    min-height: 360px !important;
+  }
+
+  .day-header {
+    padding:
+      clamp(15px, 1.5vw, 22px)
+      clamp(16px, 1.6vw, 24px)
+      clamp(12px, 1.2vw, 17px)
+      !important;
+  }
+
+  .date {
+    font-size:
+      clamp(24px, 2vw, 34px)
+      !important;
+  }
+
+  .events {
+    padding:
+      clamp(10px, 1vw, 15px)
+      clamp(11px, 1.1vw, 17px)
+      100px
+      !important;
+  }
+
+  .event {
+    padding:
+      clamp(11px, 1vw, 16px)
+      !important;
+  }
+}
+
