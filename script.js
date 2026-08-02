@@ -7403,9 +7403,15 @@ timeline.addEventListener(
     const verticalMovement =
       Math.abs(event.deltaY);
 
+    /*
+     * Safari puede repartir el gesto horizontal del
+     * trackpad entre deltaX y deltaY. Aceptamos cualquier
+     * desplazamiento lateral claramente intencionado.
+     */
     const isHorizontalGesture =
-      horizontalMovement >
-      verticalMovement * 1.05;
+      horizontalMovement > 1 &&
+      horizontalMovement >=
+        verticalMovement * 0.35;
 
     const isShiftWheel =
       event.shiftKey &&

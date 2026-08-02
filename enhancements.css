@@ -3387,3 +3387,47 @@ input:checked +
       !important;
   }
 }
+
+/* ==================================================
+   WEB: LOGO COMPLETO SIN RECORTE
+   ================================================== */
+
+@media
+  (hover: hover)
+  and (pointer: fine) {
+
+  .brand {
+    width: max-content !important;
+    min-width: max-content !important;
+    max-width: none !important;
+
+    overflow: visible !important;
+
+    padding-right: 8px !important;
+  }
+
+  .alberotv-brand {
+    width: max-content !important;
+    min-width: max-content !important;
+    max-width: none !important;
+
+    flex-shrink: 0 !important;
+    overflow: visible !important;
+  }
+
+  .alberotv-brand__name {
+    width: max-content !important;
+    min-width: max-content !important;
+
+    flex: 0 0 auto !important;
+
+    overflow: visible !important;
+    padding-right: 5px !important;
+  }
+
+  .alberotv-brand__albero,
+  .alberotv-brand__tv {
+    flex-shrink: 0 !important;
+  }
+}
+
