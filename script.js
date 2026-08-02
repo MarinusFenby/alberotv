@@ -7735,7 +7735,7 @@ function installAlberoTVBrandHeader() {
     <span class="alberotv-brand">
       <img
         class="alberotv-brand__icon"
-        src="assets/alberotv-logo.png"
+        src="assets/alberotv-logo-2026.png"
         alt="AlberoTV"
       >
       <span class="alberotv-brand__name">
