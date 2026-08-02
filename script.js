@@ -9283,3 +9283,27 @@ window.addEventListener(
   "pageshow",
   installAlberoAppViewportHeight
 );
+
+/* ==================================================
+   IDENTIFICAR SAFARI DE ESCRITORIO
+   ================================================== */
+
+(function markSafariDesktop() {
+  const isSafari =
+    navigator.vendor === "Apple Computer, Inc." &&
+    /Safari/i.test(navigator.userAgent) &&
+    !/CriOS|Chrome|Chromium|Edg|OPR/i.test(
+      navigator.userAgent
+    );
+
+  const isDesktop =
+    window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    ).matches;
+
+  document.documentElement.classList.toggle(
+    "is-safari-desktop",
+    isSafari && isDesktop
+  );
+})();
+

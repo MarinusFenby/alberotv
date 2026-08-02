@@ -3445,3 +3445,121 @@ header .alberotv-brand__icon {
   object-fit: cover !important;
 }
 
+
+/* ==================================================
+   FLECHAS: SOLO SAFARI DE ESCRITORIO
+   Nunca en iPhone, iPad, Chrome o Brave
+   ================================================== */
+
+.edge-arrow {
+  display: none !important;
+}
+
+@media
+  (hover: hover)
+  and (pointer: fine) {
+
+  html.is-safari-desktop .edge-arrow {
+    position: fixed !important;
+
+    top: 56% !important;
+
+    width: 48px !important;
+    height: 48px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+
+    border:
+      1px solid
+      rgba(103, 211, 255, 0.32)
+      !important;
+
+    border-radius: 50% !important;
+
+    background:
+      rgba(8, 38, 65, 0.94)
+      !important;
+
+    color: #ffffff !important;
+
+    font-size: 26px !important;
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    opacity: 0.88 !important;
+
+    z-index: 200 !important;
+
+    transform:
+      translateY(-50%)
+      !important;
+
+    box-shadow:
+      0 8px 24px
+      rgba(0, 0, 0, 0.28)
+      !important;
+
+    transition:
+      opacity 150ms ease,
+      transform 150ms ease,
+      background 150ms ease
+      !important;
+  }
+
+  html.is-safari-desktop .edge-arrow:hover {
+    opacity: 1 !important;
+
+    background:
+      rgba(13, 63, 103, 0.98)
+      !important;
+  }
+
+  html.is-safari-desktop .edge-arrow:active {
+    transform:
+      translateY(-50%)
+      scale(0.94)
+      !important;
+  }
+
+  html.is-safari-desktop .edge-arrow.left {
+    left: 18px !important;
+    right: auto !important;
+  }
+
+  html.is-safari-desktop .edge-arrow.right {
+    right: 18px !important;
+    left: auto !important;
+  }
+}
+
+
+/* ==================================================
+   WEB ESCRITORIO: ELIMINAR HUECO INFERIOR EXCESIVO
+   ================================================== */
+
+@media
+  (hover: hover)
+  and (pointer: fine) {
+
+  .day .events,
+  .events {
+    padding-bottom: 18px !important;
+    scroll-padding-bottom: 18px !important;
+  }
+
+  .events::after {
+    content: none !important;
+    display: none !important;
+    height: 0 !important;
+  }
+
+  .events > .event:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
