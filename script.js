@@ -6866,6 +6866,14 @@ function buildDayCard(date, offset, events) {
    ================================================== */
 
 function getMaximumCenterScale() {
+  /*
+   * En móvil no ampliamos la tarjeta central.
+   * La ampliación hacía desaparecer el borde inferior.
+   */
+  if (window.innerWidth <= 800) {
+    return 1;
+  }
+
   if (!timeline || !cards.length) {
     return 1;
   }
@@ -7449,8 +7457,13 @@ timeline.addEventListener(
 timeline.addEventListener(
   "pointerdown",
   event => {
+    /*
+     * El arrastre manual se usa únicamente con ratón.
+     * En iPhone dejamos que iOS distinga de forma nativa
+     * entre desplazamiento horizontal y vertical.
+     */
     if (
-      event.pointerType === "mouse" &&
+      event.pointerType !== "mouse" ||
       event.button !== 0
     ) {
       return;
@@ -9175,3 +9188,92 @@ window.setInterval(
   60 * 1000
 );
 
+
+/* APP VIEWPORT HEIGHT FINAL */
+
+function updateAlberoAppViewportHeight() {
+  const mobileApp =
+    window.matchMedia(
+      "(max-width: 800px) and (hover: none)"
+    ).matches;
+
+  if (!mobileApp) {
+    document.documentElement.style.removeProperty(
+      "--albero-app-topbar-height"
+    );
+
+    return;
+  }
+
+  const topbar =
+    document.querySelector(".topbar");
+
+  if (!topbar) {
+    return;
+  }
+
+  const topbarHeight =
+    Math.ceil(
+      topbar.getBoundingClientRect().height
+    );
+
+  document.documentElement.style.setProperty(
+    "--albero-app-topbar-height",
+    `${topbarHeight}px`
+  );
+}
+
+
+function installAlberoAppViewportHeight() {
+  updateAlberoAppViewportHeight();
+
+  const topbar =
+    document.querySelector(".topbar");
+
+  if (
+    topbar &&
+    typeof ResizeObserver !== "undefined" &&
+    !topbar.dataset.viewportObserverInstalled
+  ) {
+    topbar.dataset.viewportObserverInstalled =
+      "true";
+
+    const observer =
+      new ResizeObserver(
+        updateAlberoAppViewportHeight
+      );
+
+    observer.observe(topbar);
+  }
+}
+
+
+if (document.readyState === "loading") {
+  document.addEventListener(
+    "DOMContentLoaded",
+    installAlberoAppViewportHeight
+  );
+} else {
+  installAlberoAppViewportHeight();
+}
+
+
+window.addEventListener(
+  "resize",
+  updateAlberoAppViewportHeight
+);
+
+window.addEventListener(
+  "orientationchange",
+  () => {
+    window.setTimeout(
+      updateAlberoAppViewportHeight,
+      200
+    );
+  }
+);
+
+window.addEventListener(
+  "pageshow",
+  installAlberoAppViewportHeight
+);
