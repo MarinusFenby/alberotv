@@ -3431,3 +3431,17 @@ input:checked +
   }
 }
 
+
+/* LOGO ALBEROTV SIN MARCO BLANCO */
+
+.alberotv-brand__icon,
+.site-header .alberotv-brand__icon,
+header .alberotv-brand__icon {
+  background: transparent !important;
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  object-fit: cover !important;
+}
+
