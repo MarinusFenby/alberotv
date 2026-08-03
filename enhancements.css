@@ -3564,78 +3564,89 @@ header .alberotv-brand__icon {
 }
 
 
+/* ==================================================
+   WEB 2026: ARQUITECTURA ÚNICA DE NAVEGACIÓN Y ACCIONES
+   ================================================== */
 
-.non-tv-badge {
-  background: #ff172c !important;
-  border: 2px solid #ffadb5 !important;
-  color: #ffffff !important;
-  font-weight: 900 !important;
-  letter-spacing: 0.04em !important;
-  box-shadow:
-    0 0 12px rgba(255, 23, 44, 0.65),
-    0 7px 18px rgba(255, 23, 44, 0.4)
-    !important;
+/* El centrado lo controla un único controlador JavaScript. */
+.timeline {
+  scroll-snap-type: none !important;
+  scroll-behavior: auto;
+  overscroll-behavior-x: contain;
 }
 
-.watch-broadcast-link {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  min-height: 42px !important;
-  padding: 0 17px !important;
-  border-radius: 999px !important;
-  border: 1px solid #9fd0ff !important;
-  background: linear-gradient(
-    180deg,
-    #2696ff 0%,
-    #075dbd 100%
-  ) !important;
-  color: #ffffff !important;
-  text-decoration: none !important;
-  font-weight: 850 !important;
-  white-space: nowrap !important;
-  box-shadow:
-    0 8px 20px rgba(0, 103, 215, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25)
-    !important;
+.timeline .day {
+  scroll-snap-align: none !important;
+  scroll-snap-stop: normal !important;
 }
 
-.watch-broadcast-link:hover {
-  filter: brightness(1.1) !important;
-  transform: translateY(-1px) !important;
+.timeline.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto !important;
+  user-select: none;
 }
 
-
-/* Igualar Ver emisión y Favorito en festejos taurinos */
-.bullfighting-event .event-action-row {
-  align-items: center !important;
+/* Una única jerarquía visual para los botones de cada festejo. */
+.event-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin-top: 16px;
 }
 
 .bullfighting-event .watch-broadcast-link {
-  width: auto !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
-  height: 46px !important;
-  padding: 0 18px !important;
-  font-size: 16px !important;
-  line-height: 1 !important;
-  border-radius: 999px !important;
-  flex: 0 0 auto !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 0;
+  min-height: 34px;
+  padding: 7px 13px;
+  border: 1px solid #8bc8ff;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #2696ff 0%, #075dbd 100%);
+  color: #fff;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  box-sizing: border-box;
+  box-shadow:
+    0 5px 14px rgba(0, 103, 215, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
-
-/* WEB: Ver emisión discreto en festejos, igual que en Programas */
-.bullfighting-event .event-action-row .watch-broadcast-link {
-  width: auto !important;
-  min-width: 0 !important;
-  height: 38px !important;
-  min-height: 38px !important;
-  padding: 0 14px !important;
-  font-size: 14px !important;
-  line-height: 1 !important;
-  font-weight: 750 !important;
-  border-radius: 999px !important;
-  flex: 0 0 auto !important;
-  box-sizing: border-box !important;
+.bullfighting-event .watch-broadcast-link:hover {
+  filter: brightness(1.08);
 }
 
+.bullfighting-event .watch-broadcast-link:active {
+  transform: scale(0.97);
+}
+
+/* SIN TV: visible, pero integrado con el diseño. */
+.bullfighting-event.event-non-televised .non-tv-badge,
+.non-tv-badge {
+  background: #e61931 !important;
+  border-color: rgba(255, 185, 193, 0.9) !important;
+  color: #fff !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.04em !important;
+  box-shadow:
+    0 0 8px rgba(230, 25, 49, 0.34),
+    0 4px 12px rgba(230, 25, 49, 0.22) !important;
+}
+
+/* Las tarjetas laterales no deben capturar acciones por error. */
+.day:not(.active) .event a,
+.day:not(.active) .event button {
+  pointer-events: none;
+}
+
+.day.active .event a,
+.day.active .event button {
+  pointer-events: auto;
+}

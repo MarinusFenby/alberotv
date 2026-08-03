@@ -1605,78 +1605,252 @@ function buildEventHeaderMarkup(event = {}) {
   `;
 }
 
-function scrollToToday(options = {}) {
-  const {
-    behavior = "smooth",
-    resetVertical = true
-  } = options;
+function getCardCenterScrollLeft(card) {
+  if (!card || !timeline) {
+    return 0;
+  }
 
-  const todayCard =
-    document.querySelector(
-      '.day[data-offset="0"]'
+  const rawTarget =
+    card.offsetLeft -
+    (timeline.clientWidth - card.offsetWidth) / 2;
+
+  const maximum = Math.max(
+    0,
+    timeline.scrollWidth - timeline.clientWidth
+  );
+
+  return Math.max(
+    0,
+    Math.min(rawTarget, maximum)
+  );
+}
+
+
+function getNearestDayIndex() {
+  if (!cards.length || !timeline) {
+    return -1;
+  }
+
+  const viewportCenter =
+    timeline.scrollLeft + timeline.clientWidth / 2;
+
+  let nearestIndex = 0;
+  let nearestDistance = Infinity;
+
+  cards.forEach((card, index) => {
+    const cardCenter =
+      card.offsetLeft + card.offsetWidth / 2;
+
+    const distance = Math.abs(
+      cardCenter - viewportCenter
     );
 
-  if (!todayCard || !timeline) {
+    if (distance < nearestDistance) {
+      nearestDistance = distance;
+      nearestIndex = index;
+    }
+  });
+
+  return nearestIndex;
+}
+
+
+function centerDayCard(card, options = {}) {
+  const {
+    behavior = "smooth",
+    focus = false
+  } = options;
+
+  if (!card || !timeline) {
     return;
   }
 
-  const targetLeft =
-    todayCard.offsetLeft -
-    timeline.clientWidth / 2 +
-    todayCard.offsetWidth / 2;
+  timeline.scrollTo({
+    left: getCardCenterScrollLeft(card),
+    behavior
+  });
 
-  if (behavior === "auto") {
-    timeline.scrollLeft =
-      targetLeft;
-  } else {
-    timeline.scrollTo({
-      left: targetLeft,
-      behavior
-    });
+  activeCard = card;
+  activeIndex = cards.indexOf(card);
+
+  if (focus) {
+    card.focus?.({ preventScroll: true });
   }
 
-  if (resetVertical) {
-    const eventsContainer =
-      todayCard.querySelector(
-        ".events"
+  requestVisualUpdate();
+}
+
+
+function centerDayByIndex(index, options = {}) {
+  const boundedIndex = Math.max(
+    0,
+    Math.min(index, cards.length - 1)
+  );
+
+  centerDayCard(cards[boundedIndex], options);
+}
+
+
+function getTodayCard() {
+  return cards.find(
+    card => card.dataset.offset === "0"
+  ) || null;
+}
+
+
+function getEventInstant(event = {}) {
+  if (!hasValidEventTime(event)) {
+    return null;
+  }
+
+  const instant = madridDateTimeToUtc(
+    event.date,
+    event.time
+  );
+
+  return Number.isNaN(instant.getTime())
+    ? null
+    : instant;
+}
+
+
+function getClosestEventIndexForToday(dayEvents = [], now = new Date()) {
+  const timedEvents = dayEvents
+    .map((event, index) => ({
+      index,
+      instant: getEventInstant(event)
+    }))
+    .filter(item => item.instant);
+
+  if (!timedEvents.length) {
+    return 0;
+  }
+
+  const nextEvent = timedEvents.find(
+    item => item.instant.getTime() >= now.getTime()
+  );
+
+  return nextEvent
+    ? nextEvent.index
+    : timedEvents[timedEvents.length - 1].index;
+}
+
+
+function positionTodayAtClosestEvent(options = {}) {
+  const {
+    behavior = "auto"
+  } = options;
+
+  const todayCard = getTodayCard();
+
+  if (!todayCard) {
+    return;
+  }
+
+  const todayKey = todayCard.dataset.date;
+
+  const dayEvents = loadedEvents
+    .filter(event => event.date === todayKey)
+    .sort((eventA, eventB) => {
+      const timeComparison = String(
+        eventA.time || "99:99"
+      ).localeCompare(
+        String(eventB.time || "99:99")
       );
 
-    if (eventsContainer) {
-      if (behavior === "auto") {
-        eventsContainer.scrollTop = 0;
-      } else {
-        eventsContainer.scrollTo({
-          top: 0,
-          behavior
-        });
+      if (timeComparison !== 0) {
+        return timeComparison;
       }
-    }
+
+      return String(
+        eventA.title ||
+        eventA.name ||
+        eventA.location ||
+        ""
+      ).localeCompare(
+        String(
+          eventB.title ||
+          eventB.name ||
+          eventB.location ||
+          ""
+        ),
+        "es"
+      );
+    });
+
+  const eventCards = [
+    ...todayCard.querySelectorAll(".events > .event")
+  ];
+
+  const eventsContainer =
+    todayCard.querySelector(".events");
+
+  if (!eventsContainer || !eventCards.length) {
+    return;
+  }
+
+  const targetIndex =
+    getClosestEventIndexForToday(dayEvents);
+
+  const targetEvent =
+    eventCards[Math.min(targetIndex, eventCards.length - 1)];
+
+  if (!targetEvent) {
+    return;
+  }
+
+  const targetTop = Math.max(
+    0,
+    targetEvent.offsetTop - eventsContainer.offsetTop - 12
+  );
+
+  if (behavior === "auto") {
+    eventsContainer.scrollTop = targetTop;
+  } else {
+    eventsContainer.scrollTo({
+      top: targetTop,
+      behavior
+    });
   }
 }
 
 
-function forceTodayOnOpen() {
-  /*
-   * iOS puede restaurar la posición horizontal anterior
-   * al abrir un acceso de la pantalla de inicio.
-   * Recentramos HOY varias veces para imponernos a esa restauración.
-   */
-  const delays = [
-    0,
-    120,
-    450
-  ];
+function openWebAtToday() {
+  const todayCard = getTodayCard();
 
-  delays.forEach(delay => {
-    window.setTimeout(() => {
-      scrollToToday({
-        behavior: "auto",
-        resetVertical: true
-      });
+  if (!todayCard) {
+    return;
+  }
 
-      updateVisuals();
-    }, delay);
+  centerDayCard(todayCard, {
+    behavior: "auto"
   });
+
+  positionTodayAtClosestEvent({
+    behavior: "auto"
+  });
+
+  updateVisuals();
+}
+
+
+function scrollToToday(options = {}) {
+  const {
+    behavior = "smooth",
+    resetVertical = false
+  } = options;
+
+  const todayCard = getTodayCard();
+
+  if (!todayCard) {
+    return;
+  }
+
+  centerDayCard(todayCard, { behavior });
+
+  if (resetVertical) {
+    positionTodayAtClosestEvent({ behavior });
+  }
 }
 
 
@@ -7217,20 +7391,6 @@ function updateVisuals() {
   activeIndex =
     closestIndex;
 
-  if (
-    activeCard &&
-    activeCard !== previousActiveCard
-  ) {
-    const activeEvents =
-      activeCard.querySelector(
-        ".events"
-      );
-
-    if (activeEvents) {
-      activeEvents.scrollTop = 0;
-    }
-  }
-
   cards.forEach(card => {
     const isActive =
       card === activeCard;
@@ -7734,17 +7894,9 @@ async function init() {
     );
 
   requestAnimationFrame(() => {
-    if (todayCard) {
-      scrollToToday({
-        behavior: "auto",
-        resetVertical: true
-      });
-    }
-
-    updateVisuals();
+    openWebAtToday();
     startTemporalStatusUpdates();
     addTodayButton();
-    forceTodayOnOpen();
   });
 }
 
@@ -7955,66 +8107,48 @@ timeline.addEventListener(
 
 
 /* ==================================================
-   FLECHAS
+   NAVEGACIÓN EXACTA ENTRE DÍAS
    ================================================== */
 
+function navigateRelativeDay(direction) {
+  const nearestIndex = getNearestDayIndex();
+
+  centerDayByIndex(
+    (nearestIndex < 0 ? 0 : nearestIndex) + direction,
+    { behavior: "smooth" }
+  );
+}
+
+
 document
-  .querySelector(
-    ".edge-arrow.left"
-  )
+  .querySelector(".edge-arrow.left")
   ?.addEventListener(
     "click",
-    () => {
-      timeline.scrollBy({
-        left: -260,
-        behavior: "smooth"
-      });
-    }
+    () => navigateRelativeDay(-1)
   );
 
 
 document
-  .querySelector(
-    ".edge-arrow.right"
-  )
+  .querySelector(".edge-arrow.right")
   ?.addEventListener(
     "click",
-    () => {
-      timeline.scrollBy({
-        left: 260,
-        behavior: "smooth"
-      });
-    }
+    () => navigateRelativeDay(1)
   );
 
-
-/* ==================================================
-   TECLADO
-   ================================================== */
 
 timeline.addEventListener(
   "keydown",
   event => {
-    if (
-      event.key === "ArrowLeft"
-    ) {
+    if (event.key === "ArrowLeft") {
       event.preventDefault();
-
-      timeline.scrollBy({
-        left: -180,
-        behavior: "smooth"
-      });
+      navigateRelativeDay(-1);
+      return;
     }
 
-    if (
-      event.key === "ArrowRight"
-    ) {
+    if (event.key === "ArrowRight") {
       event.preventDefault();
-
-      timeline.scrollBy({
-        left: 180,
-        behavior: "smooth"
-      });
+      navigateRelativeDay(1);
+      return;
     }
 
     if (
@@ -8047,14 +8181,21 @@ timeline.addEventListener(
   }
 );
 
-
 /* ==================================================
    AJUSTE AL CAMBIAR EL TAMAÑO DE LA VENTANA
    ================================================== */
 
 window.addEventListener(
   "resize",
-  requestVisualUpdate
+  () => {
+    const card = activeCard || cards[getNearestDayIndex()];
+
+    if (card) {
+      centerDayCard(card, { behavior: "auto" });
+    }
+
+    requestVisualUpdate();
+  }
 );
 
 
@@ -8088,9 +8229,15 @@ if ("scrollRestoration" in history) {
 
 window.addEventListener(
   "pageshow",
-  () => {
-    if (cards.length) {
-      forceTodayOnOpen();
+  event => {
+    if (event.persisted && cards.length) {
+      requestAnimationFrame(() => {
+        const card = activeCard || getTodayCard();
+
+        if (card) {
+          centerDayCard(card, { behavior: "auto" });
+        }
+      });
     }
   }
 );
@@ -8141,237 +8288,74 @@ if (document.readyState === "loading") {
 
 
 /* ==================================================
-   CENTRADO AUTOMÁTICO DEL CARRUSEL DE DÍAS
+   CENTRADO DEL CARRUSEL: CONTROLADOR ÚNICO
    ================================================== */
 
-function installTimelineAutoCenter() {
-  const timelineElement =
-    document.getElementById("timeline");
+let timelineCenterTimer = null;
+let timelineInteractionActive = false;
 
-  if (
-    !timelineElement ||
-    timelineElement.dataset.autoCenterInstalled === "true"
-  ) {
-    return;
-  }
+function scheduleTimelineCenter() {
+  window.clearTimeout(timelineCenterTimer);
 
-  timelineElement.dataset.autoCenterInstalled =
-    "true";
-
-  let scrollTimer = null;
-  let userIsTouching = false;
-  let automaticCentering = false;
-
-  function getNearestDayCard() {
-    const dayCards = [
-      ...timelineElement.querySelectorAll(".day")
-    ];
-
-    if (!dayCards.length) {
-      return null;
-    }
-
-    const timelineRect =
-      timelineElement.getBoundingClientRect();
-
-    const timelineCenter =
-      timelineRect.left +
-      timelineRect.width / 2;
-
-    return dayCards.reduce(
-      (nearest, card) => {
-        const cardRect =
-          card.getBoundingClientRect();
-
-        const cardCenter =
-          cardRect.left +
-          cardRect.width / 2;
-
-        const distance =
-          Math.abs(
-            cardCenter -
-            timelineCenter
-          );
-
-        if (
-          !nearest ||
-          distance < nearest.distance
-        ) {
-          return {
-            card,
-            distance
-          };
-        }
-
-        return nearest;
-      },
-      null
-    )?.card || null;
-  }
-
-  function centerNearestDay() {
-    if (
-      userIsTouching ||
-      automaticCentering
-    ) {
+  timelineCenterTimer = window.setTimeout(() => {
+    if (timelineInteractionActive || isDragging) {
       return;
     }
 
-    const nearestCard =
-      getNearestDayCard();
+    const nearestIndex = getNearestDayIndex();
 
-    if (!nearestCard) {
-      return;
+    if (nearestIndex >= 0) {
+      centerDayByIndex(nearestIndex, {
+        behavior: "smooth"
+      });
     }
-
-    const targetLeft =
-      nearestCard.offsetLeft -
-      timelineElement.clientWidth / 2 +
-      nearestCard.offsetWidth / 2;
-
-    if (
-      Math.abs(
-        timelineElement.scrollLeft -
-        targetLeft
-      ) < 2
-    ) {
-      return;
-    }
-
-    automaticCentering = true;
-
-    timelineElement.scrollTo({
-      left: targetLeft,
-      behavior: "smooth"
-    });
-
-    window.setTimeout(() => {
-      automaticCentering = false;
-
-      document
-        .querySelectorAll(".day")
-        .forEach(card => {
-          const isActive =
-            card === nearestCard;
-
-          card.classList.toggle(
-            "active",
-            isActive
-          );
-
-          card.setAttribute(
-            "aria-current",
-            isActive
-              ? "date"
-              : "false"
-          );
-        });
-
-      if (
-        typeof activeCard !== "undefined"
-      ) {
-        activeCard =
-          nearestCard;
-      }
-
-      if (
-        typeof updateTodayButtonState ===
-        "function"
-      ) {
-        updateTodayButtonState();
-      }
-    }, 350);
-  }
-
-  function scheduleCentering() {
-    window.clearTimeout(
-      scrollTimer
-    );
-
-    scrollTimer =
-      window.setTimeout(
-        centerNearestDay,
-        140
-      );
-  }
-
-  timelineElement.addEventListener(
-    "touchstart",
-    () => {
-      userIsTouching = true;
-
-      window.clearTimeout(
-        scrollTimer
-      );
-    },
-    {
-      passive: true
-    }
-  );
-
-  timelineElement.addEventListener(
-    "touchend",
-    () => {
-      userIsTouching = false;
-
-      scheduleCentering();
-    },
-    {
-      passive: true
-    }
-  );
-
-  timelineElement.addEventListener(
-    "pointerdown",
-    () => {
-      userIsTouching = true;
-
-      window.clearTimeout(
-        scrollTimer
-      );
-    },
-    {
-      passive: true
-    }
-  );
-
-  window.addEventListener(
-    "pointerup",
-    () => {
-      if (!userIsTouching) {
-        return;
-      }
-
-      userIsTouching = false;
-
-      scheduleCentering();
-    },
-    {
-      passive: true
-    }
-  );
-
-  timelineElement.addEventListener(
-    "scroll",
-    scheduleCentering,
-    {
-      passive: true
-    }
-  );
+  }, 130);
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener(
-    "DOMContentLoaded",
-    installTimelineAutoCenter
-  );
-} else {
-  installTimelineAutoCenter();
-}
+timeline.addEventListener(
+  "scroll",
+  scheduleTimelineCenter,
+  { passive: true }
+);
+
+timeline.addEventListener(
+  "touchstart",
+  () => {
+    timelineInteractionActive = true;
+    window.clearTimeout(timelineCenterTimer);
+  },
+  { passive: true }
+);
+
+timeline.addEventListener(
+  "touchend",
+  () => {
+    timelineInteractionActive = false;
+    scheduleTimelineCenter();
+  },
+  { passive: true }
+);
+
+timeline.addEventListener(
+  "pointerdown",
+  () => {
+    timelineInteractionActive = true;
+    window.clearTimeout(timelineCenterTimer);
+  },
+  { passive: true }
+);
 
 window.addEventListener(
-  "pageshow",
-  installTimelineAutoCenter
+  "pointerup",
+  () => {
+    if (!timelineInteractionActive) {
+      return;
+    }
+
+    timelineInteractionActive = false;
+    scheduleTimelineCenter();
+  },
+  { passive: true }
 );
 
 
