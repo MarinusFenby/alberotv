@@ -3595,25 +3595,35 @@ header .alberotv-brand__icon {
   margin-top: 16px;
 }
 
-.bullfighting-event .watch-broadcast-link {
+.bullfighting-event .event-action-row {
+  align-items: center;
+}
+
+.bullfighting-event .event-action-row .watch-broadcast-link,
+.bullfighting-event .event-action-row .event-favorite-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: auto;
   min-width: 0;
-  min-height: 34px;
-  padding: 7px 13px;
-  border: 1px solid #8bc8ff;
+  height: 37px;
+  min-height: 37px;
+  margin: 0;
+  padding: 8px 14px;
   border-radius: 999px;
-  background: linear-gradient(180deg, #2696ff 0%, #075dbd 100%);
-  color: #fff;
   font: inherit;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 800;
   line-height: 1;
-  text-decoration: none;
   white-space: nowrap;
   box-sizing: border-box;
+}
+
+.bullfighting-event .watch-broadcast-link {
+  border: 1px solid #8bc8ff;
+  background: linear-gradient(180deg, #2696ff 0%, #075dbd 100%);
+  color: #fff;
+  text-decoration: none;
   box-shadow:
     0 5px 14px rgba(0, 103, 215, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.22);
