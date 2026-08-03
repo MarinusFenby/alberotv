@@ -4061,6 +4061,7 @@ function buildProgram(event) {
     "Canal por confirmar";
 
   const eventUrl =
+    getEventBroadcastUrl(event) ||
     event.eventUrl ||
     event.sourceUrl ||
     "";
