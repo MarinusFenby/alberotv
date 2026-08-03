@@ -3637,6 +3637,37 @@ header .alberotv-brand__icon {
   transform: scale(0.97);
 }
 
+
+/* Programas: acciones en una única fila compacta. */
+.program-event .program-action-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin-top: 16px;
+}
+
+.program-event .program-action-row .program-link,
+.program-event .program-action-row .event-favorite-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 0;
+  height: 37px;
+  min-height: 37px;
+  margin: 0;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
 /* SIN TV: visible, pero integrado con el diseño. */
 .bullfighting-event.event-non-televised .non-tv-badge,
 .non-tv-badge {

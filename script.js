@@ -4095,22 +4095,22 @@ function buildProgram(event) {
           Actualidad y contenidos del mundo taurino
         </div>
 
-        ${
-          eventUrl
-            ? `
-              <a
-                class="event-link program-link"
-                href="${escapeHtml(eventUrl)}"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Ver emisión
-              </a>
-            `
-            : ""
-        }
+        <div class="event-action-row program-action-row">
+          ${
+            eventUrl
+              ? `
+                <a
+                  class="event-link program-link"
+                  href="${escapeHtml(eventUrl)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ver emisión
+                </a>
+              `
+              : ""
+          }
 
-        <div class="event-action-row">
           ${buildNotificationButtonMarkup(event)}
           ${buildFavoriteButtonMarkup(event)}
         </div>
