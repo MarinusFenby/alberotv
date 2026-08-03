@@ -3937,7 +3937,6 @@ function buildProgram(event) {
         }
 
         <div class="event-action-row">
-          ${buildWatchBroadcastButton(event)}
           ${buildNotificationButtonMarkup(event)}
           ${buildFavoriteButtonMarkup(event)}
         </div>
@@ -6861,6 +6860,7 @@ function buildBullfightingEvent(event) {
         }
 
         <div class="event-action-row">
+          ${buildWatchBroadcastButton(event)}
           ${buildNotificationButtonMarkup(event)}
           ${buildFavoriteButtonMarkup(event)}
         </div>
