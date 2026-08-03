@@ -3605,3 +3605,21 @@ header .alberotv-brand__icon {
   transform: translateY(-1px) !important;
 }
 
+
+/* Igualar Ver emisión y Favorito en festejos taurinos */
+.bullfighting-event .event-action-row {
+  align-items: center !important;
+}
+
+.bullfighting-event .watch-broadcast-link {
+  width: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 46px !important;
+  padding: 0 18px !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  border-radius: 999px !important;
+  flex: 0 0 auto !important;
+}
+
