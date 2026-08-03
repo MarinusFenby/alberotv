@@ -3623,3 +3623,19 @@ header .alberotv-brand__icon {
   flex: 0 0 auto !important;
 }
 
+
+/* WEB: Ver emisión discreto en festejos, igual que en Programas */
+.bullfighting-event .event-action-row .watch-broadcast-link {
+  width: auto !important;
+  min-width: 0 !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 0 14px !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  font-weight: 750 !important;
+  border-radius: 999px !important;
+  flex: 0 0 auto !important;
+  box-sizing: border-box !important;
+}
+
