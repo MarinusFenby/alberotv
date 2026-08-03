@@ -3563,3 +3563,45 @@ header .alberotv-brand__icon {
   }
 }
 
+
+
+.non-tv-badge {
+  background: #ff172c !important;
+  border: 2px solid #ffadb5 !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.04em !important;
+  box-shadow:
+    0 0 12px rgba(255, 23, 44, 0.65),
+    0 7px 18px rgba(255, 23, 44, 0.4)
+    !important;
+}
+
+.watch-broadcast-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 42px !important;
+  padding: 0 17px !important;
+  border-radius: 999px !important;
+  border: 1px solid #9fd0ff !important;
+  background: linear-gradient(
+    180deg,
+    #2696ff 0%,
+    #075dbd 100%
+  ) !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-weight: 850 !important;
+  white-space: nowrap !important;
+  box-shadow:
+    0 8px 20px rgba(0, 103, 215, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25)
+    !important;
+}
+
+.watch-broadcast-link:hover {
+  filter: brightness(1.1) !important;
+  transform: translateY(-1px) !important;
+}
+

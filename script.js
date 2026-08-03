@@ -1054,6 +1054,116 @@ const CHANNEL_LOGOS = [
 ];
 
 
+
+const CHANNEL_BROADCAST_LINKS = [
+  {
+    matches: ["onetoro", "one toro"],
+    url: "https://www.onetoro.tv/"
+  },
+  {
+    matches: ["canal sur", "canal sur 1", "canal sur andalucia"],
+    url: "https://www.canalsur.es/television/directo-television/"
+  },
+  {
+    matches: ["cmm", "castilla-la mancha", "castilla la mancha"],
+    url: "https://www.cmmedia.es/play/doplay"
+  },
+  {
+    matches: ["telemadrid", "tele madrid"],
+    url: "https://www.telemadrid.es/emision-en-directo/"
+  },
+  {
+    matches: ["canal extremadura", "extremadura"],
+    url: "https://www.canalextremadura.es/"
+  },
+  {
+    matches: ["la 7 cyl", "la 7 cy l", "la 7", "castilla y leon", "castilla y león"],
+    url: "https://www.cyltv.es/"
+  },
+  {
+    matches: ["aragon tv", "aragón tv", "atv"],
+    url: "https://www.cartv.es/aragon-tv"
+  },
+  {
+    matches: ["la 1", "la 2", "tve", "rtve"],
+    url: "https://www.rtve.es/play/"
+  }
+];
+
+function getEventBroadcastUrl(event = {}) {
+  const explicitUrl =
+    String(
+      event.broadcastUrl ||
+      event.broadcast_url ||
+      event.channelUrl ||
+      event.channel_url ||
+      event.streamUrl ||
+      event.stream_url ||
+      event.watchUrl ||
+      event.watch_url ||
+      ""
+    ).trim();
+
+  if (explicitUrl) {
+    return explicitUrl;
+  }
+
+  const broadcast =
+    getBroadcastPresentation(event);
+
+  if (!broadcast.confirmed) {
+    return "";
+  }
+
+  const normalizedChannel =
+    normalizeText(
+      broadcast.label ||
+      event.channel ||
+      event.broadcastChannel ||
+      ""
+    );
+
+  const match =
+    CHANNEL_BROADCAST_LINKS.find(item =>
+      item.matches.some(channelName => {
+        const normalizedName =
+          normalizeText(channelName);
+
+        return (
+          normalizedChannel === normalizedName ||
+          normalizedChannel.includes(normalizedName)
+        );
+      })
+    );
+
+  return match?.url || "";
+}
+
+function buildWatchBroadcastButton(event = {}) {
+  if (isNonTelevisedEvent(event)) {
+    return "";
+  }
+
+  const url =
+    getEventBroadcastUrl(event);
+
+  if (!url) {
+    return "";
+  }
+
+  return `
+    <a
+      class="event-link watch-broadcast-link"
+      href="${escapeHtml(url)}"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      ▶ Ver emisión
+    </a>
+  `;
+}
+
+
 function getChannelLogoData(channelName = "") {
   const normalized =
     normalizeText(channelName);
@@ -3827,6 +3937,7 @@ function buildProgram(event) {
         }
 
         <div class="event-action-row">
+          ${buildWatchBroadcastButton(event)}
           ${buildNotificationButtonMarkup(event)}
           ${buildFavoriteButtonMarkup(event)}
         </div>
