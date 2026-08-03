@@ -1074,11 +1074,11 @@ const CHANNEL_BROADCAST_LINKS = [
   },
   {
     matches: ["canal extremadura", "extremadura"],
-    url: "https://www.canalextremadura.es/"
+    url: "https://www.canalextremadura.app/"
   },
   {
     matches: ["la 7 cyl", "la 7 cy l", "la 7", "castilla y leon", "castilla y león"],
-    url: "https://www.cyltv.es/"
+    url: "https://www.cyltvplay.es/directos"
   },
   {
     matches: ["aragon tv", "aragón tv", "atv"],
