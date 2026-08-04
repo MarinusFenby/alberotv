@@ -7179,10 +7179,18 @@ function buildDayCard(date, offset, events) {
               .map(buildEvent)
               .join("")
           : `
-              <div class="empty">
+              <div class="empty empty-day-state">
+
+                <img
+                  class="empty-day-bull"
+                  src="assets/toro-comiendo-hierba.png"
+                  alt="Toro comiendo hierba"
+                  loading="lazy"
+                  decoding="async"
+                >
 
                 <b>
-                  Sin emisiones programadas
+                  Día de descanso
                 </b>
 
                 <span>
