@@ -116,8 +116,34 @@ function htmlToPlainText(html = "") {
   );
 }
 
+function extractRawChannel(text = "") {
+  const block = clean(text);
+
+  const match = block.match(
+    /📺\s*(.+?)(?=\s*🏟|\s*🐂|\s*📜|\s*🔗|$)/i
+  );
+
+  if (!match || !match[1]) {
+    return "";
+  }
+
+  return clean(match[1])
+    .replace(/^[^0-9A-Za-zÀ-ÿ]+/, "")
+    .replace(/[.·,;:\s]+$/, "")
+    .trim();
+}
+
 function normalizeChannel(text = "") {
   const value = normalizeText(text);
+
+  if (
+    value.includes("101 television malaga") ||
+    value.includes("101 tv malaga") ||
+    value.includes("101 television") ||
+    value.includes("101 tv")
+  ) {
+    return "101 TV Málaga";
+  }
 
   if (value.includes("onetoro") || value.includes("one toro")) {
     return "OneToro";
@@ -175,6 +201,25 @@ function normalizeChannel(text = "") {
     value.includes("television del principado de asturias")
   ) {
     return "RTPA";
+  }
+
+  /*
+   * Canal todavía desconocido:
+   * se conserva el nombre que aparece entre 📺 y 🏟.
+   * Así las futuras cadenas no desaparecen del JSON.
+   */
+  const rawChannel = extractRawChannel(text);
+
+  if (
+    rawChannel &&
+    rawChannel.length >= 2 &&
+    rawChannel.length <= 60
+  ) {
+    console.warn(
+      `Nuevo canal detectado automáticamente: ${rawChannel}`
+    );
+
+    return rawChannel;
   }
 
   return "";
