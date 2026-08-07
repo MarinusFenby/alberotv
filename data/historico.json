@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-06T19:48:02.793Z",
-  "throughDate": "2026-08-06",
-  "eventCount": 41,
+  "generatedAt": "2026-08-07T01:45:52.152Z",
+  "throughDate": "2026-08-07",
+  "eventCount": 43,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -1448,6 +1448,84 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-08-05T18:58:58.313Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-5eaaeb6f20883b",
+      "date": "2026-08-07",
+      "time": "22:00",
+      "channel": "Canal Sur",
+      "televised": true,
+      "location": "Marbella (Málaga)",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Cayetano Muñoz",
+      "participants": [
+        "Morante de la Puebla",
+        "José María Manzanares",
+        "Aarón Palacio"
+      ],
+      "name": "Marbella (Málaga)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-08-06T19:47:20.097Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
+        }
+      ],
+      "confidence": 96,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-568a75a26035b3",
+      "date": "2026-08-07",
+      "time": null,
+      "channel": "Sin TV",
+      "televised": false,
+      "location": "El Puerto de Santa María (Cádiz) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "San Pelayo",
+      "participants": [
+        "Andrés Romero",
+        "Diego Ventura",
+        "Duarte Fernandes",
+        "João Moura Caetano",
+        "Rui Fernandes",
+        "Sebastián Fernández"
+      ],
+      "name": "El Puerto de Santa María (Cádiz) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
