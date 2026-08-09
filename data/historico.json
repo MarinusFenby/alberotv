@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-09T17:53:46.468Z",
-  "throughDate": "2026-08-09",
-  "eventCount": 64,
+  "generatedAt": "2026-08-09T23:53:47.283Z",
+  "throughDate": "2026-08-10",
+  "eventCount": 67,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -2264,6 +2264,118 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-08-08T17:53:10.345Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-a44dc6f14202fa",
+      "date": "2026-08-10",
+      "time": "18:30",
+      "channel": "Aragón TV",
+      "televised": true,
+      "location": "Huesca",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "El Torero",
+      "participants": [
+        "El Fandi",
+        "Tomás Rufo",
+        "Marco Pérez"
+      ],
+      "name": "Huesca",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-08-09T17:53:15.428Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-09T17:53:43.100Z"
+        }
+      ],
+      "confidence": 96,
+      "status": "confirmed"
+    },
+    {
+      "id": null,
+      "date": "2026-08-10",
+      "time": "19:00",
+      "channel": "101 TV Málaga",
+      "televised": true,
+      "location": "Málaga",
+      "type": "Novillada sin picadores",
+      "contentType": "festejo",
+      "breeding": "Reservatauro",
+      "participants": [
+        "Alejandro Brescia — Escuela Taurina de Málaga",
+        "Sergio Valderrama — Escuela Taurina de Antequera",
+        "Blas Márquez — Escuela Taurina de Linares",
+        "Pablo Fernández — Escuela Taurina de Motril",
+        "Alonso Mateo — Escuela Taurina de Aguascalientes"
+      ],
+      "name": "Málaga",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-08-09T17:53:15.428Z"
+        }
+      ],
+      "confidence": 94,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-9e3bb678df213e",
+      "date": "2026-08-10",
+      "time": null,
+      "channel": "Sin TV",
+      "televised": false,
+      "location": "Isla Graciosa (Azores) Portugal",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Álvaro Amorante, Casa Agrícola José Albino Fernandes y Rego Botelho",
+      "participants": [
+        "João Pamplona",
+        "Luis Rouxinol",
+        "Luis Rouxinol (hijo)",
+        "Tiago Pamplona"
+      ],
+      "name": "Isla Graciosa (Azores) Portugal",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-09T17:53:43.100Z"
         }
       ],
       "confidence": 89,
