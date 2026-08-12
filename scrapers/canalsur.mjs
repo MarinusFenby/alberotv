@@ -37,6 +37,9 @@ const GOOGLE_NEWS_RSS_URL =
     ceid: "ES:es"
   }).toString();
 
+const CANAL_SUR_SITEMAP_NEWS_URL =
+  "https://www.canalsur.es/canalsur_sitemap_google_news.xml";
+
 
 const USER_AGENT =
   "Mozilla/5.0 (compatible; AlberoTV/1.0; +https://github.com/)";
@@ -249,10 +252,10 @@ function isDateInsideAllowedRange(date) {
   const minimumDate =
     new Date(today);
 
-  minimumDate.setDate(
-    minimumDate.getDate() -
-    MAX_EVENT_AGE_DAYS
-  );
+  // La fuente se usa para construir la agenda futura. No permitimos que
+  // la fecha de publicación de una noticia antigua gane a la fecha real
+  // de un festejo próximo mencionado en el mismo artículo.
+  minimumDate.setDate(minimumDate.getDate());
 
   const maximumDate =
     new Date(today);
@@ -378,6 +381,84 @@ function parseGoogleNewsRss(xml = "") {
       0,
       MAX_ARTICLES
     );
+}
+
+
+function parseCanalSurSitemap(xml = "") {
+  const entries =
+    String(xml).match(/<url\b[\s\S]*?<\/url>/gi) || [];
+
+  return entries
+    .map(entryXml => ({
+      title:
+        extractXmlTag(entryXml, "news:title") ||
+        extractXmlTag(entryXml, "image:title") ||
+        extractXmlTag(entryXml, "loc"),
+      link:
+        extractXmlTag(entryXml, "loc"),
+      publicationDate:
+        extractXmlTag(entryXml, "news:publication_date") ||
+        extractXmlTag(entryXml, "lastmod")
+    }))
+    .filter(item => {
+      const searchable = normalizeText(`${item.title} ${item.link}`);
+      return (
+        item.link &&
+        item.link.includes("canalsur.es/rtva/") &&
+        /toros?|corrida|novillada|rejones|becerrada|festej|taurin/.test(searchable)
+      );
+    });
+}
+
+
+function recentMonthlySitemapUrls() {
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Madrid",
+    year: "numeric",
+    month: "2-digit"
+  });
+  const urls = [CANAL_SUR_SITEMAP_NEWS_URL];
+
+  for (let offset = 0; offset < 3; offset += 1) {
+    const date = new Date();
+    date.setUTCDate(15);
+    date.setUTCMonth(date.getUTCMonth() - offset);
+    const parts = Object.fromEntries(
+      formatter.formatToParts(date)
+        .filter(part => part.type !== "literal")
+        .map(part => [part.type, part.value])
+    );
+    urls.push(
+      `https://www.canalsur.es/canalsur_sitemap_contents_${parts.year}_${parts.month}.xml`
+    );
+  }
+
+  return urls;
+}
+
+
+async function loadOfficialCanalSurItems() {
+  const collected = [];
+
+  for (const url of recentMonthlySitemapUrls()) {
+    try {
+      const { text } = await fetchText(url, {
+        headers: { accept: "application/xml,text/xml;q=0.9,*/*;q=0.7" }
+      });
+      collected.push(...parseCanalSurSitemap(text));
+    } catch (error) {
+      console.warn(`No se pudo leer el mapa oficial ${url}: ${error.message}`);
+    }
+  }
+
+  const uniqueItems = new Map();
+  for (const item of collected) {
+    if (!uniqueItems.has(item.link)) uniqueItems.set(item.link, item);
+  }
+
+  return [...uniqueItems.values()]
+    .sort((a, b) => String(b.publicationDate).localeCompare(String(a.publicationDate)))
+    .slice(0, MAX_ARTICLES);
 }
 
 
@@ -521,6 +602,8 @@ function confirmsLiveBroadcast(text = "") {
   ];
 
   const taurineExpressions = [
+    "corrida",
+    "festejo",
     "corrida de toros",
     "corrida mixta",
     "corrida de rejones",
@@ -1455,13 +1538,9 @@ async function processArticle(
       return null;
     }
 
-    if (
-      !parsedUrl.pathname.includes(
-        "/rtva/comunicacion/"
-      )
-    ) {
+    if (!parsedUrl.pathname.startsWith("/rtva/")) {
       console.log(
-        "  Ignorado: no es una comunicación oficial de RTVA"
+        "  Ignorado: no es una publicación oficial de RTVA"
       );
 
       return null;
@@ -1511,10 +1590,13 @@ async function main() {
     "Buscando comunicaciones oficiales..."
   );
 
-  const {
-    text: rssXml
-  } =
-    await fetchText(
+  let rssItems = await loadOfficialCanalSurItems();
+
+  if (!rssItems.length) {
+    console.warn(
+      "Los mapas oficiales no devolvieron candidatos; se usa Google News como respaldo."
+    );
+    const { text: rssXml } = await fetchText(
       GOOGLE_NEWS_RSS_URL,
       {
         headers: {
@@ -1525,11 +1607,8 @@ async function main() {
         }
       }
     );
-
-  const rssItems =
-    parseGoogleNewsRss(
-      rssXml
-    );
+    rssItems = parseGoogleNewsRss(rssXml);
+  }
 
   console.log(
     `${rssItems.length} posibles artículos encontrados`
