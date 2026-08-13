@@ -53,7 +53,7 @@ const CONFIRMED_SPECIAL_PROGRAMS = [
 ].map(date => ({
   id: `onetoro-conexion-dax-${date}`,
   date,
-  time: null,
+  time: "20:00",
   channel: "OneToro",
   televised: true,
   location: "Dax (Landes) Francia",
