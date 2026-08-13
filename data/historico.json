@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-13T06:52:07.634Z",
+  "generatedAt": "2026-08-13T11:03:19.280Z",
   "throughDate": "2026-08-13",
-  "eventCount": 81,
+  "eventCount": 82,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -2600,7 +2600,10 @@
       "contentType": "festejo",
       "breeding": "Antonio López Gibaja",
       "participants": [
-        "los finalistas del certamen"
+        "los finalistas del certamen",
+        "Hugo Masiá",
+        "Abel Rodríguez",
+        "Neyzan Espín"
       ],
       "name": "Málaga",
       "title": null,
@@ -2728,6 +2731,36 @@
       ],
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "onetoro-conexion-dax-2026-08-13",
+      "date": "2026-08-13",
+      "time": null,
+      "channel": "OneToro",
+      "televised": true,
+      "location": "Dax (Landes) Francia",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Conexión Dax",
+      "title": "Conexión Dax",
+      "image": null,
+      "eventUrl": "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander",
+      "sourceUrl": "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander",
+      "sources": [
+        "OneToro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 97,
+      "status": "confirmed"
     },
     {
       "id": "mundotoro-8ceab02adcb766",
