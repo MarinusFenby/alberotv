@@ -833,7 +833,7 @@ function mergeTwoEvents(first, second) {
     ),
     contentType: first.contentType || second.contentType || "festejo",
     breeding: chooseInformativeValue(
-      first.breeding,
+time: "20:00",time: null,      first.breeding,
       second.breeding,
       preferSecond
     ),
