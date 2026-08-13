@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T14:46:25.036Z",
+  "generatedAt": "2026-08-13T15:02:23.156Z",
   "throughDate": "2026-08-13",
   "eventCount": 82,
   "events": [
@@ -2625,6 +2625,36 @@
       "status": "confirmed"
     },
     {
+      "id": "onetoro-conexion-dax-2026-08-13",
+      "date": "2026-08-13",
+      "time": "20:00",
+      "channel": "OneToro",
+      "televised": true,
+      "location": "Dax (Landes) Francia",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Conexión Dax",
+      "title": "Conexión Dax",
+      "image": null,
+      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sources": [
+        "OneToro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 98,
+      "status": "confirmed"
+    },
+    {
       "id": "canal-extremadura-4eb66722f8c740",
       "date": "2026-08-13",
       "time": "21:00",
@@ -2731,36 +2761,6 @@
       ],
       "confidence": 89,
       "status": "probable"
-    },
-    {
-      "id": "onetoro-conexion-dax-2026-08-13",
-      "date": "2026-08-13",
-      "time": null,
-      "channel": "OneToro",
-      "televised": true,
-      "location": "Dax (Landes) Francia",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Conexión Dax",
-      "title": "Conexión Dax",
-      "image": null,
-      "eventUrl": "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander",
-      "sourceUrl": "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 97,
-      "status": "confirmed"
     },
     {
       "id": "mundotoro-8ceab02adcb766",
