@@ -63,7 +63,7 @@ const CONFIRMED_SPECIAL_PROGRAMS = [
   contentType: "programa",
   source: "OneToro",
   sourceUrl:
-    "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander"
+    "https://festejos.onetoro.tv/content/ultimos-dos-festejos"
 }));
 
 function normalizeText(text = "") {
@@ -648,6 +648,13 @@ function normalizeGenericEvent(event, sourceName, fetchedAt = null) {
 }
 
 function normalizeOneToroEvent(event, fetchedAt = null) {
+  if (
+    event.contentType === "programa" ||
+    normalizeType(event.type) === "Programa taurino"
+  ) {
+    return normalizeProgramEvent(event, "OneToro", fetchedAt);
+  }
+
   return normalizeGenericEvent(
     {
       ...event,
