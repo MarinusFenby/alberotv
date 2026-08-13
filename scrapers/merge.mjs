@@ -40,6 +40,32 @@ const SOURCE_CONFIDENCE = {
   "Toros en España Play": 94
 };
 
+/*
+ * Emisiones especiales confirmadas públicamente que OneToro anuncia
+ * fuera de su contenedor habitual de próximos festejos. Se mantienen
+ * aquí para que no desaparezcan en cada actualización automática.
+ */
+const CONFIRMED_SPECIAL_PROGRAMS = [
+  "2026-08-13",
+  "2026-08-14",
+  "2026-08-15",
+  "2026-08-16"
+].map(date => ({
+  id: `onetoro-conexion-dax-${date}`,
+  date,
+  time: null,
+  channel: "OneToro",
+  televised: true,
+  location: "Dax (Landes) Francia",
+  name: "Conexión Dax",
+  title: "Conexión Dax",
+  type: "Programa taurino",
+  contentType: "programa",
+  source: "OneToro",
+  sourceUrl:
+    "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander"
+}));
+
 function normalizeText(text = "") {
   return String(text)
     .normalize("NFD")
@@ -1382,6 +1408,22 @@ async function main() {
         event,
         "Programas taurinos",
         programas.fetchedAt
+      )
+    );
+
+    mergeStats[
+      result.merged
+        ? "merged"
+        : "added"
+    ] += 1;
+  }
+
+  for (const event of CONFIRMED_SPECIAL_PROGRAMS) {
+    const result = addOrMergeEvent(
+      merged,
+      normalizeProgramEvent(
+        event,
+        "OneToro"
       )
     );
 
