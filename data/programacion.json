@@ -1,53 +1,55 @@
 {
-  "generatedAt": "2026-08-15T08:16:10.684Z",
+  "generatedAt": "2026-08-15T11:40:25.126Z",
   "degraded": false,
-  "eventCount": 277,
-  "bullfightingEventCount": 267,
-  "programCount": 10,
+  "eventCount": 364,
+  "bullfightingEventCount": 353,
+  "programCount": 11,
   "mergeStats": {
-    "historicalCandidates": 182,
-    "historicalPreserved": 91,
-    "historicalDuplicatesMerged": 91,
-    "added": 186,
-    "merged": 84
+    "historicalCandidates": 185,
+    "historicalPreserved": 92,
+    "historicalDuplicatesMerged": 93,
+    "added": 272,
+    "merged": 58
   },
   "sources": {
-    "elMuletazo": 34,
-    "oneToro": 8,
+    "elMuletazo": 32,
+    "oneToro": 7,
     "programasTaurinos": 0,
-    "canalSur": 2,
+    "canalSur": 3,
     "cmm": 6,
-    "canalExtremadura": 2,
-    "mundoToro": 210,
-    "lasVentas": 4
+    "canalExtremadura": 3,
+    "mundoToro": 251,
+    "lasVentas": 1,
+    "vaDeToros": 23,
+    "aplausos": 0
   },
   "sourceHealth": {
     "elMuletazo": {
       "label": "El Muletazo",
       "status": "ok",
-      "eventCount": 34,
-      "fetchedAt": "2026-08-12T16:54:45.672Z",
+      "eventCount": 32,
+      "fetchedAt": "2026-08-15T11:39:49.442Z",
       "error": null
     },
     "oneToro": {
       "label": "OneToro",
       "status": "ok",
-      "eventCount": 8,
-      "fetchedAt": "2026-08-12T16:54:44.203Z",
+      "eventCount": 7,
+      "fetchedAt": "2026-08-15T11:39:49.246Z",
       "error": null
     },
     "programasTaurinos": {
       "label": "Programas taurinos",
       "status": "ok",
       "eventCount": 0,
-      "fetchedAt": "2026-08-12T16:54:46.924Z",
+      "fetchedAt": "2026-08-15T11:40:24.883Z",
       "error": null
     },
     "canalSur": {
       "label": "Canal Sur",
       "status": "ok",
-      "eventCount": 2,
-      "fetchedAt": "2026-08-12T16:58:12.108Z",
+      "eventCount": 3,
+      "fetchedAt": "2026-08-15T11:40:04.494Z",
       "error": null
     },
     "cmm": {
@@ -60,22 +62,36 @@
     "canalExtremadura": {
       "label": "Canal Extremadura",
       "status": "ok",
-      "eventCount": 2,
-      "fetchedAt": "2026-08-06T19:47:27.508Z",
+      "eventCount": 3,
+      "fetchedAt": "2026-08-15T11:40:09.418Z",
       "error": null
     },
     "mundoToro": {
       "label": "Mundotoro",
       "status": "ok",
-      "eventCount": 210,
-      "fetchedAt": "2026-08-06T19:47:32.277Z",
+      "eventCount": 251,
+      "fetchedAt": "2026-08-15T11:40:14.039Z",
       "error": null
     },
     "lasVentas": {
       "label": "Las Ventas oficial",
       "status": "ok",
-      "eventCount": 4,
-      "fetchedAt": "2026-08-15T00:00:00.000Z",
+      "eventCount": 1,
+      "fetchedAt": "2026-08-15T11:40:21.406Z",
+      "error": null
+    },
+    "vaDeToros": {
+      "label": "Va de Toros",
+      "status": "ok",
+      "eventCount": 23,
+      "fetchedAt": "2026-08-15T11:40:24.391Z",
+      "error": null
+    },
+    "aplausos": {
+      "label": "Aplausos",
+      "status": "ok",
+      "eventCount": 0,
+      "fetchedAt": null,
       "error": null
     }
   },
@@ -1765,7 +1781,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-07T18:07:44.238Z"
+          "fetchedAt": "2026-08-06T19:47:20.097Z"
         }
       ],
       "confidence": 94,
@@ -1802,7 +1818,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-07T18:07:44.238Z"
+          "fetchedAt": "2026-08-06T19:47:20.097Z"
         },
         {
           "name": "CMM",
@@ -1844,7 +1860,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-07T18:08:11.660Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -1880,7 +1896,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-07T18:08:11.660Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -1915,7 +1931,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-07T18:08:11.660Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -1951,7 +1967,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-07T18:08:11.660Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -1990,7 +2006,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-07T18:08:11.660Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2026,7 +2042,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-07T18:08:11.660Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2062,7 +2078,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-07T18:08:11.660Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2097,11 +2113,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-07T18:08:11.660Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
-      "status": "probable"
+      "status": "probable",
+      "deferred": false,
+      "televisionUnconfirmed": false
     },
     {
       "id": "mundotoro-0e00cff5921b5b",
@@ -2162,7 +2180,7 @@
           "name": "Canal Extremadura",
           "confidence": 98,
           "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Parrilla%20de%20Programaci%C3%B3n%203%20al%209%20de%20agosto%20de%202026.%20Canal%20Extremadura%20TV..pdf",
-          "fetchedAt": "2026-08-08T17:53:05.662Z"
+          "fetchedAt": "2026-08-06T19:05:34.012Z"
         }
       ],
       "confidence": 100,
@@ -2202,7 +2220,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-08T17:52:43.887Z"
+          "fetchedAt": "2026-08-06T19:47:20.097Z"
         },
         {
           "name": "Mundotoro",
@@ -2252,7 +2270,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-08T17:52:43.887Z"
+          "fetchedAt": "2026-08-06T19:47:20.097Z"
         },
         {
           "name": "CMM",
@@ -2264,7 +2282,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-08T17:53:10.345Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 100,
@@ -2299,7 +2317,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-08T17:53:10.345Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2335,7 +2353,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-08T17:53:10.345Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2371,7 +2389,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-08T17:53:10.345Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2407,7 +2425,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-08T17:53:10.345Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2443,7 +2461,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-08T17:53:10.345Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2479,7 +2497,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-08T17:53:10.345Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2516,13 +2534,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-09T17:53:15.428Z"
+          "fetchedAt": "2026-08-06T19:47:20.097Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-09T17:53:43.100Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 96,
@@ -2560,7 +2578,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-09T17:53:15.428Z"
+          "fetchedAt": "2026-08-06T19:47:20.097Z"
         }
       ],
       "confidence": 94,
@@ -2597,7 +2615,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-09T17:53:43.100Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2635,7 +2653,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-10T18:08:46.866Z"
+          "fetchedAt": "2026-08-06T19:47:20.097Z"
         }
       ],
       "confidence": 94,
@@ -2671,7 +2689,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-10T18:09:20.852Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2707,7 +2725,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-10T18:09:20.852Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2745,7 +2763,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-11T18:12:26.073Z"
+          "fetchedAt": "2026-08-06T19:47:20.097Z"
         }
       ],
       "confidence": 94,
@@ -2781,7 +2799,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-11T18:12:54.022Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2817,7 +2835,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-11T18:12:54.022Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -2854,7 +2872,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T18:12:17.405Z"
+          "fetchedAt": "2026-08-06T19:47:20.097Z"
         }
       ],
       "confidence": 94,
@@ -2893,36 +2911,6 @@
       "status": "confirmed",
       "deferred": false,
       "televisionUnconfirmed": false
-    },
-    {
-      "id": "onetoro-conexion-dax-2026-08-13",
-      "date": "2026-08-13",
-      "time": "20:00",
-      "channel": "OneToro",
-      "televised": true,
-      "location": "Dax (Landes) Francia",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Conexión Dax",
-      "title": "Conexión Dax",
-      "image": null,
-      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 98,
-      "status": "confirmed"
     },
     {
       "id": "canal-extremadura-4eb66722f8c740",
@@ -2953,7 +2941,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T18:12:17.405Z"
+          "fetchedAt": "2026-08-06T19:47:20.097Z"
         },
         {
           "name": "Canal Extremadura",
@@ -2962,10 +2950,42 @@
           "fetchedAt": "2026-08-12T18:12:35.308Z"
         }
       ],
-      "confidence": 94,
+      "confidence": 100,
       "status": "confirmed",
       "deferred": false,
       "televisionUnconfirmed": false
+    },
+    {
+      "id": "vadetoros-0f370d76cedcf5",
+      "date": "2026-08-13",
+      "time": "21:00",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Herrera del Duque (Badajoz) XIV Certamen de Novilladas sin caballos de la Diputación de Badajoz",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "Herrera del Duque (Badajoz) XIV Certamen de Novilladas sin caballos de la Diputación de Badajoz",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sources": [
+        "Va de Toros"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
+        }
+      ],
+      "confidence": 97,
+      "status": "confirmed"
     },
     {
       "id": "mundotoro-8f1a3f340efd01",
@@ -2995,7 +3015,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-12T18:12:40.125Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -3030,7 +3050,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-12T18:12:40.125Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -3066,7 +3086,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-12T18:12:40.125Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -3102,7 +3122,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-12T18:12:40.125Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -3138,7 +3158,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-12T18:12:40.125Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -3174,7 +3194,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-12T18:12:40.125Z"
+          "fetchedAt": "2026-08-06T19:05:38.744Z"
         }
       ],
       "confidence": 89,
@@ -3215,36 +3235,6 @@
       "televisionUnconfirmed": false
     },
     {
-      "id": "onetoro-conexion-dax-2026-08-14",
-      "date": "2026-08-14",
-      "time": "20:00",
-      "channel": "OneToro",
-      "televised": true,
-      "location": "Dax (Landes) Francia",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Conexión Dax",
-      "title": "Conexión Dax",
-      "image": null,
-      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 98,
-      "status": "confirmed"
-    },
-    {
       "id": "23a8ddfb-ed9a-4558-b85d-44bdaa9e0c0b",
       "date": "2026-08-14",
       "time": "23:00",
@@ -3272,7 +3262,8 @@
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
-        "OneToro"
+        "OneToro",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
@@ -3286,6 +3277,12 @@
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/abiul-14082026",
           "fetchedAt": "2026-08-12T16:54:44.203Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
       "confidence": 100,
@@ -3653,7 +3650,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "CMM",
@@ -3665,7 +3662,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 100,
@@ -3699,47 +3696,30 @@
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
-        "Canal Sur"
+        "Canal Sur",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
+        },
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/novillada-jovenes-promesas-linea-concepcion_1_1428334.html",
+          "fetchedAt": "2026-08-15T11:40:04.494Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
       "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "onetoro-conexion-dax-2026-08-15",
-      "date": "2026-08-15",
-      "time": "20:00",
-      "channel": "OneToro",
-      "televised": true,
-      "location": "Dax (Landes) Francia",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Conexión Dax",
-      "title": "Conexión Dax",
-      "image": null,
-      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 98,
       "status": "confirmed"
     },
     {
@@ -3772,49 +3752,6 @@
         }
       ],
       "confidence": 98,
-      "status": "confirmed"
-    },
-    {
-      "id": "lasventas-2026-08-15",
-      "date": "2026-08-15",
-      "time": "21:00",
-      "channel": "Sin TV",
-      "deferred": false,
-      "televised": false,
-      "televisionUnconfirmed": true,
-      "location": "Madrid (Plaza de Toros Monumental de Las Ventas)",
-      "type": "Corrida de toros",
-      "contentType": "festejo",
-      "breeding": "Araúz de Robles",
-      "participants": [
-        "Javier Cortés",
-        "José Garrido",
-        "Antonio Puerta"
-      ],
-      "name": "Madrid (Plaza de Toros Monumental de Las Ventas)",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://www.las-ventas.com/actualidad/cartelesagosto2026",
-      "sourceUrl": "https://www.las-ventas.com/actualidad/cartelesagosto2026",
-      "sources": [
-        "Mundotoro",
-        "Las Ventas oficial"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Mundotoro",
-          "confidence": 86,
-          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
-        },
-        {
-          "name": "Las Ventas oficial",
-          "confidence": 100,
-          "sourceUrl": "https://www.las-ventas.com/actualidad/cartelesagosto2026",
-          "fetchedAt": "2026-08-15T00:00:00.000Z"
-        }
-      ],
-      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -3846,7 +3783,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -3881,7 +3818,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -3917,7 +3854,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -3952,7 +3889,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -3988,7 +3925,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4023,7 +3960,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4059,7 +3996,44 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-c8ce2dd039c2f5",
+      "date": "2026-08-15",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Chinchón (Madrid) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Hnos. Quintas Parras",
+      "participants": [
+        "Aitor Fernández",
+        "Álvaro Chinchón",
+        "Jesús Angel Olivas",
+        "otro"
+      ],
+      "name": "Chinchón (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4097,7 +4071,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4132,7 +4106,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4168,7 +4142,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4204,7 +4178,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4240,7 +4214,43 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-63dda6b480b466",
+      "date": "2026-08-15",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Las Ventas (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Francisco Javier Araúz de Robles",
+      "participants": [
+        "Alejandro Peñaranda",
+        "Javier Cortés",
+        "José Garrido"
+      ],
+      "name": "Las Ventas (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4276,7 +4286,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4311,7 +4321,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4347,7 +4357,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4383,7 +4393,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4419,7 +4429,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4455,7 +4465,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4491,7 +4501,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4527,14 +4537,46 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
       "status": "probable"
     },
     {
-      "id": "cmm-2026-08-16-1830-6",
+      "id": "canal-extremadura-a9d48e2c8dd49a",
+      "date": "2026-08-16",
+      "time": "03:15",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2010%20al%2016%20de%20agosto%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2010%20al%2016%20de%20agosto%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2010%20al%2016%20de%20agosto%20de%202026.pdf",
+          "fetchedAt": "2026-08-15T11:40:09.418Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "vadetoros-0cbbfa8ee09565",
       "date": "2026-08-16",
       "time": "18:30",
       "channel": "CMM",
@@ -4553,24 +4595,63 @@
       "name": "El Bonillo (Albacete)",
       "title": "TOROS 2026",
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
       "sources": [
         "El Muletazo",
-        "CMM"
+        "CMM",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "CMM",
           "confidence": 98,
           "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
           "fetchedAt": null
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "canalsur-2026-08-16-viii-corrida-de-toros-magallanica-desde-sanlucar-de-barrameda-en-canal",
+      "date": "2026-08-16",
+      "time": "18:40",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Localidad por confirmar",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Miura en uno de los festejos más esperados del verano",
+      "participants": [],
+      "name": "VIII Corrida de Toros Magallánica desde Sanlúcar de Barrameda, en Canal Sur",
+      "title": "VIII Corrida de Toros Magallánica desde Sanlúcar de Barrameda, en Canal Sur",
+      "image": null,
+      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
+      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/viii-corrida-toros-magallanica-sanlucar_1_1428547.html",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/viii-corrida-toros-magallanica-sanlucar_1_1428547.html",
+          "fetchedAt": "2026-08-15T11:40:04.494Z"
         }
       ],
       "confidence": 100,
@@ -4607,13 +4688,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 96,
@@ -4682,13 +4763,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 96,
@@ -4709,10 +4790,7 @@
       "participants": [
         "Aarón Palacio",
         "Fabio Jiménez",
-        "Roberto Armendáriz",
-        "Alejandro Chicharro",
-        "Bruno Aloi",
-        "Morenito de Aranda"
+        "Roberto Armendáriz"
       ],
       "name": "Alfaro (La Rioja) España",
       "title": null,
@@ -4727,7 +4805,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4763,7 +4841,43 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-22fcff37d9a15f",
+      "date": "2026-08-16",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Almorox (Toledo) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Alejandro Vázquez Sánchez y Villamarta",
+      "participants": [
+        "Alejandro Chicharro",
+        "Bruno Aloi",
+        "Morenito de Aranda"
+      ],
+      "name": "Almorox (Toledo) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4802,7 +4916,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4837,7 +4951,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4873,7 +4987,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4909,7 +5023,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4944,7 +5058,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -4983,7 +5097,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5019,7 +5133,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5055,7 +5169,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5091,7 +5205,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5127,7 +5241,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5163,7 +5277,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5199,7 +5313,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5235,7 +5349,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5271,7 +5385,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5307,7 +5421,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5342,7 +5456,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5378,7 +5492,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5413,7 +5527,43 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-60d3644b36784a",
+      "date": "2026-08-17",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Almorox (Toledo) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Aurelio Hernando",
+      "participants": [
+        "Cid de María",
+        "Mario Vilau",
+        "Tomás González"
+      ],
+      "name": "Almorox (Toledo) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5449,7 +5599,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5485,7 +5635,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5521,7 +5671,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5557,7 +5707,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5592,7 +5742,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5628,7 +5778,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5664,7 +5814,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5700,7 +5850,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5736,7 +5886,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5772,7 +5922,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -5809,20 +5959,20 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 96,
       "status": "confirmed"
     },
     {
-      "id": "mundotoro-811a16253607b3",
+      "id": "vadetoros-75bc81ce3a47bd",
       "date": "2026-08-20",
       "time": "19:30",
       "channel": "CMM",
@@ -5832,7 +5982,7 @@
       "location": "Ciudad Real",
       "type": "Corrida de toros",
       "contentType": "festejo",
-      "breeding": "Araúz de Robles",
+      "breeding": "Arauz de Robles",
       "participants": [
         "Víctor Puerto",
         "Daniel Luque",
@@ -5841,31 +5991,38 @@
       "name": "Ciudad Real",
       "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
       "sources": [
         "El Muletazo",
-        "Mundotoro"
+        "Mundotoro",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
-      "id": "lasventas-2026-08-20",
+      "id": "lasventas-0523ba86f81b11",
       "date": "2026-08-20",
       "time": "21:00",
       "channel": "Sin TV",
@@ -5877,18 +6034,27 @@
       "contentType": "festejo",
       "breeding": "Passanha",
       "participants": [
-        "João Moura Caetano",
+        "Joao Moura Caetano",
         "Sergio Domínguez",
         "Iván Magro",
         "Ana Rita",
         "Adrián Venegas",
-        "Parreirita Cigano"
+        "Parreirita (confirmación). Utilizamos cookies propias",
+        "de terceros para fines analíticos",
+        "para mostrarte publicidad personalizada en base a un perfil elaborado a partir de tus hábitos de navegación (por ejemplo",
+        "páginas visitadas). Puedes obtener más información",
+        "configurar tus preferencias AQUÍ. ACEPTAR COOKIES | RECHAZAR COOKIES Copyright © 2026 Las ventas",
+        "Todos los derechos reservados",
+        "desarrollo por Teseo/Dinamiq",
+        "Política de privacidad",
+        "cookies",
+        "Aviso Legal"
       ],
       "name": "Madrid (Plaza de Toros Monumental de Las Ventas)",
       "title": null,
       "image": null,
-      "eventUrl": "https://www.las-ventas.com/actualidad/cartelesagosto2026",
-      "sourceUrl": "https://www.las-ventas.com/actualidad/cartelesagosto2026",
+      "eventUrl": "https://www.las-ventas.com/actualidad/la-agenda-cultural-que-acompanara-a-la-corrida-de-rejones-del-mes-de-agosto-en-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/la-agenda-cultural-que-acompanara-a-la-corrida-de-rejones-del-mes-de-agosto-en-las-ventas",
       "sources": [
         "Mundotoro",
         "Las Ventas oficial"
@@ -5898,27 +6064,27 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         },
         {
           "name": "Las Ventas oficial",
           "confidence": 100,
-          "sourceUrl": "https://www.las-ventas.com/actualidad/cartelesagosto2026",
-          "fetchedAt": "2026-08-15T00:00:00.000Z"
+          "sourceUrl": "https://www.las-ventas.com/actualidad/la-agenda-cultural-que-acompanara-a-la-corrida-de-rejones-del-mes-de-agosto-en-las-ventas",
+          "fetchedAt": "2026-08-15T11:40:21.406Z"
         }
       ],
       "confidence": 100,
       "status": "confirmed"
     },
     {
-      "id": "mundotoro-f45208dc9ef5ad",
+      "id": "vadetoros-fb65a90b8123ef",
       "date": "2026-08-21",
       "time": "19:00",
       "channel": "Canal Sur",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
-      "location": "Málaga",
+      "location": "Málaga, Feria de Agosto, Toros de Victorino Martín para Manuel Escribano, Emilio de Justo y Fortes",
       "type": "Corrida de toros",
       "contentType": "festejo",
       "breeding": "Victorino Martín",
@@ -5927,30 +6093,37 @@
         "Emilio de Justo",
         "Fortes"
       ],
-      "name": "Málaga",
+      "name": "Málaga, Feria de Agosto, Toros de Victorino Martín para Manuel Escribano, Emilio de Justo y Fortes",
       "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
       "sources": [
         "El Muletazo",
-        "Mundotoro"
+        "Mundotoro",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -5987,7 +6160,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6023,7 +6196,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6033,12 +6206,12 @@
       "id": "canalsur-2026-08-22-canal-sur-television-retransmitira-tres-grandes-festejos-de-la-feria-d",
       "date": "2026-08-22",
       "time": "19:00",
-      "channel": "CMM",
+      "channel": "Canal Sur",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
-      "location": "Alamillo (Ciudad Real)",
-      "type": "Novillada sin picadores",
+      "location": "Localidad por confirmar",
+      "type": "Corrida de toros",
       "contentType": "festejo",
       "breeding": "Núñez del Cubillo",
       "participants": [],
@@ -6052,24 +6225,24 @@
       ],
       "sourceDetails": [
         {
-          "name": "El Muletazo",
-          "confidence": 90,
-          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/canal-sur-television-retransmitira-tres_1_1427100.html",
+          "fetchedAt": "2026-08-15T11:40:04.494Z"
         }
       ],
       "confidence": 100,
       "status": "confirmed"
     },
     {
-      "id": "mundotoro-21e6043903fd51",
+      "id": "vadetoros-59950a0f8a5cc7",
       "date": "2026-08-22",
       "time": "19:00",
       "channel": "Canal Sur",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
-      "location": "Málaga",
+      "location": "Málaga, Corrida Extraordinaria 150 Aniversario de La Malagueta",
       "type": "Corrida de toros",
       "contentType": "festejo",
       "breeding": "Torrealta y Garcigrande",
@@ -6078,30 +6251,37 @@
         "Roca Rey",
         "David de Miranda"
       ],
-      "name": "Málaga",
+      "name": "Málaga, Corrida Extraordinaria 150 Aniversario de La Malagueta",
       "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
       "sources": [
         "El Muletazo",
-        "Mundotoro"
+        "Mundotoro",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -6134,7 +6314,75 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
+        }
+      ],
+      "confidence": 94,
+      "status": "confirmed"
+    },
+    {
+      "id": "vadetoros-1946f0dcf232ee",
+      "date": "2026-08-22",
+      "time": "19:00",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Villanueva del Fresno (Badajoz) XIV Certamen de Novilladas sin caballos de la Diputación de Badajoz",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "Villanueva del Fresno (Badajoz) XIV Certamen de Novilladas sin caballos de la Diputación de Badajoz",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sources": [
+        "Va de Toros"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
+        }
+      ],
+      "confidence": 97,
+      "status": "confirmed"
+    },
+    {
+      "id": null,
+      "date": "2026-08-22",
+      "time": "19:30",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Alamillo (Ciudad Real)",
+      "type": "Novillada sin picadores",
+      "contentType": "festejo",
+      "breeding": "Nazario Ibáñez",
+      "participants": [
+        "Neyzan Espín",
+        "Rubén Vara",
+        "Óscar Campos"
+      ],
+      "name": "Alamillo (Ciudad Real)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         }
       ],
       "confidence": 94,
@@ -6170,7 +6418,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6190,9 +6438,7 @@
       "breeding": "Jaime Herculano",
       "participants": [
         "Andrés Romero",
-        "Sebastián Fernández",
-        "Luis Sánchez Zambrano",
-        "Sergio Galán"
+        "Sebastián Fernández"
       ],
       "name": "Aroche (Huelva) España",
       "title": null,
@@ -6207,7 +6453,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6243,7 +6489,42 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-8bf7b2d8fce2c9",
+      "date": "2026-08-22",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Cella (Teruel) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Hnos. Serrano y Los Maños",
+      "participants": [
+        "Duarte Fernandes",
+        "Simón Andreu"
+      ],
+      "name": "Cella (Teruel) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6257,13 +6538,11 @@
       "deferred": false,
       "televised": false,
       "televisionUnconfirmed": false,
-      "location": "Cella (Teruel) España",
+      "location": "Escalona (Toledo) España",
       "type": "Festejo taurino",
       "contentType": "festejo",
       "breeding": "Sorando",
       "participants": [
-        "Duarte Fernandes",
-        "Simón Andreu",
         "Andrés García",
         "Cristian González",
         "Víctor Acebo"
@@ -6281,7 +6560,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6316,7 +6595,78 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-b29b639370c50c",
+      "date": "2026-08-22",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Maranchón (Guadalajara) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Emilio Galán Trilla",
+      "participants": [
+        "Luis Sánchez Zambrano",
+        "Sergio Galán"
+      ],
+      "name": "Maranchón (Guadalajara) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-b94c5a61ab3a6c",
+      "date": "2026-08-22",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Montehermoso (Cáceres) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Antonio Román Chaparro",
+      "participants": [
+        "Jorge Hurtado",
+        "José Fernando Molina",
+        "Morenito de Aranda"
+      ],
+      "name": "Montehermoso (Cáceres) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6352,7 +6702,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6388,7 +6738,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6423,7 +6773,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6459,7 +6809,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6496,20 +6846,20 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 96,
       "status": "confirmed"
     },
     {
-      "id": null,
+      "id": "vadetoros-e735b253dc9868",
       "date": "2026-08-23",
       "time": "19:00",
       "channel": "Canal Sur",
@@ -6517,28 +6867,35 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "Montoro (Córdoba)",
-      "type": "Novillada sin picadores",
+      "type": "Corrida de toros",
       "contentType": "festejo",
       "breeding": "",
       "participants": [],
       "name": "Montoro (Córdoba)",
       "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
-      "confidence": 92,
-      "status": "probable"
+      "confidence": 99,
+      "status": "confirmed"
     },
     {
       "id": "mundotoro-f871a99dd97fa7",
@@ -6570,7 +6927,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6606,7 +6963,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6641,7 +6998,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6676,7 +7033,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6711,7 +7068,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6746,7 +7103,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6760,13 +7117,16 @@
       "deferred": false,
       "televised": false,
       "televisionUnconfirmed": false,
-      "location": "Santa Eulalia del Campo (Teruel) España",
-      "type": "Festejo taurino",
+      "location": "Santa Olalla del Cala (Huelva) España",
+      "type": "Corrida de toros",
       "contentType": "festejo",
       "breeding": "Cuevas Bajas y Luis Albarrán",
       "participants": [
         "Juan Alberto Torrijos",
-        "Pedro Montaldo"
+        "Pedro Montaldo",
+        "Adrián Venegas",
+        "Antonio Ferrera",
+        "El Fandi"
       ],
       "name": "Santa Olalla del Cala (Huelva) España",
       "title": null,
@@ -6781,7 +7141,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6817,7 +7177,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6853,7 +7213,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6889,7 +7249,79 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-28567839087425",
+      "date": "2026-08-23",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Valencia de Alcántara (Cáceres) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Hdros. de Vidal García Tabernero Orive",
+      "participants": [
+        "Borja Jiménez",
+        "Sebastián Castella",
+        "Tomás Rufo"
+      ],
+      "name": "Valencia de Alcántara (Cáceres) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-43f19419c2a9f9",
+      "date": "2026-08-24",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Casavieja (Ávila) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Joao Dias Coutinho",
+      "participants": [
+        "Yuste Varela",
+        "Emiliano Ortega",
+        "otro"
+      ],
+      "name": "Casavieja (Ávila) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6925,7 +7357,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6961,7 +7393,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -6997,7 +7429,42 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-ae7d581411ecf9",
+      "date": "2026-08-24",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Bartolomé de Pinares (Ávila) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Hdros. de José Cebada Gago",
+      "participants": [
+        "Joaquín Galdós",
+        "Miguel Andrades"
+      ],
+      "name": "San Bartolomé de Pinares (Ávila) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7033,7 +7500,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7069,7 +7536,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7104,7 +7571,43 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-ac6f24fced027a",
+      "date": "2026-08-25",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Casavieja (Ávila) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Clairac",
+      "participants": [
+        "Alejandro Cano",
+        "El Gali",
+        "Enrique Herreros"
+      ],
+      "name": "Casavieja (Ávila) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7140,7 +7643,77 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-0da6e75f75259a",
+      "date": "2026-08-25",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Piedrahita (Ávila) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Eladio Vegas",
+      "participants": [
+        "Javier Funtanet",
+        "Sergio Vegas"
+      ],
+      "name": "Piedrahita (Ávila) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-cd45e5be7f1ff3",
+      "date": "2026-08-25",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Bartolomé de Pinares (Ávila) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "La Castilleja",
+      "participants": [
+        "José María Martín",
+        "Sebastián Fernández"
+      ],
+      "name": "San Bartolomé de Pinares (Ávila) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7176,7 +7749,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7212,7 +7785,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7248,54 +7821,46 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
       "status": "probable"
     },
     {
-      "id": "lasventas-2026-08-27",
+      "id": "mundotoro-46fa1f8071275c",
       "date": "2026-08-27",
-      "time": "21:00",
+      "time": null,
       "channel": "Sin TV",
       "deferred": false,
       "televised": false,
-      "televisionUnconfirmed": true,
-      "location": "Madrid (Plaza de Toros Monumental de Las Ventas)",
-      "type": "Corrida de toros",
+      "televisionUnconfirmed": false,
+      "location": "Aldeanueva del Ebro (La Rioja) España",
+      "type": "Festejo taurino",
       "contentType": "festejo",
-      "breeding": "Pedraza de Yeltes",
+      "breeding": "Hnos. Torres Gallego",
       "participants": [
-        "Francisco José Espada",
-        "Joaquín Galdós",
-        "Christian Parejo"
+        "Adrián Venegas",
+        "Andrés Romero"
       ],
-      "name": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "name": "Aldeanueva del Ebro (La Rioja) España",
       "title": null,
       "image": null,
-      "eventUrl": "https://www.las-ventas.com/actualidad/cartelesagosto2026",
-      "sourceUrl": "https://www.las-ventas.com/actualidad/cartelesagosto2026",
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
       "sources": [
-        "Mundotoro",
-        "Las Ventas oficial"
+        "Mundotoro"
       ],
       "sourceDetails": [
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
-        },
-        {
-          "name": "Las Ventas oficial",
-          "confidence": 100,
-          "sourceUrl": "https://www.las-ventas.com/actualidad/cartelesagosto2026",
-          "fetchedAt": "2026-08-15T00:00:00.000Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
-      "confidence": 100,
-      "status": "confirmed"
+      "confidence": 89,
+      "status": "probable"
     },
     {
       "id": "mundotoro-20f4750e83f7c8",
@@ -7327,7 +7892,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7363,7 +7928,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7399,7 +7964,43 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-cd670e1675bb2b",
+      "date": "2026-08-27",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Las Ventas (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Pedraza de Yeltes",
+      "participants": [
+        "Christian Parejo",
+        "Francisco José Espada",
+        "Joaquín Galdós"
+      ],
+      "name": "Las Ventas (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7410,7 +8011,9 @@
       "date": "2026-08-28",
       "time": "19:00",
       "channel": "Canal Sur",
+      "deferred": false,
       "televised": true,
+      "televisionUnconfirmed": false,
       "location": "Almería",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -7434,13 +8037,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-15T05:46:46.781Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 96,
@@ -7474,10 +8077,44 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         }
       ],
       "confidence": 94,
+      "status": "confirmed"
+    },
+    {
+      "id": "vadetoros-00769af0e7aa28",
+      "date": "2026-08-28",
+      "time": "19:00",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Riópar (Albacete) Gran Final del Certamen Internacional “Promesas del Rejoneo”",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "El Madroñal",
+      "participants": [
+        "los tres finalistas"
+      ],
+      "name": "Riópar (Albacete) Gran Final del Certamen Internacional “Promesas del Rejoneo”",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sources": [
+        "Va de Toros"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
+        }
+      ],
+      "confidence": 99,
       "status": "confirmed"
     },
     {
@@ -7488,7 +8125,7 @@
       "deferred": false,
       "televised": false,
       "televisionUnconfirmed": false,
-      "location": "Almería (Almería) España",
+      "location": "Alcalá de Henares (Madrid) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
       "breeding": "Luis Albarrán",
@@ -7510,7 +8147,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7546,7 +8183,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7582,7 +8219,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7618,7 +8255,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7654,7 +8291,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7691,13 +8328,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 96,
@@ -7729,10 +8366,78 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         }
       ],
       "confidence": 92,
+      "status": "probable"
+    },
+    {
+      "id": "vadetoros-5b1d69190346cd",
+      "date": "2026-08-29",
+      "time": "18:00",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Villacarrillo (Jaén) Fomento de la Cultura Taurina en Andalucía Gran Final",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "Villacarrillo (Jaén) Fomento de la Cultura Taurina en Andalucía Gran Final",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sources": [
+        "Va de Toros"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
+        }
+      ],
+      "confidence": 97,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-80e39b73c54444",
+      "date": "2026-08-29",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Alcalá de Henares (Madrid) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Luis Albarrán",
+      "participants": [
+        "Nacho Torrejón",
+        "Pepe Burdiel",
+        "Samuel Castrejón"
+      ],
+      "name": "Alcalá de Henares (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
       "status": "probable"
     },
     {
@@ -7763,7 +8468,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7799,7 +8504,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7835,7 +8540,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7871,7 +8576,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7906,7 +8611,42 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-9c29b4a4dacd62",
+      "date": "2026-08-29",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Collado Mediano (Madrid) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Flor de Jara",
+      "participants": [
+        "Mario Arruza",
+        "Mario Vilau"
+      ],
+      "name": "Collado Mediano (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7927,12 +8667,7 @@
       "participants": [
         "Álvaro Serrano",
         "David López",
-        "Ignacio Garibay -hijo-",
-        "Nacho Torrejón",
-        "Pepe Burdiel",
-        "Samuel Castrejón",
-        "Mario Arruza",
-        "Mario Vilau"
+        "Ignacio Garibay -hijo-"
       ],
       "name": "Colmenar Viejo (Madrid) España",
       "title": null,
@@ -7947,7 +8682,43 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-87ea3520d2baed",
+      "date": "2026-08-29",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Gavilanes (Ávila) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "La Guadamilla",
+      "participants": [
+        "Angelín",
+        "Emilio García Torres",
+        "Sergio Rollón"
+      ],
+      "name": "Gavilanes (Ávila) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -7966,9 +8737,6 @@
       "contentType": "festejo",
       "breeding": "Román Sorando Herranz",
       "participants": [
-        "Angelín",
-        "Emilio García Torres",
-        "Sergio Rollón",
         "David de Miranda",
         "Emilio de Justo",
         "Víctor Hernández"
@@ -7986,7 +8754,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8020,7 +8788,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8056,7 +8824,43 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-e7058c94c70ff3",
+      "date": "2026-08-29",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Pedrajas de San Esteban (Valladolid) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "por designar",
+      "participants": [
+        "Antonio Jiménez",
+        "Miguel Serrano",
+        "Tomás González"
+      ],
+      "name": "Pedrajas de San Esteban (Valladolid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8092,7 +8896,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8128,7 +8932,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8164,7 +8968,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8200,14 +9004,14 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
       "status": "probable"
     },
     {
-      "id": null,
+      "id": "vadetoros-7b795d6a23013f",
       "date": "2026-08-30",
       "time": "19:00",
       "channel": "CMM",
@@ -8215,7 +9019,7 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "Borox (Toledo)",
-      "type": "Novillada sin picadores",
+      "type": "Novillada",
       "contentType": "festejo",
       "breeding": "Alfredo Ruano",
       "participants": [
@@ -8229,6 +9033,49 @@
       "name": "Borox (Toledo)",
       "title": null,
       "image": null,
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sources": [
+        "El Muletazo",
+        "Va de Toros"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": null,
+      "date": "2026-08-30",
+      "time": "19:00",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Tarifa (Cádiz)",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Lagunajanda",
+      "participants": [
+        "Manuel Escribano",
+        "David Galán",
+        "Daniel Crespo"
+      ],
+      "name": "Tarifa (Cádiz)",
+      "title": null,
+      "image": null,
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
@@ -8239,11 +9086,82 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         }
       ],
       "confidence": 94,
       "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-0b2dcdaa9c82b6",
+      "date": "2026-08-30",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Alcalá de Henares (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Julio A. de la Puerta y Castro",
+      "participants": [
+        "Alejandro Talavante",
+        "Diego Urdiales",
+        "Víctor Hernández"
+      ],
+      "name": "Alcalá de Henares (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-17288a20c38322",
+      "date": "2026-08-30",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Collado Mediano (Madrid) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "María Cascón Martín",
+      "participants": [
+        "Jorge Hurtado",
+        "Pedro Luis"
+      ],
+      "name": "Collado Mediano (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
     },
     {
       "id": "mundotoro-1f900fe71eb60d",
@@ -8275,7 +9193,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8311,7 +9229,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8347,7 +9265,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8383,7 +9301,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8419,7 +9337,43 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-359147f643348e",
+      "date": "2026-08-30",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Pedrajas de San Esteban (Valladolid) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Río Grande",
+      "participants": [
+        "Andrés García",
+        "Borja Escudero",
+        "Julio Romero"
+      ],
+      "name": "Pedrajas de San Esteban (Valladolid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8455,7 +9409,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8491,7 +9445,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8527,7 +9481,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8563,7 +9517,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8599,7 +9553,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8635,7 +9589,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8671,7 +9625,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8707,7 +9661,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8743,7 +9697,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8779,7 +9733,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8815,7 +9769,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8850,7 +9804,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8886,7 +9840,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8922,7 +9876,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8958,7 +9912,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -8988,23 +9942,30 @@
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
-        "Mundotoro"
+        "Mundotoro",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -9016,7 +9977,7 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "Alfarero de Oro",
-      "type": "Festejo taurino",
+      "type": "null",
       "contentType": "festejo",
       "breeding": "",
       "participants": [
@@ -9039,7 +10000,7 @@
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-03092026",
-          "fetchedAt": "2026-08-12T16:54:44.203Z"
+          "fetchedAt": "2026-08-15T11:39:49.246Z"
         }
       ],
       "confidence": 98,
@@ -9075,7 +10036,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9111,7 +10072,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9145,26 +10106,33 @@
       "sources": [
         "El Muletazo",
         "OneToro",
-        "Mundotoro"
+        "Mundotoro",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-04092026",
-          "fetchedAt": "2026-08-12T16:54:44.203Z"
+          "fetchedAt": "2026-08-15T11:39:49.246Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
       "confidence": 100,
@@ -9200,7 +10168,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9236,7 +10204,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9272,7 +10240,42 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-135e61b19b4e37",
+      "date": "2026-09-04",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "El Álamo (Madrid) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Javier Pérez-Tabernero Sánchez",
+      "participants": [
+        "Jesús Romero",
+        "Emiliano Osornio"
+      ],
+      "name": "El Álamo (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9308,7 +10311,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9338,23 +10341,30 @@
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
-        "Mundotoro"
+        "Mundotoro",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -9387,7 +10397,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9402,7 +10412,7 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "Alfarero de Oro",
-      "type": "Festejo taurino",
+      "type": "null",
       "contentType": "festejo",
       "breeding": "",
       "participants": [
@@ -9426,7 +10436,7 @@
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-05092026",
-          "fetchedAt": "2026-08-12T16:54:44.203Z"
+          "fetchedAt": "2026-08-15T11:39:49.246Z"
         }
       ],
       "confidence": 98,
@@ -9447,10 +10457,7 @@
       "participants": [
         "Jarocho",
         "Paco Ureña",
-        "Rubén Sanz",
-        "Javier Cuartero",
-        "Rafael de la Cueva",
-        "Sergio Rollón"
+        "Rubén Sanz"
       ],
       "name": "Almazán (Soria) España",
       "title": null,
@@ -9465,7 +10472,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9506,7 +10513,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9542,7 +10549,79 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-3d4d8803179344",
+      "date": "2026-09-05",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "El Álamo (Madrid) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Carriquiri",
+      "participants": [
+        "Javier Cuartero",
+        "Rafael de la Cueva",
+        "Sergio Rollón"
+      ],
+      "name": "El Álamo (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-66ae2346915c7f",
+      "date": "2026-09-05",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Ondara (Alicante) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Castillejo de Huebra",
+      "participants": [
+        "Marco Polope",
+        "Samuel Castrejón",
+        "Simón Andreu"
+      ],
+      "name": "Ondara (Alicante) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9578,7 +10657,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9620,7 +10699,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9656,7 +10735,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9692,7 +10771,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9728,7 +10807,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9758,23 +10837,30 @@
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
-        "Mundotoro"
+        "Mundotoro",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -9786,7 +10872,7 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "Alfarero de Oro",
-      "type": "Festejo taurino",
+      "type": "null",
       "contentType": "festejo",
       "breeding": "",
       "participants": [
@@ -9809,7 +10895,7 @@
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-06092026",
-          "fetchedAt": "2026-08-12T16:54:44.203Z"
+          "fetchedAt": "2026-08-15T11:39:49.246Z"
         }
       ],
       "confidence": 98,
@@ -9829,10 +10915,7 @@
       "breeding": "El Retamar, José Vázquez Fernández, Los Maños y Victoriano del Río Cortés",
       "participants": [
         "Jorge Isiegas",
-        "José Fernando Molina",
-        "El Fandi",
-        "Jesús Enrique Colombo",
-        "Manuel Escribano"
+        "José Fernando Molina"
       ],
       "name": "Andorra (Teruel) España",
       "title": null,
@@ -9847,7 +10930,43 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-d79e32a291043f",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Andújar (Jaén) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Fermín Bohórquez",
+      "participants": [
+        "El Fandi",
+        "Jesús Enrique Colombo",
+        "Manuel Escribano"
+      ],
+      "name": "Andújar (Jaén) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9868,10 +10987,7 @@
       "participants": [
         "Juan Ortega",
         "Morante de la Puebla",
-        "Pablo Aguado",
-        "Adrián Centenera",
-        "Andrés García",
-        "Tomás González"
+        "Pablo Aguado"
       ],
       "name": "Aranjuez (Madrid) España",
       "title": null,
@@ -9886,7 +11002,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9922,7 +11038,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9958,7 +11074,43 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-51d806ba6f79f9",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Las Ventas (Madrid) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Ángel Luis Peña Sánchez, Chamaco (Antes Carmen Borrero), Guadajira, Jiménez Pasquau, José González Jiménez y La Machamona",
+      "participants": [
+        "Adrián Centenera",
+        "Andrés García",
+        "Tomás González"
+      ],
+      "name": "Las Ventas (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -9972,8 +11124,8 @@
       "deferred": false,
       "televised": false,
       "televisionUnconfirmed": false,
-      "location": "Ecologismo",
-      "type": "Festejo taurino",
+      "location": "Miguelturra (Ciudad Real) España",
+      "type": "Corrida de toros",
       "contentType": "festejo",
       "breeding": "Eugenio Frías Piqueras",
       "participants": [
@@ -9994,7 +11146,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10030,7 +11182,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10066,7 +11218,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10105,14 +11257,14 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-06T19:47:32.277Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
       "status": "probable"
     },
     {
-      "id": null,
+      "id": "mundotoro-10f197b622ea99",
       "date": "2026-09-07",
       "time": "18:30",
       "channel": "OneToro",
@@ -10126,7 +11278,8 @@
       "participants": [
         "López Peregrino",
         "Juan Alberto Torrijos",
-        "Rafael de la Cueva"
+        "Rafael de la Cueva",
+        "Javier López Peregrino"
       ],
       "name": "Villaseca de la Sagra (Toledo)",
       "title": null,
@@ -10134,17 +11287,31 @@
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "Mundotoro",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
-      "confidence": 94,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -10156,7 +11323,7 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "Alfarero de Oro",
-      "type": "Festejo taurino",
+      "type": "null",
       "contentType": "festejo",
       "breeding": "",
       "participants": [
@@ -10180,7 +11347,7 @@
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-07092026",
-          "fetchedAt": "2026-08-12T16:54:44.203Z"
+          "fetchedAt": "2026-08-15T11:39:49.246Z"
         }
       ],
       "confidence": 98,
@@ -10191,7 +11358,9 @@
       "date": "2026-09-07",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Arganda del Rey (Madrid) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -10214,7 +11383,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10225,7 +11394,9 @@
       "date": "2026-09-07",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Calasparra (Portátil) (Murcia) España",
       "type": "Festejo taurino",
       "contentType": "festejo",
@@ -10248,7 +11419,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10259,7 +11430,9 @@
       "date": "2026-09-07",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Castellar (Jaén) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -10281,7 +11454,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10292,7 +11465,9 @@
       "date": "2026-09-07",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "El Casar (Guadalajara) España",
       "type": "Festejo taurino",
       "contentType": "festejo",
@@ -10314,7 +11489,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10325,7 +11500,9 @@
       "date": "2026-09-07",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Villarrubia de Santiago (Toledo) España",
       "type": "Festejo taurino",
       "contentType": "festejo",
@@ -10347,7 +11524,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10384,43 +11561,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
-        }
-      ],
-      "confidence": 94,
-      "status": "confirmed"
-    },
-    {
-      "id": null,
-      "date": "2026-09-09",
-      "time": "18:30",
-      "channel": "OneToro",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Villaseca de la Sagra (Toledo)",
-      "type": "Novillada con picadores",
-      "contentType": "festejo",
-      "breeding": "José Escolar",
-      "participants": [
-        "Daniel Pérez",
-        "Alberto Donaire",
-        "Emiliano Ortega"
-      ],
-      "name": "Villaseca de la Sagra (Toledo)",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sources": [
-        "El Muletazo"
-      ],
-      "sourceDetails": [
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
+        },
         {
-          "name": "El Muletazo",
-          "confidence": 90,
-          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 96,
@@ -10431,7 +11578,9 @@
       "date": "2026-09-08",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Arganda del Rey (Madrid) España",
       "type": "Festejo taurino",
       "contentType": "festejo",
@@ -10454,7 +11603,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10465,7 +11614,9 @@
       "date": "2026-09-08",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Calasparra (Portátil) (Murcia) España",
       "type": "Festejo taurino",
       "contentType": "festejo",
@@ -10488,7 +11639,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10499,7 +11650,9 @@
       "date": "2026-09-08",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Don Benito (Badajoz) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -10522,7 +11675,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10533,7 +11686,9 @@
       "date": "2026-09-08",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "El Casar (Guadalajara) España",
       "type": "Festejo taurino",
       "contentType": "festejo",
@@ -10555,7 +11710,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10566,7 +11721,9 @@
       "date": "2026-09-08",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Navaluenga (Ávila) España",
       "type": "Festejo taurino",
       "contentType": "festejo",
@@ -10589,7 +11746,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10600,7 +11757,9 @@
       "date": "2026-09-08",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Santoña (Cantabria) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -10623,7 +11782,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10634,7 +11793,9 @@
       "date": "2026-09-08",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Valladolid (Valladolid) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -10657,7 +11818,93 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "vadetoros-3e9d584b0c66d7",
+      "date": "2026-09-09",
+      "time": "18:30",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Villaseca de la Sagra (Toledo) Alfarero de Oro",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "José Escolar",
+      "participants": [
+        "Daniel Pérez",
+        "Alberto Donaire",
+        "Emiliano Ortega"
+      ],
+      "name": "Villaseca de la Sagra (Toledo) Alfarero de Oro",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sources": [
+        "El Muletazo",
+        "Mundotoro",
+        "Va de Toros"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-a570bdae9c952b",
+      "date": "2026-09-09",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Albacete (Albacete) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Montealto",
+      "participants": [
+        "Álvaro Serrano",
+        "Emiliano Osornio",
+        "Nacho Torrejón"
+      ],
+      "name": "Albacete (Albacete) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10672,7 +11919,7 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "Alfarero de Oro",
-      "type": "Festejo taurino",
+      "type": "null",
       "contentType": "festejo",
       "breeding": "",
       "participants": [
@@ -10694,22 +11941,93 @@
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-09092026",
-          "fetchedAt": "2026-08-12T16:54:44.203Z"
+          "fetchedAt": "2026-08-15T11:39:49.246Z"
         }
       ],
       "confidence": 98,
       "status": "confirmed"
     },
     {
-      "id": null,
+      "id": "mundotoro-311fb8ff16695c",
+      "date": "2026-09-09",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Arganda del Rey (Madrid) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Valdefresno",
+      "participants": [
+        "El Mene",
+        "Gonzalo Capdevila",
+        "Martín Morilla"
+      ],
+      "name": "Arganda del Rey (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-54b5b49d2a3f2b",
+      "date": "2026-09-09",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "El Casar (Guadalajara) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Familia Polo Saiz",
+      "participants": [
+        "Cristian González",
+        "Juan Alberto Torrijos"
+      ],
+      "name": "El Casar (Guadalajara) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "vadetoros-a826507157c8b8",
       "date": "2026-09-10",
       "time": "18:30",
-      "channel": "OneToro",
+      "channel": "CMM",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
-      "location": "Villaseca de la Sagra (Toledo)",
-      "type": "Novillada con picadores",
+      "location": "Villaseca de la Sagra (Toledo) Alfarero de Oro",
+      "type": "Novillada",
       "contentType": "festejo",
       "breeding": "Cuadri",
       "participants": [
@@ -10717,24 +12035,73 @@
         "Jesús de la Calzada",
         "Antonio Aparicio"
       ],
-      "name": "Villaseca de la Sagra (Toledo)",
+      "name": "Villaseca de la Sagra (Toledo) Alfarero de Oro",
       "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "Mundotoro",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
-      "confidence": 94,
+      "confidence": 100,
       "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-6109e8e6c6dce0",
+      "date": "2026-09-10",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Albacete (Albacete) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Murteira Grave",
+      "participants": [
+        "Alejandro González",
+        "Mario Vilau"
+      ],
+      "name": "Albacete (Albacete) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
     },
     {
       "id": "247ef6c6-08f9-4a1f-835c-381851e59621",
@@ -10745,7 +12112,7 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "Alfarero de Oro",
-      "type": "Festejo taurino",
+      "type": "null",
       "contentType": "festejo",
       "breeding": "",
       "participants": [
@@ -10768,51 +12135,20 @@
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-10092026",
-          "fetchedAt": "2026-08-12T16:54:44.203Z"
+          "fetchedAt": "2026-08-15T11:39:49.246Z"
         }
       ],
       "confidence": 98,
       "status": "confirmed"
     },
     {
-      "id": "mundotoro-6109e8e6c6dce0",
-      "date": "2026-09-10",
-      "time": null,
-      "channel": "Sin TV",
-      "televised": false,
-      "location": "Albacete (Albacete) España",
-      "type": "Festejo taurino",
-      "contentType": "festejo",
-      "breeding": "Murteira Grave",
-      "participants": [
-        "Alejandro González",
-        "Mario Vilau"
-      ],
-      "name": "Albacete (Albacete) España",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sources": [
-        "Mundotoro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Mundotoro",
-          "confidence": 86,
-          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
-        }
-      ],
-      "confidence": 89,
-      "status": "probable"
-    },
-    {
       "id": "mundotoro-f8eac71a89947f",
       "date": "2026-09-10",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Arganda del Rey (Madrid) España",
       "type": "Festejo taurino",
       "contentType": "festejo",
@@ -10835,7 +12171,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10846,7 +12182,9 @@
       "date": "2026-09-10",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Navaluenga (Ávila) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -10869,7 +12207,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10880,7 +12218,9 @@
       "date": "2026-09-10",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Valladolid (Valladolid) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -10903,7 +12243,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10914,7 +12254,9 @@
       "date": "2026-09-11",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Albacete (Albacete) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -10937,7 +12279,43 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-b17112403d9ec3",
+      "date": "2026-09-11",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Arganda del Rey (Madrid) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "El Retamar",
+      "participants": [
+        "Ignacio Garibay -hijo-",
+        "Joel Ramírez",
+        "Sergio Rollón"
+      ],
+      "name": "Arganda del Rey (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10948,7 +12326,9 @@
       "date": "2026-09-11",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Pozuelo de Alarcón (Madrid) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -10956,10 +12336,7 @@
       "participants": [
         "Alejandro Mora",
         "Álvaro Burdiel",
-        "Román",
-        "Ignacio Garibay -hijo-",
-        "Joel Ramírez",
-        "Sergio Rollón"
+        "Román"
       ],
       "name": "Pozuelo de Alarcón (Madrid) España",
       "title": null,
@@ -10974,7 +12351,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -10985,7 +12362,9 @@
       "date": "2026-09-11",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Salamanca (Salamanca) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11008,7 +12387,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11019,7 +12398,9 @@
       "date": "2026-09-11",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Valladolid (Valladolid) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11042,14 +12423,14 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
       "status": "probable"
     },
     {
-      "id": null,
+      "id": "vadetoros-2bda897760580f",
       "date": "2026-09-12",
       "time": "18:30",
       "channel": "Canal Extremadura",
@@ -11057,29 +12438,37 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "Almendralejo (Badajoz)",
-      "type": "Novillada con picadores",
+      "type": "Novillada",
       "contentType": "festejo",
       "breeding": "Chamaco",
       "participants": [
-        "3 novilleros finalistas"
+        "3 novilleros finalistas",
+        "los tres novilleros finalistas"
       ],
       "name": "Almendralejo (Badajoz)",
       "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
-      "confidence": 94,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -11087,7 +12476,9 @@
       "date": "2026-09-12",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Albacete (Albacete) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11110,7 +12501,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11121,7 +12512,9 @@
       "date": "2026-09-12",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Arles (Bouches-du-Rhône) Francia",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11144,7 +12537,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11155,7 +12548,9 @@
       "date": "2026-09-12",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Barcarrota (Badajoz) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11178,7 +12573,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11189,7 +12584,9 @@
       "date": "2026-09-12",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Dax (Landes) Francia",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11214,7 +12611,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11225,14 +12622,14 @@
       "date": "2026-09-12",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Galapagar (Madrid) España",
       "type": "Festejo taurino",
       "contentType": "festejo",
       "breeding": "El Vaqueril de Casasola",
       "participants": [
-        "Álvaro Serrano",
-        "Sergio Rollón",
         "Joel Ramírez",
         "otro",
         "Samuel Castrejón"
@@ -11250,7 +12647,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11261,7 +12658,9 @@
       "date": "2026-09-12",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Portalegre (Portalegre) Portugal",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11283,7 +12682,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11294,7 +12693,9 @@
       "date": "2026-09-12",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Salamanca (Salamanca) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11317,7 +12718,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11328,7 +12729,9 @@
       "date": "2026-09-12",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Sonseca (Toledo) España",
       "type": "Festejo taurino",
       "contentType": "festejo",
@@ -11350,7 +12753,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11361,7 +12764,9 @@
       "date": "2026-09-12",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Ubrique (Cádiz) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11384,7 +12789,42 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-32ea3c2bbed531",
+      "date": "2026-09-12",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Valdetorres del Jarama (Madrid) España",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "Los Eulogios",
+      "participants": [
+        "Álvaro Serrano",
+        "Sergio Rollón"
+      ],
+      "name": "Valdetorres del Jarama (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11395,7 +12835,9 @@
       "date": "2026-09-12",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Valladolid (Valladolid) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11418,7 +12860,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11429,7 +12871,9 @@
       "date": "2026-09-12",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Villarrubia de los Ojos (Nueva) (Ciudad Real) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11452,14 +12896,14 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
       "status": "probable"
     },
     {
-      "id": null,
+      "id": "vadetoros-53470b022112c2",
       "date": "2026-09-13",
       "time": "18:00",
       "channel": "CMM",
@@ -11484,21 +12928,28 @@
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
-      "confidence": 94,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
-      "id": null,
+      "id": "vadetoros-7e1e96b038f198",
       "date": "2026-09-13",
       "time": "18:30",
       "channel": "Canal Extremadura",
@@ -11506,29 +12957,37 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "Higuera la Real (Badajoz)",
-      "type": "Festejo taurino",
+      "type": "Novillada",
       "contentType": "festejo",
       "breeding": "Zalduendo",
       "participants": [
-        "los 3 finalistas del certamen"
+        "los 3 finalistas del certamen",
+        "los tres finalistas"
       ],
       "name": "Higuera la Real (Badajoz)",
       "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
-      "confidence": 94,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -11536,7 +12995,9 @@
       "date": "2026-09-13",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Albacete (Albacete) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11559,7 +13020,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11570,7 +13031,9 @@
       "date": "2026-09-13",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Arles (Bouches-du-Rhône) Francia",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11593,7 +13056,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11604,7 +13067,9 @@
       "date": "2026-09-13",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Cortegana (Huelva) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11627,7 +13092,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11638,7 +13103,9 @@
       "date": "2026-09-13",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Dax (Landes) Francia",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11660,7 +13127,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11671,7 +13138,9 @@
       "date": "2026-09-13",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Las Ventas (Madrid) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11694,7 +13163,43 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-0dbaf5556f0fc1",
+      "date": "2026-09-13",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Murcia (Murcia) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "La Palmosilla",
+      "participants": [
+        "Antonio Ferrera",
+        "El Fandi",
+        "Manuel Escribano"
+      ],
+      "name": "Murcia (Murcia) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11705,7 +13210,9 @@
       "date": "2026-09-13",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Muro (Baleares) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11713,10 +13220,7 @@
       "participants": [
         "Damián Castaño",
         "Ferrer Martín",
-        "Jesús Enrique Colombo",
-        "Antonio Ferrera",
-        "El Fandi",
-        "Manuel Escribano"
+        "Jesús Enrique Colombo"
       ],
       "name": "Muro (Baleares) España",
       "title": null,
@@ -11731,7 +13235,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11742,7 +13246,9 @@
       "date": "2026-09-13",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Salamanca (Salamanca) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11765,7 +13271,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11776,7 +13282,9 @@
       "date": "2026-09-13",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Valladolid (Valladolid) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11799,7 +13307,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11810,7 +13318,9 @@
       "date": "2026-09-14",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Albacete (Albacete) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11833,7 +13343,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11844,7 +13354,9 @@
       "date": "2026-09-14",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Arganda del Rey (Madrid) España",
       "type": "Festejo taurino",
       "contentType": "festejo",
@@ -11867,40 +13379,10 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
-      "status": "probable"
-    },
-    {
-      "id": "mundotoro-29c5012d6b60fd",
-      "date": "2026-09-14",
-      "time": null,
-      "channel": "Sin TV",
-      "televised": false,
-      "location": "Ecologismo",
-      "type": "Festejo taurino",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [],
-      "name": "Ecologismo",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sources": [
-        "Mundotoro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Mundotoro",
-          "confidence": 86,
-          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
-        }
-      ],
-      "confidence": 87,
       "status": "probable"
     },
     {
@@ -11908,7 +13390,9 @@
       "date": "2026-09-14",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Murcia (Murcia) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
@@ -11931,7 +13415,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
@@ -11942,7 +13426,9 @@
       "date": "2026-09-14",
       "time": null,
       "channel": "Sin TV",
+      "deferred": false,
       "televised": false,
+      "televisionUnconfirmed": false,
       "location": "Villatobas (Toledo) España",
       "type": "Festejo taurino",
       "contentType": "festejo",
@@ -11964,14 +13450,118 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-15T05:47:14.109Z"
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
         }
       ],
       "confidence": 89,
       "status": "probable"
     },
     {
-      "id": null,
+      "id": "mundotoro-fc28ffe35a0db1",
+      "date": "2026-09-15",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Albacete (Albacete) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Toros de Cortés y Victoriano del Río Cortés",
+      "participants": [
+        "David de Miranda",
+        "Marco Pérez",
+        "Víctor Hernández"
+      ],
+      "name": "Albacete (Albacete) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-30f7e8055bf76f",
+      "date": "2026-09-15",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Ecologismo",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "Ecologismo",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 87,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-2787355af69a15",
+      "date": "2026-09-15",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Murcia (Murcia) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Victoriano del Río Cortés",
+      "participants": [
+        "Juan Ortega",
+        "Paco Ureña",
+        "Roca Rey"
+      ],
+      "name": "Murcia (Murcia) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-15T11:40:14.039Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "vadetoros-230631a21ec6e6",
       "date": "2026-09-26",
       "time": "18:00",
       "channel": "CMM",
@@ -11979,28 +13569,35 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "Talavera de la Reina (Toledo)",
-      "type": "Novillada sin picadores",
+      "type": "Concurso de recortadores",
       "contentType": "festejo",
       "breeding": "",
       "participants": [],
       "name": "Talavera de la Reina (Toledo)",
       "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-12T16:54:45.672Z"
+          "fetchedAt": "2026-08-15T11:39:49.442Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-15T11:40:24.391Z"
         }
       ],
-      "confidence": 92,
-      "status": "probable"
+      "confidence": 99,
+      "status": "confirmed"
     }
   ]
 }
