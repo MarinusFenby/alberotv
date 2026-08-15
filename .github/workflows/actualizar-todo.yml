@@ -69,6 +69,11 @@ jobs:
         run: |
           node scrapers/vadetoros.mjs
 
+      - name: Actualizar Aplausos
+        continue-on-error: true
+        run: |
+          node scrapers/aplausos.mjs
+
       - name: Actualizar programas taurinos
         run: |
           node scrapers/programas-taurinos.mjs
@@ -102,6 +107,9 @@ jobs:
 
           echo "=== Va de Toros ==="
           test -f data/vadetoros.json || true
+
+          echo "=== Aplausos ==="
+          test -f data/aplausos.json || true
 
           echo "=== Programas taurinos ==="
           test -f data/programas-taurinos.json
