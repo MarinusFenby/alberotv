@@ -13,7 +13,8 @@ const SOURCE_FILES = {
   canalSur: path.join(DATA_DIR, "canalsur.json"),
   cmm: path.join(DATA_DIR, "cmm.json"),
   canalExtremadura: path.join(DATA_DIR, "canalextremadura.json"),
-  mundoToro: path.join(DATA_DIR, "mundotoro.json")
+  mundoToro: path.join(DATA_DIR, "mundotoro.json"),
+  lasVentas: path.join(DATA_DIR, "lasventas.json")
 };
 
 const SOURCE_LABELS = {
@@ -23,7 +24,8 @@ const SOURCE_LABELS = {
   canalSur: "Canal Sur",
   cmm: "CMM",
   canalExtremadura: "Canal Extremadura",
-  mundoToro: "Mundotoro"
+  mundoToro: "Mundotoro",
+  lasVentas: "Las Ventas oficial"
 };
 
 const SOURCE_CONFIDENCE = {
@@ -33,6 +35,7 @@ const SOURCE_CONFIDENCE = {
   "El Muletazo": 90,
   "Programas taurinos": 88,
   Mundotoro: 86,
+  "Las Ventas oficial": 100,
   Telemadrid: 98,
   CMM: 98,
   RTVE: 98,
@@ -169,6 +172,24 @@ function isNonTelevisedChannel(channel = "") {
     value === "no televisado" ||
     value === "no televisada" ||
     value === "sin television"
+  );
+}
+
+function isDeferredBroadcast(event = {}) {
+  if (event.deferred === true) return true;
+
+  return /\b(?:en\s+)?diferido\b/i.test(
+    [
+      event.broadcastMode,
+      event.emissionType,
+      event.sourceText,
+      event.title,
+      event.name,
+      event.type,
+      event.channel
+    ]
+      .filter(Boolean)
+      .join(" ")
   );
 }
 
@@ -350,12 +371,17 @@ function timeCloseness(first, second) {
 }
 
 function canonicalLocation(value = "") {
-  const text = normalizeText(value)
+  const original = normalizeText(value);
+
+  if (original.includes("las ventas")) {
+    return "madrid";
+  }
+
+  const text = normalizeText(String(value).replace(/\([^)]*\)/g, " "))
     .replace(/\bespana\b/g, " ")
     .replace(/\bplaza de toros\b/g, " ")
     .replace(/\bmonumental\b/g, " ")
     .replace(/\breal maestranza\b/g, " maestranza ")
-    .replace(/\blas ventas\b/g, " madrid ")
     .replace(/[()[\],.;:]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
@@ -600,12 +626,16 @@ function normalizeGenericEvent(event, sourceName, fetchedAt = null) {
     date: event.date || null,
     time: event.time || null,
     channel: normalizeChannel(event.channel || sourceName),
+    deferred: isDeferredBroadcast(event),
     televised:
       event.televised === false
         ? false
         : !isNonTelevisedChannel(
             event.channel || sourceName
           ),
+    televisionUnconfirmed:
+      event.televised !== true &&
+      event.televisionUnconfirmed === true,
     location: cleanName(event.location || event.name || "Televisión"),
     type:
       contentType === "programa"
@@ -773,6 +803,13 @@ function mergeParticipants(first = [], second = []) {
 }
 
 function mergeTwoEvents(first, second) {
+  const firstIsLasVentasOfficial =
+    first.sources?.includes("Las Ventas oficial");
+  const secondIsLasVentasOfficial =
+    second.sources?.includes("Las Ventas oficial");
+  const officialLasVentasEvent = firstIsLasVentasOfficial
+    ? first
+    : (secondIsLasVentasOfficial ? second : null);
   const firstConfidence = sourceConfidence(first.sources?.[0]);
   const secondConfidence = sourceConfidence(second.sources?.[0]);
 
@@ -786,40 +823,34 @@ function mergeTwoEvents(first, second) {
       secondConfidence > firstConfidence
     );
 
+  const mergedChannel =
+    isNonTelevisedChannel(first.channel) &&
+    !isNonTelevisedChannel(second.channel)
+      ? second.channel
+      : (
+          !isNonTelevisedChannel(first.channel) &&
+          isNonTelevisedChannel(second.channel)
+            ? first.channel
+            : chooseValue(first.channel, second.channel, preferSecond)
+        );
+
+  const mergedIsTelevised = !isNonTelevisedChannel(mergedChannel);
+
   const merged = {
     ...first,
     id: chooseValue(first.id, second.id, preferSecond),
     date: chooseValue(first.date, second.date, preferSecond),
     time: chooseValue(first.time, second.time, preferSecond),
-    channel:
-      isNonTelevisedChannel(first.channel) &&
-      !isNonTelevisedChannel(second.channel)
-        ? second.channel
-        : (
-            !isNonTelevisedChannel(first.channel) &&
-            isNonTelevisedChannel(second.channel)
-              ? first.channel
-              : chooseValue(
-                  first.channel,
-                  second.channel,
-                  preferSecond
-                )
-          ),
-    televised:
-      !isNonTelevisedChannel(
-        isNonTelevisedChannel(first.channel) &&
-        !isNonTelevisedChannel(second.channel)
-          ? second.channel
-          : (
-              !isNonTelevisedChannel(first.channel) &&
-              isNonTelevisedChannel(second.channel)
-                ? first.channel
-                : chooseValue(
-                    first.channel,
-                    second.channel,
-                    preferSecond
-                  )
-            )
+    channel: mergedChannel,
+    deferred:
+      first.deferred === true ||
+      second.deferred === true,
+    televised: mergedIsTelevised,
+    televisionUnconfirmed:
+      !mergedIsTelevised &&
+      (
+        first.televisionUnconfirmed === true ||
+        second.televisionUnconfirmed === true
       ),
     location: chooseInformativeValue(
       first.location,
@@ -832,15 +863,19 @@ function mergeTwoEvents(first, second) {
       preferSecond
     ),
     contentType: first.contentType || second.contentType || "festejo",
-    breeding: chooseInformativeValue(
-      first.breeding,
-      second.breeding,
-      preferSecond
-    ),
-    participants: mergeParticipants(
-      first.participants,
-      second.participants
-    ),
+    breeding: officialLasVentasEvent
+      ? officialLasVentasEvent.breeding
+      : chooseInformativeValue(
+          first.breeding,
+          second.breeding,
+          preferSecond
+        ),
+    participants: officialLasVentasEvent
+      ? [...officialLasVentasEvent.participants]
+      : mergeParticipants(
+          first.participants,
+          second.participants
+        ),
     name: chooseInformativeValue(
       first.name,
       second.name,
@@ -888,7 +923,7 @@ function addOrMergeEvent(collection, candidate) {
   const threshold =
     candidate.contentType === "programa"
       ? 82
-      : 62;
+      : 70;
 
   if (bestIndex >= 0 && bestScore >= threshold) {
     collection[bestIndex] =
@@ -1038,7 +1073,7 @@ function shouldPreserveHistoricalEvent(event, todayKey) {
   return (
     event &&
     /^\d{4}-\d{2}-\d{2}$/.test(String(event.date || "")) &&
-    String(event.date) <= todayKey
+    String(event.date) < todayKey
   );
 }
 
@@ -1069,6 +1104,9 @@ function normalizeStoredEvent(event = {}) {
       event.televised === false
         ? false
         : !isNonTelevisedChannel(event.channel),
+    televisionUnconfirmed:
+      event.televised !== true &&
+      event.televisionUnconfirmed === true,
     location: cleanName(
       event.location ||
       event.name ||
@@ -1223,7 +1261,8 @@ async function main() {
     canalSur,
     cmm,
     canalExtremadura,
-    mundoToro
+    mundoToro,
+    lasVentas
   ] = await Promise.all([
     readSource("elMuletazo"),
     readSource("oneToro"),
@@ -1231,7 +1270,8 @@ async function main() {
     readSource("canalSur"),
     readSource("cmm"),
     readSource("canalExtremadura"),
-    readSource("mundoToro")
+    readSource("mundoToro"),
+    readSource("lasVentas")
   ]);
 
   const sourceResults = [
@@ -1241,7 +1281,8 @@ async function main() {
     canalSur,
     cmm,
     canalExtremadura,
-    mundoToro
+    mundoToro,
+    lasVentas
   ];
 
   if (!sourceResults.some(source => source.ok)) {
@@ -1408,6 +1449,19 @@ async function main() {
     ] += 1;
   }
 
+  for (const event of lasVentas.data.events || []) {
+    const result = addOrMergeEvent(
+      merged,
+      normalizeGenericEvent(
+        event,
+        "Las Ventas oficial",
+        lasVentas.fetchedAt
+      )
+    );
+
+    mergeStats[result.merged ? "merged" : "added"] += 1;
+  }
+
   for (const event of programas.data.events || []) {
     const result = addOrMergeEvent(
       merged,
@@ -1514,7 +1568,10 @@ async function main() {
         canalExtremadura.eventCount,
 
       mundoToro:
-        mundoToro.eventCount
+        mundoToro.eventCount,
+
+      lasVentas:
+        lasVentas.eventCount
     },
 
     sourceHealth,
@@ -1548,7 +1605,7 @@ async function main() {
   }
 
   /*
-   * El archivo histórico solo contiene fechas de hoy o anteriores.
+   * El archivo histórico solo contiene fechas anteriores a hoy.
    * Se regenera en cada ejecución y queda guardado en Git.
    */
   const historicalEvents =
