@@ -205,6 +205,7 @@ function normalizeType(type = "") {
 
   if (!value) return "Festejo taurino";
   if (value.includes("programa")) return "Programa taurino";
+  if (value.includes("mixta") || value.includes("mixto")) return "Festejo mixto";
   if (value.includes("rejones") || value.includes("rejoneo")) return "Rejones";
   if (
     value.includes("novillada") &&
@@ -216,7 +217,6 @@ function normalizeType(type = "") {
     return "Novillada con picadores";
   }
   if (value.includes("novillada")) return "Novillada";
-  if (value.includes("corrida") && value.includes("mixta")) return "Corrida mixta";
   if (value.includes("corrida")) return "Corrida de toros";
   if (value.includes("recortadores") || value.includes("recortes")) {
     return "Concurso de recortadores";

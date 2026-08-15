@@ -72,8 +72,21 @@ function splitNames(value = "") {
 
 function typeFrom(value = "") {
   const text = normalized(value);
+  const contieneRejoneo =
+    text.includes("rejones") ||
+    text.includes("rejoneo") ||
+    text.includes("rejoneador") ||
+    text.includes("cavaleiro");
+  const contieneToreoAPie =
+    text.includes("novillero") ||
+    text.includes("matador") ||
+    text.includes("torero");
+
+  if (text.includes("mixta") || (contieneRejoneo && contieneToreoAPie)) {
+    return "Festejo mixto";
+  }
   if (text.includes("novillada") || text.includes("novillos")) return "Novillada";
-  if (text.includes("rejones") || text.includes("rejoneo")) return "Rejones";
+  if (contieneRejoneo) return "Rejones";
   if (text.includes("recortes") || text.includes("recortadores")) return "Recortes";
   return "Corrida de toros";
 }
