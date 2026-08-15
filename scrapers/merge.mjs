@@ -14,7 +14,8 @@ const SOURCE_FILES = {
   cmm: path.join(DATA_DIR, "cmm.json"),
   canalExtremadura: path.join(DATA_DIR, "canalextremadura.json"),
   mundoToro: path.join(DATA_DIR, "mundotoro.json"),
-  lasVentas: path.join(DATA_DIR, "lasventas.json")
+  lasVentas: path.join(DATA_DIR, "lasventas.json"),
+  vaDeToros: path.join(DATA_DIR, "vadetoros.json")
 };
 
 const SOURCE_LABELS = {
@@ -25,7 +26,8 @@ const SOURCE_LABELS = {
   cmm: "CMM",
   canalExtremadura: "Canal Extremadura",
   mundoToro: "Mundotoro",
-  lasVentas: "Las Ventas oficial"
+  lasVentas: "Las Ventas oficial",
+  vaDeToros: "Va de Toros"
 };
 
 const SOURCE_CONFIDENCE = {
@@ -36,6 +38,7 @@ const SOURCE_CONFIDENCE = {
   "Programas taurinos": 88,
   Mundotoro: 86,
   "Las Ventas oficial": 100,
+  "Va de Toros": 95,
   Telemadrid: 98,
   CMM: 98,
   RTVE: 98,
@@ -1262,7 +1265,8 @@ async function main() {
     cmm,
     canalExtremadura,
     mundoToro,
-    lasVentas
+    lasVentas,
+    vaDeToros
   ] = await Promise.all([
     readSource("elMuletazo"),
     readSource("oneToro"),
@@ -1271,7 +1275,8 @@ async function main() {
     readSource("cmm"),
     readSource("canalExtremadura"),
     readSource("mundoToro"),
-    readSource("lasVentas")
+    readSource("lasVentas"),
+    readSource("vaDeToros")
   ]);
 
   const sourceResults = [
@@ -1282,7 +1287,8 @@ async function main() {
     cmm,
     canalExtremadura,
     mundoToro,
-    lasVentas
+    lasVentas,
+    vaDeToros
   ];
 
   if (!sourceResults.some(source => source.ok)) {
@@ -1462,6 +1468,19 @@ async function main() {
     mergeStats[result.merged ? "merged" : "added"] += 1;
   }
 
+  for (const event of vaDeToros.data.events || []) {
+    const result = addOrMergeEvent(
+      merged,
+      normalizeGenericEvent(
+        event,
+        "Va de Toros",
+        vaDeToros.fetchedAt
+      )
+    );
+
+    mergeStats[result.merged ? "merged" : "added"] += 1;
+  }
+
   for (const event of programas.data.events || []) {
     const result = addOrMergeEvent(
       merged,
@@ -1571,7 +1590,10 @@ async function main() {
         mundoToro.eventCount,
 
       lasVentas:
-        lasVentas.eventCount
+        lasVentas.eventCount,
+
+      vaDeToros:
+        vaDeToros.eventCount
     },
 
     sourceHealth,

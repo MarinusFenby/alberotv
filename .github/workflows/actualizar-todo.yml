@@ -64,6 +64,11 @@ jobs:
         run: |
           node scrapers/lasventas.mjs
 
+      - name: Actualizar Va de Toros
+        continue-on-error: true
+        run: |
+          node scrapers/vadetoros.mjs
+
       - name: Actualizar programas taurinos
         run: |
           node scrapers/programas-taurinos.mjs
@@ -94,6 +99,9 @@ jobs:
 
           echo "=== Las Ventas ==="
           test -f data/lasventas.json || true
+
+          echo "=== Va de Toros ==="
+          test -f data/vadetoros.json || true
 
           echo "=== Programas taurinos ==="
           test -f data/programas-taurinos.json
