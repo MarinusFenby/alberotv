@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-08-16T17:40:42.911Z",
+  "generatedAt": "2026-08-16T18:04:11.126Z",
   "degraded": false,
-  "eventCount": 366,
-  "bullfightingEventCount": 355,
+  "eventCount": 364,
+  "bullfightingEventCount": 353,
   "programCount": 11,
   "mergeStats": {
     "historicalCandidates": 238,
     "historicalPreserved": 119,
     "historicalDuplicatesMerged": 119,
-    "added": 247,
-    "merged": 53
+    "added": 245,
+    "merged": 55
   },
   "sources": {
     "elMuletazo": 30,
@@ -4628,38 +4628,6 @@
     {
       "id": "canalsur-2026-08-16-viii-corrida-de-toros-magallanica-desde-sanlucar-de-barrameda-en-canal",
       "date": "2026-08-16",
-      "time": "18:40",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Localidad por confirmar",
-      "type": "Corrida de toros",
-      "contentType": "festejo",
-      "breeding": "Miura en uno de los festejos más esperados del verano",
-      "participants": [],
-      "name": "VIII Corrida de Toros Magallánica desde Sanlúcar de Barrameda, en Canal Sur",
-      "title": "VIII Corrida de Toros Magallánica desde Sanlúcar de Barrameda, en Canal Sur",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/viii-corrida-toros-magallanica-sanlucar_1_1428547.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/viii-corrida-toros-magallanica-sanlucar_1_1428547.html",
-          "fetchedAt": "2026-08-16T17:40:19.058Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "mundotoro-0442d979edb2e9",
-      "date": "2026-08-16",
       "time": "19:00",
       "channel": "Canal Sur",
       "deferred": false,
@@ -4675,12 +4643,13 @@
         "Daniel Crespo"
       ],
       "name": "Sanlúcar de Barrameda (Cádiz)",
-      "title": null,
+      "title": "VIII Corrida de Toros Magallánica desde Sanlúcar de Barrameda, en Canal Sur",
       "image": null,
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
+        "Canal Sur",
         "Mundotoro"
       ],
       "sourceDetails": [
@@ -4691,13 +4660,19 @@
           "fetchedAt": "2026-08-16T17:40:01.789Z"
         },
         {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/viii-corrida-toros-magallanica-sanlucar_1_1428547.html",
+          "fetchedAt": "2026-08-16T17:40:19.058Z"
+        },
+        {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-08-16T17:40:29.375Z"
         }
       ],
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -6210,39 +6185,7 @@
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
-      "location": "Localidad por confirmar",
-      "type": "Corrida de toros",
-      "contentType": "festejo",
-      "breeding": "Núñez del Cubillo",
-      "participants": [],
-      "name": "Canal Sur Televisión retransmitirá tres grandes festejos de la Feria de Málaga",
-      "title": "Canal Sur Televisión retransmitirá tres grandes festejos de la Feria de Málaga",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/canal-sur-television-retransmitira-tres_1_1427100.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/canal-sur-television-retransmitira-tres_1_1427100.html",
-          "fetchedAt": "2026-08-16T17:40:19.058Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "vadetoros-59950a0f8a5cc7",
-      "date": "2026-08-22",
-      "time": "19:00",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Málaga, Corrida Extraordinaria 150 Aniversario de La Malagueta",
+      "location": "Málaga",
       "type": "Corrida de toros",
       "contentType": "festejo",
       "breeding": "Torrealta y Garcigrande",
@@ -6251,13 +6194,14 @@
         "Roca Rey",
         "David de Miranda"
       ],
-      "name": "Málaga, Corrida Extraordinaria 150 Aniversario de La Malagueta",
-      "title": null,
+      "name": "Málaga",
+      "title": "Canal Sur Televisión retransmitirá tres grandes festejos de la Feria de Málaga",
       "image": null,
-      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
-      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
+        "Canal Sur",
         "Mundotoro",
         "Va de Toros"
       ],
@@ -6267,6 +6211,12 @@
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
           "fetchedAt": "2026-08-16T17:40:01.789Z"
+        },
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/canal-sur-television-retransmitira-tres_1_1427100.html",
+          "fetchedAt": "2026-08-16T17:40:19.058Z"
         },
         {
           "name": "Mundotoro",

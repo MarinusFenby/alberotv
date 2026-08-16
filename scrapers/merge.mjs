@@ -321,6 +321,7 @@ function isGenericLabel(value = "") {
     text === "toros 2026" ||
     text === "festejo taurino" ||
     text === "cartel por confirmar" ||
+    text === "localidad por confirmar" ||
     text === "programa taurino"
   );
 }
