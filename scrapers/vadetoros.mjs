@@ -3,8 +3,6 @@ import crypto from "node:crypto";
 import { chromium } from "playwright";
 
 const HOME_URL = "https://vadetoros.es/";
-const AGENDA_URL =
-  "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/";
 const OUTPUT_FILE = "data/vadetoros.json";
 
 const MONTHS = {
@@ -95,9 +93,7 @@ function extractEvents(text, sourceUrl) {
     // cartel. Solo la primera parte es la ubicación que debe mostrar la app.
     const locationInHeadline = location.match(/^([^,]+),\s*(?:feria\b|corrida\b|toros?\s+de\b|novillos?\s+de\b)/i);
     if (locationInHeadline) location = clean(locationInHeadline[1]);
-    const locationBeforeDescription = location.match(
-      /^(.+?\([^)]*\))\s+(?:[IVXLCDM]+\s+certamen\b|corrida\b|novillada\b|feria\b)/i
-    );
+    const locationBeforeDescription = location.match(/^(.+?\([^)]*\))(?:\s+.+)?$/i);
     if (locationBeforeDescription) location = clean(locationBeforeDescription[1]);
     if (!location || location.length > 100) continue;
 
@@ -129,7 +125,7 @@ async function main() {
   try {
     const context = await browser.newContext({ locale: "es-ES", timezoneId: "Europe/Madrid" });
     const page = await context.newPage();
-    const candidateUrls = new Set([AGENDA_URL]);
+    const candidateUrls = new Set();
 
     try {
       await page.goto(HOME_URL, { waitUntil: "domcontentloaded", timeout: 60000 });
@@ -139,6 +135,10 @@ async function main() {
       discovered.forEach(url => candidateUrls.add(url));
     } catch (error) {
       console.warn(`Va de Toros: no se pudo descubrir la agenda: ${error.message}`);
+    }
+
+    if (!candidateUrls.size) {
+      throw new Error("no se encontró una agenda vigente enlazada desde la portada");
     }
 
     const found = [];
@@ -172,7 +172,7 @@ async function main() {
     await fs.writeFile(OUTPUT_FILE, JSON.stringify({
       fetchedAt: new Date().toISOString(),
       source: "Va de Toros",
-      sourceUrl: AGENDA_URL,
+      sourceUrl: [...candidateUrls][0],
       eventCount: events.length,
       events
     }, null, 2) + "\n", "utf8");

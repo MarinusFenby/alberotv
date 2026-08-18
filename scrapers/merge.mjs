@@ -330,6 +330,19 @@ function isGenericLabel(value = "") {
   );
 }
 
+function isGenericBroadcastListing(event = {}) {
+  const labels = [event.location, event.name, event.title]
+    .map(normalizeText)
+    .filter(Boolean);
+
+  return (
+    labels.some(label => isGenericLabel(label)) ||
+    labels.some(label =>
+      /^(?:toros(?:\s+20\d{2})?|corrida(?:\s+de\s+toros)?|festejo taurino)(?:\s*[-–—:].*)?$/.test(label)
+    )
+  );
+}
+
 function informationScore(event = {}) {
   let score = 0;
 
@@ -522,6 +535,9 @@ function eventMatchScore(first, second) {
     isGenericLabel(second.name) ||
     isGenericLabel(second.title);
 
+  const firstGenericBroadcast = isGenericBroadcastListing(first);
+  const secondGenericBroadcast = isGenericBroadcastListing(second);
+
   if (
     first.contentType === "festejo" &&
     sameCanonicalLocation &&
@@ -552,6 +568,21 @@ function eventMatchScore(first, second) {
     Boolean(first.time) &&
     Boolean(second.time) &&
     timeCloseness(first.time, second.time) >= 0.8;
+
+  // Las parrillas oficiales suelen publicar entradas genéricas como
+  // «TOROS 2026» o «TOROS – Certamen…». Si coinciden en fecha, canal y
+  // franja con un festejo detallado, son la misma emisión y no dos eventos.
+  if (
+    first.contentType === "festejo" &&
+    sameChannel &&
+    closeTime &&
+    (
+      (firstGenericBroadcast && !secondGenericBroadcast) ||
+      (secondGenericBroadcast && !firstGenericBroadcast)
+    )
+  ) {
+    return 97;
+  }
 
   const firstHasDetails =
     Boolean(first.location && !isGenericLabel(first.location)) ||
@@ -930,10 +961,21 @@ function mergeTwoEvents(first, second) {
   merged.confidence = calculateConfidence(merged);
   merged.status = merged.confidence >= 94 ? "confirmed" : "probable";
 
+  // En los festejos con una plaza/localidad concreta, la cabecera debe ser
+  // siempre esa ubicación. Los titulares editoriales y nombres genéricos de
+  // parrilla quedan solo como metadatos de la fuente, nunca como título UI.
+  if (
+    merged.contentType === "festejo" &&
+    merged.location &&
+    !isGenericLabel(merged.location)
+  ) {
+    merged.title = null;
+  }
+
   return merged;
 }
 
-function addOrMergeEvent(collection, candidate) {
+function addOrMergeEvent(collection, candidate, { allowAdd = true } = {}) {
   let bestIndex = -1;
   let bestScore = 0;
 
@@ -960,6 +1002,14 @@ function addOrMergeEvent(collection, candidate) {
 
     return {
       merged: true,
+      score: bestScore
+    };
+  }
+
+  if (!allowAdd) {
+    return {
+      merged: false,
+      skipped: true,
       score: bestScore
     };
   }
@@ -1082,6 +1132,37 @@ function validateOutput(output, previousOutput = null) {
       prior.push(event);
       appearances.set(key, prior);
     }
+  }
+
+  const todayKey = getDateKeyInTimeZone(new Date(), "Europe/Madrid");
+  const broadcasts = new Map();
+  for (const event of output.events) {
+    if (
+      event.contentType !== "festejo" ||
+      event.date < todayKey ||
+      !event.time ||
+      !event.televised ||
+      isNonTelevisedChannel(event.channel)
+    ) continue;
+
+    const key = `${event.date}|${normalizeChannel(event.channel)}`;
+    const prior = broadcasts.get(key) || [];
+    for (const other of prior) {
+      const minutesApart = Math.abs(
+        minutesFromTime(event.time) - minutesFromTime(other.time)
+      );
+      const differentEvent =
+        canonicalLocation(event.location) !== canonicalLocation(other.location) &&
+        locationSimilarity(event.location, other.location) < 0.72;
+
+      if (differentEvent && minutesApart <= 30) {
+        errors.push(
+          `Parrilla imposible: ${event.channel} emite el ${event.date} a las ${other.time} ${other.location} y a las ${event.time} ${event.location}`
+        );
+      }
+    }
+    prior.push(event);
+    broadcasts.set(key, prior);
   }
 
   if (
@@ -1372,7 +1453,8 @@ async function main() {
     historicalPreserved: historicalStats.added,
     historicalDuplicatesMerged: historicalStats.merged,
     added: 0,
-    merged: 0
+    merged: 0,
+    skippedUncorroborated: 0
   };
 
   for (const event of muletazo.data.events || []) {
@@ -1519,16 +1601,12 @@ async function main() {
   }
 
   for (const event of vaDeToros.data.events || []) {
-    const result = addOrMergeEvent(
-      merged,
-      normalizeGenericEvent(
-        event,
-        "Va de Toros",
-        vaDeToros.fetchedAt
-      )
-    );
-
-    mergeStats[result.merged ? "merged" : "added"] += 1;
+    // Fuente temporalmente en cuarentena: sus artículos antiguos conservan
+    // módulos laterales con carteles nuevos y viejos mezclados. No se permite
+    // que añada ni modifique datos hasta que el scraper encuentre una agenda
+    // vigente desde la portada.
+    void event;
+    mergeStats.skippedUncorroborated += 1;
   }
 
   for (const event of aplausos.data.events || []) {
