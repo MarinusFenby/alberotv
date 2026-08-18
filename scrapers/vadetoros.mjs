@@ -89,8 +89,12 @@ function extractEvents(text, sourceUrl) {
     if (!channel) continue;
 
     const firstPeriod = description.indexOf(".");
-    const location = clean(firstPeriod >= 0 ? description.slice(0, firstPeriod) : description)
+    let location = clean(firstPeriod >= 0 ? description.slice(0, firstPeriod) : description)
       .replace(/^[–—:-]+\s*/, "");
+    // Algunos titulares empiezan por la plaza y continúan con feria, ganado y
+    // cartel. Solo la primera parte es la ubicación que debe mostrar la app.
+    const locationInHeadline = location.match(/^([^,]+),\s*(?:feria\b|toros?\s+de\b|novillos?\s+de\b)/i);
+    if (locationInHeadline) location = clean(locationInHeadline[1]);
     if (!location || location.length > 100) continue;
 
     const details = detailsFrom(description);
