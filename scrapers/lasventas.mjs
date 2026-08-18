@@ -28,11 +28,12 @@ function isoDate(day, month, year) {
 }
 
 function splitNames(value = "") {
+  const pageChrome = /(?:utilizamos cookies|cookies propias|de terceros para fines|fines anal[ií]ticos|publicidad personalizada|h[aá]bitos de navegaci[oó]n|p[aá]ginas visitadas|configurar tus preferencias|aceptar cookies|rechazar cookies|copyright|todos los derechos reservados|desarrollo por|pol[ií]tica de privacidad|aviso legal)/i;
   return [...new Set(clean(value)
     .replace(/[.]$/, "")
     .split(/\s*(?:,|;|·|\by\b)\s*/i)
     .map(clean)
-    .filter(name => name.length > 2))];
+    .filter(name => name.length > 2 && name.length <= 100 && !pageChrome.test(name)))];
 }
 
 function parseDetails(description = "") {
@@ -64,7 +65,7 @@ function extractEvents(text, sourceUrl) {
     if (!month) continue;
     const date = isoDate(Number(match[1]), month, year);
     const time = `${String(match[3]).padStart(2, "0")}:${match[4] || "00"}`;
-    const description = clean(match[5]).split(/VENTA DE ENTRADAS|Los abonados|Durante todos/i)[0];
+    const description = clean(match[5]).split(/VENTA DE ENTRADAS|Los abonados|Durante todos|Utilizamos cookies|ACEPTAR COOKIES|RECHAZAR COOKIES|Copyright|Todos los derechos reservados|Política de privacidad|Aviso Legal/i)[0];
     const details = parseDetails(description);
     if (!details.participants.length && !details.breeding) continue;
 
