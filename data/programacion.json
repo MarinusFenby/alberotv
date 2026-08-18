@@ -1,21 +1,21 @@
 {
-  "generatedAt": "2026-08-18T11:47:17.578Z",
+  "generatedAt": "2026-08-18T14:35:09.930Z",
   "degraded": false,
-  "eventCount": 397,
-  "bullfightingEventCount": 384,
+  "eventCount": 390,
+  "bullfightingEventCount": 377,
   "programCount": 13,
   "mergeStats": {
-    "historicalCandidates": 308,
-    "historicalPreserved": 154,
-    "historicalDuplicatesMerged": 154,
-    "added": 243,
-    "merged": 60
+    "historicalCandidates": 314,
+    "historicalPreserved": 157,
+    "historicalDuplicatesMerged": 157,
+    "added": 233,
+    "merged": 50
   },
   "sources": {
     "elMuletazo": 27,
     "oneToro": 7,
     "programasTaurinos": 0,
-    "canalSur": 21,
+    "canalSur": 1,
     "cmm": 7,
     "canalExtremadura": 3,
     "mundoToro": 212,
@@ -48,8 +48,8 @@
     "canalSur": {
       "label": "Canal Sur",
       "status": "ok",
-      "eventCount": 21,
-      "fetchedAt": "2026-08-18T11:46:54.978Z",
+      "eventCount": 1,
+      "fetchedAt": "2026-08-18T14:33:32.019Z",
       "error": null
     },
     "cmm": {
@@ -2202,8 +2202,7 @@
         "Dennis Martín",
         "Manuel Quintana",
         "Julio Norte",
-        "Julio Norte -hijo-",
-        "con picadores”"
+        "Julio Norte -hijo-"
       ],
       "name": "Málaga",
       "title": "Canal Sur emite la final del VII Circuito de Novilladas de Andalucía desde La Malagueta",
@@ -3669,6 +3668,38 @@
       "status": "confirmed"
     },
     {
+      "id": "cmm-2026-08-15-1800-2",
+      "date": "2026-08-15",
+      "time": "18:00",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "TOROS 2026",
+      "title": "TOROS 2026",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
       "id": "canalsur-2026-08-15-la-linea-de-la-concepcion",
       "date": "2026-08-15",
       "time": "19:00",
@@ -3720,6 +3751,38 @@
         }
       ],
       "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "vadetoros-25270b80377ce4",
+      "date": "2026-08-15",
+      "time": "19:00",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "La Línea de la Concepción (Cádiz) Fomento de la Cultura Taurina en Andalucía",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "La Línea de la Concepción (Cádiz) Fomento de la Cultura Taurina en Andalucía",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sources": [
+        "Va de Toros"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-18T11:47:16.586Z"
+        }
+      ],
+      "confidence": 97,
       "status": "confirmed"
     },
     {
@@ -4620,6 +4683,38 @@
           "confidence": 95,
           "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
           "fetchedAt": "2026-08-16T17:40:39.857Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "cmm-2026-08-16-1830-3",
+      "date": "2026-08-16",
+      "time": "18:30",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "TOROS 2026",
+      "title": "TOROS 2026",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
         }
       ],
       "confidence": 100,
@@ -5940,7 +6035,7 @@
       "status": "probable"
     },
     {
-      "id": "mundotoro-eb06a4369efb86",
+      "id": "canalsur-2026-08-20-canal-sur-television-retransmite-tres-grandes-festejos-esta-semana-de-",
       "date": "2026-08-20",
       "time": "19:00",
       "channel": "Canal Sur",
@@ -5957,12 +6052,13 @@
         "Fortes"
       ],
       "name": "Málaga",
-      "title": null,
+      "title": "Canal Sur Televisión retransmite tres grandes festejos esta semana de la Feria de Málaga",
       "image": null,
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
+        "Canal Sur",
         "Mundotoro"
       ],
       "sourceDetails": [
@@ -5973,13 +6069,19 @@
           "fetchedAt": "2026-08-18T11:46:39.233Z"
         },
         {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/canal-sur-television-retransmite-tres_1_1429710.html",
+          "fetchedAt": "2026-08-18T14:33:32.019Z"
+        },
+        {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-08-18T11:47:05.412Z"
         }
       ],
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -6000,13 +6102,12 @@
         "Samuel Navalón"
       ],
       "name": "Ciudad Real",
-      "title": "TOROS 2026",
+      "title": null,
       "image": null,
       "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
       "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
       "sources": [
         "El Muletazo",
-        "CMM",
         "Mundotoro",
         "Va de Toros"
       ],
@@ -6016,12 +6117,6 @@
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
           "fetchedAt": "2026-08-18T11:46:39.233Z"
-        },
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-          "fetchedAt": null
         },
         {
           "name": "Mundotoro",
@@ -6034,6 +6129,38 @@
           "confidence": 95,
           "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
           "fetchedAt": "2026-08-18T11:47:16.586Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "cmm-2026-08-20-1930-4",
+      "date": "2026-08-20",
+      "time": "19:30",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "TOROS 2026",
+      "title": "TOROS 2026",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
         }
       ],
       "confidence": 100,
@@ -6244,343 +6371,7 @@
       "status": "confirmed"
     },
     {
-      "id": "canalsur-2026-08-22-castellar-en-jaen",
-      "date": "2026-08-22",
-      "time": "18:20",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Castellar en Jaén",
-      "type": "Novillada sin picadores",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [],
-      "name": "Este sábado, novillada de promoción desde Castellar en Jaén",
-      "title": "Este sábado, novillada de promoción desde Castellar en Jaén",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/sabado-novillada-promocion-castellar-jaen_1_1422563.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/sabado-novillada-promocion-castellar-jaen_1_1422563.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canalsur-2026-08-22-villaluenga-del-rosario",
-      "date": "2026-08-22",
-      "time": "18:20",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Villaluenga del Rosario",
-      "type": "Novillada sin picadores",
-      "contentType": "festejo",
-      "breeding": "la ganadería Los Millares",
-      "participants": [],
-      "name": "Novillada con seis jóvenes promesas desde Villaluenga del Rosario",
-      "title": "Novillada con seis jóvenes promesas desde Villaluenga del Rosario",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/novillada-seis-jovenes-promesas-villaluenga_1_1417465.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/novillada-seis-jovenes-promesas-villaluenga_1_1417465.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canalsur-2026-08-22-el-bosque",
-      "date": "2026-08-22",
-      "time": "18:30",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "El Bosque",
-      "type": "Novillada sin picadores",
-      "contentType": "festejo",
-      "breeding": "la ganadería El Torero",
-      "participants": [
-        "Luis José Casado",
-        "Jesús Molina",
-        "Miguel Ángel Rosa",
-        "Armando Bustos",
-        "Iker Rodenas",
-        "Hugo Anillo"
-      ],
-      "name": "El Bosque acoge un nuevo festejo taurino para seis jóvenes promesas",
-      "title": "El Bosque acoge un nuevo festejo taurino para seis jóvenes promesas",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/bosque-acoge-nuevo-festejo-taurino_1_1412199.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/bosque-acoge-nuevo-festejo-taurino_1_1412199.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canalsur-2026-08-22-la-linea-de-la-concepcion",
-      "date": "2026-08-22",
-      "time": "18:40",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "La Línea de la Concepción",
-      "type": "Novillada sin picadores",
-      "contentType": "festejo",
-      "breeding": "la ganadería Bucaré",
-      "participants": [
-        "Pedro de la Hermosa (Guadalajara)"
-      ],
-      "name": "Novillada de jóvenes promesas desde La Línea de la Concepción",
-      "title": "Novillada de jóvenes promesas desde La Línea de la Concepción",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/novillada-jovenes-promesas-linea-concepcion_1_1428334.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/novillada-jovenes-promesas-linea-concepcion_1_1428334.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canalsur-2026-08-22-almonaster-la-real",
-      "date": "2026-08-22",
-      "time": "18:40",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Almonaster la Real",
-      "type": "Novillada sin picadores",
-      "contentType": "festejo",
-      "breeding": "Las Monjas",
-      "participants": [],
-      "name": "Primera semifinal del XXXII Ciclo de Novilladas desde Almonaster la Real",
-      "title": "Primera semifinal del XXXII Ciclo de Novilladas desde Almonaster la Real",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/primera-semifinal-xxxii-ciclo-novilladas_1_1427253.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/primera-semifinal-xxxii-ciclo-novilladas_1_1427253.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canalsur-2026-08-22-jodar",
-      "date": "2026-08-22",
-      "time": "18:45",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Jódar",
-      "type": "Novillada sin picadores",
-      "contentType": "festejo",
-      "breeding": "la ganadería jiennense de El Añadío",
-      "participants": [],
-      "name": "Toros desde Jódar con la ganadería de El Añadío",
-      "title": "Toros desde Jódar con la ganadería de El Añadío",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/toros-jodar-ganaderia-anadio_1_1424629.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/toros-jodar-ganaderia-anadio_1_1424629.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canalsur-2026-08-22-la-feria-de-la-manzanilla-2026-de-sanlucar-de-barrameda",
-      "date": "2026-08-22",
-      "time": "18:45",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "la Feria de la Manzanilla 2026 de Sanlúcar de Barrameda",
-      "type": "Clase práctica",
-      "contentType": "festejo",
-      "breeding": "Los Millares",
-      "participants": [
-        "Pablo Fernández",
-        "Miguel Rayo",
-        "Remy Asencio",
-        "Manuel Harana",
-        "Gabriel Moreno 'El Calé'",
-        "Mariano Delgado"
-      ],
-      "name": "Toros desde la Feria de la Manzanilla 2026 de Sanlúcar de Barrameda",
-      "title": "Toros desde la Feria de la Manzanilla 2026 de Sanlúcar de Barrameda",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/toros-feria-manzanilla-2026-sanlucar_1_1407512.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/toros-feria-manzanilla-2026-sanlucar_1_1407512.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canalsur-2026-08-22-marbella",
-      "date": "2026-08-22",
-      "time": "18:45",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Marbella",
-      "type": "Corrida de toros",
-      "contentType": "festejo",
-      "breeding": "El Freixo",
-      "participants": [],
-      "name": "Toros desde Marbella con Morante, Talavante y David de Miranda",
-      "title": "Toros desde Marbella con Morante, Talavante y David de Miranda",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/toros-marbella-morante-talavante-david_1_1409324.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/toros-marbella-morante-talavante-david_1_1409324.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canalsur-2026-08-22-la-feria-real-de-algeciras",
-      "date": "2026-08-22",
-      "time": "18:50",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "la Feria Real de Algeciras",
-      "type": "Rejones",
-      "contentType": "festejo",
-      "breeding": "José Rosa Rodríguez",
-      "participants": [],
-      "name": "Corrida de rejones desde la Feria Real de Algeciras",
-      "title": "Corrida de rejones desde la Feria Real de Algeciras",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/corrida-rejones-feria-real-algeciras_1_1415397.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/corrida-rejones-feria-real-algeciras_1_1415397.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canalsur-2026-08-22-las-navas-de-san-juan",
-      "date": "2026-08-22",
-      "time": "18:50",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Las Navas de San Juan",
-      "type": "Novillada sin picadores",
-      "contentType": "festejo",
-      "breeding": "Aquilino Fraile",
-      "participants": [],
-      "name": "Este domingo, novillada de promoción desde Las Navas de San Juan",
-      "title": "Este domingo, novillada de promoción desde Las Navas de San Juan",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/domingo-novillada-promocion-navas-san_1_1426144.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/domingo-novillada-promocion-navas-san_1_1426144.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canalsur-2026-08-22-viii-corrida-de-toros-magallanica-desde-sanlucar-de-barrameda-en-canal",
+      "id": "vadetoros-59950a0f8a5cc7",
       "date": "2026-08-22",
       "time": "19:00",
       "channel": "Canal Sur",
@@ -6594,17 +6385,15 @@
       "participants": [
         "Morante de la Puebla",
         "Roca Rey",
-        "David de Miranda",
-        "con picadores”"
+        "David de Miranda"
       ],
       "name": "Málaga",
-      "title": "VIII Corrida de Toros Magallánica desde Sanlúcar de Barrameda, en Canal Sur",
+      "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
       "sources": [
         "El Muletazo",
-        "Canal Sur",
         "Mundotoro",
         "Va de Toros"
       ],
@@ -6614,12 +6403,6 @@
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
           "fetchedAt": "2026-08-18T11:46:39.233Z"
-        },
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/viii-corrida-toros-magallanica-sanlucar_1_1428547.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
         },
         {
           "name": "Mundotoro",
@@ -6638,7 +6421,7 @@
       "status": "confirmed"
     },
     {
-      "id": "canal-extremadura-694eab404580ba",
+      "id": "vadetoros-1946f0dcf232ee",
       "date": "2026-08-22",
       "time": "19:00",
       "channel": "Canal Extremadura",
@@ -6646,7 +6429,7 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "Villanueva del Fresno (Badajoz)",
-      "type": "Festejo taurino",
+      "type": "Novillada",
       "contentType": "festejo",
       "breeding": "Guadajira",
       "participants": [
@@ -6655,13 +6438,13 @@
         "Francisco Jesús Méndez"
       ],
       "name": "Villanueva del Fresno (Badajoz)",
-      "title": "TOROS – XIV CERTAMEN TROFEO Diputación de Badajoz",
+      "title": null,
       "image": null,
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
-        "Canal Extremadura"
+        "Va de Toros"
       ],
       "sourceDetails": [
         {
@@ -6669,6 +6452,45 @@
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
           "fetchedAt": "2026-08-18T11:46:39.233Z"
+        },
+        {
+          "name": "Va de Toros",
+          "confidence": 95,
+          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
+          "fetchedAt": "2026-08-18T11:47:16.586Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "canal-extremadura-694eab404580ba",
+      "date": "2026-08-22",
+      "time": "19:15",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "TOROS – XIV CERTAMEN TROFEO Diputación de Badajoz",
+      "title": "TOROS – XIV CERTAMEN TROFEO Diputación de Badajoz",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2017%20al%2023%20de%20agosto%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2017%20al%2023%20de%20agosto%20de%202026.pdf",
+      "sources": [
+        "CMM",
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
         },
         {
           "name": "Canal Extremadura",
@@ -6681,39 +6503,7 @@
       "status": "confirmed"
     },
     {
-      "id": "vadetoros-1946f0dcf232ee",
-      "date": "2026-08-22",
-      "time": "19:00",
-      "channel": "Canal Extremadura",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Villanueva del Fresno (Badajoz) XIV Certamen de Novilladas sin caballos de la Diputación de Badajoz",
-      "type": "Novillada",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [],
-      "name": "Villanueva del Fresno (Badajoz) XIV Certamen de Novilladas sin caballos de la Diputación de Badajoz",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
-      "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
-      "sources": [
-        "Va de Toros"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Va de Toros",
-          "confidence": 95,
-          "sourceUrl": "https://vadetoros.es/agenda-de-toros-en-television-para-el-fin-de-semana-del-27-de-febrero-al-1-de-marzo-de-2026/",
-          "fetchedAt": "2026-08-18T11:47:16.586Z"
-        }
-      ],
-      "confidence": 97,
-      "status": "confirmed"
-    },
-    {
-      "id": "cmm-2026-08-22-1930-6",
+      "id": null,
       "date": "2026-08-22",
       "time": "19:30",
       "channel": "CMM",
@@ -6730,13 +6520,12 @@
         "Óscar Campos"
       ],
       "name": "Alamillo (Ciudad Real)",
-      "title": "TOROS 2026",
+      "title": null,
       "image": null,
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
-        "El Muletazo",
-        "CMM"
+        "El Muletazo"
       ],
       "sourceDetails": [
         {
@@ -6744,114 +6533,9 @@
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
           "fetchedAt": "2026-08-18T11:46:39.233Z"
-        },
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-          "fetchedAt": null
         }
       ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canalsur-2026-08-22-la-feria-de-las-colombinas-de-huelva",
-      "date": "2026-08-22",
-      "time": "19:50",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "la Feria de las Colombinas de Huelva",
-      "type": "Festejo taurino",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [
-        "acoger los festejos taurinos",
-        "en los"
-      ],
-      "name": "Toros de Miura desde la Feria de las Colombinas de Huelva",
-      "title": "Toros de Miura desde la Feria de las Colombinas de Huelva",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/toros-miura-feria-colombinas-huelva_1_1425736.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/toros-miura-feria-colombinas-huelva_1_1425736.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canalsur-2026-08-22-el-puerto-de-santa-maria",
-      "date": "2026-08-22",
-      "time": "19:50",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "El Puerto de Santa María",
-      "type": "Corrida de toros",
-      "contentType": "festejo",
-      "breeding": "Álvaro Núñez",
-      "participants": [],
-      "name": "Toros desde El Puerto de Santa María con Morante, Talavante y Juan Ortega",
-      "title": "Toros desde El Puerto de Santa María con Morante, Talavante y Juan Ortega",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/toros-puerto-santa-maria-morante_1_1426063.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/toros-puerto-santa-maria-morante_1_1426063.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canalsur-2026-08-22-la-corrida-de-candiles-de-marbella-este-viernes-en-canal-sur-televisio",
-      "date": "2026-08-22",
-      "time": "21:30",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Localidad por confirmar",
-      "type": "Festejo taurino",
-      "contentType": "festejo",
-      "breeding": "Cayetano Muñoz",
-      "participants": [],
-      "name": "La Corrida de Candiles de Marbella, este viernes, en Canal Sur Televisión",
-      "title": "La Corrida de Candiles de Marbella, este viernes, en Canal Sur Televisión",
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/corrida-candiles-marbella-viernes-canal_1_1427184.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/corrida-candiles-marbella-viernes-canal_1_1427184.html",
-          "fetchedAt": "2026-08-18T11:46:54.978Z"
-        }
-      ],
-      "confidence": 100,
+      "confidence": 94,
       "status": "confirmed"
     },
     {
@@ -7314,7 +6998,7 @@
       "status": "confirmed"
     },
     {
-      "id": "cmm-2026-08-23-1830-7",
+      "id": "mundotoro-026cffba533402",
       "date": "2026-08-23",
       "time": "18:30",
       "channel": "CMM",
@@ -7331,13 +7015,12 @@
         "Duarte Fernandes"
       ],
       "name": "Cuenca",
-      "title": "TOROS 2026",
+      "title": null,
       "image": null,
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
-        "CMM",
         "Mundotoro"
       ],
       "sourceDetails": [
@@ -7348,16 +7031,42 @@
           "fetchedAt": "2026-08-18T11:46:39.233Z"
         },
         {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-          "fetchedAt": null
-        },
-        {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-08-18T11:47:05.412Z"
+        }
+      ],
+      "confidence": 96,
+      "status": "confirmed"
+    },
+    {
+      "id": "cmm-2026-08-23-1830-7",
+      "date": "2026-08-23",
+      "time": "18:30",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "TOROS 2026",
+      "title": "TOROS 2026",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
         }
       ],
       "confidence": 100,
@@ -10584,7 +10293,7 @@
       "status": "probable"
     },
     {
-      "id": "405ffc3e-2e87-4f79-a062-0dc63ff5939f",
+      "id": "mundotoro-d2f28e81ff4aaf",
       "date": "2026-09-04",
       "time": "18:30",
       "channel": "OneToro",
@@ -10598,19 +10307,15 @@
       "participants": [
         "El Mene",
         "Martín Morilla",
-        "Simón Andreu",
-        "Novillada",
-        "Pedraza de Yeltes",
-        "Villaseca de la Sagra"
+        "Simón Andreu"
       ],
       "name": "Villaseca de la Sagra (Toledo)",
       "title": null,
-      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FRt7W-8f81cc86-335c-49d0-ab78-11b86cef4ba8.landscapes.high.webp",
+      "image": null,
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
-        "OneToro",
         "Mundotoro",
         "Va de Toros"
       ],
@@ -10620,12 +10325,6 @@
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
           "fetchedAt": "2026-08-18T11:46:39.233Z"
-        },
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-04092026",
-          "fetchedAt": "2026-08-18T11:46:38.969Z"
         },
         {
           "name": "Mundotoro",
@@ -10641,6 +10340,45 @@
         }
       ],
       "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "405ffc3e-2e87-4f79-a062-0dc63ff5939f",
+      "date": "2026-09-04",
+      "time": null,
+      "channel": "OneToro",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Alfarero de Oro",
+      "type": "null",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [
+        "Novillada",
+        "Pedraza de Yeltes",
+        "Villaseca de la Sagra",
+        "El Mene",
+        "Simón Andreu",
+        "Martín Morilla"
+      ],
+      "name": "Alfarero de Oro",
+      "title": null,
+      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FRt7W-8f81cc86-335c-49d0-ab78-11b86cef4ba8.landscapes.high.webp",
+      "eventUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-04092026",
+      "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-04092026",
+      "sources": [
+        "OneToro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-04092026",
+          "fetchedAt": "2026-08-18T11:46:38.969Z"
+        }
+      ],
+      "confidence": 98,
       "status": "confirmed"
     },
     {

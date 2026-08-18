@@ -145,6 +145,10 @@ function cleanParticipants(values) {
     values
       .map(value => cleanName(value))
       .filter(Boolean)
+      .filter(value =>
+        value.length <= 90 &&
+        !/\b(?:con|sin)\s+picadores\b|cookies?|privacidad|derechos reservados|publicidad|navegaci[oó]n/i.test(value)
+      )
   )];
 }
 
@@ -495,6 +499,19 @@ function eventMatchScore(first, second) {
   const oneTimeMissing =
     Boolean(first.time) !== Boolean(second.time);
 
+  const locationsConflict =
+    canonicalA &&
+    canonicalB &&
+    !isGenericLabel(firstLabel) &&
+    !isGenericLabel(secondLabel) &&
+    canonicalA !== canonicalB &&
+    locationScore < 0.45;
+
+  // Una coincidencia de canal, fecha u hora jamás puede unir festejos de
+  // localidades claramente distintas. Este cortafuegos evita carteles
+  // imposibles y mezclas como Málaga/Sanlúcar.
+  if (locationsConflict) return 0;
+
   const firstGeneric =
     isGenericLabel(first.location) ||
     isGenericLabel(first.name) ||
@@ -525,7 +542,8 @@ function eventMatchScore(first, second) {
     first.contentType === "festejo" &&
     sameChannel &&
     exactTime &&
-    (firstGeneric || secondGeneric)
+    (firstGeneric || secondGeneric) &&
+    (participantScore >= 0.5 || breedingScore >= 0.72)
   ) {
     return 96;
   }
@@ -552,7 +570,8 @@ function eventMatchScore(first, second) {
     (
       (firstGeneric && secondHasDetails) ||
       (secondGeneric && firstHasDetails)
-    )
+    ) &&
+    (participantScore >= 0.5 || breedingScore >= 0.72 || locationScore >= 0.72)
   ) {
     return 94;
   }
@@ -1040,6 +1059,30 @@ function validateOutput(output, previousOutput = null) {
   output.events.forEach((event, index) => {
     errors.push(...validateEvent(event, index));
   });
+
+  const appearances = new Map();
+  for (const event of output.events) {
+    if (event.contentType !== "festejo" || !event.date || !event.time) continue;
+    for (const participant of event.participants || []) {
+      const key = `${event.date}|${normalizeText(participant)}`;
+      const prior = appearances.get(key) || [];
+      for (const other of prior) {
+        const differentPlace =
+          canonicalLocation(event.location) !== canonicalLocation(other.location) &&
+          locationSimilarity(event.location, other.location) < 0.45;
+        const minutesApart = Math.abs(
+          minutesFromTime(event.time) - minutesFromTime(other.time)
+        );
+        if (differentPlace && minutesApart <= 240) {
+          errors.push(
+            `Cartel imposible: ${participant} figura el ${event.date} a las ${other.time} en ${other.location} y a las ${event.time} en ${event.location}`
+          );
+        }
+      }
+      prior.push(event);
+      appearances.set(key, prior);
+    }
+  }
 
   if (
     previousOutput?.events?.length >= 10 &&

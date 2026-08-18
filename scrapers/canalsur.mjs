@@ -553,6 +553,41 @@ function extractPageDescription(html = "") {
   );
 }
 
+function extractArticleBody(html = "") {
+  const scripts = String(html).match(
+    /<script\b[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi
+  ) || [];
+
+  for (const script of scripts) {
+    const raw = script
+      .replace(/^<script\b[^>]*>/i, "")
+      .replace(/<\/script>$/i, "")
+      .trim();
+
+    try {
+      const parsed = JSON.parse(raw);
+      const queue = Array.isArray(parsed) ? [...parsed] : [parsed];
+
+      while (queue.length) {
+        const candidate = queue.shift();
+        if (!candidate || typeof candidate !== "object") continue;
+        if (Array.isArray(candidate)) {
+          queue.push(...candidate);
+          continue;
+        }
+        if (typeof candidate.articleBody === "string") {
+          return normalizeWhitespace(candidate.articleBody);
+        }
+        if (candidate["@graph"]) queue.push(candidate["@graph"]);
+      }
+    } catch {
+      // Algunos documentos incluyen varios bloques no JSON; seguimos buscando.
+    }
+  }
+
+  return "";
+}
+
 
 function extractCanonicalUrl(
   html,
@@ -1296,8 +1331,14 @@ function buildEvent({
   const description =
     extractPageDescription(html);
 
+  // Nunca usamos todo el HTML: cabeceras, pies y noticias relacionadas
+  // contienen fechas de otros festejos y pueden crear eventos falsos.
   const pageText =
-    stripHtml(html);
+    extractArticleBody(html);
+
+  if (!pageText) {
+    return null;
+  }
 
   const combinedText =
     normalizeWhitespace(

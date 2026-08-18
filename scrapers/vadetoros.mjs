@@ -93,8 +93,12 @@ function extractEvents(text, sourceUrl) {
       .replace(/^[–—:-]+\s*/, "");
     // Algunos titulares empiezan por la plaza y continúan con feria, ganado y
     // cartel. Solo la primera parte es la ubicación que debe mostrar la app.
-    const locationInHeadline = location.match(/^([^,]+),\s*(?:feria\b|toros?\s+de\b|novillos?\s+de\b)/i);
+    const locationInHeadline = location.match(/^([^,]+),\s*(?:feria\b|corrida\b|toros?\s+de\b|novillos?\s+de\b)/i);
     if (locationInHeadline) location = clean(locationInHeadline[1]);
+    const locationBeforeDescription = location.match(
+      /^(.+?\([^)]*\))\s+(?:[IVXLCDM]+\s+certamen\b|corrida\b|novillada\b|feria\b)/i
+    );
+    if (locationBeforeDescription) location = clean(locationBeforeDescription[1]);
     if (!location || location.length > 100) continue;
 
     const details = detailsFrom(description);
