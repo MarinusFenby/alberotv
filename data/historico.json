@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-20T17:52:35.881Z",
-  "throughDate": "2026-08-20",
-  "eventCount": 159,
+  "generatedAt": "2026-08-20T23:46:00.467Z",
+  "throughDate": "2026-08-21",
+  "eventCount": 162,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -5912,6 +5912,152 @@
       ],
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "canalsur-2026-08-20-canal-sur-television-retransmite-tres-grandes-festejos-esta-semana-de-",
+      "date": "2026-08-20",
+      "time": "19:00",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Málaga",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Núñez del Cuvillo",
+      "participants": [
+        "Morante de la Puebla",
+        "Diego Urdiales",
+        "Fortes"
+      ],
+      "name": "Málaga",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Canal Sur",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-08-20T17:51:55.560Z"
+        },
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/canal-sur-television-retransmite-tres_1_1429710.html",
+          "fetchedAt": "2026-08-20T17:52:11.024Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-20T17:52:23.967Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "cmm-2026-08-20-1930-4",
+      "date": "2026-08-20",
+      "time": "19:30",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Ciudad Real",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Araúz de Robles",
+      "participants": [
+        "Víctor Puerto",
+        "Daniel Luque",
+        "Samuel Navalón"
+      ],
+      "name": "Ciudad Real",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "CMM",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-08-20T17:51:55.560Z"
+        },
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-20T17:52:23.967Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "lasventas-0c87ba78a34caf",
+      "date": "2026-08-20",
+      "time": "21:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": true,
+      "location": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "Passanha",
+      "participants": [
+        "Joao Moura Caetano",
+        "Sergio Domínguez",
+        "Iván Magro",
+        "Ana Rita",
+        "Adrián Venegas",
+        "Parreirita (confirmación)"
+      ],
+      "name": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.las-ventas.com/actualidad/la-agenda-cultural-que-acompanara-a-la-corrida-de-rejones-del-mes-de-agosto-en-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/la-agenda-cultural-que-acompanara-a-la-corrida-de-rejones-del-mes-de-agosto-en-las-ventas",
+      "sources": [
+        "Mundotoro",
+        "Las Ventas oficial"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-20T17:52:23.967Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/la-agenda-cultural-que-acompanara-a-la-corrida-de-rejones-del-mes-de-agosto-en-las-ventas",
+          "fetchedAt": "2026-08-20T17:52:32.697Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
     }
   ]
 }
