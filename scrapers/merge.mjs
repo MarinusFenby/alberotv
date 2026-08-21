@@ -1376,6 +1376,64 @@ function isSupersededTarifaEvent(event = {}) {
   );
 }
 
+function hasRescheduleSignal(event = {}) {
+  return /aplaz|cambi[ao]|reubic|nueva.?fecha|traslad/i.test(
+    [event.title, event.name, event.eventUrl, event.sourceUrl]
+      .filter(Boolean)
+      .join(" ")
+  );
+}
+
+function dateDistanceInDays(first, second) {
+  const left = Date.parse(`${first}T12:00:00Z`);
+  const right = Date.parse(`${second}T12:00:00Z`);
+  return Number.isFinite(left) && Number.isFinite(right)
+    ? Math.abs(right - left) / 86400000
+    : Infinity;
+}
+
+function removeConfirmedReschedules(events) {
+  const removed = new Set();
+
+  for (let oldIndex = 0; oldIndex < events.length; oldIndex += 1) {
+    const previous = events[oldIndex];
+    if (previous.contentType !== "festejo" || !previous.date) continue;
+
+    for (let newIndex = 0; newIndex < events.length; newIndex += 1) {
+      if (oldIndex === newIndex) continue;
+      const replacement = events[newIndex];
+      if (replacement.contentType !== "festejo" || !replacement.date) continue;
+      if (replacement.date <= previous.date) continue;
+      if (dateDistanceInDays(previous.date, replacement.date) > 21) continue;
+      if (canonicalLocation(previous.location) !== canonicalLocation(replacement.location)) continue;
+
+      const overlap = participantOverlap(previous.participants, replacement.participants);
+      const breedingMatches = fuzzyTextSimilarity(previous.breeding, replacement.breeding) >= 0.72;
+      const corroborated = Number(replacement.confidence || 0) >= 95 &&
+        (replacement.sources || []).length >= 2;
+      const explicitlyLinked = replacement.rescheduledFrom === previous.date;
+
+      if (
+        overlap >= 0.67 &&
+        (breedingMatches || overlap === 1) &&
+        corroborated &&
+        (explicitlyLinked || hasRescheduleSignal(replacement))
+      ) {
+        replacement.rescheduledFrom = previous.date;
+        replacement.replacesEventId = previous.id || null;
+        removed.add(oldIndex);
+        break;
+      }
+    }
+  }
+
+  for (const index of [...removed].sort((a, b) => b - a)) {
+    events.splice(index, 1);
+  }
+
+  return removed.size;
+}
+
 async function main() {
   const previousOutput =
     await readOptionalJson(
@@ -1673,6 +1731,8 @@ async function main() {
       merged.splice(index, 1);
     }
   }
+
+  mergeStats.reschedulesApplied = removeConfirmedReschedules(merged);
 
   sortEvents(merged);
 
