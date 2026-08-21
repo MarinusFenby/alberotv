@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-21T21:49:42.119Z",
-  "throughDate": "2026-08-21",
-  "eventCount": 162,
+  "generatedAt": "2026-08-21T22:22:22.492Z",
+  "throughDate": "2026-08-22",
+  "eventCount": 165,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -6058,6 +6058,125 @@
       ],
       "confidence": 100,
       "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-f45208dc9ef5ad",
+      "date": "2026-08-21",
+      "time": "19:00",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Málaga",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Victorino Martín",
+      "participants": [
+        "Manuel Escribano",
+        "Emilio de Justo",
+        "Fortes"
+      ],
+      "name": "Málaga",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-08-21T21:49:10.885Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-21T21:49:31.895Z"
+        }
+      ],
+      "confidence": 96,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-ad227353b1d944",
+      "date": "2026-08-21",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Campo Pequeno de Lisboa (Lisboa) Portugal",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Antonio Patricio Silva",
+      "participants": [
+        "Andrés Romero",
+        "Filipe Gonçalves",
+        "Gilberto Filipe",
+        "Luis Rouxinol",
+        "Manuel Ribeiro Telles Bastos",
+        "Paco Velasques",
+        "Vasco Veiga"
+      ],
+      "name": "Campo Pequeno de Lisboa (Lisboa) Portugal",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-21T21:49:31.895Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-008dcdf459fee9",
+      "date": "2026-08-21",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Ciudad Real (Ciudad Real) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "María Guiomar Cortés Moura, Toros de Cortés y Victoriano del Río Cortés",
+      "participants": [
+        "Alejandro Talavante",
+        "Diego Ventura",
+        "Roca Rey"
+      ],
+      "name": "Ciudad Real (Ciudad Real) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-21T21:49:31.895Z"
+        }
+      ],
+      "confidence": 89,
+      "status": "probable"
     }
   ]
 }
