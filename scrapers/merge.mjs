@@ -1366,6 +1366,16 @@ function sortEvents(events) {
   return events;
 }
 
+function isSupersededTarifaEvent(event = {}) {
+  return (
+    event.date === "2026-08-23" &&
+    canonicalLocation(event.location || event.name).includes("tarifa") &&
+    (event.participants || []).some(
+      participant => normalizeText(participant).includes("manuel escribano")
+    )
+  );
+}
+
 async function main() {
   const previousOutput =
     await readOptionalJson(
@@ -1653,6 +1663,15 @@ async function main() {
         ? "merged"
         : "added"
     ] += 1;
+  }
+
+  // La corrida de Tarifa se trasladó definitivamente del 23 al 30 de agosto.
+  // Esta exclusión evita que una fuente desactualizada vuelva a publicar la
+  // ficha antigua en futuras ejecuciones automáticas.
+  for (let index = merged.length - 1; index >= 0; index -= 1) {
+    if (isSupersededTarifaEvent(merged[index])) {
+      merged.splice(index, 1);
+    }
   }
 
   sortEvents(merged);
