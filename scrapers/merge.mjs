@@ -6,6 +6,12 @@ const DATA_DIR = "data";
 const OUTPUT_FILE = path.join(DATA_DIR, "programacion.json");
 const HISTORY_FILE = path.join(DATA_DIR, "historico.json");
 
+// Las versiones anteriores a 3.4 (2) no conocen esta categoría y muestran
+// cualquier encierro como «CORRIDA». Se mantienen en las fuentes maestras,
+// pero no se publican hasta que la nueva versión esté distribuida.
+const PUBLISH_ENCIERROS =
+  process.env.PUBLISH_ENCIERROS === "true";
+
 const SOURCE_FILES = {
   elMuletazo: path.join(DATA_DIR, "elmuletazo.json"),
   oneToro: path.join(DATA_DIR, "onetoro.json"),
@@ -1790,6 +1796,14 @@ async function main() {
   }
 
   mergeStats.reschedulesApplied = removeConfirmedReschedules(merged);
+
+  if (!PUBLISH_ENCIERROS) {
+    for (let index = merged.length - 1; index >= 0; index -= 1) {
+      if (normalizeText(merged[index].type) === "encierro") {
+        merged.splice(index, 1);
+      }
+    }
+  }
 
   sortEvents(merged);
 
