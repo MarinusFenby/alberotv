@@ -129,6 +129,16 @@ async function main() {
       const date = parseDateFromName(name) || parseDateFromText(publicText);
       const time = extractExplicitStartTime(publicText);
       const isProgram = /conexi[oó]n\s+dax/i.test(`${name} ${publicText}`);
+      const classificationText = `${name} ${publicText}`;
+      const inferredType = /\bnovillada\b|\bnovillos?\s+de\b/i.test(classificationText)
+        ? "Novillada"
+        : (/\brejones?\b|\brejoneo\b/i.test(classificationText)
+            ? "Rejones"
+            : (/\brecortadores?\b|\brecortes?\b/i.test(classificationText)
+                ? "Recortes"
+                : (/\bcorrida\b|\btoros?\s+de\b/i.test(classificationText)
+                    ? "Corrida de toros"
+                    : null)));
 
       return {
         id: item._id || null,
@@ -136,7 +146,7 @@ async function main() {
         date,
         time,
         channel: "OneToro",
-        type: isProgram ? "Programa taurino" : null,
+        type: isProgram ? "Programa taurino" : inferredType,
         contentType: isProgram ? "programa" : "festejo",
         participants: labels,
         slug: item.slug || null,

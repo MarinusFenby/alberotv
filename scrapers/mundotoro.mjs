@@ -153,6 +153,17 @@ function normalizeType(text = "") {
     return "Novillada";
   }
 
+  // Muchos carteles omiten la palabra «novillada» y comienzan directamente
+  // por «Novillos de…». No pueden caer en el valor genérico, porque la app
+  // histórica interpretaba ese valor como corrida.
+  if (/\b(?:erales?|becerros?)\s+de\b/.test(value)) {
+    return "Novillada sin picadores";
+  }
+
+  if (/\b(?:novillos?|utreros?)\s+de\b/.test(value)) {
+    return "Novillada";
+  }
+
   if (
     value.includes("recortadores") ||
     value.includes("recortes")

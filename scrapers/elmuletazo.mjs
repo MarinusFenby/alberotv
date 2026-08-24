@@ -273,6 +273,18 @@ function extractLocation(text = "") {
 function extractType(text = "") {
   const value = normalizeText(text);
 
+  if (/\b(?:becerrada|becerradas|erales?)\b/.test(value)) {
+    return "Novillada sin picadores";
+  }
+
+  if (/novilladas?\s+sin\s+(?:picadores|caballos)/.test(value)) {
+    return "Novillada sin picadores";
+  }
+
+  if (/novilladas?\s+con\s+picadores/.test(value)) {
+    return "Novillada con picadores";
+  }
+
   const types = [
     ["encierro", "Encierro"],
     ["corrida de toros", "Corrida de toros"],
@@ -291,6 +303,10 @@ function extractType(text = "") {
     if (value.includes(needle)) {
       return result;
     }
+  }
+
+  if (/\b(?:novillos?|utreros?)\s+de\b/.test(value)) {
+    return "Novillada";
   }
 
   if (/circuito de novilladas con picadores/i.test(value)) {
