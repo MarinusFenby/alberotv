@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-08-24T16:35:05.939Z",
+  "generatedAt": "2026-08-24T17:23:52.176Z",
   "degraded": false,
-  "eventCount": 435,
-  "bullfightingEventCount": 420,
+  "eventCount": 442,
+  "bullfightingEventCount": 427,
   "programCount": 15,
   "mergeStats": {
     "historicalCandidates": 388,
     "historicalPreserved": 194,
     "historicalDuplicatesMerged": 194,
-    "added": 241,
-    "merged": 34,
+    "added": 248,
+    "merged": 41,
     "skippedUncorroborated": 21,
     "reschedulesApplied": 0
   },
@@ -30,7 +30,7 @@
       "label": "El Muletazo",
       "status": "ok",
       "eventCount": 27,
-      "fetchedAt": "2026-08-24T16:34:23.244Z",
+      "fetchedAt": "2026-08-24T17:21:19.366Z",
       "error": null
     },
     "oneToro": {
@@ -94,6 +94,13 @@
       "status": "ok",
       "eventCount": 0,
       "fetchedAt": null,
+      "error": null
+    },
+    "sanseOficial": {
+      "label": "Funtausa / Ayuntamiento de Sanse",
+      "status": "ok",
+      "eventCount": 14,
+      "fetchedAt": "2026-08-24T17:30:00.000Z",
       "error": null
     }
   },
@@ -7571,36 +7578,75 @@
       "status": "probable"
     },
     {
-      "id": null,
+      "id": "sanse-encierro-2026-08-25",
       "date": "2026-08-25",
       "time": "10:45",
       "channel": "Antena 3 Televisión y Canal Norte Digital",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
-      "location": "San Sebastián de los Reyes (Madrid)",
-      "type": "Festejo taurino",
+      "location": "San Sebastián de los Reyes (Madrid) España",
+      "type": "Encierro",
       "contentType": "festejo",
       "breeding": "Hermanos Tardieu",
       "participants": [],
-      "name": "San Sebastián de los Reyes (Madrid)",
+      "name": "Encierro de Sanse",
       "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+      "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "Funtausa / Ayuntamiento de Sanse"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
+        },
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
         }
       ],
-      "confidence": 93,
-      "status": "probable"
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "sanse-encierro-farol-2026-08-25",
+      "date": "2026-08-25",
+      "time": "22:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Sebastián de los Reyes (Madrid) España",
+      "type": "Encierro",
+      "contentType": "festejo",
+      "breeding": "Hermanos García Jiménez",
+      "participants": [],
+      "name": "Encierro del Farol",
+      "title": "Encierro del Farol",
+      "image": null,
+      "eventUrl": "https://transparencia.ssreyes.org/es/web/canal-norte-tv-digital/-/descarga-el-programa-y-vive-las-fiestas-de-san-sebastian-de-los-reyes-2026",
+      "sourceUrl": "https://transparencia.ssreyes.org/es/web/canal-norte-tv-digital/-/descarga-el-programa-y-vive-las-fiestas-de-san-sebastian-de-los-reyes-2026",
+      "sources": [
+        "Funtausa / Ayuntamiento de Sanse"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://transparencia.ssreyes.org/es/web/canal-norte-tv-digital/-/descarga-el-programa-y-vive-las-fiestas-de-san-sebastian-de-los-reyes-2026",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "mundotoro-0d5e8bda99335b",
@@ -7852,36 +7898,75 @@
       "status": "probable"
     },
     {
-      "id": null,
+      "id": "sanse-encierro-2026-08-26",
       "date": "2026-08-26",
       "time": "10:45",
       "channel": "Antena 3 Televisión y Canal Norte Digital",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
-      "location": "San Sebastián de los Reyes (Madrid)",
-      "type": "Festejo taurino",
+      "location": "San Sebastián de los Reyes (Madrid) España",
+      "type": "Encierro",
       "contentType": "festejo",
       "breeding": "Zalduendo",
       "participants": [],
-      "name": "San Sebastián de los Reyes (Madrid)",
+      "name": "Encierro de Sanse",
       "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+      "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "Funtausa / Ayuntamiento de Sanse"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
+        },
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
         }
       ],
-      "confidence": 93,
-      "status": "probable"
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "sanse-recortadores-2026-08-26",
+      "date": "2026-08-26",
+      "time": "21:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Sebastián de los Reyes (Madrid) España",
+      "type": "Concurso de recortadores",
+      "contentType": "festejo",
+      "breeding": "Zalduendo",
+      "participants": [],
+      "name": "XXX Concurso Nacional de Recortadores · Clasificatorio",
+      "title": "XXX Concurso Nacional de Recortadores · Clasificatorio",
+      "image": null,
+      "eventUrl": "https://funtausa.com/festejos/sanse-26-de-agosto-de-2026/",
+      "sourceUrl": "https://funtausa.com/festejos/sanse-26-de-agosto-de-2026/",
+      "sources": [
+        "Funtausa / Ayuntamiento de Sanse"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/festejos/sanse-26-de-agosto-de-2026/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "mundotoro-8ff1ce6adc6784",
@@ -8027,36 +8112,43 @@
       "status": "probable"
     },
     {
-      "id": null,
+      "id": "sanse-encierro-2026-08-27",
       "date": "2026-08-27",
       "time": "10:45",
       "channel": "Antena 3 Televisión y Canal Norte Digital",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
-      "location": "San Sebastián de los Reyes (Madrid)",
-      "type": "Festejo taurino",
+      "location": "San Sebastián de los Reyes (Madrid) España",
+      "type": "Encierro",
       "contentType": "festejo",
-      "breeding": "Sao Torcato",
+      "breeding": "São Torcato",
       "participants": [],
-      "name": "San Sebastián de los Reyes (Madrid)",
+      "name": "Encierro de Sanse",
       "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+      "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "Funtausa / Ayuntamiento de Sanse"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
+        },
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
         }
       ],
-      "confidence": 93,
-      "status": "probable"
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "lasventas-701de764c46f92",
@@ -8087,6 +8179,38 @@
           "confidence": 100,
           "sourceUrl": "https://www.las-ventas.com/actualidad",
           "fetchedAt": "2026-08-24T16:35:02.906Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "sanse-recortadores-2026-08-27",
+      "date": "2026-08-27",
+      "time": "21:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Sebastián de los Reyes (Madrid) España",
+      "type": "Concurso de recortadores",
+      "contentType": "festejo",
+      "breeding": "São Torcato",
+      "participants": [],
+      "name": "XXX Concurso Nacional de Recortadores · Final",
+      "title": "XXX Concurso Nacional de Recortadores · Final",
+      "image": null,
+      "eventUrl": "https://funtausa.com/festejos/sanse-27-de-agosto-de-2026/",
+      "sourceUrl": "https://funtausa.com/festejos/sanse-27-de-agosto-de-2026/",
+      "sources": [
+        "Funtausa / Ayuntamiento de Sanse"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/festejos/sanse-27-de-agosto-de-2026/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
         }
       ],
       "confidence": 100,
@@ -8272,36 +8396,43 @@
       "status": "probable"
     },
     {
-      "id": null,
+      "id": "sanse-encierro-2026-08-28",
       "date": "2026-08-28",
       "time": "10:45",
       "channel": "Antena 3 Televisión y Canal Norte Digital",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
-      "location": "San Sebastián de los Reyes (Madrid)",
-      "type": "Festejo taurino",
+      "location": "San Sebastián de los Reyes (Madrid) España",
+      "type": "Encierro",
       "contentType": "festejo",
       "breeding": "La Castilleja",
       "participants": [],
-      "name": "San Sebastián de los Reyes (Madrid)",
+      "name": "Encierro de Sanse",
       "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+      "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
       "sources": [
-        "El Muletazo"
+        "El Muletazo",
+        "Funtausa / Ayuntamiento de Sanse"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
+        },
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
         }
       ],
-      "confidence": 93,
-      "status": "probable"
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "mundotoro-ddfcff88e7ab94",
@@ -8334,7 +8465,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
           "name": "Mundotoro",
@@ -8379,7 +8510,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
           "name": "CMM",
@@ -8392,6 +8523,42 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-08-24T16:34:53.895Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "sanse-rejones-2026-08-28",
+      "date": "2026-08-28",
+      "time": "19:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Sebastián de los Reyes (Madrid) España",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "La Castilleja",
+      "participants": [
+        "Rui Fernandes",
+        "Sebastián Fernández",
+        "Duarte Fernandes"
+      ],
+      "name": "San Sebastián de los Reyes (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://funtausa.com/festejos/sanse-28-de-agosto-de-2026/",
+      "sourceUrl": "https://funtausa.com/festejos/sanse-28-de-agosto-de-2026/",
+      "sources": [
+        "Funtausa / Ayuntamiento de Sanse"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/festejos/sanse-28-de-agosto-de-2026/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
         }
       ],
       "confidence": 100,
@@ -8578,7 +8745,7 @@
       "status": "probable"
     },
     {
-      "id": "mundotoro-1c1164bc04eba4",
+      "id": "sanse-encierro-2026-08-29",
       "date": "2026-08-29",
       "time": "10:45",
       "channel": "Antena 3 Televisión y Canal Norte Digital",
@@ -8586,38 +8753,34 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "San Sebastián de los Reyes (Madrid) España",
-      "type": "Corrida de toros",
+      "type": "Encierro",
       "contentType": "festejo",
-      "breeding": "Núñez de Tarifa (Antes Benjumea)",
-      "participants": [
-        "Diego García",
-        "Julio Norte -hijo-",
-        "Miguel Ángel Perera"
-      ],
-      "name": "San Sebastián de los Reyes (Madrid) España",
+      "breeding": "Núñez de Tarifa",
+      "participants": [],
+      "name": "Encierro de Sanse",
       "title": null,
       "image": null,
-      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "eventUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+      "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
       "sources": [
         "El Muletazo",
-        "Mundotoro"
+        "Funtausa / Ayuntamiento de Sanse"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
-          "name": "Mundotoro",
-          "confidence": 86,
-          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-24T16:34:53.895Z"
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
         }
       ],
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -8684,7 +8847,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
           "name": "CMM",
@@ -8728,11 +8891,54 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         }
       ],
       "confidence": 92,
       "status": "probable"
+    },
+    {
+      "id": "sanse-corrida-2026-08-29",
+      "date": "2026-08-29",
+      "time": "19:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Sebastián de los Reyes (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Núñez de Tarifa",
+      "participants": [
+        "Diego García",
+        "Julio Norte -hijo-",
+        "Miguel Ángel Perera"
+      ],
+      "name": "San Sebastián de los Reyes (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://funtausa.com/festejos/sanse-29-de-agosto-de-2026/",
+      "sourceUrl": "https://funtausa.com/festejos/sanse-29-de-agosto-de-2026/",
+      "sources": [
+        "Mundotoro",
+        "Funtausa / Ayuntamiento de Sanse"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-24T16:34:53.895Z"
+        },
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/festejos/sanse-29-de-agosto-de-2026/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "canal-extremadura-16e12c89b094b3",
@@ -9369,7 +9575,7 @@
       "status": "confirmed"
     },
     {
-      "id": "mundotoro-9b70a71f1370a0",
+      "id": "sanse-encierro-2026-08-30",
       "date": "2026-08-30",
       "time": "10:45",
       "channel": "Antena 3 Televisión y Canal Norte Digital",
@@ -9377,38 +9583,34 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "San Sebastián de los Reyes (Madrid) España",
-      "type": "Corrida de toros",
+      "type": "Encierro",
       "contentType": "festejo",
-      "breeding": "Álvaro Núñez Benjumea y Juan Pedro Domecq",
-      "participants": [
-        "José María Manzanares",
-        "Morante de la Puebla",
-        "Sebastián Castella"
-      ],
-      "name": "San Sebastián de los Reyes (Madrid) España",
+      "breeding": "Juan Pedro Domecq y Álvaro Núñez",
+      "participants": [],
+      "name": "Encierro de Sanse",
       "title": null,
       "image": null,
-      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "eventUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+      "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
       "sources": [
         "El Muletazo",
-        "Mundotoro"
+        "Funtausa / Ayuntamiento de Sanse"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
-          "name": "Mundotoro",
-          "confidence": 86,
-          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-08-24T16:34:53.895Z"
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
         }
       ],
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -9445,13 +9647,56 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
           "name": "CMM",
           "confidence": 98,
           "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
           "fetchedAt": null
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "sanse-corrida-2026-08-30",
+      "date": "2026-08-30",
+      "time": "19:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Sebastián de los Reyes (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Juan Pedro Domecq y Álvaro Núñez",
+      "participants": [
+        "José María Manzanares",
+        "Morante de la Puebla",
+        "Sebastián Castella"
+      ],
+      "name": "San Sebastián de los Reyes (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://funtausa.com/festejos/sanse-30-de-agosto-de-2026/",
+      "sourceUrl": "https://funtausa.com/festejos/sanse-30-de-agosto-de-2026/",
+      "sources": [
+        "Mundotoro",
+        "Funtausa / Ayuntamiento de Sanse"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-24T16:34:53.895Z"
+        },
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/festejos/sanse-30-de-agosto-de-2026/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
         }
       ],
       "confidence": 100,
@@ -9488,7 +9733,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
           "name": "Mundotoro",
@@ -9896,7 +10141,7 @@
       "status": "probable"
     },
     {
-      "id": "mundotoro-aa6ac4400c9e2f",
+      "id": "sanse-encierro-2026-08-31",
       "date": "2026-08-31",
       "time": "10:45",
       "channel": "Antena 3 Televisión y Canal Norte Digital",
@@ -9904,7 +10149,46 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "San Sebastián de los Reyes (Madrid) España",
-      "type": "Festejo taurino",
+      "type": "Encierro",
+      "contentType": "festejo",
+      "breeding": "Montealto",
+      "participants": [],
+      "name": "Encierro de Sanse",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+      "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+      "sources": [
+        "El Muletazo",
+        "Funtausa / Ayuntamiento de Sanse"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
+        },
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/plaza-de-toros/sanse/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "sanse-novillada-2026-08-31",
+      "date": "2026-08-31",
+      "time": "19:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Sebastián de los Reyes (Madrid) España",
+      "type": "Novillada con picadores",
       "contentType": "festejo",
       "breeding": "Montealto",
       "participants": [
@@ -9915,27 +10199,27 @@
       "name": "San Sebastián de los Reyes (Madrid) España",
       "title": null,
       "image": null,
-      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "eventUrl": "https://funtausa.com/festejos/sanse-31-de-agosto-de-2026/",
+      "sourceUrl": "https://funtausa.com/festejos/sanse-31-de-agosto-de-2026/",
       "sources": [
-        "El Muletazo",
-        "Mundotoro"
+        "Mundotoro",
+        "Funtausa / Ayuntamiento de Sanse"
       ],
       "sourceDetails": [
-        {
-          "name": "El Muletazo",
-          "confidence": 90,
-          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
-        },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-08-24T16:34:53.895Z"
+        },
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/festejos/sanse-31-de-agosto-de-2026/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
         }
       ],
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -10364,7 +10648,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
           "name": "Mundotoro",
@@ -10517,7 +10801,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
           "name": "Mundotoro",
@@ -10885,7 +11169,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
           "name": "Mundotoro",
@@ -10932,7 +11216,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         }
       ],
       "confidence": 94,
@@ -11415,7 +11699,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
           "name": "Mundotoro",
@@ -12001,7 +12285,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
           "name": "Mundotoro",
@@ -12260,7 +12544,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
           "name": "Mundotoro",
@@ -12590,7 +12874,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
           "name": "Mundotoro",
@@ -12919,7 +13203,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         },
         {
           "name": "Mundotoro",
@@ -13429,7 +13713,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         }
       ],
       "confidence": 94,
@@ -14007,7 +14291,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         }
       ],
       "confidence": 94,
@@ -14041,7 +14325,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         }
       ],
       "confidence": 94,
@@ -16086,7 +16370,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         }
       ],
       "confidence": 92,
@@ -16120,7 +16404,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-08-24T16:34:23.244Z"
+          "fetchedAt": "2026-08-24T17:21:19.366Z"
         }
       ],
       "confidence": 94,

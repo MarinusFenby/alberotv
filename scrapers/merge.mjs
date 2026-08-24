@@ -16,7 +16,8 @@ const SOURCE_FILES = {
   mundoToro: path.join(DATA_DIR, "mundotoro.json"),
   lasVentas: path.join(DATA_DIR, "lasventas.json"),
   vaDeToros: path.join(DATA_DIR, "vadetoros.json"),
-  aplausos: path.join(DATA_DIR, "aplausos.json")
+  aplausos: path.join(DATA_DIR, "aplausos.json"),
+  sanseOficial: path.join(DATA_DIR, "sanse-oficial.json")
 };
 
 const SOURCE_LABELS = {
@@ -29,7 +30,8 @@ const SOURCE_LABELS = {
   mundoToro: "Mundotoro",
   lasVentas: "Las Ventas oficial",
   vaDeToros: "Va de Toros",
-  aplausos: "Aplausos"
+  aplausos: "Aplausos",
+  sanseOficial: "Funtausa / Ayuntamiento de Sanse"
 };
 
 const SOURCE_CONFIDENCE = {
@@ -42,6 +44,7 @@ const SOURCE_CONFIDENCE = {
   "Las Ventas oficial": 100,
   "Va de Toros": 95,
   Aplausos: 96,
+  "Funtausa / Ayuntamiento de Sanse": 100,
   Telemadrid: 98,
   CMM: 98,
   RTVE: 98,
@@ -503,6 +506,44 @@ function eventMatchScore(first, second) {
       first.breeding,
       second.breeding
     );
+
+  const typeA = normalizeText(first.type);
+  const typeB = normalizeText(second.type);
+  const isGenericType = value =>
+    !value || value === "festejo taurino" || value === "toros";
+
+  // Un encierro y una corrida/novillada/rejones celebrados el mismo día
+  // en la misma localidad son actos distintos, aunque compartan ganadería.
+  // Sin este cortafuegos, la emisión matinal podía absorber el cartel de
+  // la tarde y sustituir su hora y canal.
+  if (
+    !isGenericType(typeA) &&
+    !isGenericType(typeB) &&
+    typeA !== typeB &&
+    (typeA === "encierro" || typeB === "encierro")
+  ) {
+    return 0;
+  }
+
+  if (
+    (typeA === "encierro" || typeB === "encierro") &&
+    (
+      (isGenericType(typeA) && first.participants?.length) ||
+      (isGenericType(typeB) && second.participants?.length)
+    )
+  ) {
+    return 0;
+  }
+
+  if (
+    typeA === "encierro" &&
+    typeB === "encierro" &&
+    first.time &&
+    second.time &&
+    timeCloseness(first.time, second.time) < 0.5
+  ) {
+    return 0;
+  }
 
   const exactTime =
     Boolean(first.time) &&
@@ -1463,7 +1504,8 @@ async function main() {
     mundoToro,
     lasVentas,
     vaDeToros,
-    aplausos
+    aplausos,
+    sanseOficial
   ] = await Promise.all([
     readSource("elMuletazo"),
     readSource("oneToro"),
@@ -1474,7 +1516,8 @@ async function main() {
     readSource("mundoToro"),
     readSource("lasVentas"),
     readSource("vaDeToros"),
-    readSource("aplausos")
+    readSource("aplausos"),
+    readSource("sanseOficial")
   ]);
 
   const sourceResults = [
@@ -1487,7 +1530,8 @@ async function main() {
     mundoToro,
     lasVentas,
     vaDeToros,
-    aplausos
+    aplausos,
+    sanseOficial
   ];
 
   if (!sourceResults.some(source => source.ok)) {
@@ -1684,6 +1728,19 @@ async function main() {
         event,
         "Aplausos",
         aplausos.fetchedAt
+      )
+    );
+
+    mergeStats[result.merged ? "merged" : "added"] += 1;
+  }
+
+  for (const event of sanseOficial.data.events || []) {
+    const result = addOrMergeEvent(
+      merged,
+      normalizeGenericEvent(
+        event,
+        "Funtausa / Ayuntamiento de Sanse",
+        sanseOficial.fetchedAt
       )
     );
 

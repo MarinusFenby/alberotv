@@ -274,6 +274,7 @@ function extractType(text = "") {
   const value = normalizeText(text);
 
   const types = [
+    ["encierro", "Encierro"],
     ["corrida de toros", "Corrida de toros"],
     ["novillada con picadores", "Novillada con picadores"],
     ["novillada sin picadores", "Novillada sin picadores"],
