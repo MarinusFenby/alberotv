@@ -232,7 +232,7 @@ function normalizeType(type = "") {
   if (value.includes("novillada")) return "Novillada";
   if (value.includes("corrida")) return "Corrida de toros";
   if (value.includes("recortadores") || value.includes("recortes")) {
-    return "Concurso de recortadores";
+    return "Recortes";
   }
 
   return cleanName(type);
