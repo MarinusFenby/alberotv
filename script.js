@@ -940,6 +940,35 @@ function updateTemporalStatuses() {
           status.label;
       }
     });
+
+  /*
+   * El estado del carrusel depende de los festejos, no de la emisión.
+   * Si cualquier evento de hoy está dentro de su franja estimada,
+   * la tarjeta HOY recupera el aviso rojo de actividad en directo.
+   * Esta clase se recalcula también cada 30 segundos, por lo que se
+   * activa y desaparece sin recargar la aplicación.
+   */
+  const todayCard =
+    document.querySelector(".day.today");
+
+  if (todayCard) {
+    const hasLiveEvent =
+      Boolean(
+        todayCard.querySelector(
+          ".event-status-live"
+        )
+      );
+
+    todayCard.classList.toggle(
+      "has-live-event",
+      hasLiveEvent
+    );
+
+    todayCard.setAttribute(
+      "data-live-events",
+      hasLiveEvent ? "true" : "false"
+    );
+  }
 }
 
 
@@ -9677,4 +9706,3 @@ window.addEventListener(
     isSafari && isDesktop
   );
 })();
-
