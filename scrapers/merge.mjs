@@ -1,6 +1,7 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
+import crypto from "node:crypto";
 
 const DATA_DIR = "data";
 const OUTPUT_FILE = path.join(DATA_DIR, "programacion.json");
@@ -96,6 +97,34 @@ function normalizeText(text = "") {
     .replace(/[^\p{L}\p{N}]+/gu, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+/*
+ * Toda ficha publicada necesita una identidad estable. Algunas fuentes de
+ * televisión no proporcionan id propio; dejarlo a null rompe la asociación
+ * posterior con crónicas, previas, favoritos y avisos. El id derivado no
+ * depende del orden de ejecución y se conserva mientras el evento sea el
+ * mismo (fecha, hora, plaza y modalidad).
+ */
+function stableEventId(event = {}) {
+  if (event.id !== null && event.id !== undefined && String(event.id).trim()) {
+    return String(event.id).trim();
+  }
+
+  const identity = [
+    event.date || "sin-fecha",
+    event.time || "sin-hora",
+    canonicalLocation(event.location || event.name || "sin-localidad"),
+    normalizeType(event.type || "festejo")
+  ].join("|");
+
+  const digest = crypto
+    .createHash("sha256")
+    .update(identity)
+    .digest("hex")
+    .slice(0, 16);
+
+  return `alberotv-${event.date || "sin-fecha"}-${digest}`;
 }
 
 function cleanName(name = "") {
@@ -1200,6 +1229,10 @@ async function readSource(key, defaultValue = { events: [] }) {
 function validateEvent(event, index) {
   const errors = [];
 
+  if (!event.id || !String(event.id).trim()) {
+    errors.push(`Evento ${index + 1}: falta identificador estable`);
+  }
+
   if (!event.date || !/^\d{4}-\d{2}-\d{2}$/.test(event.date)) {
     errors.push(`Evento ${index + 1}: fecha inválida`);
   }
@@ -1234,6 +1267,44 @@ function validateOutput(output, previousOutput = null) {
   output.events.forEach((event, index) => {
     errors.push(...validateEvent(event, index));
   });
+
+  const ids = new Set();
+  const scheduleSlots = new Map();
+  for (const event of output.events) {
+    if (!event.id) continue;
+    if (ids.has(event.id)) {
+      errors.push(`Identificador duplicado: ${event.id}`);
+    }
+    ids.add(event.id);
+
+    const hasBroadcastChannel = !isNonTelevisedChannel(event.channel);
+    if (event.televised === true && !hasBroadcastChannel) {
+      errors.push(
+        `Emisión incoherente: ${event.date} ${event.location || event.name} figura como televisado sin canal válido`
+      );
+    }
+    if (event.televised === false && hasBroadcastChannel) {
+      errors.push(
+        `Emisión incoherente: ${event.date} ${event.location || event.name} tiene canal ${event.channel} pero figura como no televisado`
+      );
+    }
+
+    if (event.contentType === "festejo" && event.date && event.time) {
+      const slotKey = [
+        event.date,
+        event.time,
+        canonicalLocation(event.location || event.name)
+      ].join("|");
+      const previous = scheduleSlots.get(slotKey);
+      if (previous) {
+        errors.push(
+          `Evento duplicado en plaza y horario: ${event.date} ${event.time} ${event.location || event.name} (${previous.id} / ${event.id})`
+        );
+      } else {
+        scheduleSlots.set(slotKey, event);
+      }
+    }
+  }
 
   const appearances = new Map();
   for (const event of output.events) {
@@ -1922,6 +1993,10 @@ async function main() {
       merged.splice(index, 1);
       mergeStats.skippedUncorroborated += 1;
     }
+  }
+
+  for (const event of merged) {
+    event.id = stableEventId(event);
   }
 
   sortEvents(merged);
