@@ -952,12 +952,68 @@ function updateTemporalStatuses() {
     document.querySelector(".day.today");
 
   if (todayCard) {
-    const hasLiveEvent =
+    const hasExactLiveEvent =
       Boolean(
         todayCard.querySelector(
           ".event-status-live"
         )
       );
+
+    /*
+     * Salvaguarda de datos incompletos:
+     * Pocholo puede confirmar un festejo sin haber obtenido todavía su hora.
+     * En ese caso no debemos ocultar el indicador de actividad durante la
+     * franja taurina del propio día. La hora de referencia siempre es Madrid,
+     * independientemente del país o zona horaria del teléfono.
+     */
+    const madridDateKey =
+      getDatePartsInTimeZone(
+        now,
+        SOURCE_TIME_ZONE
+      );
+
+    const madridTimeParts =
+      new Intl.DateTimeFormat(
+        "en-GB",
+        {
+          timeZone: SOURCE_TIME_ZONE,
+          hour: "2-digit",
+          minute: "2-digit",
+          hourCycle: "h23"
+        }
+      ).formatToParts(now);
+
+    const madridClock = {};
+    madridTimeParts.forEach(part => {
+      if (part.type !== "literal") {
+        madridClock[part.type] =
+          Number(part.value);
+      }
+    });
+
+    const madridMinutes =
+      madridClock.hour * 60 +
+      madridClock.minute;
+
+    const hasUntimedBullfightingEvent =
+      todayCard.dataset.date === madridDateKey &&
+      loadedEvents.some(event =>
+        event.date === madridDateKey &&
+        !isProgram(event) &&
+        !hasValidEventTime(event)
+      );
+
+    const isTaurineActivityWindow =
+      madridMinutes >= 17 * 60 + 30 &&
+      madridMinutes < 23 * 60 + 30;
+
+    const hasInferredLiveActivity =
+      hasUntimedBullfightingEvent &&
+      isTaurineActivityWindow;
+
+    const hasLiveEvent =
+      hasExactLiveEvent ||
+      hasInferredLiveActivity;
 
     todayCard.classList.toggle(
       "has-live-event",
@@ -967,6 +1023,15 @@ function updateTemporalStatuses() {
     todayCard.setAttribute(
       "data-live-events",
       hasLiveEvent ? "true" : "false"
+    );
+
+    todayCard.setAttribute(
+      "data-live-source",
+      hasExactLiveEvent
+        ? "exact"
+        : hasInferredLiveActivity
+          ? "inferred"
+          : "none"
     );
   }
 }
