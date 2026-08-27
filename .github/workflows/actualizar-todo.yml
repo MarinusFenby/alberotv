@@ -59,6 +59,11 @@ jobs:
         run: |
           node scrapers/mundotoro.mjs
 
+      - name: Actualizar Servitoro
+        continue-on-error: true
+        run: |
+          node scrapers/servitoro.mjs
+
       - name: Actualizar Las Ventas
         continue-on-error: true
         run: |
@@ -101,6 +106,9 @@ jobs:
 
           echo "=== Mundotoro ==="
           test -f data/mundotoro.json || true
+
+          echo "=== Servitoro ==="
+          test -f data/servitoro.json || true
 
           echo "=== Las Ventas ==="
           test -f data/lasventas.json || true

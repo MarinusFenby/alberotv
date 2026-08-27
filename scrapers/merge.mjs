@@ -23,7 +23,8 @@ const SOURCE_FILES = {
   lasVentas: path.join(DATA_DIR, "lasventas.json"),
   vaDeToros: path.join(DATA_DIR, "vadetoros.json"),
   aplausos: path.join(DATA_DIR, "aplausos.json"),
-  sanseOficial: path.join(DATA_DIR, "sanse-oficial.json")
+  sanseOficial: path.join(DATA_DIR, "sanse-oficial.json"),
+  servitoro: path.join(DATA_DIR, "servitoro.json")
 };
 
 const SOURCE_LABELS = {
@@ -37,7 +38,8 @@ const SOURCE_LABELS = {
   lasVentas: "Las Ventas oficial",
   vaDeToros: "Va de Toros",
   aplausos: "Aplausos",
-  sanseOficial: "Funtausa / Ayuntamiento de Sanse"
+  sanseOficial: "Funtausa / Ayuntamiento de Sanse",
+  servitoro: "Servitoro"
 };
 
 const SOURCE_CONFIDENCE = {
@@ -51,6 +53,7 @@ const SOURCE_CONFIDENCE = {
   "Va de Toros": 95,
   Aplausos: 96,
   "Funtausa / Ayuntamiento de Sanse": 100,
+  Servitoro: 100,
   Telemadrid: 98,
   CMM: 98,
   RTVE: 98,
@@ -234,8 +237,71 @@ function normalizeType(type = "") {
   if (value.includes("recortadores") || value.includes("recortes")) {
     return "Recortes";
   }
+  if (value.includes("encierro")) return "Encierro";
+  if (value.includes("festival")) return "Festival";
 
   return cleanName(type);
+}
+
+// La autoridad se decide por campo. Una fuente oficial de la plaza o de la
+// empresa organizadora manda sobre el tipo de festejo; Servitoro es la fuente
+// general de respaldo. Los medios completan información, pero no pueden
+// degradar una clasificación oficial ya establecida.
+function typeSourceAuthority(sourceName = "") {
+  const value = normalizeText(sourceName);
+
+  if (
+    value.includes("oficial") ||
+    value.includes("ayuntamiento") ||
+    value.includes("funtausa") ||
+    value.includes("empresa organizadora") ||
+    value.includes("taquilla oficial")
+  ) {
+    return 300;
+  }
+
+  if (value.includes("servitoro")) return 250;
+  // Todos los medios quedan en el mismo escalón. Su cantidad de contenido o
+  // su orden de lectura nunca debe convertirlos en autoridad clasificatoria.
+  return 100;
+}
+
+function typeSpecificity(type = "") {
+  const normalized = normalizeType(type);
+  if (!normalized || normalized === "Festejo taurino") return 0;
+  if (normalized === "Festejo mixto") return 1;
+  if (normalized === "Corrida de toros") return 2;
+  return 3;
+}
+
+function sourceForField(event = {}, field = "type") {
+  return event.fieldSources?.[field] || event.sources?.[0] || "";
+}
+
+function chooseAuthoritativeType(first, second, preferSecond = false) {
+  const firstType = normalizeType(first.type);
+  const secondType = normalizeType(second.type);
+  const firstAuthority = typeSourceAuthority(sourceForField(first, "type"));
+  const secondAuthority = typeSourceAuthority(sourceForField(second, "type"));
+
+  if (firstAuthority !== secondAuthority) {
+    return secondAuthority > firstAuthority
+      ? { value: secondType, source: sourceForField(second, "type") }
+      : { value: firstType, source: sourceForField(first, "type") };
+  }
+
+  const firstSpecificity = typeSpecificity(firstType);
+  const secondSpecificity = typeSpecificity(secondType);
+  if (firstSpecificity === 0 && secondSpecificity > 0) {
+    return { value: secondType, source: sourceForField(second, "type") };
+  }
+  if (secondSpecificity === 0 && firstSpecificity > 0) {
+    return { value: firstType, source: sourceForField(first, "type") };
+  }
+
+  return preferSecond
+    ? { value: secondType, source: sourceForField(second, "type") }
+    : { value: firstType, source: sourceForField(first, "type") };
 }
 
 function words(text = "") {
@@ -427,6 +493,7 @@ function canonicalLocation(value = "") {
     ["huelva", "huelva"],
     ["malaga", "malaga"],
     ["bilbao", "bilbao"],
+    ["logrono", "logrono"],
     ["valencia", "valencia"],
     ["cordoba", "cordoba"],
     ["santander", "santander"],
@@ -772,7 +839,11 @@ function normalizeGenericEvent(event, sourceName, fetchedAt = null) {
         event.sourceUrl || event.eventUrl,
         fetchedAt
       )
-    ]
+    ],
+    fieldSources: {
+      ...(event.fieldSources || {}),
+      type: event.fieldSources?.type || sourceName
+    }
   };
 
   normalized.confidence = calculateConfidence(normalized);
@@ -927,6 +998,12 @@ function mergeTwoEvents(first, second) {
       secondConfidence > firstConfidence
     );
 
+  const authoritativeType = chooseAuthoritativeType(
+    first,
+    second,
+    preferSecond
+  );
+
   const mergedChannel =
     isNonTelevisedChannel(first.channel) &&
     !isNonTelevisedChannel(second.channel)
@@ -961,11 +1038,7 @@ function mergeTwoEvents(first, second) {
       second.location,
       preferSecond
     ),
-    type: chooseInformativeValue(
-      first.type,
-      second.type,
-      preferSecond
-    ),
+    type: authoritativeType.value,
     contentType: first.contentType || second.contentType || "festejo",
     breeding: officialLasVentasEvent
       ? officialLasVentasEvent.breeding
@@ -1002,7 +1075,12 @@ function mergeTwoEvents(first, second) {
     sourceDetails: uniqueSourceDetails([
       ...(first.sourceDetails || []),
       ...(second.sourceDetails || [])
-    ])
+    ]),
+    fieldSources: {
+      ...(first.fieldSources || {}),
+      ...(second.fieldSources || {}),
+      type: authoritativeType.source
+    }
   };
 
   merged.confidence = calculateConfidence(merged);
@@ -1323,7 +1401,11 @@ function normalizeStoredEvent(event = {}) {
     eventUrl: event.eventUrl || event.sourceUrl || null,
     sourceUrl: event.sourceUrl || event.eventUrl || null,
     sources: storedSources,
-    sourceDetails: storedDetails
+    sourceDetails: storedDetails,
+    fieldSources: {
+      ...(event.fieldSources || {}),
+      type: event.fieldSources?.type || storedSources[0]
+    }
   };
 
   normalized.confidence =
@@ -1423,6 +1505,20 @@ function isSupersededTarifaEvent(event = {}) {
   );
 }
 
+function isStructurallyInvalidEvent(event = {}) {
+  if (event.contentType === "programa") return false;
+
+  const genericType = typeSpecificity(event.type) === 0;
+  const hasParticipants = Array.isArray(event.participants) && event.participants.length > 0;
+  const hasBreeding = Boolean(cleanName(event.breeding));
+  const sufficientlyTrusted = Number(event.confidence || 0) >= 90;
+
+  // Evita que titulares, etiquetas o palabras sueltas extraídas de una web
+  // se publiquen como si fueran plazas. Un festejo genérico sin cartel ni
+  // ganadería solo puede sobrevivir si una fuente de alta confianza lo avala.
+  return genericType && !hasParticipants && !hasBreeding && !sufficientlyTrusted;
+}
+
 function hasRescheduleSignal(event = {}) {
   return /aplaz|cambi[ao]|reubic|nueva.?fecha|traslad/i.test(
     [event.title, event.name, event.eventUrl, event.sourceUrl]
@@ -1511,7 +1607,8 @@ async function main() {
     lasVentas,
     vaDeToros,
     aplausos,
-    sanseOficial
+    sanseOficial,
+    servitoro
   ] = await Promise.all([
     readSource("elMuletazo"),
     readSource("oneToro"),
@@ -1523,7 +1620,8 @@ async function main() {
     readSource("lasVentas"),
     readSource("vaDeToros"),
     readSource("aplausos"),
-    readSource("sanseOficial")
+    readSource("sanseOficial"),
+    readSource("servitoro")
   ]);
 
   const sourceResults = [
@@ -1537,7 +1635,8 @@ async function main() {
     lasVentas,
     vaDeToros,
     aplausos,
-    sanseOficial
+    sanseOficial,
+    servitoro
   ];
 
   if (!sourceResults.some(source => source.ok)) {
@@ -1753,6 +1852,19 @@ async function main() {
     mergeStats[result.merged ? "merged" : "added"] += 1;
   }
 
+  for (const event of servitoro.data.events || []) {
+    const result = addOrMergeEvent(
+      merged,
+      normalizeGenericEvent(
+        event,
+        "Servitoro",
+        servitoro.fetchedAt
+      )
+    );
+
+    mergeStats[result.merged ? "merged" : "added"] += 1;
+  }
+
   for (const event of programas.data.events || []) {
     const result = addOrMergeEvent(
       merged,
@@ -1802,6 +1914,13 @@ async function main() {
       if (normalizeText(merged[index].type) === "encierro") {
         merged.splice(index, 1);
       }
+    }
+  }
+
+  for (let index = merged.length - 1; index >= 0; index -= 1) {
+    if (isStructurallyInvalidEvent(merged[index])) {
+      merged.splice(index, 1);
+      mergeStats.skippedUncorroborated += 1;
     }
   }
 
