@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-28T17:37:11.957Z",
-  "throughDate": "2026-08-28",
-  "eventCount": 219,
+  "generatedAt": "2026-08-29T01:28:53.268Z",
+  "throughDate": "2026-08-29",
+  "eventCount": 227,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -8793,6 +8793,354 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-08-27T20:41:17.173Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-e62fef314e509b",
+      "date": "2026-08-28",
+      "time": "18:30",
+      "channel": "À Punt",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Casas Ibáñez (Albacete)",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "La Quinta",
+      "participants": [
+        "Rubén Pinar",
+        "Román",
+        "Cristian Pérez"
+      ],
+      "name": "Casas Ibáñez (Albacete)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-08-28T17:36:26.989Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-28T17:36:56.506Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 96,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-ddfcff88e7ab94",
+      "date": "2026-08-28",
+      "time": "19:00",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Almería",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Álvaro Núñez y Hnos. García Jiménez",
+      "participants": [
+        "Morante de la Puebla",
+        "Juan Ortega",
+        "Pablo Aguado"
+      ],
+      "name": "Almería",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-08-28T17:36:26.989Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-28T17:36:56.506Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 96,
+      "status": "confirmed"
+    },
+    {
+      "id": "cmm-2026-08-28-1830-4",
+      "date": "2026-08-28",
+      "time": "19:00",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Riópar (Albacete)",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "El Madroñal",
+      "participants": [
+        "Martín Ruiz",
+        "Javier Funtanet",
+        "Pedro Velasco",
+        "otro"
+      ],
+      "name": "Riópar (Albacete)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "CMM",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-08-28T17:36:26.989Z"
+        },
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-28T17:36:56.506Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "sanse-rejones-2026-08-28",
+      "date": "2026-08-28",
+      "time": "19:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Sebastián de los Reyes (Madrid) España",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "La Castilleja",
+      "participants": [
+        "Duarte Fernandes",
+        "Rui Fernandes",
+        "Sebastián Fernández"
+      ],
+      "name": "San Sebastián de los Reyes (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://funtausa.com/festejos/sanse-28-de-agosto-de-2026/",
+      "sourceUrl": "https://funtausa.com/festejos/sanse-28-de-agosto-de-2026/",
+      "sources": [
+        "Mundotoro",
+        "Funtausa / Ayuntamiento de Sanse"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-28T17:36:56.506Z"
+        },
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/festejos/sanse-28-de-agosto-de-2026/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Funtausa / Ayuntamiento de Sanse"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-ed310373d5c97d",
+      "date": "2026-08-28",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Alcalá de Henares (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Luis Albarrán",
+      "participants": [
+        "Daniel Luque",
+        "Emilio de Justo",
+        "Fernando Adrián"
+      ],
+      "name": "Alcalá de Henares (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-28T17:36:56.506Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-8cd5a7bf0dcdd8",
+      "date": "2026-08-28",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Bilbao (Vizcaya) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Domingo Hernández Martín",
+      "participants": [
+        "David de Miranda",
+        "Marco Pérez",
+        "Sebastián Castella"
+      ],
+      "name": "Bilbao (Vizcaya) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-28T17:36:56.506Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-262da9434b3f39",
+      "date": "2026-08-28",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Linares (Jaén) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Martín Lorca",
+      "participants": [
+        "Adrián de Torres",
+        "David Gil",
+        "Marcos Linares"
+      ],
+      "name": "Linares (Jaén) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-28T17:36:56.506Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-44fb2f91bb5d4f",
+      "date": "2026-08-28",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Tarazona de Aragón (Zaragoza) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Fuente Ymbro",
+      "participants": [
+        "Antonio Ferrera",
+        "El Fandi",
+        "Manuel Escribano"
+      ],
+      "name": "Tarazona de Aragón (Zaragoza) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-28T17:36:56.506Z"
         }
       ],
       "fieldSources": {
