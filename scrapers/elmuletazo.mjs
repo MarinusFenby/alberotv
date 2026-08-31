@@ -270,8 +270,51 @@ function extractLocation(text = "") {
   return "";
 }
 
+function extractMixedDetails(text = "") {
+  const withoutLinks = clean(text).split("🔗")[0];
+  const match = withoutLinks.match(
+    /\b(?:Toros|Novillos)\s+para\s+rejones\s+de\s+(.+?)\s+y\s+para\s+la\s+lidia\s+a\s+pie\s+de\s+(.+?)\s+para\s+el\s+rejoneador\s+(.+?)\s+y\s+los\s+espadas?\s*:\s*(.+?)(?=[.。](?:\s|$)|$)/i
+  );
+
+  if (!match) {
+    return null;
+  }
+
+  const rejonesBreeding = cleanBreeding(match[1])
+    .replace(
+      /^Ángel Sánchez y Sánchez$/i,
+      "Hdros. de Ángel Sánchez y Sánchez"
+    );
+  const footBreeding = cleanBreeding(match[2])
+    .replace(
+      /\bVictoriano del Río\b(?!\s+Cortés)/i,
+      "D. Victoriano del Río Cortés"
+    );
+  const rejoneador = cleanParticipant(match[3]);
+  const matadors = clean(match[4])
+    .replace(/\s+y\s+/gi, ", ")
+    .replace(/\s+e\s+/gi, ", ")
+    .split(",")
+    .map(cleanParticipant)
+    .filter(participant => !isJunkParticipant(participant));
+
+  return {
+    breeding: [rejonesBreeding, footBreeding].filter(Boolean).join(", "),
+    participants: [rejoneador, ...matadors]
+      .filter(participant => !isJunkParticipant(participant))
+  };
+}
+
 function extractType(text = "") {
   const value = normalizeText(text);
+
+  if (
+    extractMixedDetails(text) ||
+    (value.includes("rejones") && value.includes("lidia a pie")) ||
+    (value.includes("rejoneador") && value.includes("espadas"))
+  ) {
+    return "Festejo mixto";
+  }
 
   if (/\b(?:becerrada|becerradas|erales?)\b/.test(value)) {
     return "Novillada sin picadores";
@@ -317,6 +360,12 @@ function extractType(text = "") {
 }
 
 function extractBreeding(text = "") {
+  const mixedDetails = extractMixedDetails(text);
+
+  if (mixedDetails?.breeding) {
+    return mixedDetails.breeding;
+  }
+
   const patterns = [
     /\bToros de\s+(.+?)(?=\s+para\s*:?\s|\s+Cartel por confirmar|\.?\s*🔗|$)/i,
     /\bNovillos de\s+(.+?)(?=\s+para\s*:?\s|\s+Cartel por confirmar|\.?\s*🔗|$)/i,
@@ -343,6 +392,12 @@ function extractBreeding(text = "") {
 
 function extractParticipants(text = "") {
   const withoutLinks = clean(text).split("🔗")[0];
+
+  const mixedDetails = extractMixedDetails(withoutLinks);
+
+  if (mixedDetails) {
+    return mixedDetails.participants;
+  }
 
   if (/Cartel por confirmar/i.test(withoutLinks)) {
     return [];
