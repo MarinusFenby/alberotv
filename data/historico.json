@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-31T07:26:35.100Z",
-  "throughDate": "2026-08-31",
-  "eventCount": 265,
+  "generatedAt": "2026-09-01T15:18:32.173Z",
+  "throughDate": "2026-09-01",
+  "eventCount": 268,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -10692,6 +10692,131 @@
       },
       "confidence": 100,
       "status": "confirmed"
+    },
+    {
+      "id": "sanse-novillada-2026-08-31",
+      "date": "2026-08-31",
+      "time": "19:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Sebastián de los Reyes (Madrid) España",
+      "type": "Novillada con picadores",
+      "contentType": "festejo",
+      "breeding": "Montealto",
+      "participants": [
+        "Emiliano Osornio",
+        "Jorge Hurtado",
+        "Olga Casado",
+        "Álvaro Serrano"
+      ],
+      "name": "San Sebastián de los Reyes (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://funtausa.com/festejos/sanse-31-de-agosto-de-2026/",
+      "sourceUrl": "https://funtausa.com/festejos/sanse-31-de-agosto-de-2026/",
+      "sources": [
+        "Mundotoro",
+        "Funtausa / Ayuntamiento de Sanse"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-31T07:26:18.302Z"
+        },
+        {
+          "name": "Funtausa / Ayuntamiento de Sanse",
+          "confidence": 100,
+          "sourceUrl": "https://funtausa.com/festejos/sanse-31-de-agosto-de-2026/",
+          "fetchedAt": "2026-08-24T17:30:00.000Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Funtausa / Ayuntamiento de Sanse"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-2c77337d4d0cdf",
+      "date": "2026-08-31",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Colmenar Viejo (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Núñez del Cuvillo",
+      "participants": [
+        "Alejandro Talavante",
+        "Juan Ortega",
+        "Pablo Aguado"
+      ],
+      "name": "Colmenar Viejo (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-31T07:26:18.302Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-c3ea527791d89c",
+      "date": "2026-08-31",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Cuéllar (Segovia) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Partido de Resina",
+      "participants": [
+        "Damián Castaño",
+        "Jesús Enrique Colombo",
+        "Pablo Atienza"
+      ],
+      "name": "Cuéllar (Segovia) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-08-31T07:26:18.302Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
     }
   ]
 }
