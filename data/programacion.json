@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-09-02T02:51:55.180Z",
+  "generatedAt": "2026-09-02T06:35:53.901Z",
   "degraded": false,
-  "eventCount": 506,
-  "bullfightingEventCount": 489,
+  "eventCount": 494,
+  "bullfightingEventCount": 477,
   "programCount": 17,
   "mergeStats": {
     "historicalCandidates": 550,
     "historicalPreserved": 275,
     "historicalDuplicatesMerged": 275,
-    "added": 253,
-    "merged": 37,
+    "added": 241,
+    "merged": 49,
     "skippedUncorroborated": 22,
     "reschedulesApplied": 0
   },
@@ -30,14 +30,14 @@
       "label": "El Muletazo",
       "status": "ok",
       "eventCount": 38,
-      "fetchedAt": "2026-09-02T02:51:09.263Z",
+      "fetchedAt": "2026-09-02T06:35:52.078Z",
       "error": null
     },
     "oneToro": {
       "label": "OneToro",
       "status": "ok",
       "eventCount": 8,
-      "fetchedAt": "2026-09-02T02:51:08.490Z",
+      "fetchedAt": "2026-09-02T06:35:52.345Z",
       "error": null
     },
     "programasTaurinos": {
@@ -2075,7 +2075,7 @@
       "contentType": "festejo",
       "breeding": "Álvaro Amorante, Casa Agrícola José Albino Fernandes y Rego Botelho",
       "participants": [
-        "Luis Rouxinol",
+        "Luis Rouxinol (hijo)",
         "Luis Rouxinol (hijo)"
       ],
       "name": "Isla Graciosa (Azores) Portugal",
@@ -2385,7 +2385,7 @@
       "participants": [
         "Dennis Martín",
         "Manuel Quintana",
-        "Julio Norte",
+        "Julio Norte -hijo-",
         "Julio Norte -hijo-"
       ],
       "name": "Málaga",
@@ -2811,7 +2811,7 @@
       "breeding": "Álvaro Amorante, Casa Agrícola José Albino Fernandes y Rego Botelho",
       "participants": [
         "João Pamplona",
-        "Luis Rouxinol",
+        "Luis Rouxinol (hijo)",
         "Luis Rouxinol (hijo)",
         "Tiago Pamplona"
       ],
@@ -11317,45 +11317,14 @@
       "status": "probable"
     },
     {
-      "id": "cmm-2026-09-03-1830-5",
+      "id": "459e54c7-2e3f-42a6-b51c-4f51cc253364",
       "date": "2026-09-03",
       "time": "18:30",
       "channel": "CMM",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Rejones",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [],
-      "name": "TOROS 2026",
-      "title": "TOROS 2026",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sources": [
-        "CMM"
+      "channels": [
+        "CMM",
+        "OneToro"
       ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-          "fetchedAt": null
-        }
-      ],
-      "fieldSources": {
-        "type": "CMM"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "mundotoro-50ec662878565e",
-      "date": "2026-09-03",
-      "time": "18:30",
-      "channel": "OneToro",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
@@ -11370,11 +11339,13 @@
       ],
       "name": "Villaseca de la Sagra (Toledo)",
       "title": null,
-      "image": null,
+      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FMfHK-0b1a7966-7f82-400a-95ac-be1e2fabbb48.landscapes.high.webp",
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
+        "OneToro",
+        "CMM",
         "Mundotoro"
       ],
       "sourceDetails": [
@@ -11382,7 +11353,19 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
+        },
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-03092026",
+          "fetchedAt": "2026-09-02T06:35:52.345Z"
+        },
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
         },
         {
           "name": "Mundotoro",
@@ -11394,48 +11377,7 @@
       "fieldSources": {
         "type": "El Muletazo"
       },
-      "confidence": 96,
-      "status": "confirmed"
-    },
-    {
-      "id": "459e54c7-2e3f-42a6-b51c-4f51cc253364",
-      "date": "2026-09-03",
-      "time": null,
-      "channel": "OneToro",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Alfarero de Oro",
-      "type": "Novillada",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [
-        "Novillada",
-        "Ana Romero",
-        "Villaseca de la Sagra",
-        "Sergio Rollón",
-        "Ruiz de Velasco"
-      ],
-      "name": "Alfarero de Oro",
-      "title": null,
-      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FMfHK-0b1a7966-7f82-400a-95ac-be1e2fabbb48.landscapes.high.webp",
-      "eventUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-03092026",
-      "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-03092026",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-03092026",
-          "fetchedAt": "2026-09-02T02:51:08.490Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "OneToro"
-      },
-      "confidence": 98,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -11517,45 +11459,14 @@
       "status": "probable"
     },
     {
-      "id": "cmm-2026-09-04-1830-6",
+      "id": "405ffc3e-2e87-4f79-a062-0dc63ff5939f",
       "date": "2026-09-04",
       "time": "18:30",
       "channel": "CMM",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Rejones",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [],
-      "name": "TOROS 2026",
-      "title": "TOROS 2026",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sources": [
-        "CMM"
+      "channels": [
+        "CMM",
+        "OneToro"
       ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-          "fetchedAt": null
-        }
-      ],
-      "fieldSources": {
-        "type": "CMM"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "mundotoro-20b5da0fe1be40",
-      "date": "2026-09-04",
-      "time": "18:30",
-      "channel": "OneToro",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
@@ -11570,11 +11481,13 @@
       ],
       "name": "Villaseca de la Sagra (Toledo)",
       "title": null,
-      "image": null,
+      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FRt7W-8f81cc86-335c-49d0-ab78-11b86cef4ba8.landscapes.high.webp",
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
+        "OneToro",
+        "CMM",
         "Mundotoro"
       ],
       "sourceDetails": [
@@ -11582,7 +11495,19 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
+        },
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-04092026",
+          "fetchedAt": "2026-09-02T06:35:52.345Z"
+        },
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
         },
         {
           "name": "Mundotoro",
@@ -11594,49 +11519,7 @@
       "fieldSources": {
         "type": "El Muletazo"
       },
-      "confidence": 96,
-      "status": "confirmed"
-    },
-    {
-      "id": "405ffc3e-2e87-4f79-a062-0dc63ff5939f",
-      "date": "2026-09-04",
-      "time": null,
-      "channel": "OneToro",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Alfarero de Oro",
-      "type": "Novillada",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [
-        "Novillada",
-        "Pedraza de Yeltes",
-        "Villaseca de la Sagra",
-        "El Mene",
-        "Simón Andreu",
-        "Martín Morilla"
-      ],
-      "name": "Alfarero de Oro",
-      "title": null,
-      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FRt7W-8f81cc86-335c-49d0-ab78-11b86cef4ba8.landscapes.high.webp",
-      "eventUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-04092026",
-      "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-04092026",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-04092026",
-          "fetchedAt": "2026-09-02T02:51:08.490Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "OneToro"
-      },
-      "confidence": 98,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -12014,7 +11897,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         }
       ],
       "fieldSources": {
@@ -12054,7 +11937,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         },
         {
           "name": "Mundotoro",
@@ -12070,45 +11953,14 @@
       "status": "confirmed"
     },
     {
-      "id": "cmm-2026-09-05-1830-8",
+      "id": "e0503239-5b2d-4900-9b25-fb3bcdfc677f",
       "date": "2026-09-05",
       "time": "18:30",
       "channel": "CMM",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Rejones",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [],
-      "name": "TOROS 2026",
-      "title": "TOROS 2026",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sources": [
-        "CMM"
+      "channels": [
+        "CMM",
+        "OneToro"
       ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-          "fetchedAt": null
-        }
-      ],
-      "fieldSources": {
-        "type": "CMM"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "mundotoro-188aa288eb28b5",
-      "date": "2026-09-05",
-      "time": "18:30",
-      "channel": "OneToro",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
@@ -12123,11 +11975,13 @@
       ],
       "name": "Villaseca de la Sagra (Toledo)",
       "title": null,
-      "image": null,
+      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FCw6w-05e2f7b9-e02f-4caf-9775-4689280f0405.landscapes.high.webp",
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
+        "OneToro",
+        "CMM",
         "Mundotoro"
       ],
       "sourceDetails": [
@@ -12135,7 +11989,19 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
+        },
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-05092026",
+          "fetchedAt": "2026-09-02T06:35:52.345Z"
+        },
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
         },
         {
           "name": "Mundotoro",
@@ -12147,7 +12013,7 @@
       "fieldSources": {
         "type": "El Muletazo"
       },
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -12185,7 +12051,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         }
       ],
       "fieldSources": {
@@ -12232,48 +12098,6 @@
       },
       "confidence": 89,
       "status": "probable"
-    },
-    {
-      "id": "e0503239-5b2d-4900-9b25-fb3bcdfc677f",
-      "date": "2026-09-05",
-      "time": null,
-      "channel": "OneToro",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Alfarero de Oro",
-      "type": "Novillada",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [
-        "Novillada",
-        "Villaseca de la Sagra",
-        "Conde de Mayalde",
-        "Emiliano Osorno",
-        "Jorge Hurtado",
-        "Manuel Quintana"
-      ],
-      "name": "Alfarero de Oro",
-      "title": null,
-      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FCw6w-05e2f7b9-e02f-4caf-9775-4689280f0405.landscapes.high.webp",
-      "eventUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-05092026",
-      "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-05092026",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-05092026",
-          "fetchedAt": "2026-09-02T02:51:08.490Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "OneToro"
-      },
-      "confidence": 98,
-      "status": "confirmed"
     },
     {
       "id": "mundotoro-490c2d829489ba",
@@ -12752,7 +12576,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         }
       ],
       "fieldSources": {
@@ -12762,45 +12586,14 @@
       "status": "confirmed"
     },
     {
-      "id": "cmm-2026-09-06-1830-9",
+      "id": "b49fa666-5096-4f7b-929d-0047be83ed0b",
       "date": "2026-09-06",
       "time": "18:30",
       "channel": "CMM",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Rejones",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [],
-      "name": "TOROS 2026",
-      "title": "TOROS 2026",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sources": [
-        "CMM"
+      "channels": [
+        "CMM",
+        "OneToro"
       ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-          "fetchedAt": null
-        }
-      ],
-      "fieldSources": {
-        "type": "CMM"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "mundotoro-c848162286d074",
-      "date": "2026-09-06",
-      "time": "18:30",
-      "channel": "OneToro",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
@@ -12815,11 +12608,13 @@
       ],
       "name": "Villaseca de la Sagra (Toledo)",
       "title": null,
-      "image": null,
+      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FGybm-9fa3d936-3fce-43ad-a3ee-a5225b058935.landscapes.high.webp",
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
+        "OneToro",
+        "CMM",
         "Mundotoro"
       ],
       "sourceDetails": [
@@ -12827,7 +12622,19 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
+        },
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-06092026",
+          "fetchedAt": "2026-09-02T06:35:52.345Z"
+        },
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
         },
         {
           "name": "Mundotoro",
@@ -12839,48 +12646,7 @@
       "fieldSources": {
         "type": "El Muletazo"
       },
-      "confidence": 96,
-      "status": "confirmed"
-    },
-    {
-      "id": "b49fa666-5096-4f7b-929d-0047be83ed0b",
-      "date": "2026-09-06",
-      "time": null,
-      "channel": "OneToro",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Alfarero de Oro",
-      "type": "Novillada",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [
-        "Novillada",
-        "Montealto",
-        "Villaseca de la Sagra",
-        "Gonzalo Capdevila",
-        "Cristian González"
-      ],
-      "name": "Alfarero de Oro",
-      "title": null,
-      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FGybm-9fa3d936-3fce-43ad-a3ee-a5225b058935.landscapes.high.webp",
-      "eventUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-06092026",
-      "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-06092026",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-06092026",
-          "fetchedAt": "2026-09-02T02:51:08.490Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "OneToro"
-      },
-      "confidence": 98,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -13585,45 +13351,14 @@
       "status": "probable"
     },
     {
-      "id": "cmm-2026-09-07-1830-10",
+      "id": "309fd175-846b-4a4d-8067-a8e4c41ea270",
       "date": "2026-09-07",
       "time": "18:30",
       "channel": "CMM",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Rejones",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [],
-      "name": "TOROS 2026",
-      "title": "TOROS 2026",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sources": [
-        "CMM"
+      "channels": [
+        "CMM",
+        "OneToro"
       ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-          "fetchedAt": null
-        }
-      ],
-      "fieldSources": {
-        "type": "CMM"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "mundotoro-37bf7d28296c31",
-      "date": "2026-09-07",
-      "time": "18:30",
-      "channel": "OneToro",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
@@ -13632,18 +13367,19 @@
       "contentType": "festejo",
       "breeding": "Alcurrucén",
       "participants": [
-        "López Peregrino",
+        "Javier López Peregrino",
         "Juan Alberto Torrijos",
-        "Rafael de la Cueva",
-        "Javier López Peregrino"
+        "Rafael de la Cueva"
       ],
       "name": "Villaseca de la Sagra (Toledo)",
       "title": null,
-      "image": null,
+      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FiQfN-9c8886fc-6052-4995-8a85-cb512e225306.landscapes.high.webp",
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
+        "OneToro",
+        "CMM",
         "Mundotoro"
       ],
       "sourceDetails": [
@@ -13651,7 +13387,19 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
+        },
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-07092026",
+          "fetchedAt": "2026-09-02T06:35:52.345Z"
+        },
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
         },
         {
           "name": "Mundotoro",
@@ -13663,49 +13411,7 @@
       "fieldSources": {
         "type": "El Muletazo"
       },
-      "confidence": 96,
-      "status": "confirmed"
-    },
-    {
-      "id": "309fd175-846b-4a4d-8067-a8e4c41ea270",
-      "date": "2026-09-07",
-      "time": null,
-      "channel": "OneToro",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Alfarero de Oro",
-      "type": "Novillada",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [
-        "Novillada",
-        "Alcurrucén",
-        "Villaseca de la Sagra",
-        "Rafael de la Cueva",
-        "Javier López Peregrino",
-        "Juan Alberto Torrijos"
-      ],
-      "name": "Alfarero de Oro",
-      "title": null,
-      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2FiQfN-9c8886fc-6052-4995-8a85-cb512e225306.landscapes.high.webp",
-      "eventUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-07092026",
-      "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-07092026",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-07092026",
-          "fetchedAt": "2026-09-02T02:51:08.490Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "OneToro"
-      },
-      "confidence": 98,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -13931,7 +13637,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         },
         {
           "name": "Mundotoro",
@@ -13977,7 +13683,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         },
         {
           "name": "Mundotoro",
@@ -14382,10 +14088,14 @@
       "status": "probable"
     },
     {
-      "id": "mundotoro-647732add8a802",
+      "id": "7f16ffe7-af43-4afc-bc72-9f1d78d1e83b",
       "date": "2026-09-09",
       "time": "18:30",
-      "channel": "OneToro",
+      "channel": "CMM",
+      "channels": [
+        "CMM",
+        "OneToro"
+      ],
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
@@ -14400,11 +14110,12 @@
       ],
       "name": "Villaseca de la Sagra (Toledo)",
       "title": null,
-      "image": null,
+      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2Fcm4J-c12660b3-4fb6-4501-ad4f-1d611c4b877c.landscapes.high.webp",
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
+        "OneToro",
         "Mundotoro"
       ],
       "sourceDetails": [
@@ -14412,7 +14123,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
+        },
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-09092026",
+          "fetchedAt": "2026-09-02T06:35:52.345Z"
         },
         {
           "name": "Mundotoro",
@@ -14424,7 +14141,7 @@
       "fieldSources": {
         "type": "El Muletazo"
       },
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -14465,46 +14182,6 @@
       },
       "confidence": 89,
       "status": "probable"
-    },
-    {
-      "id": "7f16ffe7-af43-4afc-bc72-9f1d78d1e83b",
-      "date": "2026-09-09",
-      "time": null,
-      "channel": "OneToro",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Alfarero de Oro",
-      "type": "Novillada",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [
-        "Novillada",
-        "José Escolar",
-        "Alberto Donaire",
-        "Villaseca de la Sagra"
-      ],
-      "name": "Alfarero de Oro",
-      "title": null,
-      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2Fcm4J-c12660b3-4fb6-4501-ad4f-1d611c4b877c.landscapes.high.webp",
-      "eventUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-09092026",
-      "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-09092026",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-09092026",
-          "fetchedAt": "2026-09-02T02:51:08.490Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "OneToro"
-      },
-      "confidence": 98,
-      "status": "confirmed"
     },
     {
       "id": "mundotoro-5156e710b26ed1",
@@ -14853,10 +14530,14 @@
       "status": "probable"
     },
     {
-      "id": "mundotoro-4ddcaf9ebbfe51",
+      "id": "247ef6c6-08f9-4a1f-835c-381851e59621",
       "date": "2026-09-10",
       "time": "18:30",
-      "channel": "OneToro",
+      "channel": "CMM",
+      "channels": [
+        "CMM",
+        "OneToro"
+      ],
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
@@ -14871,11 +14552,12 @@
       ],
       "name": "Villaseca de la Sagra (Toledo)",
       "title": null,
-      "image": null,
+      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2Fh8zV-52c00cd4-a2df-4f13-bf27-b6ab92e88116.landscapes.high.webp",
       "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
+        "OneToro",
         "Mundotoro"
       ],
       "sourceDetails": [
@@ -14883,7 +14565,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
+        },
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-10092026",
+          "fetchedAt": "2026-09-02T06:35:52.345Z"
         },
         {
           "name": "Mundotoro",
@@ -14895,7 +14583,7 @@
       "fieldSources": {
         "type": "El Muletazo"
       },
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -14935,47 +14623,6 @@
       },
       "confidence": 89,
       "status": "probable"
-    },
-    {
-      "id": "247ef6c6-08f9-4a1f-835c-381851e59621",
-      "date": "2026-09-10",
-      "time": null,
-      "channel": "OneToro",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Alfarero de Oro",
-      "type": "Novillada",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [
-        "Novillada",
-        "Jesús de la Calzada",
-        "Fernando Cuadri",
-        "Villaseca de la Sagra",
-        "Joao D'Alva"
-      ],
-      "name": "Alfarero de Oro",
-      "title": null,
-      "image": "https://storage.googleapis.com/galgo-onetoro.appspot.com/media%2Fimage%2Fh8zV-52c00cd4-a2df-4f13-bf27-b6ab92e88116.landscapes.high.webp",
-      "eventUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-10092026",
-      "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-10092026",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-10092026",
-          "fetchedAt": "2026-09-02T02:51:08.490Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "OneToro"
-      },
-      "confidence": 98,
-      "status": "confirmed"
     },
     {
       "id": "mundotoro-100f6bf23a9315",
@@ -15236,7 +14883,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         }
       ],
       "fieldSources": {
@@ -15665,7 +15312,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         },
         {
           "name": "Mundotoro",
@@ -16570,7 +16217,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         }
       ],
       "fieldSources": {
@@ -16607,7 +16254,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         }
       ],
       "fieldSources": {
@@ -17092,9 +16739,11 @@
       "location": "Vila Viçosa",
       "type": "Novillada",
       "contentType": "festejo",
-      "breeding": "",
+      "breeding": "Veiga Teixeira",
       "participants": [
-        "Portugal"
+        "João Moura",
+        "João Ribeiro Telles",
+        "João Salgueiro da Costa"
       ],
       "name": "Vila Viçosa",
       "title": null,
@@ -17109,13 +16758,13 @@
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/vila-vicosa-13092026",
-          "fetchedAt": "2026-09-02T02:51:08.490Z"
+          "fetchedAt": "2026-09-02T06:35:52.345Z"
         }
       ],
       "fieldSources": {
         "type": "OneToro"
       },
-      "confidence": 98,
+      "confidence": 99,
       "status": "confirmed"
     },
     {
@@ -18119,7 +17768,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         }
       ],
       "fieldSources": {
@@ -18159,7 +17808,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         },
         {
           "name": "Mundotoro",
@@ -18209,7 +17858,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         }
       ],
       "fieldSources": {
@@ -18248,7 +17897,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         }
       ],
       "fieldSources": {
@@ -18761,7 +18410,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         },
         {
           "name": "Mundotoro",
@@ -19663,7 +19312,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         }
       ],
       "fieldSources": {
@@ -19854,7 +19503,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         }
       ],
       "fieldSources": {
@@ -20280,7 +19929,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-02T02:51:09.263Z"
+          "fetchedAt": "2026-09-02T06:35:52.078Z"
         }
       ],
       "fieldSources": {
