@@ -98,7 +98,7 @@ function extractCartelDetails(publicText = "", labels = []) {
     .filter(Boolean);
   const breedingKey = normalizeKey(breeding);
   const participantKeys = participants.map(normalizeKey);
-  const junk = /^(?:register|video|festejos?|novillada|corrida(?: de toros)?|rejones?|recortes?|tematica|proximos|etiqueta|pegi|16)$/;
+  const junk = /^(?:register|video|festejos?|novillada|corrida(?: de toros)?|rejones?|recortes?|tematica|proximos|etiqueta|pegi|16|espana|portugal|francia|france)$/;
 
   const location = labels
     .map(cleanName)

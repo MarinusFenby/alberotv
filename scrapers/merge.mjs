@@ -1023,11 +1023,34 @@ function mergeParticipants(first = [], second = []) {
   const output = [...first];
 
   for (const candidate of second) {
-    const exists = output.some(
-      current => similarity(current, candidate) >= 0.75
-    );
+    const candidateKey = normalizeText(candidate);
+    const matchingIndex = output.findIndex(current => {
+      const currentKey = normalizeText(current);
+      const shorterKey = currentKey.length <= candidateKey.length
+        ? currentKey
+        : candidateKey;
+      const longerKey = currentKey.length > candidateKey.length
+        ? currentKey
+        : candidateKey;
+      const shorterHasSurname = shorterKey.split(/\s+/).length >= 2;
 
-    if (!exists) output.push(candidate);
+      return (
+        similarity(current, candidate) >= 0.75 ||
+        (
+          shorterHasSurname &&
+          (
+            longerKey.endsWith(` ${shorterKey}`) ||
+            longerKey.startsWith(`${shorterKey} `)
+          )
+        )
+      );
+    });
+
+    if (matchingIndex < 0) {
+      output.push(candidate);
+    } else if (candidate.length > output[matchingIndex].length) {
+      output[matchingIndex] = candidate;
+    }
   }
 
   return output;
