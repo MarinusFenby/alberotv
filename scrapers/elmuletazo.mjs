@@ -225,6 +225,42 @@ function normalizeChannel(text = "") {
   return "";
 }
 
+function extractChannels(text = "") {
+  const rawChannel = extractRawChannel(text);
+  const value = normalizeText(rawChannel || text);
+  const candidates = [
+    { name: "CMM", patterns: ["castilla la mancha media", "castilla-la mancha media", "cmm"] },
+    { name: "OneToro", patterns: ["onetoro", "one toro"] },
+    { name: "Canal Sur", patterns: ["canal sur"] },
+    { name: "Canal Extremadura", patterns: ["canal extremadura", "extremadura tv"] },
+    { name: "Telemadrid", patterns: ["telemadrid", "tele madrid"] },
+    { name: "À Punt", patterns: ["a punt"] },
+    { name: "La 7 CyL", patterns: ["la 7 de castilla", "la 7 cyl", "cyltv"] },
+    { name: "Toros en España Play", patterns: ["toros en espana"] },
+    { name: "Aragón TV", patterns: ["aragon tv", "aragon television"] },
+    { name: "RTPA", patterns: ["rtpa", "television del principado de asturias"] },
+    { name: "101 TV Málaga", patterns: ["101 television malaga", "101 tv malaga", "101 television", "101 tv"] }
+  ];
+
+  const found = candidates
+    .map(candidate => ({
+      ...candidate,
+      index: Math.min(
+        ...candidate.patterns
+          .map(pattern => value.indexOf(pattern))
+          .filter(index => index >= 0)
+      )
+    }))
+    .filter(candidate => Number.isFinite(candidate.index))
+    .sort((first, second) => first.index - second.index)
+    .map(candidate => candidate.name);
+
+  if (found.length) return [...new Set(found)];
+
+  const fallback = normalizeChannel(rawChannel || text);
+  return fallback ? [fallback] : [];
+}
+
 function parseDate(text = "") {
   const match = clean(text).match(
     /(?:lunes|martes|miércoles|miercoles|jueves|viernes|sábado|sabado|domingo)\s+(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)\s+de\s+(\d{4})/i
@@ -439,11 +475,14 @@ function splitEntries(text = "") {
 }
 
 function createEvent(block = "") {
+  const channels = extractChannels(block);
+
   return {
     source: "El Muletazo",
     date: parseDate(block),
     time: parseTime(block),
-    channel: normalizeChannel(block),
+    channel: channels[0] || normalizeChannel(block),
+    ...(channels.length > 1 ? { channels } : {}),
     location: extractLocation(block),
     type: extractType(block),
     breeding: extractBreeding(block),

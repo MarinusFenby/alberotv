@@ -333,6 +333,17 @@ function classifyBroadcast(title = "", description = "") {
 
 function inferType(title = "", description = "") {
   const text = `${title} ${description}`;
+  const genericTitle = normalizeSpace(title)
+    .toUpperCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "");
+
+  // «TOROS 2026» es el nombre de la franja de CMM, no el tipo del festejo.
+  // Su descripción enumera corridas, rejones y novilladas en general, por lo
+  // que no debe clasificarse como rejones por encontrar esa palabra primero.
+  if (/^TOROS(?:\s+20\d{2})?$/.test(genericTitle)) {
+    return "Festejo taurino";
+  }
 
   if (/\brejones?\b|\brejoneo\b/i.test(text)) {
     return "Corrida de rejones";

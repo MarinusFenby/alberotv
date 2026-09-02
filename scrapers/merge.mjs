@@ -214,6 +214,27 @@ function normalizeChannel(channel = "") {
   return cleanName(channel) || "Televisión";
 }
 
+function normalizeBroadcastChannels(event = {}) {
+  const values = [
+    ...(Array.isArray(event.channels) ? event.channels : []),
+    event.channel
+  ].filter(Boolean);
+
+  const channels = [...new Set(values.map(normalizeChannel).filter(Boolean))];
+  const televisedChannels = channels.filter(
+    channel => !isNonTelevisedChannel(channel)
+  );
+
+  return televisedChannels.length ? televisedChannels : channels;
+}
+
+function sharesBroadcastChannel(first = {}, second = {}) {
+  const firstChannels = new Set(normalizeBroadcastChannels(first));
+  return normalizeBroadcastChannels(second).some(channel =>
+    firstChannels.has(channel)
+  );
+}
+
 function isNonTelevisedChannel(channel = "") {
   const value = normalizeText(channel);
 
@@ -583,7 +604,9 @@ function eventMatchScore(first, second) {
 
   const channelA = normalizeChannel(first.channel);
   const channelB = normalizeChannel(second.channel);
-  const sameChannel = channelA === channelB;
+  const sameChannel =
+    channelA === channelB ||
+    sharesBroadcastChannel(first, second);
 
   const firstLabel = first.location || first.name;
   const secondLabel = second.location || second.name;
@@ -820,12 +843,16 @@ function normalizeGenericEvent(event, sourceName, fetchedAt = null) {
     normalizeType(event.type) === "Programa taurino"
       ? "programa"
       : "festejo";
+  const broadcastChannels = normalizeBroadcastChannels(event);
 
   const normalized = {
     id: event.id || null,
     date: event.date || null,
     time: event.time || null,
     channel: normalizeChannel(event.channel || sourceName),
+    ...(broadcastChannels.length > 1
+      ? { channels: broadcastChannels }
+      : {}),
     deferred: isDeferredBroadcast(event),
     televised:
       event.televised === false
@@ -893,7 +920,7 @@ function normalizeOneToroEvent(event, fetchedAt = null) {
     {
       ...event,
       channel: "OneToro",
-      location: cleanName(event.name),
+      location: cleanName(event.location || event.name),
       contentType: "festejo"
     },
     "OneToro",
@@ -1043,6 +1070,16 @@ function mergeTwoEvents(first, second) {
             ? first.channel
             : chooseValue(first.channel, second.channel, preferSecond)
         );
+  const mergedChannelCandidates = [...new Set([
+    ...normalizeBroadcastChannels(first),
+    ...normalizeBroadcastChannels(second)
+  ])];
+  const realMergedChannels = mergedChannelCandidates.filter(
+    channel => !isNonTelevisedChannel(channel)
+  );
+  const mergedChannels = realMergedChannels.length
+    ? realMergedChannels
+    : mergedChannelCandidates;
 
   const mergedIsTelevised = !isNonTelevisedChannel(mergedChannel);
 
@@ -1052,6 +1089,7 @@ function mergeTwoEvents(first, second) {
     date: chooseValue(first.date, second.date, preferSecond),
     time: chooseValue(first.time, second.time, preferSecond),
     channel: mergedChannel,
+    channels: mergedChannels.length > 1 ? mergedChannels : undefined,
     deferred:
       first.deferred === true ||
       second.deferred === true,

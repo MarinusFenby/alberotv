@@ -65,6 +65,55 @@ function cleanName(name = "") {
   return name.replace(/\s+/g, " ").trim();
 }
 
+function normalizeKey(value = "") {
+  return cleanName(String(value))
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function extractCartelDetails(publicText = "", labels = []) {
+  const segments = String(publicText)
+    .split(" · ")
+    .map(cleanName)
+    .filter(Boolean);
+  const cartelText = segments.find(segment =>
+    /\b(?:toros?|novillos?|reses)\s+de\s+.+?\s+para\s+/i.test(segment)
+  ) || "";
+  const match = cartelText.match(
+    /\b(?:toros?|novillos?|reses)\s+de\s+(.+?)\s+para\s+(.+?)(?:\.|$)/i
+  );
+
+  if (!match) {
+    return { breeding: "", participants: [], location: "" };
+  }
+
+  const breeding = cleanName(match[1]);
+  const participants = cleanName(match[2])
+    .replace(/\s+(?:y|e)\s+/gi, ",")
+    .split(",")
+    .map(cleanName)
+    .filter(Boolean);
+  const breedingKey = normalizeKey(breeding);
+  const participantKeys = participants.map(normalizeKey);
+  const junk = /^(?:register|video|festejos?|novillada|corrida(?: de toros)?|rejones?|recortes?|tematica|proximos|etiqueta|pegi|16)$/;
+
+  const location = labels
+    .map(cleanName)
+    .find(label => {
+      const key = normalizeKey(label);
+      if (!key || junk.test(key)) return false;
+      if (key.includes(breedingKey) || breedingKey.includes(key)) return false;
+      return !participantKeys.some(participantKey =>
+        key.includes(participantKey) || participantKey.includes(key)
+      );
+    }) || "";
+
+  return { breeding, participants, location };
+}
+
 function extractItems(data) {
   const possibleArrays = [
     data.contents,
@@ -126,6 +175,7 @@ async function main() {
 
       const publicText = [...new Set(collectPublicText(item).filter(Boolean))]
         .join(" · ");
+      const cartel = extractCartelDetails(publicText, labels);
       const date = parseDateFromName(name) || parseDateFromText(publicText);
       const time = extractExplicitStartTime(publicText);
       const isProgram = /conexi[oó]n\s+dax/i.test(`${name} ${publicText}`);
@@ -148,7 +198,9 @@ async function main() {
         channel: "OneToro",
         type: isProgram ? "Programa taurino" : inferredType,
         contentType: isProgram ? "programa" : "festejo",
-        participants: labels,
+        breeding: cartel.breeding,
+        participants: cartel.participants.length ? cartel.participants : labels,
+        location: cartel.location,
         slug: item.slug || null,
 
         image:
