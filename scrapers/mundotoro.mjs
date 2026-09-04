@@ -204,6 +204,10 @@ function cleanLocation(value = "") {
         /\s*\b(?:a las\s*)?(?:[01]?\d|2[0-3])[:.]\d{2}\s*(?:h(?:oras?)?)?\b/gi,
         " "
       )
+      .replace(
+        /\s*\(\s*(?:(?:plaza|coso)\s+(?:de\s+toros\s+)?)?port[aá]til\s*\)\s*/gi,
+        " "
+      )
       .replace(/\s*[-–—]\s*$/, "")
   );
 }

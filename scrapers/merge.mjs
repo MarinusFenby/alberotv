@@ -135,6 +135,22 @@ function cleanName(name = "") {
     .trim();
 }
 
+/*
+ * La fuente puede describir el recinto dentro del nombre de la localidad
+ * (por ejemplo, «Calasparra (Portátil) (Murcia)»). Ese dato sirve para la
+ * organización, pero no forma parte del nombre público de la plaza/localidad
+ * y no debe llegar a la cabecera de la app.
+ */
+function cleanLocation(value = "") {
+  return cleanName(value)
+    .replace(
+      /\s*\(\s*(?:(?:plaza|coso)\s+(?:de\s+toros\s+)?)?port[aá]til\s*\)\s*/gi,
+      " "
+    )
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function cleanBreeding(value = "") {
   let cleaned = String(value || "")
     .replace(/&nbsp;|&#160;/gi, " ")
@@ -863,7 +879,7 @@ function normalizeGenericEvent(event, sourceName, fetchedAt = null) {
     televisionUnconfirmed:
       event.televised !== true &&
       event.televisionUnconfirmed === true,
-    location: cleanName(event.location || event.name || "Televisión"),
+    location: cleanLocation(event.location || event.name || "Televisión"),
     type:
       contentType === "programa"
         ? "Programa taurino"
@@ -877,7 +893,7 @@ function normalizeGenericEvent(event, sourceName, fetchedAt = null) {
       contentType === "programa"
         ? []
         : cleanParticipants(event.participants),
-    name: cleanName(
+    name: cleanLocation(
       event.name ||
       event.title ||
       event.location ||
@@ -916,11 +932,17 @@ function normalizeOneToroEvent(event, fetchedAt = null) {
     return normalizeProgramEvent(event, "OneToro", fetchedAt);
   }
 
+  const location = cleanLocation(event.location || event.name);
+
   return normalizeGenericEvent(
     {
       ...event,
       channel: "OneToro",
-      location: cleanName(event.location || event.name),
+      // OneToro usa a veces el nombre del ciclo («Alfarero de Oro») como
+      // título. Cuando sus etiquetas sí aportan la plaza, la localidad debe
+      // mandar tanto en `location` como en el nombre visible de la ficha.
+      location,
+      name: event.location ? location : cleanLocation(event.name),
       contentType: "festejo"
     },
     "OneToro",
@@ -1495,7 +1517,7 @@ function normalizeStoredEvent(event = {}) {
     televisionUnconfirmed:
       event.televised !== true &&
       event.televisionUnconfirmed === true,
-    location: cleanName(
+    location: cleanLocation(
       event.location ||
       event.name ||
       (
@@ -1517,7 +1539,7 @@ function normalizeStoredEvent(event = {}) {
       contentType === "programa"
         ? []
         : cleanParticipants(event.participants),
-    name: cleanName(
+    name: cleanLocation(
       event.name ||
       event.title ||
       event.location ||
