@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-09-03T22:49:14.410Z",
+  "generatedAt": "2026-09-04T00:46:46.328Z",
   "degraded": false,
-  "eventCount": 512,
+  "eventCount": 523,
   "bullfightingEventCount": 495,
-  "programCount": 17,
+  "programCount": 28,
   "mergeStats": {
-    "historicalCandidates": 558,
+    "historicalCandidates": 562,
     "historicalPreserved": 281,
-    "historicalDuplicatesMerged": 277,
-    "added": 250,
-    "merged": 53,
+    "historicalDuplicatesMerged": 281,
+    "added": 261,
+    "merged": 54,
     "skippedUncorroborated": 22,
     "reschedulesApplied": 0
   },
   "sources": {
     "elMuletazo": 34,
     "oneToro": 7,
-    "programasTaurinos": 0,
+    "programasTaurinos": 12,
     "canalSur": 1,
     "cmm": 10,
     "canalExtremadura": 2,
@@ -30,28 +30,28 @@
       "label": "El Muletazo",
       "status": "ok",
       "eventCount": 34,
-      "fetchedAt": "2026-09-03T22:48:34.218Z",
+      "fetchedAt": "2026-09-04T00:45:58.216Z",
       "error": null
     },
     "oneToro": {
       "label": "OneToro",
       "status": "ok",
       "eventCount": 7,
-      "fetchedAt": "2026-09-03T22:48:33.434Z",
+      "fetchedAt": "2026-09-04T00:45:57.537Z",
       "error": null
     },
     "programasTaurinos": {
       "label": "Programas taurinos",
       "status": "ok",
-      "eventCount": 0,
-      "fetchedAt": "2026-09-03T22:49:12.782Z",
+      "eventCount": 12,
+      "fetchedAt": "2026-09-04T00:46:44.786Z",
       "error": null
     },
     "canalSur": {
       "label": "Canal Sur",
       "status": "ok",
       "eventCount": 1,
-      "fetchedAt": "2026-09-03T22:48:48.093Z",
+      "fetchedAt": "2026-09-04T00:46:17.101Z",
       "error": null
     },
     "cmm": {
@@ -65,21 +65,21 @@
       "label": "Canal Extremadura",
       "status": "ok",
       "eventCount": 2,
-      "fetchedAt": "2026-09-03T22:48:52.749Z",
+      "fetchedAt": "2026-09-04T00:46:23.531Z",
       "error": null
     },
     "mundoToro": {
       "label": "Mundotoro",
       "status": "ok",
       "eventCount": 229,
-      "fetchedAt": "2026-09-03T22:48:57.429Z",
+      "fetchedAt": "2026-09-04T00:46:28.596Z",
       "error": null
     },
     "lasVentas": {
       "label": "Las Ventas oficial",
       "status": "ok",
       "eventCount": 1,
-      "fetchedAt": "2026-09-03T22:49:10.162Z",
+      "fetchedAt": "2026-09-04T00:46:41.915Z",
       "error": null
     },
     "vaDeToros": {
@@ -11485,13 +11485,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-04092026",
-          "fetchedAt": "2026-09-03T22:48:33.434Z"
+          "fetchedAt": "2026-09-04T00:45:57.537Z"
         },
         {
           "name": "CMM",
@@ -11503,7 +11503,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -11542,7 +11542,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -11581,7 +11581,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -11620,7 +11620,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -11659,7 +11659,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -11697,7 +11697,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -11736,7 +11736,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -11774,7 +11774,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -11813,7 +11813,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -11888,13 +11888,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -11934,13 +11934,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -11986,13 +11986,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-05092026",
-          "fetchedAt": "2026-09-03T22:48:33.434Z"
+          "fetchedAt": "2026-09-04T00:45:57.537Z"
         },
         {
           "name": "CMM",
@@ -12004,7 +12004,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12049,13 +12049,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/plaza-toros-lucena-acoge-gran_1_1432985.html",
-          "fetchedAt": "2026-09-03T22:48:48.093Z"
+          "fetchedAt": "2026-09-04T00:46:17.101Z"
         }
       ],
       "fieldSources": {
@@ -12094,7 +12094,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12133,7 +12133,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12177,7 +12177,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12216,7 +12216,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12255,7 +12255,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12294,7 +12294,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12333,7 +12333,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12378,7 +12378,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12417,7 +12417,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12456,7 +12456,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12484,21 +12484,32 @@
       "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2031%20de%20agosto%20al%206%20de%20septiembre%20de%202026.pdf",
       "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2031%20de%20agosto%20al%206%20de%20septiembre%20de%202026.pdf",
       "sources": [
-        "Canal Extremadura"
+        "Canal Extremadura",
+        "Canal Sur"
       ],
       "sourceDetails": [
         {
           "name": "Canal Extremadura",
           "confidence": 98,
           "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2031%20de%20agosto%20al%206%20de%20septiembre%20de%202026.pdf",
-          "fetchedAt": "2026-09-03T22:48:52.749Z"
+          "fetchedAt": "2026-09-04T00:46:23.531Z"
+        },
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-04T00:46:44.786Z"
         }
       ],
       "fieldSources": {
         "type": "Canal Extremadura"
       },
       "confidence": 100,
-      "status": "confirmed"
+      "status": "confirmed",
+      "channels": [
+        "Canal Extremadura",
+        "Canal Sur"
+      ]
     },
     {
       "id": "lasventas-b9edde3a22cdc0",
@@ -12535,13 +12546,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         },
         {
           "name": "Las Ventas oficial",
           "confidence": 100,
           "sourceUrl": "https://www.las-ventas.com/actualidad",
-          "fetchedAt": "2026-09-03T22:49:10.162Z"
+          "fetchedAt": "2026-09-04T00:46:41.915Z"
         }
       ],
       "fieldSources": {
@@ -12580,7 +12591,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         }
       ],
       "fieldSources": {
@@ -12626,13 +12637,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-06092026",
-          "fetchedAt": "2026-09-03T22:48:33.434Z"
+          "fetchedAt": "2026-09-04T00:45:57.537Z"
         },
         {
           "name": "CMM",
@@ -12644,7 +12655,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12681,7 +12692,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12720,7 +12731,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12758,7 +12769,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12797,7 +12808,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12836,7 +12847,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12875,7 +12886,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12914,7 +12925,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12953,7 +12964,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -12992,7 +13003,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13031,7 +13042,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13069,7 +13080,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13108,7 +13119,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13147,7 +13158,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13185,7 +13196,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13224,7 +13235,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13263,7 +13274,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13302,7 +13313,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13341,7 +13352,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13380,7 +13391,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13422,7 +13433,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13468,13 +13479,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-07092026",
-          "fetchedAt": "2026-09-03T22:48:33.434Z"
+          "fetchedAt": "2026-09-04T00:45:57.537Z"
         },
         {
           "name": "CMM",
@@ -13486,7 +13497,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13525,7 +13536,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13564,7 +13575,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13602,7 +13613,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13640,7 +13651,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13679,7 +13690,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13717,7 +13728,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13757,13 +13768,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13803,13 +13814,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13848,7 +13859,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13887,7 +13898,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13926,7 +13937,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -13965,7 +13976,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14004,7 +14015,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14042,7 +14053,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14081,7 +14092,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14120,7 +14131,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14159,7 +14170,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14198,7 +14209,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14243,19 +14254,19 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-09092026",
-          "fetchedAt": "2026-09-03T22:48:33.434Z"
+          "fetchedAt": "2026-09-04T00:45:57.537Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14294,7 +14305,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14333,7 +14344,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14371,7 +14382,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14410,7 +14421,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14449,7 +14460,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14486,7 +14497,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14525,7 +14536,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14564,7 +14575,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14602,7 +14613,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14641,7 +14652,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14679,7 +14690,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14724,19 +14735,19 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/alfarero-de-oro-10092026",
-          "fetchedAt": "2026-09-03T22:48:33.434Z"
+          "fetchedAt": "2026-09-04T00:45:57.537Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14774,7 +14785,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14813,7 +14824,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14852,7 +14863,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14891,7 +14902,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14929,7 +14940,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -14968,7 +14979,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15007,7 +15018,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15042,7 +15053,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         }
       ],
       "fieldSources": {
@@ -15081,7 +15092,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15120,7 +15131,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15159,7 +15170,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15197,7 +15208,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15236,7 +15247,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15275,7 +15286,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15314,7 +15325,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15353,7 +15364,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15392,7 +15403,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15431,7 +15442,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15471,13 +15482,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15516,7 +15527,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15555,7 +15566,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15593,7 +15604,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15632,7 +15643,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15671,7 +15682,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15710,7 +15721,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15749,7 +15760,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15788,7 +15799,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15827,7 +15838,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15866,7 +15877,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15905,7 +15916,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15946,7 +15957,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -15985,7 +15996,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16024,7 +16035,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16063,7 +16074,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16102,7 +16113,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16140,7 +16151,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16179,7 +16190,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16218,7 +16229,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16256,7 +16267,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16295,7 +16306,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16333,7 +16344,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16372,7 +16383,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16411,7 +16422,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16450,7 +16461,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16458,6 +16469,41 @@
       },
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "toros-para-todos-2026-09-13-1330",
+      "date": "2026-09-13",
+      "time": "13:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-04T00:46:44.786Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "alberotv-2026-09-13-7565d9ed3c146eaf",
@@ -16492,7 +16538,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         }
       ],
       "fieldSources": {
@@ -16529,7 +16575,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         }
       ],
       "fieldSources": {
@@ -16568,7 +16614,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16607,7 +16653,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16645,7 +16691,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16684,7 +16730,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16722,7 +16768,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16761,7 +16807,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16800,7 +16846,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16838,7 +16884,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16877,7 +16923,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16916,7 +16962,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16955,7 +17001,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -16994,7 +17040,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17033,7 +17079,7 @@
           "name": "OneToro",
           "confidence": 96,
           "sourceUrl": "https://festejos.onetoro.tv/content/vila-vicosa-13092026",
-          "fetchedAt": "2026-09-03T22:48:33.434Z"
+          "fetchedAt": "2026-09-04T00:45:57.537Z"
         }
       ],
       "fieldSources": {
@@ -17072,7 +17118,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17111,7 +17157,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17150,7 +17196,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17189,7 +17235,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17227,7 +17273,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17266,7 +17312,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17305,7 +17351,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17344,7 +17390,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17382,7 +17428,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17421,7 +17467,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17460,7 +17506,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17499,7 +17545,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17538,7 +17584,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17577,7 +17623,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17616,7 +17662,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17655,7 +17701,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17693,7 +17739,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17732,7 +17778,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17771,7 +17817,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17810,7 +17856,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17849,7 +17895,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17888,7 +17934,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17927,7 +17973,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -17966,7 +18012,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18005,7 +18051,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18044,7 +18090,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18082,7 +18128,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18121,7 +18167,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18160,7 +18206,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         }
       ],
       "fieldSources": {
@@ -18200,13 +18246,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18250,7 +18296,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         }
       ],
       "fieldSources": {
@@ -18289,7 +18335,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         }
       ],
       "fieldSources": {
@@ -18330,7 +18376,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18369,7 +18415,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18408,7 +18454,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18447,7 +18493,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18486,7 +18532,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18525,7 +18571,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18564,7 +18610,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18606,7 +18652,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18645,7 +18691,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18684,7 +18730,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18723,7 +18769,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18762,7 +18808,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18801,7 +18847,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18809,6 +18855,41 @@
       },
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "toros-para-todos-2026-09-20-1330",
+      "date": "2026-09-20",
+      "time": "13:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-04T00:46:44.786Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "mundotoro-4fecca1ac2e108",
@@ -18841,13 +18922,13 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18887,7 +18968,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         },
         {
           "name": "Servitoro",
@@ -18931,7 +19012,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -18969,7 +19050,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19008,7 +19089,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19047,7 +19128,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19086,7 +19167,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19125,7 +19206,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19165,7 +19246,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19204,7 +19285,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19243,7 +19324,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19281,7 +19362,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19320,7 +19401,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19359,7 +19440,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19396,7 +19477,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19435,7 +19516,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19474,7 +19555,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19513,7 +19594,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19551,7 +19632,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19593,7 +19674,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19631,7 +19712,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19669,7 +19750,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19708,7 +19789,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19743,7 +19824,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         }
       ],
       "fieldSources": {
@@ -19781,7 +19862,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19820,7 +19901,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19859,7 +19940,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19897,7 +19978,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -19905,6 +19986,41 @@
       },
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "toros-para-todos-2026-09-27-1330",
+      "date": "2026-09-27",
+      "time": "13:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-04T00:46:44.786Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "alberotv-2026-09-27-0f16b97aa46ff6b3",
@@ -19934,7 +20050,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         }
       ],
       "fieldSources": {
@@ -19972,7 +20088,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20011,7 +20127,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20050,7 +20166,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20089,7 +20205,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20128,7 +20244,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20167,7 +20283,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20206,7 +20322,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20245,7 +20361,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20284,7 +20400,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20323,7 +20439,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20362,7 +20478,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20401,7 +20517,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20440,7 +20556,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20479,7 +20595,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20518,7 +20634,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20557,7 +20673,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20596,7 +20712,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-03T22:48:57.429Z"
+          "fetchedAt": "2026-09-04T00:46:28.596Z"
         }
       ],
       "fieldSources": {
@@ -20604,6 +20720,41 @@
       },
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "toros-para-todos-2026-10-04-1330",
+      "date": "2026-10-04",
+      "time": "13:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-04T00:46:44.786Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "alberotv-2026-10-04-460aeebdb645d62a",
@@ -20633,13 +20784,258 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-03T22:48:34.218Z"
+          "fetchedAt": "2026-09-04T00:45:58.216Z"
         }
       ],
       "fieldSources": {
         "type": "El Muletazo"
       },
       "confidence": 94,
+      "status": "confirmed"
+    },
+    {
+      "id": "toros-para-todos-2026-10-11-1330",
+      "date": "2026-10-11",
+      "time": "13:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-04T00:46:44.786Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "toros-para-todos-2026-10-18-1330",
+      "date": "2026-10-18",
+      "time": "13:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-04T00:46:44.786Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "toros-para-todos-2026-10-25-1330",
+      "date": "2026-10-25",
+      "time": "13:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-04T00:46:44.786Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "toros-para-todos-2026-11-01-1330",
+      "date": "2026-11-01",
+      "time": "13:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-04T00:46:44.786Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "toros-para-todos-2026-11-08-1330",
+      "date": "2026-11-08",
+      "time": "13:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-04T00:46:44.786Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "toros-para-todos-2026-11-15-1330",
+      "date": "2026-11-15",
+      "time": "13:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-04T00:46:44.786Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "toros-para-todos-2026-11-22-1330",
+      "date": "2026-11-22",
+      "time": "13:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-04T00:46:44.786Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
       "status": "confirmed"
     }
   ]
