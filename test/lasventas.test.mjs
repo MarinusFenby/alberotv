@@ -1,6 +1,18 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { extractEventsFromBlocks } from "../scrapers/lasventas.mjs";
+import { extractEventsFromBlocks, readIsolatedContentBlocks } from "../scrapers/lasventas.mjs";
+
+function fakePage(contents = {}) {
+  const requested = [];
+  return {
+    requested,
+    locator(selector) {
+      requested.push(selector);
+      const values = contents[selector] || [];
+      return { count: async () => values.length, allTextContents: async () => values };
+    }
+  };
+}
 
 test("Las Ventas no cruza el cartel con noticias ni paginación", () => {
   const blocks = [
@@ -20,4 +32,25 @@ test("el artículo estructurado recupera a Francisco José Espada sin cambiar de
   assert.equal(event.time, "21:00");
   assert.deepEqual(event.participants, ["Francisco José Espada", "Joaquín Galdós", "Christian Parejo"]);
   assert.equal(event.breeding, "Pedraza de Yeltes");
+});
+
+test("la plantilla real sin main usa #content .new-detail y excluye el resto de la página", async () => {
+  const article = "Francisco José Espada, Joaquín Galdós y Christian Parejo son los tres nombres protagonistas de la cita de este jueves, 27 de agosto, a las 21h., para lidiar toros de Pedraza de Yeltes.";
+  const page = fakePage({ "#content .new-detail": [article] });
+  assert.deepEqual(await readIsolatedContentBlocks(page), [article]);
+  assert.equal(page.requested.includes("body"), false);
+  assert.equal(page.requested.includes("main"), false);
+});
+
+test("una plantilla con main procesa únicamente su article", async () => {
+  const article = "Domingo 6 de septiembre a las 18:00 h. Toros de Pedraza de Yeltes para Tres Presentaciones.";
+  const page = fakePage({ "main article": [article] });
+  assert.deepEqual(await readIsolatedContentBlocks(page), [article]);
+  assert.equal(page.requested.includes("body"), false);
+});
+
+test("una página individual sin contenedor reconocible se descarta inmediatamente", async () => {
+  const page = fakePage({ body: ["cabecera navegación noticia paginación footer"] });
+  assert.deepEqual(await readIsolatedContentBlocks(page), []);
+  assert.equal(page.requested.includes("body"), false);
 });

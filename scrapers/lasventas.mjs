@@ -3,6 +3,13 @@ import crypto from "node:crypto";
 
 const INDEX_URL = "https://www.las-ventas.com/actualidad";
 const OUTPUT_FILE = "data/lasventas.json";
+const INDEX_CONTENT_SELECTORS = ["#content article.item-news", "main article"];
+const ARTICLE_CONTENT_SELECTORS = [
+  "#content .new-detail",
+  "main article",
+  "main .new-detail",
+  "article.new-detail"
+];
 const MONTHS = {
   enero: 1, febrero: 2, marzo: 3, abril: 4,
   mayo: 5, junio: 6, julio: 7, agosto: 8,
@@ -115,6 +122,17 @@ export function extractEventsFromBlocks(blocks = [], sourceUrl) {
   });
 }
 
+export async function readIsolatedContentBlocks(page, { index = false } = {}) {
+  const selectors = index ? INDEX_CONTENT_SELECTORS : ARTICLE_CONTENT_SELECTORS;
+  for (const selector of selectors) {
+    const locator = page.locator(selector);
+    if (await locator.count() === 0) continue;
+    const blocks = (await locator.allTextContents()).map(clean).filter(value => value.length >= 20);
+    if (blocks.length) return blocks;
+  }
+  return [];
+}
+
 async function main() {
   const { chromium } = await import("playwright");
   const browser = await chromium.launch({ headless: true });
@@ -133,14 +151,12 @@ async function main() {
     for (const url of candidateUrls) {
       try {
         await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
-        const blocks = await page.locator("article, #content .new-detail, #content .views-row, #content .card, #content [class*='noticia'], #content [class*='event']")
-          .allTextContents({ timeout: 15000 });
+        const isolated = await readIsolatedContentBlocks(page, { index: url === INDEX_URL });
         // Cada bloque se procesa de forma aislada: una captura nunca puede
         // atravesar otro artículo, la navegación, la paginación o el footer.
-        const isolated = blocks.map(clean).filter(value => value.length >= 20);
-        if (!isolated.length && url !== INDEX_URL) {
-          const mainText = await page.locator("#content").innerText({ timeout: 15000 });
-          isolated.push(clean(mainText));
+        if (!isolated.length) {
+          console.warn(`Las Ventas: contenido estructurado no reconocible, descartado: ${url}`);
+          continue;
         }
         found.push(...extractEventsFromBlocks(isolated, url));
       } catch (error) {
