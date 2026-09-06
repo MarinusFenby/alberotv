@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-06T21:33:39.921Z",
-  "throughDate": "2026-09-06",
-  "eventCount": 305,
+  "generatedAt": "2026-09-06T23:29:17.164Z",
+  "throughDate": "2026-09-07",
+  "eventCount": 329,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -12237,7 +12237,7 @@
       "status": "probable"
     },
     {
-      "id": "cmm-2026-09-05-1245-4",
+      "id": "cmm-2026-09-05-1245-3",
       "date": "2026-09-05",
       "time": null,
       "channel": "CMM",
@@ -12341,6 +12341,972 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-09-05T21:29:57.670Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "lasventas-cfc3cff2733cfe",
+      "date": "2026-09-06",
+      "time": "18:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": true,
+      "location": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Jiménez Pasquau, Ángel Luis Peña, La Machamona, Chamaco, Guadajira y José González",
+      "participants": [
+        "Adrián Centenera",
+        "Tomás González",
+        "Andrés García"
+      ],
+      "name": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sources": [
+        "Mundotoro",
+        "Las Ventas oficial"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-09-06T21:33:36.199Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Las Ventas oficial"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "alberotv-2026-09-06-e3685ef97da5e268",
+      "date": "2026-09-06",
+      "time": "18:30",
+      "channel": "À Punt",
+      "deferred": true,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Ondara (Alicante)",
+      "type": "Novillada con picadores",
+      "contentType": "festejo",
+      "breeding": "Castillejo de Huebra",
+      "participants": [
+        "Simón Andreu",
+        "Marco Polope",
+        "Samuel Castrejón"
+      ],
+      "name": "Ondara (Alicante)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-09-06T21:32:54.490Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 94,
+      "status": "confirmed"
+    },
+    {
+      "id": "cmm-2026-09-06-1830-6",
+      "date": "2026-09-06",
+      "time": "18:30",
+      "channel": "CMM",
+      "channels": [
+        "CMM",
+        "OneToro"
+      ],
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Villaseca de la Sagra (Toledo)",
+      "type": "Novillada con picadores",
+      "contentType": "festejo",
+      "breeding": "Montealto",
+      "participants": [
+        "Gonzalo Capdevila",
+        "Cristian González",
+        "Emilio García-Torres"
+      ],
+      "name": "Villaseca de la Sagra (Toledo)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "CMM",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-09-06T21:32:54.490Z"
+        },
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-250bfdf7615f5b",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Almadén (Ciudad Real) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Artalejo Sacristán",
+      "participants": [
+        "José El Candela"
+      ],
+      "name": "Almadén (Ciudad Real) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-62e5e7a7c16006",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Ampuero (Cantabria) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "por designar",
+      "participants": [
+        "Antonio Ferrera",
+        "Ferrer Martín",
+        "Sánchez Vara"
+      ],
+      "name": "Ampuero (Cantabria) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-d0fdeb9d1f465b",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Andorra (Teruel) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "El Retamar, José Vázquez Fernández, Los Maños y Victoriano del Río Cortés",
+      "participants": [
+        "Jorge Isiegas",
+        "José Fernando Molina"
+      ],
+      "name": "Andorra (Teruel) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-d79e32a291043f",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Andújar (Jaén) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Fermín Bohórquez",
+      "participants": [
+        "El Fandi",
+        "Jesús Enrique Colombo",
+        "Manuel Escribano"
+      ],
+      "name": "Andújar (Jaén) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-5ce76f4c3b7e02",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Aranjuez (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Núñez del Cuvillo",
+      "participants": [
+        "Juan Ortega",
+        "Morante de la Puebla",
+        "Pablo Aguado"
+      ],
+      "name": "Aranjuez (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-164f15dfd0a52f",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Bayona (Pyrénées-Atlantiques) Francia",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Vellosino",
+      "participants": [
+        "Daniel Luque",
+        "Morenito de Aranda",
+        "Rafael Serna"
+      ],
+      "name": "Bayona (Pyrénées-Atlantiques) Francia",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-7914e424c6e0ea",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Cabra (Córdoba) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Carlos Núñez",
+      "participants": [
+        "Andy Cartagena",
+        "Borja Jiménez",
+        "Javier Jiménez"
+      ],
+      "name": "Cabra (Córdoba) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-a24ce43ee4c1be",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Calasparra (Murcia) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Partido de Resina y Tomás Prieto de la Cal",
+      "participants": [
+        "João D Alva",
+        "Joaquín Caro",
+        "Mariscal Ruiz"
+      ],
+      "name": "Calasparra (Murcia) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-938eea2501fe5a",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Calatayud (Zaragoza) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Manuel y Antonio Tornay Maldonado y Zacarías Moreno",
+      "participants": [
+        "Aarón Palacio",
+        "Diego Urdiales",
+        "Emilio de Justo"
+      ],
+      "name": "Calatayud (Zaragoza) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-8f7d13f539447f",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Carbonero el Mayor (Segovia) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Aldeanueva",
+      "participants": [
+        "Jorge Oliva",
+        "López Ortega",
+        "Mario Arruza"
+      ],
+      "name": "Carbonero el Mayor (Segovia) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-11a1b2e2117853",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "El Barco de Ávila (Ávila) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Eladio Vegas",
+      "participants": [
+        "Iván Magro",
+        "Sergio Vegas"
+      ],
+      "name": "El Barco de Ávila (Ávila) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "canal-extremadura-d9b9233029b8c7",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2031%20de%20agosto%20al%206%20de%20septiembre%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2031%20de%20agosto%20al%206%20de%20septiembre%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura",
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2031%20de%20agosto%20al%206%20de%20septiembre%20de%202026.pdf",
+          "fetchedAt": "2026-09-06T21:33:17.330Z"
+        },
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-06T21:33:38.911Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
+      "status": "confirmed",
+      "channels": [
+        "Canal Extremadura",
+        "Canal Sur"
+      ]
+    },
+    {
+      "id": "mundotoro-c093fca3fb0256",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Miguelturra (Ciudad Real) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Eugenio Frías Piqueras",
+      "participants": [
+        "Ana Rita",
+        "Sebastián Fernández",
+        "Sergio Galán"
+      ],
+      "name": "Miguelturra (Ciudad Real) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-e02ec6c463c79e",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Motilla del Palancar (Cuenca) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Los Recitales",
+      "participants": [
+        "David Galván",
+        "Esaú Fernández",
+        "Oliva Soto"
+      ],
+      "name": "Motilla del Palancar (Cuenca) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-7b0e53dcc0f045",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Navacerrada (Madrid) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Barcial",
+      "participants": [
+        "Ángel Gómez Molina",
+        "Francisco Martín"
+      ],
+      "name": "Navacerrada (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-5b9aadff846442",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Peralta (Navarra) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Hermanas Azcona",
+      "participants": [
+        "Cristian González",
+        "El Mene",
+        "Nabil -El Moro-"
+      ],
+      "name": "Peralta (Navarra) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-52ac91dc86a8a4",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Seissan Francia",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Camino de Santiago",
+      "participants": [
+        "Jesús Romero",
+        "Clovis",
+        "Mario Vilau"
+      ],
+      "name": "Seissan Francia",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-594ed26f634c40",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Sotillo de la Adrada (Ávila) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Adolfo Martín Andrés",
+      "participants": [
+        "Alejandro Chicharro",
+        "Antonio Puerta",
+        "Joaquín Galdós"
+      ],
+      "name": "Sotillo de la Adrada (Ávila) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-490d1c676c9c9b",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Trillo (Guadalajara) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Guerrero y Carpintero, Hnos. Torres Gallego y Los Eulogios",
+      "participants": [
+        "Félix San Román",
+        "Joel Ramírez",
+        "Sergio Domínguez"
+      ],
+      "name": "Trillo (Guadalajara) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-387303676124ce",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Villamayor de Santiago (Cuenca) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Hdros. de José Luis Osborne Vázquez",
+      "participants": [
+        "Antolín Jiménez",
+        "Juan Alberto Torrijos",
+        "Julio Romero"
+      ],
+      "name": "Villamayor de Santiago (Cuenca) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-0e432e81284529",
+      "date": "2026-09-06",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Villanueva del Arzobispo (Jaén) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "María Guiomar Cortés Moura y María Loreto Charro Santos",
+      "participants": [
+        "David de Miranda",
+        "Diego Ventura",
+        "Roca Rey",
+        "Marco Pérez",
+        "Miguel Ángel Perera",
+        "Sebastián Castella"
+      ],
+      "name": "Villanueva del Arzobispo (Jaén) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-06T21:33:21.937Z"
         }
       ],
       "fieldSources": {
