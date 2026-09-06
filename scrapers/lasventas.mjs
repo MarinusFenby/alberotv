@@ -2,6 +2,10 @@ import fs from "node:fs/promises";
 import crypto from "node:crypto";
 
 const INDEX_URL = "https://www.las-ventas.com/actualidad";
+const OFFICIAL_PROGRAM_URLS = [
+  "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+  "https://www.las-ventas.com/actualidad/novillada-dos-corridas-de-toros-y-una-corrida-concurso-en-el-mes-de-septiembre"
+];
 const OUTPUT_FILE = "data/lasventas.json";
 const INDEX_CONTENT_SELECTORS = ["#content article.item-news", "main article"];
 const ARTICLE_CONTENT_SELECTORS = [
@@ -38,7 +42,7 @@ function splitNames(value = "") {
   return [...new Set(clean(value)
     .replace(/[.]$/, "")
     .split(/\s*(?:,|;|·|\by\b)\s*/i)
-    .map(clean)
+    .map(name => clean(name).replace(/\s*\([^)]*\)\s*$/, ""))
     .filter(name => name.length > 2 && name.length <= 100 && !pageChrome.test(name)))];
 }
 
@@ -145,7 +149,7 @@ async function main() {
     const links = await page.locator('a[href*="/actualidad/"]').evaluateAll(nodes =>
       [...new Set(nodes.map(node => node.href))].slice(0, 40)
     );
-    const candidateUrls = [...new Set([INDEX_URL, ...links])];
+    const candidateUrls = [...new Set([INDEX_URL, ...OFFICIAL_PROGRAM_URLS, ...links])];
     const found = [];
 
     for (const url of candidateUrls) {

@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import { extractEventsFromBlocks, readIsolatedContentBlocks } from "../scrapers/lasventas.mjs";
 
 function fakePage(contents = {}) {
@@ -53,4 +54,16 @@ test("una página individual sin contenedor reconocible se descarta inmediatamen
   const page = fakePage({ body: ["cabecera navegación noticia paginación footer"] });
   assert.deepEqual(await readIsolatedContentBlocks(page), []);
   assert.equal(page.requested.includes("body"), false);
+});
+
+test("la página oficial de programación produce los cuatro festejos de septiembre", () => {
+  const fixture = fs.readFileSync(new URL("./fixtures/lasventas-programacion-septiembre-2026.txt", import.meta.url), "utf8");
+  const events = extractEventsFromBlocks([fixture], "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas");
+  assert.equal(events.length, 4, "una página oficial con programación válida nunca puede producir cero eventos");
+  assert.deepEqual(events.map(({ date, time, type, breeding, participants }) => ({ date, time, type, breeding, participants })), [
+    { date: "2026-09-06", time: "18:00", type: "Novillada", breeding: "Jiménez Pasquau, Ángel Luis Peña, La Machamona, Chamaco, Guadajira y José González", participants: ["Adrián Centenera", "Tomás González", "Andrés García"] },
+    { date: "2026-09-13", time: "18:00", type: "Corrida de toros", breeding: "Valdellán y Juan Luis Fraile", participants: ["Pérez Mota", "Alberto Lamelas", "José Carlos Venegas"] },
+    { date: "2026-09-20", time: "18:00", type: "Corrida de toros", breeding: "Veiga Teixeira y Partido de Resina", participants: ["Fermín Rivera", "Damián Castaño", "Gómez del Pilar"] },
+    { date: "2026-09-27", time: "18:00", type: "Corrida de toros", breeding: "Saltillo, Palha, Castillejo de Huebra, Conde de la Corte, Pallarés y Valldellán", participants: ["Isaac Fonseca", "Cristian Pérez", "Alejandro Chicharro"] }
+  ]);
 });
