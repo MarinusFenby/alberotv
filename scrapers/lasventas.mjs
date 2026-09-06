@@ -91,7 +91,28 @@ export function extractEvents(text, sourceUrl) {
 }
 
 export function extractEventsFromBlocks(blocks = [], sourceUrl) {
-  return blocks.flatMap(block => extractEvents(block, sourceUrl));
+  return blocks.flatMap(block => {
+    const standard = extractEvents(block, sourceUrl);
+    if (standard.length) return standard;
+    const value = clean(block);
+    const year = Number(value.match(/\b(20\d{2})\b/)?.[1] || new Date().getFullYear());
+    const identity = value.match(/^(.{5,180}?)\s+son\s+los\s+(?:tres|\d+)\s+nombres?\s+protagonistas?/i);
+    const date = value.match(/\bcita\s+de\s+(?:este\s+\w+,?\s*)?(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\b/i) ||
+      value.match(/\b(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\b/i);
+    const time = value.match(/\ba\s+las\s+(\d{1,2})(?:[:.]?(\d{2}))?\s*h/i);
+    const breeding = value.match(/\b(?:lidiar|lidiar[aá]n)\s+toros\s+de\s+([^.;]+?)(?:\.|,|$)/i);
+    if (!identity || !date || !time || !breeding) return [];
+    const participants = splitNames(identity[1].replace(/^.*?\b20\d{2}\s+/, ""));
+    if (participants.length < 1 || participants.length > 6) return [];
+    const iso = isoDate(Number(date[1]), MONTHS[normalized(date[2])], year);
+    const clock = `${String(time[1]).padStart(2, "0")}:${time[2] || "00"}`;
+    return [{ id: `lasventas-${idFor(`${iso}|${clock}|${participants.join("|")}`)}`,
+      date: iso, time: clock, channel: "Sin TV", televised: false,
+      televisionUnconfirmed: true, location: "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      name: "Madrid (Plaza de Toros Monumental de Las Ventas)", title: null,
+      type: "Corrida de toros", contentType: "festejo", breeding: clean(breeding[1]),
+      participants, eventUrl: sourceUrl, sourceUrl }];
+  });
 }
 
 async function main() {
