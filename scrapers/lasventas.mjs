@@ -133,13 +133,13 @@ async function main() {
     for (const url of candidateUrls) {
       try {
         await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
-        const blocks = await page.locator("article, main .views-row, main .card, main [class*='noticia'], main [class*='event']")
+        const blocks = await page.locator("article, #content .new-detail, #content .views-row, #content .card, #content [class*='noticia'], #content [class*='event']")
           .allTextContents({ timeout: 15000 });
         // Cada bloque se procesa de forma aislada: una captura nunca puede
         // atravesar otro artículo, la navegación, la paginación o el footer.
         const isolated = blocks.map(clean).filter(value => value.length >= 20);
         if (!isolated.length && url !== INDEX_URL) {
-          const mainText = await page.locator("main").innerText({ timeout: 15000 });
+          const mainText = await page.locator("#content").innerText({ timeout: 15000 });
           isolated.push(clean(mainText));
         }
         found.push(...extractEventsFromBlocks(isolated, url));
