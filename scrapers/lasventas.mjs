@@ -1,9 +1,19 @@
 import fs from "node:fs/promises";
 import crypto from "node:crypto";
-import { chromium } from "playwright";
 
 const INDEX_URL = "https://www.las-ventas.com/actualidad";
+const OFFICIAL_PROGRAM_URLS = [
+  "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+  "https://www.las-ventas.com/actualidad/novillada-dos-corridas-de-toros-y-una-corrida-concurso-en-el-mes-de-septiembre"
+];
 const OUTPUT_FILE = "data/lasventas.json";
+const INDEX_CONTENT_SELECTORS = ["#content article.item-news", "main article"];
+const ARTICLE_CONTENT_SELECTORS = [
+  "#content .new-detail",
+  "main article",
+  "main .new-detail",
+  "article.new-detail"
+];
 const MONTHS = {
   enero: 1, febrero: 2, marzo: 3, abril: 4,
   mayo: 5, junio: 6, julio: 7, agosto: 8,
@@ -32,11 +42,11 @@ function splitNames(value = "") {
   return [...new Set(clean(value)
     .replace(/[.]$/, "")
     .split(/\s*(?:,|;|·|\by\b)\s*/i)
-    .map(clean)
+    .map(name => clean(name).replace(/\s*\([^)]*\)\s*$/, ""))
     .filter(name => name.length > 2 && name.length <= 100 && !pageChrome.test(name)))];
 }
 
-function parseDetails(description = "") {
+export function parseDetails(description = "") {
   const text = clean(description);
   const typeText = normalized(text);
   const type = typeText.includes("rejones")
@@ -53,7 +63,7 @@ function parseDetails(description = "") {
   };
 }
 
-function extractEvents(text, sourceUrl) {
+export function extractEvents(text, sourceUrl) {
   const body = clean(text);
   const years = [...body.matchAll(/\b(20\d{2})\b/g)].map(match => Number(match[1]));
   const year = years.find(value => value >= new Date().getFullYear()) || new Date().getFullYear();
@@ -91,7 +101,44 @@ function extractEvents(text, sourceUrl) {
   return events;
 }
 
+export function extractEventsFromBlocks(blocks = [], sourceUrl) {
+  return blocks.flatMap(block => {
+    const standard = extractEvents(block, sourceUrl);
+    if (standard.length) return standard;
+    const value = clean(block);
+    const year = Number(value.match(/\b(20\d{2})\b/)?.[1] || new Date().getFullYear());
+    const identity = value.match(/^(.{5,180}?)\s+son\s+los\s+(?:tres|\d+)\s+nombres?\s+protagonistas?/i);
+    const date = value.match(/\bcita\s+de\s+(?:este\s+\w+,?\s*)?(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\b/i) ||
+      value.match(/\b(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\b/i);
+    const time = value.match(/\ba\s+las\s+(\d{1,2})(?:[:.]?(\d{2}))?\s*h/i);
+    const breeding = value.match(/\b(?:lidiar|lidiar[aá]n)\s+toros\s+de\s+([^.;]+?)(?:\.|,|$)/i);
+    if (!identity || !date || !time || !breeding) return [];
+    const participants = splitNames(identity[1].replace(/^.*?\b20\d{2}\s+/, ""));
+    if (participants.length < 1 || participants.length > 6) return [];
+    const iso = isoDate(Number(date[1]), MONTHS[normalized(date[2])], year);
+    const clock = `${String(time[1]).padStart(2, "0")}:${time[2] || "00"}`;
+    return [{ id: `lasventas-${idFor(`${iso}|${clock}|${participants.join("|")}`)}`,
+      date: iso, time: clock, channel: "Sin TV", televised: false,
+      televisionUnconfirmed: true, location: "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      name: "Madrid (Plaza de Toros Monumental de Las Ventas)", title: null,
+      type: "Corrida de toros", contentType: "festejo", breeding: clean(breeding[1]),
+      participants, eventUrl: sourceUrl, sourceUrl }];
+  });
+}
+
+export async function readIsolatedContentBlocks(page, { index = false } = {}) {
+  const selectors = index ? INDEX_CONTENT_SELECTORS : ARTICLE_CONTENT_SELECTORS;
+  for (const selector of selectors) {
+    const locator = page.locator(selector);
+    if (await locator.count() === 0) continue;
+    const blocks = (await locator.allTextContents()).map(clean).filter(value => value.length >= 20);
+    if (blocks.length) return blocks;
+  }
+  return [];
+}
+
 async function main() {
+  const { chromium } = await import("playwright");
   const browser = await chromium.launch({ headless: true });
   try {
     const context = await browser.newContext({ locale: "es-ES", timezoneId: "Europe/Madrid" });
@@ -102,14 +149,20 @@ async function main() {
     const links = await page.locator('a[href*="/actualidad/"]').evaluateAll(nodes =>
       [...new Set(nodes.map(node => node.href))].slice(0, 40)
     );
-    const candidateUrls = [...new Set([INDEX_URL, ...links])];
+    const candidateUrls = [...new Set([INDEX_URL, ...OFFICIAL_PROGRAM_URLS, ...links])];
     const found = [];
 
     for (const url of candidateUrls) {
       try {
         await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
-        const text = await page.locator("body").innerText({ timeout: 15000 });
-        found.push(...extractEvents(text, url));
+        const isolated = await readIsolatedContentBlocks(page, { index: url === INDEX_URL });
+        // Cada bloque se procesa de forma aislada: una captura nunca puede
+        // atravesar otro artículo, la navegación, la paginación o el footer.
+        if (!isolated.length) {
+          console.warn(`Las Ventas: contenido estructurado no reconocible, descartado: ${url}`);
+          continue;
+        }
+        found.push(...extractEventsFromBlocks(isolated, url));
       } catch (error) {
         console.warn(`Las Ventas: no se pudo leer ${url}: ${error.message}`);
       }
@@ -141,7 +194,9 @@ async function main() {
   }
 }
 
-main().catch(error => {
-  console.error("Error en Las Ventas:", error);
-  process.exitCode = 1;
-});
+if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) {
+  main().catch(error => {
+    console.error("Error en Las Ventas:", error);
+    process.exitCode = 1;
+  });
+}
