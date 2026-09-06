@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-06T06:18:16.289Z",
+  "generatedAt": "2026-09-06T08:09:24.225Z",
   "throughDate": "2026-09-06",
   "eventCount": 305,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
       "date": "2026-07-25",
-      "time": "12:45",
+      "time": null,
       "channel": "CMM",
       "location": "Televisión",
       "type": "Programa taurino",
@@ -29,7 +29,7 @@
           "fetchedAt": null
         }
       ],
-      "confidence": 100,
+      "confidence": 99,
       "status": "confirmed",
       "televised": true,
       "deferred": false,
@@ -41,7 +41,7 @@
     {
       "id": "cmm-2026-07-25-1930-2",
       "date": "2026-07-25",
-      "time": "19:30",
+      "time": null,
       "channel": "CMM",
       "location": "Televisión",
       "type": "Rejones",
@@ -64,7 +64,7 @@
           "fetchedAt": null
         }
       ],
-      "confidence": 100,
+      "confidence": 99,
       "status": "confirmed",
       "televised": true,
       "deferred": false,
@@ -76,7 +76,7 @@
     {
       "id": "cmm-2026-07-26-1900-3",
       "date": "2026-07-26",
-      "time": "19:00",
+      "time": null,
       "channel": "CMM",
       "location": "Televisión",
       "type": "Rejones",
@@ -99,7 +99,7 @@
           "fetchedAt": null
         }
       ],
-      "confidence": 100,
+      "confidence": 99,
       "status": "confirmed",
       "televised": true,
       "deferred": false,
@@ -486,41 +486,6 @@
       "televisionUnconfirmed": false,
       "fieldSources": {
         "type": "Mundotoro"
-      }
-    },
-    {
-      "id": "cmm-2026-08-01-1245-4",
-      "date": "2026-08-01",
-      "time": "12:45",
-      "channel": "CMM",
-      "televised": true,
-      "location": "Televisión",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "TIEMPO DE TOROS",
-      "title": "TIEMPO DE TOROS",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sources": [
-        "CMM"
-      ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed",
-      "deferred": false,
-      "televisionUnconfirmed": false,
-      "fieldSources": {
-        "type": "CMM"
       }
     },
     {
@@ -946,6 +911,41 @@
       }
     },
     {
+      "id": "cmm-2026-08-01-1245-4",
+      "date": "2026-08-01",
+      "time": null,
+      "channel": "CMM",
+      "televised": true,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "TIEMPO DE TOROS",
+      "title": "TIEMPO DE TOROS",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 99,
+      "status": "confirmed",
+      "deferred": false,
+      "televisionUnconfirmed": false,
+      "fieldSources": {
+        "type": "CMM"
+      }
+    },
+    {
       "id": "mundotoro-ae4f730b388296",
       "date": "2026-08-01",
       "time": null,
@@ -985,41 +985,6 @@
       "televisionUnconfirmed": false,
       "fieldSources": {
         "type": "Mundotoro"
-      }
-    },
-    {
-      "id": "canal-extremadura-aea55eea1ba0aa",
-      "date": "2026-08-02",
-      "time": "03:15",
-      "channel": "Canal Extremadura",
-      "televised": true,
-      "location": "Televisión",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Extremadura Tierra de Toros",
-      "title": "Extremadura Tierra de Toros",
-      "image": null,
-      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/PARRILLA%20DE%20PROGRAMACION%2027%20JULIO%20A%202%20DE%20AGOSTO%20DE%202026%20CEX.pdf",
-      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/PARRILLA%20DE%20PROGRAMACION%2027%20JULIO%20A%202%20DE%20AGOSTO%20DE%202026%20CEX.pdf",
-      "sources": [
-        "Canal Extremadura"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Extremadura",
-          "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/PARRILLA%20DE%20PROGRAMACION%2027%20JULIO%20A%202%20DE%20AGOSTO%20DE%202026%20CEX.pdf",
-          "fetchedAt": "2026-08-01T18:16:35.798Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed",
-      "deferred": false,
-      "televisionUnconfirmed": false,
-      "fieldSources": {
-        "type": "Canal Extremadura"
       }
     },
     {
@@ -1182,6 +1147,41 @@
       "televisionUnconfirmed": false,
       "fieldSources": {
         "type": "Mundotoro"
+      }
+    },
+    {
+      "id": "canal-extremadura-aea55eea1ba0aa",
+      "date": "2026-08-02",
+      "time": null,
+      "channel": "Canal Extremadura",
+      "televised": true,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/PARRILLA%20DE%20PROGRAMACION%2027%20JULIO%20A%202%20DE%20AGOSTO%20DE%202026%20CEX.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/PARRILLA%20DE%20PROGRAMACION%2027%20JULIO%20A%202%20DE%20AGOSTO%20DE%202026%20CEX.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/PARRILLA%20DE%20PROGRAMACION%2027%20JULIO%20A%202%20DE%20AGOSTO%20DE%202026%20CEX.pdf",
+          "fetchedAt": "2026-08-01T18:16:35.798Z"
+        }
+      ],
+      "confidence": 99,
+      "status": "confirmed",
+      "deferred": false,
+      "televisionUnconfirmed": false,
+      "fieldSources": {
+        "type": "Canal Extremadura"
       }
     },
     {
@@ -1754,41 +1754,6 @@
       }
     },
     {
-      "id": "cmm-2026-08-08-1245-3",
-      "date": "2026-08-08",
-      "time": "12:45",
-      "channel": "CMM",
-      "televised": true,
-      "location": "Televisión",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "TIEMPO DE TOROS",
-      "title": "TIEMPO DE TOROS",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sources": [
-        "CMM"
-      ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed",
-      "deferred": false,
-      "televisionUnconfirmed": false,
-      "fieldSources": {
-        "type": "CMM"
-      }
-    },
-    {
       "id": "alberotv-2026-08-08-c6cebb14722157c7",
       "date": "2026-08-08",
       "time": "19:00",
@@ -2152,6 +2117,41 @@
       }
     },
     {
+      "id": "cmm-2026-08-08-1245-3",
+      "date": "2026-08-08",
+      "time": null,
+      "channel": "CMM",
+      "televised": true,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "TIEMPO DE TOROS",
+      "title": "TIEMPO DE TOROS",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 99,
+      "status": "confirmed",
+      "deferred": false,
+      "televisionUnconfirmed": false,
+      "fieldSources": {
+        "type": "CMM"
+      }
+    },
+    {
       "id": "mundotoro-ae6e69905e415b",
       "date": "2026-08-08",
       "time": null,
@@ -2225,41 +2225,6 @@
       "televisionUnconfirmed": false,
       "fieldSources": {
         "type": "Mundotoro"
-      }
-    },
-    {
-      "id": "canal-extremadura-b19fcf416dffa7",
-      "date": "2026-08-09",
-      "time": "03:15",
-      "channel": "Canal Extremadura",
-      "televised": true,
-      "location": "Televisión",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Extremadura Tierra de Toros",
-      "title": "Extremadura Tierra de Toros",
-      "image": null,
-      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Parrilla%20de%20Programaci%C3%B3n%203%20al%209%20de%20agosto%20de%202026.%20Canal%20Extremadura%20TV..pdf",
-      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Parrilla%20de%20Programaci%C3%B3n%203%20al%209%20de%20agosto%20de%202026.%20Canal%20Extremadura%20TV..pdf",
-      "sources": [
-        "Canal Extremadura"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Extremadura",
-          "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Parrilla%20de%20Programaci%C3%B3n%203%20al%209%20de%20agosto%20de%202026.%20Canal%20Extremadura%20TV..pdf",
-          "fetchedAt": "2026-08-06T19:05:34.012Z"
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed",
-      "deferred": false,
-      "televisionUnconfirmed": false,
-      "fieldSources": {
-        "type": "Canal Extremadura"
       }
     },
     {
@@ -2443,6 +2408,41 @@
       "televisionUnconfirmed": false,
       "fieldSources": {
         "type": "Mundotoro"
+      }
+    },
+    {
+      "id": "canal-extremadura-b19fcf416dffa7",
+      "date": "2026-08-09",
+      "time": null,
+      "channel": "Canal Extremadura",
+      "televised": true,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Parrilla%20de%20Programaci%C3%B3n%203%20al%209%20de%20agosto%20de%202026.%20Canal%20Extremadura%20TV..pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Parrilla%20de%20Programaci%C3%B3n%203%20al%209%20de%20agosto%20de%202026.%20Canal%20Extremadura%20TV..pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Parrilla%20de%20Programaci%C3%B3n%203%20al%209%20de%20agosto%20de%202026.%20Canal%20Extremadura%20TV..pdf",
+          "fetchedAt": "2026-08-06T19:05:34.012Z"
+        }
+      ],
+      "confidence": 99,
+      "status": "confirmed",
+      "deferred": false,
+      "televisionUnconfirmed": false,
+      "fieldSources": {
+        "type": "Canal Extremadura"
       }
     },
     {
@@ -3006,41 +3006,6 @@
       }
     },
     {
-      "id": "onetoro-conexion-dax-2026-08-13",
-      "date": "2026-08-13",
-      "time": "20:00",
-      "channel": "OneToro",
-      "televised": true,
-      "location": "Dax (Landes) Francia",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Conexión Dax",
-      "title": "Conexión Dax",
-      "image": null,
-      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 98,
-      "status": "confirmed",
-      "deferred": false,
-      "televisionUnconfirmed": false,
-      "fieldSources": {
-        "type": "OneToro"
-      }
-    },
-    {
       "id": "canal-extremadura-4eb66722f8c740",
       "date": "2026-08-13",
       "time": "21:00",
@@ -3199,6 +3164,41 @@
       }
     },
     {
+      "id": "onetoro-conexion-dax-2026-08-13",
+      "date": "2026-08-13",
+      "time": null,
+      "channel": "OneToro",
+      "televised": true,
+      "location": "Dax (Landes) Francia",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Conexión Dax",
+      "title": "Conexión Dax",
+      "image": null,
+      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sources": [
+        "OneToro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 97,
+      "status": "confirmed",
+      "deferred": false,
+      "televisionUnconfirmed": false,
+      "fieldSources": {
+        "type": "OneToro"
+      }
+    },
+    {
       "id": "mundotoro-8ceab02adcb766",
       "date": "2026-08-13",
       "time": null,
@@ -3352,41 +3352,6 @@
       "televisionUnconfirmed": false,
       "fieldSources": {
         "type": "Mundotoro"
-      }
-    },
-    {
-      "id": "onetoro-conexion-dax-2026-08-14",
-      "date": "2026-08-14",
-      "time": "20:00",
-      "channel": "OneToro",
-      "televised": true,
-      "location": "Dax (Landes) Francia",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Conexión Dax",
-      "title": "Conexión Dax",
-      "image": null,
-      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 98,
-      "status": "confirmed",
-      "deferred": false,
-      "televisionUnconfirmed": false,
-      "fieldSources": {
-        "type": "OneToro"
       }
     },
     {
@@ -3563,6 +3528,41 @@
       "televisionUnconfirmed": false,
       "fieldSources": {
         "type": "Mundotoro"
+      }
+    },
+    {
+      "id": "onetoro-conexion-dax-2026-08-14",
+      "date": "2026-08-14",
+      "time": null,
+      "channel": "OneToro",
+      "televised": true,
+      "location": "Dax (Landes) Francia",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Conexión Dax",
+      "title": "Conexión Dax",
+      "image": null,
+      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sources": [
+        "OneToro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 97,
+      "status": "confirmed",
+      "deferred": false,
+      "televisionUnconfirmed": false,
+      "fieldSources": {
+        "type": "OneToro"
       }
     },
     {
@@ -3768,41 +3768,6 @@
       }
     },
     {
-      "id": "cmm-2026-08-15-1245-4",
-      "date": "2026-08-15",
-      "time": "12:45",
-      "channel": "CMM",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "TIEMPO DE TOROS",
-      "title": "TIEMPO DE TOROS",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sources": [
-        "CMM"
-      ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed",
-      "fieldSources": {
-        "type": "CMM"
-      }
-    },
-    {
       "id": "cmm-2026-08-15-1800-5",
       "date": "2026-08-15",
       "time": "18:00",
@@ -3946,41 +3911,6 @@
       "status": "confirmed",
       "fieldSources": {
         "type": "Va de Toros"
-      }
-    },
-    {
-      "id": "onetoro-conexion-dax-2026-08-15",
-      "date": "2026-08-15",
-      "time": "20:00",
-      "channel": "OneToro",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Dax (Landes) Francia",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Conexión Dax",
-      "title": "Conexión Dax",
-      "image": null,
-      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 98,
-      "status": "confirmed",
-      "fieldSources": {
-        "type": "OneToro"
       }
     },
     {
@@ -4290,6 +4220,41 @@
       "status": "probable",
       "fieldSources": {
         "type": "Mundotoro"
+      }
+    },
+    {
+      "id": "onetoro-conexion-dax-2026-08-15",
+      "date": "2026-08-15",
+      "time": null,
+      "channel": "OneToro",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Dax (Landes) Francia",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Conexión Dax",
+      "title": "Conexión Dax",
+      "image": null,
+      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sources": [
+        "OneToro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 97,
+      "status": "confirmed",
+      "fieldSources": {
+        "type": "OneToro"
       }
     },
     {
@@ -4839,10 +4804,10 @@
       }
     },
     {
-      "id": "canal-extremadura-a9d48e2c8dd49a",
-      "date": "2026-08-16",
-      "time": "03:15",
-      "channel": "Canal Extremadura",
+      "id": "cmm-2026-08-15-1245-4",
+      "date": "2026-08-15",
+      "time": null,
+      "channel": "CMM",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
@@ -4851,26 +4816,26 @@
       "contentType": "programa",
       "breeding": "",
       "participants": [],
-      "name": "Extremadura Tierra de Toros",
-      "title": "Extremadura Tierra de Toros",
+      "name": "TIEMPO DE TOROS",
+      "title": "TIEMPO DE TOROS",
       "image": null,
-      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2010%20al%2016%20de%20agosto%20de%202026.pdf",
-      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2010%20al%2016%20de%20agosto%20de%202026.pdf",
+      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
       "sources": [
-        "Canal Extremadura"
+        "CMM"
       ],
       "sourceDetails": [
         {
-          "name": "Canal Extremadura",
+          "name": "CMM",
           "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2010%20al%2016%20de%20agosto%20de%202026.pdf",
-          "fetchedAt": "2026-08-16T17:40:24.445Z"
+          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+          "fetchedAt": null
         }
       ],
-      "confidence": 100,
+      "confidence": 99,
       "status": "confirmed",
       "fieldSources": {
-        "type": "Canal Extremadura"
+        "type": "CMM"
       }
     },
     {
@@ -4977,41 +4942,6 @@
       "status": "confirmed",
       "fieldSources": {
         "type": "El Muletazo"
-      }
-    },
-    {
-      "id": "onetoro-conexion-dax-2026-08-16",
-      "date": "2026-08-16",
-      "time": "20:00",
-      "channel": "OneToro",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Dax (Landes) Francia",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Conexión Dax",
-      "title": "Conexión Dax",
-      "image": null,
-      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 98,
-      "status": "confirmed",
-      "fieldSources": {
-        "type": "OneToro"
       }
     },
     {
@@ -5374,6 +5304,41 @@
       }
     },
     {
+      "id": "onetoro-conexion-dax-2026-08-16",
+      "date": "2026-08-16",
+      "time": null,
+      "channel": "OneToro",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Dax (Landes) Francia",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Conexión Dax",
+      "title": "Conexión Dax",
+      "image": null,
+      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sources": [
+        "OneToro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 97,
+      "status": "confirmed",
+      "fieldSources": {
+        "type": "OneToro"
+      }
+    },
+    {
       "id": "mundotoro-8da6dcba338f43",
       "date": "2026-08-16",
       "time": null,
@@ -5452,6 +5417,41 @@
       "status": "probable",
       "fieldSources": {
         "type": "Mundotoro"
+      }
+    },
+    {
+      "id": "canal-extremadura-a9d48e2c8dd49a",
+      "date": "2026-08-16",
+      "time": null,
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2010%20al%2016%20de%20agosto%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2010%20al%2016%20de%20agosto%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2010%20al%2016%20de%20agosto%20de%202026.pdf",
+          "fetchedAt": "2026-08-16T17:40:24.445Z"
+        }
+      ],
+      "confidence": 99,
+      "status": "confirmed",
+      "fieldSources": {
+        "type": "Canal Extremadura"
       }
     },
     {
@@ -6671,41 +6671,6 @@
       }
     },
     {
-      "id": "cmm-2026-08-22-1245-3",
-      "date": "2026-08-22",
-      "time": "12:45",
-      "channel": "CMM",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "TIEMPO DE TOROS",
-      "title": "TIEMPO DE TOROS",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sources": [
-        "CMM"
-      ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 100,
-      "status": "confirmed",
-      "fieldSources": {
-        "type": "CMM"
-      }
-    },
-    {
       "id": "canalsur-2026-08-22-canal-sur-television-retransmite-tres-grandes-festejos-esta-semana-de-",
       "date": "2026-08-22",
       "time": "19:00",
@@ -7314,10 +7279,10 @@
       }
     },
     {
-      "id": "canal-extremadura-c78304e10178b4",
-      "date": "2026-08-23",
-      "time": "03:15",
-      "channel": "Canal Extremadura",
+      "id": "cmm-2026-08-22-1245-3",
+      "date": "2026-08-22",
+      "time": null,
+      "channel": "CMM",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
@@ -7326,33 +7291,26 @@
       "contentType": "programa",
       "breeding": "",
       "participants": [],
-      "name": "Extremadura Tierra de Toros",
-      "title": "Extremadura Tierra de Toros",
+      "name": "TIEMPO DE TOROS",
+      "title": "TIEMPO DE TOROS",
       "image": null,
-      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2017%20al%2023%20de%20agosto%20de%202026.pdf",
-      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2017%20al%2023%20de%20agosto%20de%202026.pdf",
+      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
       "sources": [
-        "Canal Extremadura",
-        "Canal Sur"
+        "CMM"
       ],
       "sourceDetails": [
         {
-          "name": "Canal Extremadura",
+          "name": "CMM",
           "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2017%20al%2023%20de%20agosto%20de%202026.pdf",
-          "fetchedAt": "2026-08-23T21:46:09.096Z"
-        },
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-08-23T21:46:23.637Z"
+          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+          "fetchedAt": null
         }
       ],
-      "confidence": 100,
+      "confidence": 99,
       "status": "confirmed",
       "fieldSources": {
-        "type": "Canal Extremadura"
+        "type": "CMM"
       }
     },
     {
@@ -7566,6 +7524,48 @@
       "status": "probable",
       "fieldSources": {
         "type": "Mundotoro"
+      }
+    },
+    {
+      "id": "canal-extremadura-c78304e10178b4",
+      "date": "2026-08-23",
+      "time": null,
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2017%20al%2023%20de%20agosto%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2017%20al%2023%20de%20agosto%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura",
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2017%20al%2023%20de%20agosto%20de%202026.pdf",
+          "fetchedAt": "2026-08-23T21:46:09.096Z"
+        },
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-08-23T21:46:23.637Z"
+        }
+      ],
+      "confidence": 100,
+      "status": "confirmed",
+      "fieldSources": {
+        "type": "Canal Extremadura"
       }
     },
     {
@@ -9147,41 +9147,6 @@
       "status": "probable"
     },
     {
-      "id": "cmm-2026-08-29-1245-5",
-      "date": "2026-08-29",
-      "time": "12:45",
-      "channel": "CMM",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "TIEMPO DE TOROS",
-      "title": "TIEMPO DE TOROS",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sources": [
-        "CMM"
-      ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-          "fetchedAt": null
-        }
-      ],
-      "fieldSources": {
-        "type": "CMM"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
       "id": "mundotoro-807eec1ad351be",
       "date": "2026-08-29",
       "time": "18:00",
@@ -9969,10 +9934,10 @@
       "status": "probable"
     },
     {
-      "id": "canal-extremadura-cf3be9bb018711",
-      "date": "2026-08-30",
-      "time": "03:15",
-      "channel": "Canal Extremadura",
+      "id": "cmm-2026-08-29-1245-5",
+      "date": "2026-08-29",
+      "time": null,
+      "channel": "CMM",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
@@ -9981,33 +9946,26 @@
       "contentType": "programa",
       "breeding": "",
       "participants": [],
-      "name": "Extremadura Tierra de Toros",
-      "title": "Extremadura Tierra de Toros",
+      "name": "TIEMPO DE TOROS",
+      "title": "TIEMPO DE TOROS",
       "image": null,
-      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2024%20al%2030%20de%20agosto%20de%202026.pdf",
-      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2024%20al%2030%20de%20agosto%20de%202026.pdf",
+      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
       "sources": [
-        "Canal Extremadura",
-        "Canal Sur"
+        "CMM"
       ],
       "sourceDetails": [
         {
-          "name": "Canal Extremadura",
+          "name": "CMM",
           "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2024%20al%2030%20de%20agosto%20de%202026.pdf",
-          "fetchedAt": "2026-08-30T20:33:27.164Z"
-        },
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-08-30T20:33:46.861Z"
+          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+          "fetchedAt": null
         }
       ],
       "fieldSources": {
-        "type": "Canal Extremadura"
+        "type": "CMM"
       },
-      "confidence": 100,
+      "confidence": 99,
       "status": "confirmed"
     },
     {
@@ -10422,6 +10380,83 @@
       "status": "probable"
     },
     {
+      "id": "canalsur-2026-08-30-la-plaza-de-tarifa",
+      "date": "2026-08-30",
+      "time": null,
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "la plaza de Tarifa",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "Este domingo, toros desde la plaza de Tarifa",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
+      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/domingo-toros-plaza-tarifa_1_1431734.html",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/domingo-toros-plaza-tarifa_1_1431734.html",
+          "fetchedAt": "2026-08-30T20:33:22.729Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 99,
+      "status": "confirmed"
+    },
+    {
+      "id": "canal-extremadura-cf3be9bb018711",
+      "date": "2026-08-30",
+      "time": null,
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2024%20al%2030%20de%20agosto%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2024%20al%2030%20de%20agosto%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura",
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2024%20al%2030%20de%20agosto%20de%202026.pdf",
+          "fetchedAt": "2026-08-30T20:33:27.164Z"
+        },
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-08-30T20:33:46.861Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
       "id": "mundotoro-321abb19e7d189",
       "date": "2026-08-30",
       "time": null,
@@ -10654,41 +10689,6 @@
       },
       "confidence": 89,
       "status": "probable"
-    },
-    {
-      "id": "canalsur-2026-08-30-la-plaza-de-tarifa",
-      "date": "2026-08-30",
-      "time": "Hora por confirmar",
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "la plaza de Tarifa",
-      "type": "Corrida de toros",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [],
-      "name": "Este domingo, toros desde la plaza de Tarifa",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/domingo-toros-plaza-tarifa_1_1431734.html",
-      "sources": [
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/domingo-toros-plaza-tarifa_1_1431734.html",
-          "fetchedAt": "2026-08-30T20:33:22.729Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "Canal Sur"
-      },
-      "confidence": 100,
-      "status": "confirmed"
     },
     {
       "id": "sanse-novillada-2026-08-31",
@@ -11714,41 +11714,6 @@
       "status": "probable"
     },
     {
-      "id": "cmm-2026-09-05-1245-6",
-      "date": "2026-09-05",
-      "time": "12:45",
-      "channel": "CMM",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "TIEMPO DE TOROS",
-      "title": "TIEMPO DE TOROS",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sources": [
-        "CMM"
-      ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-          "fetchedAt": null
-        }
-      ],
-      "fieldSources": {
-        "type": "CMM"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
       "id": "mundotoro-e6d6f466f8d1e9",
       "date": "2026-09-05",
       "time": "18:00",
@@ -12270,6 +12235,41 @@
       },
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "cmm-2026-09-05-1245-4",
+      "date": "2026-09-05",
+      "time": null,
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "TIEMPO DE TOROS",
+      "title": "TIEMPO DE TOROS",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+          "fetchedAt": null
+        }
+      ],
+      "fieldSources": {
+        "type": "CMM"
+      },
+      "confidence": 99,
+      "status": "confirmed"
     },
     {
       "id": "mundotoro-5e2e0acb37a074",
