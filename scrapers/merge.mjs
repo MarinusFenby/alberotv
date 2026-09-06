@@ -344,6 +344,27 @@ function sourceForField(event = {}, field = "type") {
   return event.fieldSources?.[field] || event.sources?.[0] || "";
 }
 
+function isTvGuideSource(event = {}, field = "television") {
+  const source = normalizeText(sourceForField(event, field) || event.sourceUrl || "");
+  return /cmm|cmmedia|canal sur|canal extremadura|programacion|guia tv|onetoro/.test(source) &&
+    event.officialEventDetails !== true;
+}
+
+function chooseBullField(first, second, field, preferSecond = false) {
+  const firstTv = isTvGuideSource(first, field);
+  const secondTv = isTvGuideSource(second, field);
+  if (firstTv !== secondTv) return firstTv ? second[field] : first[field];
+  return chooseInformativeValue(first[field], second[field], preferSecond);
+}
+
+function chooseEventTime(first, second, preferSecond = false) {
+  const trusted = [first, second].filter(event => event.time &&
+    (!isTvGuideSource(event, "time") || event.eventTimeConfirmed === true));
+  if (trusted.length === 1) return trusted[0].time;
+  if (trusted.length === 2) return preferSecond ? trusted[1].time : trusted[0].time;
+  return null;
+}
+
 function chooseAuthoritativeType(first, second, preferSecond = false) {
   const firstType = normalizeType(first.type);
   const secondType = normalizeType(second.type);
@@ -1078,7 +1099,7 @@ function mergeParticipants(first = [], second = []) {
   return output;
 }
 
-function mergeTwoEvents(first, second) {
+export function mergeTwoEvents(first, second) {
   const firstIsLasVentasOfficial =
     first.sources?.includes("Las Ventas oficial");
   const secondIsLasVentasOfficial =
@@ -1132,7 +1153,7 @@ function mergeTwoEvents(first, second) {
     ...first,
     id: chooseValue(first.id, second.id, preferSecond),
     date: chooseValue(first.date, second.date, preferSecond),
-    time: chooseValue(first.time, second.time, preferSecond),
+    time: chooseEventTime(first, second, preferSecond),
     channel: mergedChannel,
     channels: mergedChannels.length > 1 ? mergedChannels : undefined,
     deferred:
@@ -1154,17 +1175,12 @@ function mergeTwoEvents(first, second) {
     contentType: first.contentType || second.contentType || "festejo",
     breeding: officialLasVentasEvent
       ? officialLasVentasEvent.breeding
-      : chooseInformativeValue(
-          first.breeding,
-          second.breeding,
-          preferSecond
-        ),
+      : chooseBullField(first, second, "breeding", preferSecond),
     participants: officialLasVentasEvent
       ? [...officialLasVentasEvent.participants]
-      : mergeParticipants(
-          first.participants,
-          second.participants
-        ),
+      : (isTvGuideSource(first, "participants") !== isTvGuideSource(second, "participants")
+          ? [...(isTvGuideSource(first, "participants") ? second.participants : first.participants)]
+          : mergeParticipants(first.participants, second.participants)),
     name: chooseInformativeValue(
       first.name,
       second.name,
@@ -2302,18 +2318,10 @@ async function main() {
   );
 }
 
-main().catch(
-  error => {
-    console.error(
-      "Error fusionando la programación:"
-    );
-
-    console.error(
-      error
-    );
-
-    process.exit(
-      1
-    );
-  }
-);
+if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) {
+  main().catch(error => {
+    console.error("Error fusionando la programación:");
+    console.error(error);
+    process.exit(1);
+  });
+}
