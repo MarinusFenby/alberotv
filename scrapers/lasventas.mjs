@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import crypto from "node:crypto";
-import { chromium } from "playwright";
 
 const INDEX_URL = "https://www.las-ventas.com/actualidad";
 const OUTPUT_FILE = "data/lasventas.json";
@@ -36,7 +35,7 @@ function splitNames(value = "") {
     .filter(name => name.length > 2 && name.length <= 100 && !pageChrome.test(name)))];
 }
 
-function parseDetails(description = "") {
+export function parseDetails(description = "") {
   const text = clean(description);
   const typeText = normalized(text);
   const type = typeText.includes("rejones")
@@ -53,7 +52,7 @@ function parseDetails(description = "") {
   };
 }
 
-function extractEvents(text, sourceUrl) {
+export function extractEvents(text, sourceUrl) {
   const body = clean(text);
   const years = [...body.matchAll(/\b(20\d{2})\b/g)].map(match => Number(match[1]));
   const year = years.find(value => value >= new Date().getFullYear()) || new Date().getFullYear();
@@ -91,7 +90,12 @@ function extractEvents(text, sourceUrl) {
   return events;
 }
 
+export function extractEventsFromBlocks(blocks = [], sourceUrl) {
+  return blocks.flatMap(block => extractEvents(block, sourceUrl));
+}
+
 async function main() {
+  const { chromium } = await import("playwright");
   const browser = await chromium.launch({ headless: true });
   try {
     const context = await browser.newContext({ locale: "es-ES", timezoneId: "Europe/Madrid" });
@@ -108,8 +112,16 @@ async function main() {
     for (const url of candidateUrls) {
       try {
         await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
-        const text = await page.locator("body").innerText({ timeout: 15000 });
-        found.push(...extractEvents(text, url));
+        const blocks = await page.locator("article, main .views-row, main .card, main [class*='noticia'], main [class*='event']")
+          .allTextContents({ timeout: 15000 });
+        // Cada bloque se procesa de forma aislada: una captura nunca puede
+        // atravesar otro artículo, la navegación, la paginación o el footer.
+        const isolated = blocks.map(clean).filter(value => value.length >= 20);
+        if (!isolated.length && url !== INDEX_URL) {
+          const mainText = await page.locator("main").innerText({ timeout: 15000 });
+          isolated.push(clean(mainText));
+        }
+        found.push(...extractEventsFromBlocks(isolated, url));
       } catch (error) {
         console.warn(`Las Ventas: no se pudo leer ${url}: ${error.message}`);
       }
@@ -141,7 +153,9 @@ async function main() {
   }
 }
 
-main().catch(error => {
-  console.error("Error en Las Ventas:", error);
-  process.exitCode = 1;
-});
+if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) {
+  main().catch(error => {
+    console.error("Error en Las Ventas:", error);
+    process.exitCode = 1;
+  });
+}
