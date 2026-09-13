@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T10:12:27.202Z",
+  "generatedAt": "2026-09-13T10:52:59.554Z",
   "degraded": false,
   "eventCount": 551,
   "bullfightingEventCount": 519,
@@ -8,11 +8,11 @@
     "historicalCandidates": 814,
     "historicalPreserved": 407,
     "historicalDuplicatesMerged": 407,
-    "added": 159,
+    "added": 158,
     "merged": 37,
     "skippedUncorroborated": 22,
     "reschedulesApplied": 0,
-    "verifiedAlmendralejoDuplicateRemoved": 1
+    "verifiedAlmendralejoDuplicateRemoved": 0
   },
   "sources": {
     "elMuletazo": 20,
@@ -20,7 +20,7 @@
     "programasTaurinos": 12,
     "canalSur": 1,
     "cmm": 8,
-    "canalExtremadura": 6,
+    "canalExtremadura": 5,
     "mundoToro": 125,
     "lasVentas": 4,
     "vaDeToros": 21,
@@ -65,8 +65,8 @@
     "canalExtremadura": {
       "label": "Canal Extremadura",
       "status": "ok",
-      "eventCount": 6,
-      "fetchedAt": "2026-09-13T10:12:03.648Z",
+      "eventCount": 5,
+      "fetchedAt": "2026-09-13T10:52:39.879Z",
       "error": null
     },
     "mundoToro": {
@@ -16578,9 +16578,9 @@
       "status": "probable"
     },
     {
-      "id": "canal-extremadura-9c5432d06f7ba4",
+      "id": "canal-extremadura-670e9f0774803f",
       "date": "2026-09-13",
-      "time": "03:15",
+      "time": "13:00",
       "channel": "Canal Extremadura",
       "deferred": false,
       "televised": true,
@@ -16593,8 +16593,8 @@
       "name": "Extremadura Tierra de Toros",
       "title": "Extremadura Tierra de Toros",
       "image": null,
-      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
-      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
+      "eventUrl": "https://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
+      "sourceUrl": "https://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
       "sources": [
         "Canal Extremadura"
       ],
@@ -16602,8 +16602,8 @@
         {
           "name": "Canal Extremadura",
           "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
-          "fetchedAt": "2026-09-13T10:12:03.648Z"
+          "sourceUrl": "https://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
+          "fetchedAt": "2026-09-13T10:52:39.879Z"
         }
       ],
       "fieldSources": {
@@ -16643,41 +16643,6 @@
       ],
       "fieldSources": {
         "type": "Canal Sur"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "canal-extremadura-26525daec8a389",
-      "date": "2026-09-13",
-      "time": "13:30",
-      "channel": "Canal Extremadura",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Extremadura Tierra de Toros",
-      "title": "Extremadura Tierra de Toros",
-      "image": null,
-      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
-      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
-      "sources": [
-        "Canal Extremadura"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Extremadura",
-          "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
-          "fetchedAt": "2026-09-13T10:12:03.648Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "Canal Extremadura"
       },
       "confidence": 100,
       "status": "confirmed"
@@ -16831,7 +16796,7 @@
       "status": "confirmed"
     },
     {
-      "id": "canal-extremadura-6847a33206ece8",
+      "id": "canal-extremadura-a33f65886468b9",
       "date": "2026-09-13",
       "time": "18:30",
       "channel": "Canal Extremadura",
@@ -16866,8 +16831,8 @@
         {
           "name": "Canal Extremadura",
           "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
-          "fetchedAt": "2026-09-13T10:12:03.648Z"
+          "sourceUrl": "https://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
+          "fetchedAt": "2026-09-13T10:52:39.879Z"
         }
       ],
       "fieldSources": {
@@ -17426,6 +17391,41 @@
       },
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "canal-extremadura-1903dae6211d0a",
+      "date": "2026-09-14",
+      "time": "02:30",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "https://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
+      "sourceUrl": "https://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
+          "fetchedAt": "2026-09-13T10:52:39.879Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "mundotoro-e5c4d807fc54c0",

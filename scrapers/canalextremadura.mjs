@@ -7,6 +7,7 @@ import { chromium } from "playwright";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import fs from "node:fs/promises";
 import crypto from "node:crypto";
+import { pathToFileURL } from "node:url";
 
 const GUIDE_URL = "https://www.canalextremadura.es/guia/television";
 const OUTPUT_FILE = "data/canalextremadura.json";
@@ -66,8 +67,7 @@ function cleanTaurineTitle(rawTitle = "") {
 
   const search = normalized(title);
 
-  // El PDF suele arrastrar programas anteriores y posteriores en la misma celda.
-  // Para este espacio usamos el título canónico.
+  // Canonicalizar únicamente el texto ya aislado dentro del mismo bloque.
   if (search.includes("TIERRA DE TOROS")) {
     return "Extremadura Tierra de Toros";
   }
@@ -195,7 +195,7 @@ function nearestIndex(values, value) {
 
 function parseTime(value) {
   const match = clean(value).match(/^([0-2]?\d):([0-5]\d)$/);
-  if (!match) return null;
+  if (!match || Number(match[1]) > 23) return null;
   return `${pad(Number(match[1]))}:${match[2]}`;
 }
 
@@ -268,7 +268,9 @@ async function findWeeklyPdf(page) {
   return new URL(decodeHtmlEntities(href), GUIDE_URL).href;
 }
 
-async function readPdf(pdfUrl) {
+export async function readPdf(pdfUrl, localBytes) {
+  let bytes = localBytes;
+  if (!bytes) {
   const response = await fetch(pdfUrl, {
     headers: {
       "User-Agent":
@@ -280,7 +282,8 @@ async function readPdf(pdfUrl) {
     throw new Error(`No se pudo descargar el PDF (${response.status}).`);
   }
 
-  const bytes = new Uint8Array(await response.arrayBuffer());
+  bytes = new Uint8Array(await response.arrayBuffer());
+  }
   const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
   const page = await pdf.getPage(1);
   const content = await page.getTextContent();
@@ -297,8 +300,30 @@ async function readPdf(pdfUrl) {
 
   return {
     items,
+    edges: horizontalEdges(await page.getOperatorList()),
     pageText: items.map((item) => item.text).join(" ")
   };
+}
+
+// PDF paths and text use different coordinate systems. Respect the drawing
+// transform stack before comparing a cell border with a text baseline.
+export function horizontalEdges(ops) {
+  let matrix = [1, 0, 0, 1, 0, 0];
+  const stack = [], edges = [];
+  for (let i = 0; i < ops.fnArray.length; i++) {
+    const op = ops.fnArray[i], args = ops.argsArray[i];
+    if (op === pdfjsLib.OPS.save) stack.push([...matrix]);
+    else if (op === pdfjsLib.OPS.restore) matrix = stack.pop();
+    else if (op === pdfjsLib.OPS.transform) matrix = pdfjsLib.Util.transform(matrix, args);
+    else if (op === pdfjsLib.OPS.constructPath && args[2]?.length === 4) {
+      const b = args[2];
+      const point = (x, y) => [matrix[0]*x + matrix[2]*y + matrix[4], matrix[1]*x + matrix[3]*y + matrix[5]];
+      const a = point(b[0], b[1]), z = point(b[2], b[3]);
+      if (Math.abs(z[1]-a[1]) < 1 && Math.abs(z[0]-a[0]) > 20)
+        edges.push({left: Math.min(a[0],z[0]), right: Math.max(a[0],z[0]), y: (a[1]+z[1])/2});
+    }
+  }
+  return edges;
 }
 
 function detectDayColumns(items) {
@@ -322,12 +347,7 @@ function detectDayColumns(items) {
     return headers.slice(0, 7).map((item) => item.x + item.width / 2);
   }
 
-  const xs = items.map((item) => item.x).sort((a, b) => a - b);
-  const minX = xs[Math.floor(xs.length * 0.08)];
-  const maxX = xs[Math.floor(xs.length * 0.92)];
-  const columnWidth = (maxX - minX) / 7;
-
-  return Array.from({ length: 7 }, (_, index) => minX + columnWidth * (index + 0.5));
+  throw new Error("No se identifican las siete columnas de la parrilla; no se adivinan fechas.");
 }
 
 function detectTimeRows(items, columnCenters) {
@@ -358,41 +378,7 @@ function detectTimeRows(items, columnCenters) {
     .sort((a, b) => b.y - a.y);
 }
 
-function eventTimeForY(timeRows, y) {
-  if (!timeRows.length) return "";
-
-  let best = timeRows[0];
-  let bestDistance = Math.abs(best.y - y);
-
-  for (const row of timeRows) {
-    const distance = Math.abs(row.y - y);
-    if (distance < bestDistance) {
-      best = row;
-      bestDistance = distance;
-    }
-  }
-
-  return best.time;
-}
-
-function collectEventTitle(items, columnCenters, columnIndex, keywordItem) {
-  const assigned = items
-    .filter((item) => {
-      const center = item.x + item.width / 2;
-      return nearestIndex(columnCenters, center) === columnIndex;
-    })
-    .filter((item) => Math.abs(item.y - keywordItem.y) <= 45)
-    .filter((item) => !parseTime(item.text))
-    .sort((a, b) => {
-      if (Math.abs(a.y - b.y) > 2) return b.y - a.y;
-      return a.x - b.x;
-    });
-
-  const rawTitle = clean(assigned.map((item) => item.text).join(" "));
-  return cleanTaurineTitle(rawTitle);
-}
-
-function extractEvents(items, dates, pdfUrl) {
+export function extractEvents(items, dates, pdfUrl, edges = []) {
   const columnCenters = detectDayColumns(items);
   const timeRows = detectTimeRows(items, columnCenters);
   const events = [];
@@ -406,9 +392,23 @@ function extractEvents(items, dates, pdfUrl) {
 
     if (dayIndex < 0 || dayIndex > 6) continue;
 
-    const date = dates[dayIndex];
-    const time = eventTimeForY(timeRows, item.y);
-    const title = collectEventTitle(items, columnCenters, dayIndex, item);
+    const borders = edges.filter(e => e.left < columnCenters[dayIndex] && e.right > columnCenters[dayIndex]);
+    const top = borders.filter(e => e.y > item.y + item.height / 2).sort((a,b) => a.y-b.y)[0];
+    const bottom = borders.filter(e => e.y < item.y).sort((a,b) => b.y-a.y)[0];
+    if (!top || !bottom) throw new Error(`No se puede aislar el bloque: ${item.text}`);
+    const rowIndex = timeRows.findIndex(r => r.y < top.y);
+    if (rowIndex < 0 || timeRows[rowIndex].y <= bottom.y)
+      throw new Error(`No se puede confirmar la hora del bloque: ${item.text}`);
+    const time = timeRows[rowIndex].time;
+    let dayOffset = 0;
+    for (let i = 1; i <= rowIndex; i++) if (timeRows[i].time < timeRows[i-1].time) dayOffset++;
+    const calendarDate = new Date(`${dates[dayIndex]}T00:00:00Z`);
+    calendarDate.setUTCDate(calendarDate.getUTCDate() + dayOffset);
+    const date = calendarDate.toISOString().slice(0,10);
+    const title = cleanTaurineTitle(items.filter(part =>
+      nearestIndex(columnCenters, part.x + part.width/2) === dayIndex &&
+      part.y > bottom.y && part.y < top.y && !parseTime(part.text)
+    ).sort((a,b) => Math.abs(a.y-b.y)>2 ? b.y-a.y : a.x-b.x).map(p=>p.text).join(" "));
 
     if (!date || !time || !isTaurine(title)) continue;
 
@@ -437,18 +437,20 @@ function extractEvents(items, dates, pdfUrl) {
   );
 }
 
-const browser = await chromium.launch({ headless: true });
+export async function main(pdfOverride) {
+let browser;
 
 try {
-  const page = await browser.newPage({
+  if (!pdfOverride) browser = await chromium.launch({ headless: true });
+  const page = browser && await browser.newPage({
     locale: "es-ES",
     timezoneId: TIME_ZONE
   });
 
-  const pdfUrl = await findWeeklyPdf(page);
-  const { items, pageText } = await readPdf(pdfUrl);
+  const pdfUrl = pdfOverride || await findWeeklyPdf(page);
+  const { items, pageText, edges } = await readPdf(pdfUrl);
   const dates = parseWeekDates(pdfUrl, pageText);
-  const events = extractEvents(items, dates, pdfUrl);
+  const events = extractEvents(items, dates, pdfUrl, edges);
 
   const payload = {
     source: "Canal Extremadura",
@@ -470,5 +472,7 @@ try {
   console.error("[Canal Extremadura] Error:", error);
   process.exitCode = 1;
 } finally {
-  await browser.close();
+  await browser?.close();
 }
+}
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main();
