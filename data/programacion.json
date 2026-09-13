@@ -1,17 +1,18 @@
 {
-  "generatedAt": "2026-09-12T04:55:33.395Z",
+  "generatedAt": "2026-09-13T10:02:20.997Z",
   "degraded": false,
-  "eventCount": 549,
-  "bullfightingEventCount": 519,
-  "programCount": 30,
+  "eventCount": 550,
+  "bullfightingEventCount": 518,
+  "programCount": 32,
   "mergeStats": {
-    "historicalCandidates": 760,
-    "historicalPreserved": 380,
+    "historicalCandidates": 788,
+    "historicalPreserved": 408,
     "historicalDuplicatesMerged": 380,
-    "added": 183,
-    "merged": 53,
+    "added": 157,
+    "merged": 79,
     "skippedUncorroborated": 22,
-    "reschedulesApplied": 0
+    "reschedulesApplied": 0,
+    "verifiedAlmendralejoDuplicateRemoved": 1
   },
   "sources": {
     "elMuletazo": 23,
@@ -44,14 +45,14 @@
       "label": "Programas taurinos",
       "status": "ok",
       "eventCount": 12,
-      "fetchedAt": "2026-09-12T04:55:31.555Z",
+      "fetchedAt": "2026-09-13T09:55:39.707Z",
       "error": null
     },
     "canalSur": {
       "label": "Canal Sur",
       "status": "ok",
       "eventCount": 1,
-      "fetchedAt": "2026-09-12T04:55:04.328Z",
+      "fetchedAt": "2026-09-13T09:57:50.860Z",
       "error": null
     },
     "cmm": {
@@ -3115,6 +3116,41 @@
       }
     },
     {
+      "id": "onetoro-conexion-dax-2026-08-13",
+      "date": "2026-08-13",
+      "time": "20:00",
+      "channel": "OneToro",
+      "televised": true,
+      "location": "Dax (Landes) Francia",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Conexión Dax",
+      "title": "Conexión Dax",
+      "image": null,
+      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sources": [
+        "OneToro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 98,
+      "status": "confirmed",
+      "deferred": false,
+      "televisionUnconfirmed": false,
+      "fieldSources": {
+        "type": "OneToro"
+      }
+    },
+    {
       "id": "canal-extremadura-4eb66722f8c740",
       "date": "2026-08-13",
       "time": "21:00",
@@ -3273,41 +3309,6 @@
       }
     },
     {
-      "id": "onetoro-conexion-dax-2026-08-13",
-      "date": "2026-08-13",
-      "time": null,
-      "channel": "OneToro",
-      "televised": true,
-      "location": "Dax (Landes) Francia",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Conexión Dax",
-      "title": "Conexión Dax",
-      "image": null,
-      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://tendidodigital.es/noticias/onetoro-refuerza-su-verano-con-dos-nuevas-retransmisiones-desde-santander",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 97,
-      "status": "confirmed",
-      "deferred": false,
-      "televisionUnconfirmed": false,
-      "fieldSources": {
-        "type": "OneToro"
-      }
-    },
-    {
       "id": "mundotoro-8ceab02adcb766",
       "date": "2026-08-13",
       "time": null,
@@ -3461,6 +3462,41 @@
       "televisionUnconfirmed": false,
       "fieldSources": {
         "type": "Mundotoro"
+      }
+    },
+    {
+      "id": "onetoro-conexion-dax-2026-08-14",
+      "date": "2026-08-14",
+      "time": "20:00",
+      "channel": "OneToro",
+      "televised": true,
+      "location": "Dax (Landes) Francia",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Conexión Dax",
+      "title": "Conexión Dax",
+      "image": null,
+      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sources": [
+        "OneToro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 98,
+      "status": "confirmed",
+      "deferred": false,
+      "televisionUnconfirmed": false,
+      "fieldSources": {
+        "type": "OneToro"
       }
     },
     {
@@ -3637,41 +3673,6 @@
       "televisionUnconfirmed": false,
       "fieldSources": {
         "type": "Mundotoro"
-      }
-    },
-    {
-      "id": "onetoro-conexion-dax-2026-08-14",
-      "date": "2026-08-14",
-      "time": null,
-      "channel": "OneToro",
-      "televised": true,
-      "location": "Dax (Landes) Francia",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Conexión Dax",
-      "title": "Conexión Dax",
-      "image": null,
-      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 97,
-      "status": "confirmed",
-      "deferred": false,
-      "televisionUnconfirmed": false,
-      "fieldSources": {
-        "type": "OneToro"
       }
     },
     {
@@ -4023,6 +4024,41 @@
       }
     },
     {
+      "id": "onetoro-conexion-dax-2026-08-15",
+      "date": "2026-08-15",
+      "time": "20:00",
+      "channel": "OneToro",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Dax (Landes) Francia",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Conexión Dax",
+      "title": "Conexión Dax",
+      "image": null,
+      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sources": [
+        "OneToro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 98,
+      "status": "confirmed",
+      "fieldSources": {
+        "type": "OneToro"
+      }
+    },
+    {
       "id": "mundotoro-39bed83f3b9a23",
       "date": "2026-08-15",
       "time": null,
@@ -4329,41 +4365,6 @@
       "status": "probable",
       "fieldSources": {
         "type": "Mundotoro"
-      }
-    },
-    {
-      "id": "onetoro-conexion-dax-2026-08-15",
-      "date": "2026-08-15",
-      "time": null,
-      "channel": "OneToro",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Dax (Landes) Francia",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Conexión Dax",
-      "title": "Conexión Dax",
-      "image": null,
-      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 97,
-      "status": "confirmed",
-      "fieldSources": {
-        "type": "OneToro"
       }
     },
     {
@@ -5054,6 +5055,41 @@
       }
     },
     {
+      "id": "onetoro-conexion-dax-2026-08-16",
+      "date": "2026-08-16",
+      "time": "20:00",
+      "channel": "OneToro",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Dax (Landes) Francia",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Conexión Dax",
+      "title": "Conexión Dax",
+      "image": null,
+      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+      "sources": [
+        "OneToro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "OneToro",
+          "confidence": 96,
+          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
+          "fetchedAt": null
+        }
+      ],
+      "confidence": 98,
+      "status": "confirmed",
+      "fieldSources": {
+        "type": "OneToro"
+      }
+    },
+    {
       "id": "mundotoro-5dbb9cb2f2b51e",
       "date": "2026-08-16",
       "time": "22:00",
@@ -5410,41 +5446,6 @@
       "status": "probable",
       "fieldSources": {
         "type": "Mundotoro"
-      }
-    },
-    {
-      "id": "onetoro-conexion-dax-2026-08-16",
-      "date": "2026-08-16",
-      "time": null,
-      "channel": "OneToro",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Dax (Landes) Francia",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Conexión Dax",
-      "title": "Conexión Dax",
-      "image": null,
-      "eventUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-      "sources": [
-        "OneToro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "OneToro",
-          "confidence": 96,
-          "sourceUrl": "https://festejos.onetoro.tv/content/ultimos-dos-festejos",
-          "fetchedAt": null
-        }
-      ],
-      "confidence": 97,
-      "status": "confirmed",
-      "fieldSources": {
-        "type": "OneToro"
       }
     },
     {
@@ -11823,6 +11824,41 @@
       "status": "probable"
     },
     {
+      "id": "cmm-2026-09-05-1245-1",
+      "date": "2026-09-05",
+      "time": "12:45",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "TIEMPO DE TOROS",
+      "title": "TIEMPO DE TOROS",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+          "fetchedAt": null
+        }
+      ],
+      "fieldSources": {
+        "type": "CMM"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
       "id": "mundotoro-e6d6f466f8d1e9",
       "date": "2026-09-05",
       "time": "18:00",
@@ -12344,41 +12380,6 @@
       },
       "confidence": 89,
       "status": "probable"
-    },
-    {
-      "id": "cmm-2026-09-05-1245-1",
-      "date": "2026-09-05",
-      "time": null,
-      "channel": "CMM",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "TIEMPO DE TOROS",
-      "title": "TIEMPO DE TOROS",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-      "sources": [
-        "CMM"
-      ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
-          "fetchedAt": null
-        }
-      ],
-      "fieldSources": {
-        "type": "CMM"
-      },
-      "confidence": 99,
-      "status": "confirmed"
     },
     {
       "id": "mundotoro-5e2e0acb37a074",
@@ -15682,41 +15683,6 @@
       "status": "confirmed"
     },
     {
-      "id": "canal-extremadura-0cd744516c9ee3",
-      "date": "2026-09-12",
-      "time": "22:15",
-      "channel": "Canal Extremadura",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Novillada",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [],
-      "name": "TOROS – GRAN FINAL Circuito de novilladas de Extremadura Almendralejo",
-      "title": "TOROS – GRAN FINAL Circuito de novilladas de Extremadura Almendralejo",
-      "image": null,
-      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
-      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
-      "sources": [
-        "Canal Extremadura"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Extremadura",
-          "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
-          "fetchedAt": "2026-09-12T04:55:10.495Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "Canal Extremadura"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
       "id": "mundotoro-269ae29d94f2c6",
       "date": "2026-09-12",
       "time": null,
@@ -16612,6 +16578,111 @@
       "status": "probable"
     },
     {
+      "id": "canal-extremadura-9c5432d06f7ba4",
+      "date": "2026-09-13",
+      "time": "03:15",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
+          "fetchedAt": "2026-09-12T04:55:10.495Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "toros-para-todos-2026-09-13-1300",
+      "date": "2026-09-13",
+      "time": "13:00",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-09-13T09:55:39.707Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "canal-extremadura-26525daec8a389",
+      "date": "2026-09-13",
+      "time": "13:30",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
+          "fetchedAt": "2026-09-12T04:55:10.495Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
       "id": "lasventas-347c50ff65505b",
       "date": "2026-09-13",
       "time": "18:00",
@@ -16658,7 +16729,7 @@
       "status": "confirmed"
     },
     {
-      "id": "mundotoro-9f74375e12c3fa",
+      "id": "canalsur-2026-09-13-villacarrillo",
       "date": "2026-09-13",
       "time": "18:00",
       "channel": "Canal Sur",
@@ -16681,6 +16752,7 @@
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
+        "Canal Sur",
         "Mundotoro"
       ],
       "sourceDetails": [
@@ -16689,6 +16761,12 @@
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
           "fetchedAt": "2026-09-12T04:54:45.447Z"
+        },
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/rtva-comunicacion/toros-villacarrillo-tarde-canal-sur_1_1434811.html",
+          "fetchedAt": "2026-09-13T09:57:50.860Z"
         },
         {
           "name": "Mundotoro",
@@ -16700,7 +16778,7 @@
       "fieldSources": {
         "type": "El Muletazo"
       },
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -17258,52 +17336,6 @@
       },
       "confidence": 89,
       "status": "probable"
-    },
-    {
-      "id": "toros-para-todos-2026-09-13-1300",
-      "date": "2026-09-13",
-      "time": null,
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Toros para Todos",
-      "title": "Toros para Todos",
-      "image": null,
-      "eventUrl": "https://www.canalsur.es/television/directo-television/",
-      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-      "sources": [
-        "Canal Extremadura",
-        "Canal Sur"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Extremadura",
-          "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%207%20al%2013%20de%20septiembre%20de%202026.pdf",
-          "fetchedAt": "2026-09-12T04:55:10.495Z"
-        },
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-09-12T04:55:31.555Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "Canal Sur"
-      },
-      "confidence": 100,
-      "status": "confirmed",
-      "channels": [
-        "Canal Extremadura",
-        "Canal Sur"
-      ]
     },
     {
       "id": "mundotoro-025134a171509d",
@@ -19139,7 +19171,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-09-12T04:55:31.555Z"
+          "fetchedAt": "2026-09-13T09:55:39.707Z"
         }
       ],
       "fieldSources": {
@@ -20510,7 +20542,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-09-12T04:55:31.555Z"
+          "fetchedAt": "2026-09-13T09:55:39.707Z"
         }
       ],
       "fieldSources": {
@@ -21304,7 +21336,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-09-12T04:55:31.555Z"
+          "fetchedAt": "2026-09-13T09:55:39.707Z"
         }
       ],
       "fieldSources": {
@@ -21731,7 +21763,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-09-12T04:55:31.555Z"
+          "fetchedAt": "2026-09-13T09:55:39.707Z"
         }
       ],
       "fieldSources": {
@@ -21929,7 +21961,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-09-12T04:55:31.555Z"
+          "fetchedAt": "2026-09-13T09:55:39.707Z"
         }
       ],
       "fieldSources": {
@@ -21964,7 +21996,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-09-12T04:55:31.555Z"
+          "fetchedAt": "2026-09-13T09:55:39.707Z"
         }
       ],
       "fieldSources": {
@@ -21999,7 +22031,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-09-12T04:55:31.555Z"
+          "fetchedAt": "2026-09-13T09:55:39.707Z"
         }
       ],
       "fieldSources": {
@@ -22034,7 +22066,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-09-12T04:55:31.555Z"
+          "fetchedAt": "2026-09-13T09:55:39.707Z"
         }
       ],
       "fieldSources": {
@@ -22069,7 +22101,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-09-12T04:55:31.555Z"
+          "fetchedAt": "2026-09-13T09:55:39.707Z"
         }
       ],
       "fieldSources": {
@@ -22104,7 +22136,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-09-12T04:55:31.555Z"
+          "fetchedAt": "2026-09-13T09:55:39.707Z"
         }
       ],
       "fieldSources": {
@@ -22139,7 +22171,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-09-12T04:55:31.555Z"
+          "fetchedAt": "2026-09-13T09:55:39.707Z"
         }
       ],
       "fieldSources": {

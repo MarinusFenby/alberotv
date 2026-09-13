@@ -99,6 +99,26 @@ function normalizeText(text = "") {
     .trim();
 }
 
+// Corrección editorial contrastada con el organizador, 13/09/2026:
+// https://www.liganacionaldenovilladas.com/jesus-yglesias-david-gutierrez-y-pepe-martinez-el-cartel-de-la-gran-final-de-almendralejo/
+// La fila genérica de la guía no es otro programa. Solo se retira si
+// permanece la ficha completa del festejo exacto; no fusiona otros casos.
+export function removeVerifiedAlmendralejoDuplicate(events) {
+  const expected = ['jesus yglesias','david gutierrez','pepe martinez'];
+  const confirmed = events.some(e => e.date === '2026-09-12' && e.time === '21:00' &&
+    canonicalLocation(e.location) === 'almendralejo' && /novillada/.test(normalizeText(e.type)) &&
+    normalizeText(e.breeding) === 'chamaco' && expected.every(p => (e.participants || []).some(n => normalizeText(n) === p)));
+  if (!confirmed) return 0;
+  let removed = 0;
+  for (let i=events.length-1;i>=0;i--) {
+    const e=events[i];
+    if (e.id === 'canal-extremadura-0cd744516c9ee3' && e.date === '2026-09-12' &&
+      normalizeText(e.title || e.name).includes('gran final circuito de novilladas de extremadura almendralejo') &&
+      !e.participants?.length && !e.breeding) { events.splice(i,1); removed++; }
+  }
+  return removed;
+}
+
 /*
  * Toda ficha publicada necesita una identidad estable. Algunas fuentes de
  * televisión no proporcionan id propio; dejarlo a null rompe la asociación
@@ -358,6 +378,10 @@ function chooseBullField(first, second, field, preferSecond = false) {
 }
 
 function chooseEventTime(first, second, preferSecond = false) {
+  // Para programas la hora de la guía ES la hora del contenido.
+  if (first.contentType === "programa" && second.contentType === "programa") {
+    return chooseValue(first.time, second.time, preferSecond) || null;
+  }
   const trusted = [first, second].filter(event => event.time &&
     (!isTvGuideSource(event, "time") || event.eventTimeConfirmed === true));
   if (trusted.length === 1) return trusted[0].time;
@@ -635,9 +659,20 @@ function participantOverlap(first = [], second = []) {
 }
 
 
-function eventMatchScore(first, second) {
+export function eventMatchScore(first, second) {
   if (!first?.date || first.date !== second?.date) return 0;
   if (first.contentType !== second.contentType) return 0;
+
+  // «Televisión» no identifica un programa. Tampoco unir redifusiones
+  // del mismo título ni emisiones de distintas cadenas.
+  if (first.contentType === "programa") {
+    const titleA = normalizeText(first.title || first.name);
+    const titleB = normalizeText(second.title || second.name);
+    if (!titleA || titleA !== titleB) return 0;
+    if (normalizeChannel(first.channel) !== normalizeChannel(second.channel)) return 0;
+    if (first.time && second.time && first.time !== second.time) return 0;
+    return 100;
+  }
 
   const channelA = normalizeChannel(first.channel);
   const channelB = normalizeChannel(second.channel);
@@ -2098,6 +2133,7 @@ async function main() {
     event.id = stableEventId(event);
   }
 
+  mergeStats.verifiedAlmendralejoDuplicateRemoved = removeVerifiedAlmendralejoDuplicate(merged);
   sortEvents(merged);
 
   const programCount =

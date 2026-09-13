@@ -1091,9 +1091,10 @@ function extractEventType(text = "") {
    EXTRAER LOCALIDAD
    ========================================================= */
 
-function cleanLocation(value = "") {
+export function cleanLocation(value = "") {
   return normalizeWhitespace(
     String(value)
+      .replace(/\s+en\s+la\s+(?:tarde|mañana|noche)\s+de\s+Canal\s+Sur(?:\s+(?:TV|Televisión))?\b.*$/i, "")
       .replace(
         /^[\s,:;–—-]+/,
         ""
@@ -1742,7 +1743,7 @@ async function main() {
 }
 
 
-main().catch(error => {
+if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) main().catch(error => {
   console.error("");
   console.error(
     "Error fatal en el scraper de Canal Sur:"

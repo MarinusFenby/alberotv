@@ -31,7 +31,13 @@ jobs:
           npm install playwright pdfjs-dist
           npx playwright install --with-deps chromium
 
-      - name: Actualizar OneToro
+      - name: Verificar regresiones de programación
+        # Las regresiones de identidad, programas y horario bloquean antes
+        # de consultar fuentes o publicar archivos.
+        run: |
+          node --test test/*.test.mjs
+
+      - name: Extraer OneToro
         run: |
           node scrapers/onetoro.mjs
 
