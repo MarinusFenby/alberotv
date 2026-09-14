@@ -3,6 +3,65 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
 
+
+/* Horas de inicio verificadas del festejo, no horas de emisión.
+ * Correcciones acotadas: no infieren horarios para otras fechas o plazas.
+ * Solo completan vacíos; una hora distinta requiere revisión, no sobrescritura.
+ */
+export const VERIFIED_START_TIMES = [
+  {
+    id: "mundotoro-8f227f8e44d2a1", date: "2026-09-14",
+    location: "Murcia (Murcia) España", type: "Corrida de toros",
+    participants: ["Alejandro Talavante", "José María Manzanares", "Morante de la Puebla"],
+    time: "18:30", timezone: "Europe/Madrid",
+    sourceUrl: "https://www.alejandrotalavante.es/index.php/carteles/371-murcia?date=2026-09-14-18-30",
+    corroboratingUrl: "https://laferiademurcia.es/evento/2026-09-14/230/corrida-de-toros-morante-manzanares-y-talavante",
+    verifiedOn: "2026-09-14"
+  },
+  {
+    id: "mundotoro-e5c4d807fc54c0", date: "2026-09-14",
+    location: "Albacete (Albacete) España", type: "Corrida de toros",
+    participants: ["El Cid", "Emilio de Justo", "Tomás Rufo"],
+    time: "18:00", timezone: "Europe/Madrid",
+    sourceUrl: "https://www.feriadealbacete.com/programa-feria-de-albacete-2026/programa-feria-de-albacete-2026-lunes-14-de-septiembre-de-2026/",
+    corroboratingUrl: "https://www.eldigitaldealbacete.com/2026/09/13/que-hacer-en-la-feria-de-albacete-este-lunes-14-de-septiembre/",
+    verifiedOn: "2026-09-14"
+  }
+];
+
+export function applyVerifiedStartTimes(events) {
+  let applied = 0;
+  for (const evidence of VERIFIED_START_TIMES) {
+    const matches = events.filter(event =>
+      event.id === evidence.id && event.date === evidence.date &&
+      normalizeText(event.location) === normalizeText(evidence.location) &&
+      normalizeText(event.type) === normalizeText(evidence.type) &&
+      Array.isArray(event.participants) &&
+      event.participants.length === evidence.participants.length &&
+      evidence.participants.every(name =>
+        event.participants.some(value => normalizeText(value) === normalizeText(name))
+      )
+    );
+    if (matches.length !== 1) continue;
+    const event = matches[0];
+    if (event.time) {
+      if (event.time !== evidence.time) {
+        console.warn("Hora verificada en conflicto; se conserva el dato existente:", evidence.id, event.time, evidence.time);
+      }
+      continue;
+    }
+    event.time = evidence.time;
+    event.fieldSources = { ...event.fieldSources, time: "Verificación documental de hora de inicio" };
+    event.timeEvidence = {
+      ...evidence, previousTime: null,
+      reason: "Hora de inicio explícita contrastada con fecha, plaza y terna; completa agenda sin horario.",
+      appliedAt: new Date().toISOString()
+    };
+    applied++;
+  }
+  return applied;
+}
+
 const DATA_DIR = "data";
 const OUTPUT_FILE = path.join(DATA_DIR, "programacion.json");
 const HISTORY_FILE = path.join(DATA_DIR, "historico.json");
@@ -2112,6 +2171,7 @@ async function main() {
     }
   }
 
+  mergeStats.verifiedStartTimesApplied = applyVerifiedStartTimes(merged);
   mergeStats.reschedulesApplied = removeConfirmedReschedules(merged);
 
   if (!PUBLISH_ENCIERROS) {
