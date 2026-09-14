@@ -2,142 +2,128 @@ name: Actualizar programación
 
 on:
   workflow_dispatch:
-
   schedule:
     - cron: "*/30 * * * *"
-
 permissions:
   contents: write
-
 concurrency:
   group: actualizar-programacion
   cancel-in-progress: false
-
 jobs:
   update:
     runs-on: ubuntu-latest
-
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
-
       - name: Preparar Node
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-
       - name: Instalar Playwright y PDF.js
         run: |
           npm install playwright pdfjs-dist
           npx playwright install --with-deps chromium
-
       - name: Verificar regresiones de programación
-        # Las regresiones de identidad, programas y horario bloquean antes
-        # de consultar fuentes o publicar archivos.
         run: |
           node --test test/*.test.mjs
-
-      - name: Extraer OneToro
+      - name: Extraer OneToro sin bloquear otras fuentes
+        id: onetoro
         run: |
-          node scrapers/onetoro.mjs
-
+          onetoro_status=fresh
+          if timeout --kill-after=10s 120s node scrapers/onetoro.mjs && node --input-type=module -e 'import fs from "node:fs"; const d=JSON.parse(fs.readFileSync("data/onetoro.json","utf8")); if (!Array.isArray(d.events) || !d.events.length) process.exit(1);'; then
+            echo "OneToro actualizado."
+          else
+            onetoro_status=unavailable
+            backup_file="$(mktemp)"
+            if git show HEAD:data/onetoro.json > "$backup_file" && node --input-type=module -e 'import fs from "node:fs"; const d=JSON.parse(fs.readFileSync(process.argv[1],"utf8")); if (!Array.isArray(d.events)) process.exit(1);' "$backup_file"; then
+              mkdir -p data
+              cp "$backup_file" data/onetoro.json
+              onetoro_status=stale
+            else
+              rm -f data/onetoro.json
+            fi
+            rm -f "$backup_file"
+            echo "::warning::No se pudo actualizar OneToro. Se conserva la última copia válida si existe; las demás fuentes continúan."
+            echo "### OneToro: no se pudo actualizar" >> "$GITHUB_STEP_SUMMARY"
+            echo "Estado: $onetoro_status. No se considera una consulta actualizada. Consultar el error del extractor en este paso." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "status=$onetoro_status" >> "$GITHUB_OUTPUT"
       - name: Actualizar El Muletazo
         run: |
           node scrapers/elmuletazo.mjs
-
       - name: Actualizar Canal Sur
         continue-on-error: true
         run: |
           node scrapers/canalsur.mjs
-
       - name: Actualizar CMM
         continue-on-error: true
         run: |
           node scrapers/cmm.mjs
-
       - name: Actualizar Canal Extremadura
         continue-on-error: true
         run: |
           node scrapers/canalextremadura.mjs
-
       - name: Actualizar Mundotoro
         continue-on-error: true
         run: |
           node scrapers/mundotoro.mjs
-
       - name: Actualizar Servitoro
         continue-on-error: true
         run: |
           node scrapers/servitoro.mjs
-
       - name: Actualizar Las Ventas
         continue-on-error: true
         run: |
           node scrapers/lasventas.mjs
-
       - name: Actualizar Va de Toros
         continue-on-error: true
         run: |
           node scrapers/vadetoros.mjs
-
       - name: Actualizar Aplausos
         continue-on-error: true
         run: |
           node scrapers/aplausos.mjs
-
       - name: Actualizar programas taurinos
         run: |
           node scrapers/programas-taurinos.mjs
-
       - name: Fusionar programación
         run: |
           node scrapers/merge.mjs
-
+      - name: Señalar OneToro no actualizado
+        if: steps.onetoro.outputs.status != 'fresh'
+        env:
+          ONETORO_STATUS: ${{ steps.onetoro.outputs.status }}
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const path = 'data/programacion.json';
+          const data = JSON.parse(fs.readFileSync(path, 'utf8'));
+          if (!data.sourceHealth?.oneToro) throw new Error('Falta sourceHealth.oneToro: no se publicará un estado engañoso');
+          data.sourceHealth.oneToro.status = process.env.ONETORO_STATUS;
+          data.sourceHealth.oneToro.error = 'No se pudo verificar OneToro en este intento; los datos conservados no son una actualización nueva.';
+          data.sourceHealth.oneToro.lastAttemptAt = new Date().toISOString();
+          data.degraded = true;
+          fs.writeFileSync(path, JSON.stringify(data, null, 2), 'utf8');
+          JS
       - name: Comprobar archivos generados
         run: |
-          echo "=== OneToro ==="
-          test -f data/onetoro.json
-
-          echo "=== El Muletazo ==="
+          test -f data/onetoro.json || true
           test -f data/elmuletazo.json
-
-          echo "=== Canal Sur ==="
           test -f data/canalsur.json || true
-
-          echo "=== CMM ==="
           test -f data/cmm.json || true
-
-          echo "=== Canal Extremadura ==="
           test -f data/canalextremadura.json || true
-
-          echo "=== Mundotoro ==="
           test -f data/mundotoro.json || true
-
-          echo "=== Servitoro ==="
           test -f data/servitoro.json || true
-
-          echo "=== Las Ventas ==="
           test -f data/lasventas.json || true
-
-          echo "=== Va de Toros ==="
           test -f data/vadetoros.json || true
-
-          echo "=== Aplausos ==="
           test -f data/aplausos.json || true
-
-          echo "=== Programas taurinos ==="
           test -f data/programas-taurinos.json
-
-          echo "=== Programación fusionada ==="
           test -f data/programacion.json
-
       - name: Guardar cambios
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git add data/*.json
-
           if git diff --cached --quiet; then
             echo "No hay cambios que guardar."
           else
