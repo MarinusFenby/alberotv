@@ -8,3 +8,8 @@ test('idempotente y no renueva auditoría',()=>{let es=[event(0)];applyVerifiedS
 for(const key of ['id','date','location','type','participants'])test('bloquea contradicción '+key,()=>{let e=event(0);e[key]=key==='participants'?['Otro']: 'otro';assert.equal(applyVerifiedStartTimes([e]),0);assert.equal(e.time,null);});
 test('no elige entre duplicados',()=>{assert.equal(applyVerifiedStartTimes([event(0),event(0)]),0);});
 test('sigue completando cuando la fuente vuelve sin hora',()=>{for(let i=0;i<2;i++){let es=[event(0),event(1)];assert.equal(applyVerifiedStartTimes(es),2);}});
+test('Logroño 21, 22 y 23 conserva las 18:00 en cada regeneración y en sus IDs originales',()=>{
+ const verified=VERIFIED_START_TIMES.filter(e=>e.location.startsWith('Logroño'));
+ assert.equal(verified.length,3);
+ for(const evidence of verified){const e={...structuredClone(evidence),time:null};assert.equal(applyVerifiedStartTimes([e]),1);assert.equal(e.time,'18:00');assert.equal(e.id,evidence.id);assert.equal(e.timeEvidence.sourceUrl,'https://www.bmftoros.com/noticias/presentada-la-feria-de-san-mateo-2026/');}
+});

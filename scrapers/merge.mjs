@@ -26,7 +26,52 @@ export const VERIFIED_START_TIMES = [
     sourceUrl: "https://www.feriadealbacete.com/programa-feria-de-albacete-2026/programa-feria-de-albacete-2026-lunes-14-de-septiembre-de-2026/",
     corroboratingUrl: "https://www.eldigitaldealbacete.com/2026/09/13/que-hacer-en-la-feria-de-albacete-este-lunes-14-de-septiembre/",
     verifiedOn: "2026-09-14"
-  }
+  },
+{
+  "id": "mundotoro-0adeccbe56c8ab",
+  "date": "2026-09-21",
+  "location": "Logroño \"La Ribera\" (La Rioja) España",
+  "type": "Corrida de toros",
+  "participants": [
+    "Aarón Palacio",
+    "Diego Urdiales",
+    "Roca Rey"
+  ],
+  "time": "18:00",
+  "timezone": "Europe/Madrid",
+  "sourceUrl": "https://www.bmftoros.com/noticias/presentada-la-feria-de-san-mateo-2026/",
+  "verifiedOn": "2026-09-21"
+},
+{
+  "id": "mundotoro-aeeae561fa4b4f",
+  "date": "2026-09-22",
+  "location": "Logroño \"La Ribera\" (La Rioja) España",
+  "type": "Corrida de toros",
+  "participants": [
+    "Alejandro Talavante",
+    "Fabio Jiménez",
+    "Morante de la Puebla"
+  ],
+  "time": "18:00",
+  "timezone": "Europe/Madrid",
+  "sourceUrl": "https://www.bmftoros.com/noticias/presentada-la-feria-de-san-mateo-2026/",
+  "verifiedOn": "2026-09-21"
+},
+{
+  "id": "mundotoro-7f9b93646d6ff5",
+  "date": "2026-09-23",
+  "location": "Logroño \"La Ribera\" (La Rioja) España",
+  "type": "Corrida de toros",
+  "participants": [
+    "Borja Jiménez",
+    "Daniel Luque",
+    "Diego San Román"
+  ],
+  "time": "18:00",
+  "timezone": "Europe/Madrid",
+  "sourceUrl": "https://www.bmftoros.com/noticias/presentada-la-feria-de-san-mateo-2026/",
+  "verifiedOn": "2026-09-21"
+}
 ];
 
 export function applyVerifiedStartTimes(events) {
