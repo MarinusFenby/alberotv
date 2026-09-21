@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-21T20:48:10.248Z",
-  "throughDate": "2026-09-21",
-  "eventCount": 494,
+  "generatedAt": "2026-09-21T23:50:23.923Z",
+  "throughDate": "2026-09-22",
+  "eventCount": 500,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -19983,6 +19983,257 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-09-20T19:39:11.729Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-0adeccbe56c8ab",
+      "date": "2026-09-21",
+      "time": "18:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Logroño \"La Ribera\" (La Rioja) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Juan Pedro Domecq",
+      "participants": [
+        "Aarón Palacio",
+        "Diego Urdiales",
+        "Roca Rey"
+      ],
+      "name": "Logroño \"La Ribera\" (La Rioja) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-21T20:47:50.962Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro",
+        "time": "Verificación documental de hora de inicio"
+      },
+      "confidence": 89,
+      "status": "probable",
+      "timeEvidence": {
+        "id": "mundotoro-0adeccbe56c8ab",
+        "date": "2026-09-21",
+        "location": "Logroño \"La Ribera\" (La Rioja) España",
+        "type": "Corrida de toros",
+        "participants": [
+          "Aarón Palacio",
+          "Diego Urdiales",
+          "Roca Rey"
+        ],
+        "time": "18:00",
+        "timezone": "Europe/Madrid",
+        "sourceUrl": "https://www.bmftoros.com/noticias/presentada-la-feria-de-san-mateo-2026/",
+        "verifiedOn": "2026-09-21",
+        "previousTime": null,
+        "reason": "Hora de inicio explícita contrastada con fecha, plaza y terna; completa agenda sin horario.",
+        "appliedAt": "2026-09-21T20:48:09.369Z"
+      }
+    },
+    {
+      "id": "mundotoro-67b2cbd90b56f3",
+      "date": "2026-09-21",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Algemesí (Valencia) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "El Añadio (Antes Hnos. Gualda)",
+      "participants": [
+        "Ruiz de Velasco",
+        "Tomás González"
+      ],
+      "name": "Algemesí (Valencia) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-21T20:47:50.962Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-3041ce72189122",
+      "date": "2026-09-21",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Azuqueca de Henares (Guadalajara) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "El Cubo",
+      "participants": [
+        "Daniel Moset",
+        "Ignacio Garibay -hijo-",
+        "Javier López Peregrino"
+      ],
+      "name": "Azuqueca de Henares (Guadalajara) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-21T20:47:50.962Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-b69baa7de5a5f0",
+      "date": "2026-09-21",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Mejorada del Campo (Madrid) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "La Guadamilla",
+      "participants": [
+        "Jesús Romero",
+        "Andrés García",
+        "Marcos Adame"
+      ],
+      "name": "Mejorada del Campo (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-21T20:47:50.962Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-f2aba990cc6205",
+      "date": "2026-09-21",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Agustín de Guadalix (Madrid) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Montealto",
+      "participants": [
+        "Emiliano Osornio",
+        "Sergio Rollón"
+      ],
+      "name": "San Agustín de Guadalix (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-21T20:47:50.962Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-954e7e03c88cf1",
+      "date": "2026-09-21",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Villaviciosa de Odón (Madrid) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Monte de la Ermita",
+      "participants": [
+        "Alejandro Rubio",
+        "Pepe Burdiel",
+        "Raquel Martín"
+      ],
+      "name": "Villaviciosa de Odón (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-21T20:47:50.962Z"
         }
       ],
       "fieldSources": {
