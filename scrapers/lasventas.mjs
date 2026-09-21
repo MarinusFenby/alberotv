@@ -43,7 +43,7 @@ function splitNames(value = "") {
     .replace(/[.]$/, "")
     .split(/\s*(?:,|;|·|\by\b)\s*/i)
     .map(name => clean(name).replace(/\s*\([^)]*\)\s*$/, ""))
-    .filter(name => name.length > 2 && name.length <= 100 && !pageChrome.test(name)))];
+    .filter(name => name.length > 2 && name.length <= 100 && !pageChrome.test(name) && !/^(?:en solitario|mano a mano)$/i.test(name)))];
 }
 
 export function parseDetails(description = "") {
@@ -67,7 +67,7 @@ export function extractEvents(text, sourceUrl) {
   const body = clean(text);
   const years = [...body.matchAll(/\b(20\d{2})\b/g)].map(match => Number(match[1]));
   const year = years.find(value => value >= new Date().getFullYear()) || new Date().getFullYear();
-  const pattern = /(?:lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|domingo)\s+(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\.?\s*(?:a\s+las\s+)?(\d{1,2})(?:[:.]?(\d{2}))?\s*h(?:oras?)?\.?\s*(.*?)(?=(?:lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|domingo)\s+\d{1,2}\s+de\s+|$)/gi;
+  const pattern = /(?:lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|domingo)\s+(\d{1,2})\s+(?:de\s+)?(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\.?\s*(?:a\s+las\s+)?(\d{1,2})(?:[:.]?(\d{2}))?\s*h(?:oras?)?\.?\s*(.*?)(?=(?:lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|domingo)\s+\d{1,2}\s+(?:de\s+)?(?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\b|$)/gi;
   const events = [];
 
   for (const match of body.matchAll(pattern)) {
@@ -75,9 +75,9 @@ export function extractEvents(text, sourceUrl) {
     if (!month) continue;
     const date = isoDate(Number(match[1]), month, year);
     const time = `${String(match[3]).padStart(2, "0")}:${match[4] || "00"}`;
-    const description = clean(match[5]).split(/VENTA DE ENTRADAS|Los abonados|Durante todos|Utilizamos cookies|ACEPTAR COOKIES|RECHAZAR COOKIES|Copyright|Todos los derechos reservados|Política de privacidad|Aviso Legal/i)[0];
+    const description = clean(match[5]).split(/FERIA DE OTOÑO|D[IÍ]A DE LA HISPANIDAD|VENTA DE ENTRADAS|Los abonados|Durante todos|Utilizamos cookies|ACEPTAR COOKIES|RECHAZAR COOKIES|Copyright|Todos los derechos reservados|Política de privacidad|Aviso Legal/i)[0];
     const details = parseDetails(description);
-    if (!details.participants.length && !details.breeding) continue;
+    if (!details.participants.length && !details.breeding && !/novillada|corrida|rejones/i.test(description)) continue;
 
     events.push({
       id: `lasventas-${idFor(`${date}|${time}|${description}`)}`,
@@ -86,8 +86,8 @@ export function extractEvents(text, sourceUrl) {
       channel: "Sin TV",
       televised: false,
       televisionUnconfirmed: true,
-      location: "Madrid (Plaza de Toros Monumental de Las Ventas)",
-      name: "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      location: "Las Ventas (Madrid) España",
+      name: "Las Ventas (Madrid) España",
       title: null,
       type: details.type,
       contentType: "festejo",
@@ -119,10 +119,18 @@ export function extractEventsFromBlocks(blocks = [], sourceUrl) {
     const clock = `${String(time[1]).padStart(2, "0")}:${time[2] || "00"}`;
     return [{ id: `lasventas-${idFor(`${iso}|${clock}|${participants.join("|")}`)}`,
       date: iso, time: clock, channel: "Sin TV", televised: false,
-      televisionUnconfirmed: true, location: "Madrid (Plaza de Toros Monumental de Las Ventas)",
-      name: "Madrid (Plaza de Toros Monumental de Las Ventas)", title: null,
+      televisionUnconfirmed: true, location: "Las Ventas (Madrid) España",
+      name: "Las Ventas (Madrid) España", title: null,
       type: "Corrida de toros", contentType: "festejo", breeding: clean(breeding[1]),
       participants, eventUrl: sourceUrl, sourceUrl }];
+  });
+}
+
+// Keep subscriptions attached when the official description is corrected.
+export function preserveOfficialIds(events, previous = []) {
+  return events.map(event => {
+    const matches = previous.filter(old => old.date === event.date && old.time === event.time);
+    return matches.length === 1 ? { ...event, id: matches[0].id } : event;
   });
 }
 
@@ -175,11 +183,17 @@ async function main() {
       if (!current || event.participants.length > current.participants.length) unique.set(key, event);
     }
 
-    const events = [...unique.values()].sort((a, b) =>
+    let events = [...unique.values()].sort((a, b) =>
       `${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`)
     );
     if (!events.length) throw new Error("la web oficial no produjo ningún festejo");
 
+    try {
+      const previous = JSON.parse(await fs.readFile(OUTPUT_FILE, "utf8"));
+      events = preserveOfficialIds(events, previous.events || []);
+    } catch (error) {
+      if (error.code !== "ENOENT") throw error;
+    }
     await fs.mkdir("data", { recursive: true });
     await fs.writeFile(OUTPUT_FILE, JSON.stringify({
       fetchedAt: new Date().toISOString(),

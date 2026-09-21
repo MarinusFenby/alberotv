@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T05:17:17.670Z",
+  "generatedAt": "2026-09-21T10:44:44.048Z",
   "throughDate": "2026-09-21",
   "eventCount": 494,
   "events": [
@@ -12357,7 +12357,7 @@
       "deferred": false,
       "televised": false,
       "televisionUnconfirmed": true,
-      "location": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "location": "Las Ventas (Madrid) España",
       "type": "Novillada",
       "contentType": "festejo",
       "breeding": "Jiménez Pasquau, Ángel Luis Peña, La Machamona, Chamaco, Guadajira y José González",
@@ -12366,7 +12366,7 @@
         "Tomás González",
         "Andrés García"
       ],
-      "name": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "name": "Las Ventas (Madrid) España",
       "title": null,
       "image": null,
       "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
@@ -16545,7 +16545,7 @@
       "deferred": false,
       "televised": false,
       "televisionUnconfirmed": true,
-      "location": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "location": "Las Ventas (Madrid) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
       "breeding": "Valdellán y Juan Luis Fraile",
@@ -16554,7 +16554,7 @@
         "Alberto Lamelas",
         "José Carlos Venegas"
       ],
-      "name": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "name": "Las Ventas (Madrid) España",
       "title": null,
       "image": null,
       "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
@@ -19419,6 +19419,52 @@
       "status": "confirmed"
     },
     {
+      "id": "lasventas-e7d88de9af0328",
+      "date": "2026-09-20",
+      "time": "18:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": true,
+      "location": "Las Ventas (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Veiga Teixeira y Partido de Resina",
+      "participants": [
+        "Fermín Rivera",
+        "Damián Castaño",
+        "Gómez del Pilar"
+      ],
+      "name": "Las Ventas (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sources": [
+        "Mundotoro",
+        "Las Ventas oficial"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-20T19:39:11.729Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-09-20T19:39:25.343Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Las Ventas oficial"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
       "id": "mundotoro-d9aab5ff5ec58f",
       "date": "2026-09-20",
       "time": "18:00",
@@ -19460,52 +19506,6 @@
       ],
       "fieldSources": {
         "type": "Servitoro"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "lasventas-e7d88de9af0328",
-      "date": "2026-09-20",
-      "time": "18:00",
-      "channel": "Sin TV",
-      "deferred": false,
-      "televised": false,
-      "televisionUnconfirmed": true,
-      "location": "Madrid (Plaza de Toros Monumental de Las Ventas)",
-      "type": "Corrida de toros",
-      "contentType": "festejo",
-      "breeding": "Veiga Teixeira y Partido de Resina",
-      "participants": [
-        "Fermín Rivera",
-        "Damián Castaño",
-        "Gómez del Pilar"
-      ],
-      "name": "Madrid (Plaza de Toros Monumental de Las Ventas)",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-      "sources": [
-        "Mundotoro",
-        "Las Ventas oficial"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Mundotoro",
-          "confidence": 86,
-          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-20T19:39:11.729Z"
-        },
-        {
-          "name": "Las Ventas oficial",
-          "confidence": 100,
-          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-          "fetchedAt": "2026-09-20T19:39:25.343Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "Las Ventas oficial"
       },
       "confidence": 100,
       "status": "confirmed"

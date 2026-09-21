@@ -67,3 +67,26 @@ test("la página oficial de programación produce los cuatro festejos de septiem
     { date: "2026-09-27", time: "18:00", type: "Corrida de toros", breeding: "Saltillo, Palha, Castillejo de Huebra, Conde de la Corte, Pallarés y Valldellán", participants: ["Isaac Fonseca", "Cristian Pérez", "Alejandro Chicharro"] }
   ]);
 });
+
+test('programa mixto con fechas sin de no arrastra octubre al 27 de septiembre',()=>{
+ const fixture=fs.readFileSync(new URL('./fixtures/lasventas-otono-2026.txt',import.meta.url),'utf8');
+ const events=extractEventsFromBlocks([fixture],'https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas');
+ assert.equal(events.length,12);
+ const sep=events.find(e=>e.date==='2026-09-27');
+ assert.equal(sep.type,'Corrida de toros');
+ assert.deepEqual(sep.participants,['Isaac Fonseca','Cristian Pérez','Alejandro Chicharro']);
+ assert.deepEqual(events.find(e=>e.date==='2026-10-01').participants,['El Mene','Nacho Torrejón','Mario Vilau']);
+ assert.deepEqual(events.find(e=>e.date==='2026-10-10').participants,['Álvaro Serrano']);
+ assert.deepEqual(events.find(e=>e.date==='2026-10-11').participants,['Antonio Ferrera','Román']);
+ assert.equal(events.find(e=>e.date==='2026-10-09').time,'17:30');
+ assert(events.every(e=>e.location==='Las Ventas (Madrid) España'));
+ assert(events.every(e=>e.participants.every(p=>!/(octubre|septiembre|para|feria|18:00)/i.test(p))));
+});
+
+test('una descripción corregida conserva el ID del mismo día y hora',async()=>{
+ const {preserveOfficialIds}=await import('../scrapers/lasventas.mjs');
+ const event={id:'new',date:'2026-09-27',time:'18:00',participants:['A','B','C']};
+ assert.equal(preserveOfficialIds([event],[{...event,id:'saved',participants:['bad']}])[0].id,'saved');
+ assert.equal(preserveOfficialIds([event],[{...event,id:'other',time:'11:00'}])[0].id,'new');
+ assert.equal(preserveOfficialIds([event],[{...event,id:'one'},{...event,id:'two'}])[0].id,'new');
+});

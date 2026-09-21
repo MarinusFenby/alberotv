@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-09-21T05:17:17.667Z",
+  "generatedAt": "2026-09-21T10:44:44.046Z",
   "degraded": true,
-  "eventCount": 567,
-  "bullfightingEventCount": 543,
+  "eventCount": 568,
+  "bullfightingEventCount": 544,
   "programCount": 24,
   "mergeStats": {
     "historicalCandidates": 988,
     "historicalPreserved": 494,
     "historicalDuplicatesMerged": 494,
-    "added": 82,
-    "merged": 46,
+    "added": 83,
+    "merged": 53,
     "skippedUncorroborated": 22,
     "verifiedStartTimesApplied": 0,
     "reschedulesApplied": 0,
@@ -23,7 +23,7 @@
     "cmm": 3,
     "canalExtremadura": 2,
     "mundoToro": 87,
-    "lasVentas": 4,
+    "lasVentas": 12,
     "vaDeToros": 21,
     "aplausos": 0
   },
@@ -81,8 +81,8 @@
     "lasVentas": {
       "label": "Las Ventas oficial",
       "status": "ok",
-      "eventCount": 4,
-      "fetchedAt": "2026-09-21T05:17:13.649Z",
+      "eventCount": 12,
+      "fetchedAt": "2026-09-21T10:44:27.399Z",
       "error": null
     },
     "vaDeToros": {
@@ -12469,7 +12469,7 @@
       "deferred": false,
       "televised": false,
       "televisionUnconfirmed": true,
-      "location": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "location": "Las Ventas (Madrid) España",
       "type": "Novillada",
       "contentType": "festejo",
       "breeding": "Jiménez Pasquau, Ángel Luis Peña, La Machamona, Chamaco, Guadajira y José González",
@@ -12478,7 +12478,7 @@
         "Tomás González",
         "Andrés García"
       ],
-      "name": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "name": "Las Ventas (Madrid) España",
       "title": null,
       "image": null,
       "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
@@ -16657,7 +16657,7 @@
       "deferred": false,
       "televised": false,
       "televisionUnconfirmed": true,
-      "location": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "location": "Las Ventas (Madrid) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
       "breeding": "Valdellán y Juan Luis Fraile",
@@ -16666,7 +16666,7 @@
         "Alberto Lamelas",
         "José Carlos Venegas"
       ],
-      "name": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "name": "Las Ventas (Madrid) España",
       "title": null,
       "image": null,
       "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
@@ -19531,6 +19531,52 @@
       "status": "confirmed"
     },
     {
+      "id": "lasventas-e7d88de9af0328",
+      "date": "2026-09-20",
+      "time": "18:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": true,
+      "location": "Las Ventas (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Veiga Teixeira y Partido de Resina",
+      "participants": [
+        "Fermín Rivera",
+        "Damián Castaño",
+        "Gómez del Pilar"
+      ],
+      "name": "Las Ventas (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sources": [
+        "Mundotoro",
+        "Las Ventas oficial"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-20T19:39:11.729Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-09-20T19:39:25.343Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Las Ventas oficial"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
       "id": "mundotoro-d9aab5ff5ec58f",
       "date": "2026-09-20",
       "time": "18:00",
@@ -19572,52 +19618,6 @@
       ],
       "fieldSources": {
         "type": "Servitoro"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
-      "id": "lasventas-e7d88de9af0328",
-      "date": "2026-09-20",
-      "time": "18:00",
-      "channel": "Sin TV",
-      "deferred": false,
-      "televised": false,
-      "televisionUnconfirmed": true,
-      "location": "Madrid (Plaza de Toros Monumental de Las Ventas)",
-      "type": "Corrida de toros",
-      "contentType": "festejo",
-      "breeding": "Veiga Teixeira y Partido de Resina",
-      "participants": [
-        "Fermín Rivera",
-        "Damián Castaño",
-        "Gómez del Pilar"
-      ],
-      "name": "Madrid (Plaza de Toros Monumental de Las Ventas)",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-      "sources": [
-        "Mundotoro",
-        "Las Ventas oficial"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Mundotoro",
-          "confidence": 86,
-          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-20T19:39:11.729Z"
-        },
-        {
-          "name": "Las Ventas oficial",
-          "confidence": 100,
-          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-          "fetchedAt": "2026-09-20T19:39:25.343Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "Las Ventas oficial"
       },
       "confidence": 100,
       "status": "confirmed"
@@ -21166,30 +21166,16 @@
       "deferred": false,
       "televised": false,
       "televisionUnconfirmed": true,
-      "location": "Madrid (Plaza de Toros Monumental de Las Ventas)",
-      "type": "Novillada",
+      "location": "Las Ventas (Madrid) España",
+      "type": "Corrida de toros",
       "contentType": "festejo",
       "breeding": "Saltillo, Palha, Castillejo de Huebra, Conde de la Corte, Pallarés y Valldellán",
       "participants": [
         "Isaac Fonseca",
         "Cristian Pérez",
-        "Nacho Torrejón",
-        "Fortes",
-        "Christian Parejo. Sábado 3 octubre. 18:00h. Corrida de Toros. Toros de Victoriano del Río",
-        "Toros de Cortés para Emilio de Justo",
-        "Víctor Hernández",
-        "Paco Ureña",
-        "Montealto",
-        "Conde de Mayalde",
-        "Torrehandilla",
-        "Domingo Hernández",
-        "Julio de la Puerta para Álvaro Serrano",
-        "Román",
-        "Núñez del Cuvillo para Morante de la Puebla",
-        "Héctor Gutiérrez",
-        "Aarón Palacio"
+        "Alejandro Chicharro"
       ],
-      "name": "Madrid (Plaza de Toros Monumental de Las Ventas)",
+      "name": "Las Ventas (Madrid) España",
       "title": null,
       "image": null,
       "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
@@ -21209,7 +21195,7 @@
           "name": "Las Ventas oficial",
           "confidence": 100,
           "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-          "fetchedAt": "2026-09-21T05:17:13.649Z"
+          "fetchedAt": "2026-09-21T10:44:27.399Z"
         }
       ],
       "fieldSources": {
@@ -21690,6 +21676,52 @@
       "status": "probable"
     },
     {
+      "id": "lasventas-5a8838bc6f29a1",
+      "date": "2026-10-01",
+      "time": "18:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": true,
+      "location": "Las Ventas (Madrid) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "El Retamar",
+      "participants": [
+        "El Mene",
+        "Nacho Torrejón",
+        "Mario Vilau"
+      ],
+      "name": "Las Ventas (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sources": [
+        "Mundotoro",
+        "Las Ventas oficial"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-21T05:16:57.797Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-09-21T10:44:27.399Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Las Ventas oficial"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
       "id": "mundotoro-52d52e705e172a",
       "date": "2026-10-01",
       "time": null,
@@ -21729,29 +21761,30 @@
       "status": "probable"
     },
     {
-      "id": "mundotoro-f8caac67c39cdb",
-      "date": "2026-10-01",
-      "time": null,
+      "id": "lasventas-2f6f2db15dabba",
+      "date": "2026-10-02",
+      "time": "18:00",
       "channel": "Sin TV",
       "deferred": false,
       "televised": false,
-      "televisionUnconfirmed": false,
+      "televisionUnconfirmed": true,
       "location": "Las Ventas (Madrid) España",
-      "type": "Novillada",
+      "type": "Corrida de toros",
       "contentType": "festejo",
-      "breeding": "El Retamar",
+      "breeding": "Alcurrucén",
       "participants": [
-        "El Mene",
-        "Mario Vilau",
-        "Nacho Torrejón"
+        "Diego Urdiales",
+        "Fortes",
+        "Christian Parejo"
       ],
       "name": "Las Ventas (Madrid) España",
       "title": null,
       "image": null,
-      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
       "sources": [
-        "Mundotoro"
+        "Mundotoro",
+        "Las Ventas oficial"
       ],
       "sourceDetails": [
         {
@@ -21759,13 +21792,19 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-09-21T05:16:57.797Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-09-21T10:44:27.399Z"
         }
       ],
       "fieldSources": {
-        "type": "Mundotoro"
+        "type": "Las Ventas oficial"
       },
-      "confidence": 89,
-      "status": "probable"
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "mundotoro-b6357b185e133f",
@@ -21807,29 +21846,30 @@
       "status": "probable"
     },
     {
-      "id": "mundotoro-6c239045fa5a01",
-      "date": "2026-10-02",
-      "time": null,
+      "id": "lasventas-f5e1e099efdda5",
+      "date": "2026-10-03",
+      "time": "18:00",
       "channel": "Sin TV",
       "deferred": false,
       "televised": false,
-      "televisionUnconfirmed": false,
+      "televisionUnconfirmed": true,
       "location": "Las Ventas (Madrid) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
-      "breeding": "Alcurrucén",
+      "breeding": "Victoriano del Río y Toros de Cortés",
       "participants": [
-        "Christian Parejo",
-        "Diego Urdiales",
-        "Fortes"
+        "Emilio de Justo",
+        "Víctor Hernández",
+        "Marco Pérez"
       ],
       "name": "Las Ventas (Madrid) España",
       "title": null,
       "image": null,
-      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
       "sources": [
-        "Mundotoro"
+        "Mundotoro",
+        "Las Ventas oficial"
       ],
       "sourceDetails": [
         {
@@ -21837,13 +21877,19 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-09-21T05:16:57.797Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-09-21T10:44:27.399Z"
         }
       ],
       "fieldSources": {
-        "type": "Mundotoro"
+        "type": "Las Ventas oficial"
       },
-      "confidence": 89,
-      "status": "probable"
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "mundotoro-745ab3506ad491",
@@ -21863,48 +21909,6 @@
         "Pedro Gómez"
       ],
       "name": "Guadarrama (Madrid) España",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sources": [
-        "Mundotoro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Mundotoro",
-          "confidence": 86,
-          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-21T05:16:57.797Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "Mundotoro"
-      },
-      "confidence": 89,
-      "status": "probable"
-    },
-    {
-      "id": "mundotoro-19575eaab39cb2",
-      "date": "2026-10-03",
-      "time": null,
-      "channel": "Sin TV",
-      "deferred": false,
-      "televised": false,
-      "televisionUnconfirmed": false,
-      "location": "Las Ventas (Madrid) España",
-      "type": "Corrida de toros",
-      "contentType": "festejo",
-      "breeding": "Toros de Cortés y Victoriano del Río Cortés",
-      "participants": [
-        "Emilio de Justo",
-        "Marco Pérez",
-        "Víctor Hernández",
-        "Borja Jiménez",
-        "Julio Méndez",
-        "Tomás Rufo"
-      ],
-      "name": "Las Ventas (Madrid) España",
       "title": null,
       "image": null,
       "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
@@ -22120,6 +22124,52 @@
       "status": "probable"
     },
     {
+      "id": "lasventas-10bb8067c6ff35",
+      "date": "2026-10-04",
+      "time": "18:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": true,
+      "location": "Las Ventas (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Victorino Martín",
+      "participants": [
+        "Uceda Leal",
+        "Paco Ureña",
+        "Borja Jiménez"
+      ],
+      "name": "Las Ventas (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sources": [
+        "Mundotoro",
+        "Las Ventas oficial"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-21T05:16:57.797Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-09-21T10:44:27.399Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Las Ventas oficial"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
       "id": "alberotv-2026-10-04-460aeebdb645d62a",
       "date": "2026-10-04",
       "time": "18:30",
@@ -22213,48 +22263,6 @@
         "Sebastián Castella"
       ],
       "name": "Hellín (Albacete) España",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sources": [
-        "Mundotoro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Mundotoro",
-          "confidence": 86,
-          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-21T05:16:57.797Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "Mundotoro"
-      },
-      "confidence": 89,
-      "status": "probable"
-    },
-    {
-      "id": "mundotoro-016b1c0bff415f",
-      "date": "2026-10-04",
-      "time": null,
-      "channel": "Sin TV",
-      "deferred": false,
-      "televised": false,
-      "televisionUnconfirmed": false,
-      "location": "Las Ventas (Madrid) España",
-      "type": "Corrida de toros",
-      "contentType": "festejo",
-      "breeding": "Victorino Martín Andrés",
-      "participants": [
-        "Borja Jiménez",
-        "Paco Ureña",
-        "Uceda Leal",
-        "Gómez del Pilar",
-        "José Garrido",
-        "Manuel Escribano"
-      ],
-      "name": "Las Ventas (Madrid) España",
       "title": null,
       "image": null,
       "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
@@ -22433,6 +22441,41 @@
       "status": "probable"
     },
     {
+      "id": "lasventas-c25696b075a4a2",
+      "date": "2026-10-09",
+      "time": "17:30",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": true,
+      "location": "Las Ventas (Madrid) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "Las Ventas (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sources": [
+        "Las Ventas oficial"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-09-21T10:44:27.399Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Las Ventas oficial"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
       "id": "mundotoro-7cc2bbd8052c7f",
       "date": "2026-10-09",
       "time": null,
@@ -22480,12 +22523,11 @@
       "televised": true,
       "televisionUnconfirmed": false,
       "location": "Madrid – Plaza de Toros de Las Ventas",
-      "type": "Novillada con picadores",
+      "type": "Novillada",
       "contentType": "festejo",
-      "breeding": "Las Ventas. 🐂Novillada con picadores – Feria de Otoño.📜 Novillos de Fuente Ymbro, Montealto, Conde de Mayalde, Torrehandilla, Domingo Hernández y Julio de la Puerta",
+      "breeding": "Fuente Ymbro, Montealto, Conde de Mayalde, Torrehandilla, Domingo Hernández y Julio de la Puerta",
       "participants": [
-        "Álvaro Serrano",
-        "en solitario"
+        "Álvaro Serrano"
       ],
       "name": "Madrid – Plaza de Toros de Las Ventas",
       "title": null,
@@ -22494,7 +22536,8 @@
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
-        "Mundotoro"
+        "Mundotoro",
+        "Las Ventas oficial"
       ],
       "sourceDetails": [
         {
@@ -22508,12 +22551,18 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-09-21T05:16:57.797Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-09-21T10:44:27.399Z"
         }
       ],
       "fieldSources": {
-        "type": "El Muletazo"
+        "type": "Las Ventas oficial"
       },
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -22642,11 +22691,10 @@
       "location": "Madrid – Plaza de Toros de Las Ventas",
       "type": "Corrida de toros",
       "contentType": "festejo",
-      "breeding": "Las Ventas. 🐂Corrida de Toros – Feria de Otoño.📜 Toros de Adolfo Martín",
+      "breeding": "Adolfo Martín",
       "participants": [
         "Antonio Ferrera",
-        "Román",
-        "mano a mano"
+        "Román"
       ],
       "name": "Madrid – Plaza de Toros de Las Ventas",
       "title": null,
@@ -22655,7 +22703,8 @@
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
-        "Mundotoro"
+        "Mundotoro",
+        "Las Ventas oficial"
       ],
       "sourceDetails": [
         {
@@ -22669,12 +22718,18 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-09-21T05:16:57.797Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-09-21T10:44:27.399Z"
         }
       ],
       "fieldSources": {
-        "type": "El Muletazo"
+        "type": "Las Ventas oficial"
       },
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -22756,30 +22811,31 @@
       "status": "probable"
     },
     {
-      "id": "mundotoro-070be98132994e",
+      "id": "lasventas-8caabfc6fb8ba4",
       "date": "2026-10-12",
       "time": "17:30",
       "channel": "Telemadrid",
       "deferred": false,
       "televised": true,
       "televisionUnconfirmed": false,
-      "location": "Madrid – Plaza de Toros de Las Ventas",
+      "location": "Las Ventas (Madrid) España",
       "type": "Corrida de toros",
       "contentType": "festejo",
-      "breeding": "Las Ventas. 🐂Corrida de Toros del Día de la Hispanidad – Feria de Otoño.📜 Toros de Garcigrande y Núñez del Cuvillo",
+      "breeding": "Garcigrande y Núñez del Cuvillo",
       "participants": [
         "Morante de la Puebla",
         "Héctor Gutiérrez",
-        "Aarón Palacio (confirmación)"
+        "Aarón Palacio"
       ],
-      "name": "Madrid – Plaza de Toros de Las Ventas",
+      "name": "Las Ventas (Madrid) España",
       "title": null,
       "image": null,
-      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
       "sources": [
         "El Muletazo",
-        "Mundotoro"
+        "Mundotoro",
+        "Las Ventas oficial"
       ],
       "sourceDetails": [
         {
@@ -22793,12 +22849,18 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-09-21T05:16:57.797Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-09-21T10:44:27.399Z"
         }
       ],
       "fieldSources": {
-        "type": "El Muletazo"
+        "type": "Las Ventas oficial"
       },
-      "confidence": 96,
+      "confidence": 100,
       "status": "confirmed"
     },
     {
