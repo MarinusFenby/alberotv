@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import {pathToFileURL} from "node:url";
 
 const SOURCE_URL =
   "https://elmuletazo.com/agenda-de-toros-en-television/";
@@ -395,35 +396,40 @@ function extractType(text = "") {
   return "Festejo taurino";
 }
 
-function extractBreeding(text = "") {
+export function extractBreeding(text = "") {
   const mixedDetails = extractMixedDetails(text);
 
   if (mixedDetails?.breeding) {
     return mixedDetails.breeding;
   }
 
-  const patterns = [
-    /\bToros de\s+(.+?)(?=\s+para\s*:?\s|\s+Cartel por confirmar|\.?\s*🔗|$)/i,
-    /\bNovillos de\s+(.+?)(?=\s+para\s*:?\s|\s+Cartel por confirmar|\.?\s*🔗|$)/i,
-    /\bReses de\s+(.+?)(?=\s+para\s*:?\s|\s+Cartel por confirmar|\.?\s*🔗|$)/i
-  ];
-
-  for (const pattern of patterns) {
-    const match = clean(text).match(pattern);
-
-    if (match && match[1]) {
+  // Scan each declaration independently. A venue's "Plaza de Toros de ..."
+  // must neither become a breed nor swallow a later real declaration.
+  const block = clean(text).split("🔗")[0];
+  const declaration = /\b(?:Toros|Novillos|Reses)\s+de\s+/gi;
+  const starts = [...block.matchAll(declaration)];
+  const candidates = [];
+  let coveredUntil = -1;
+  for (const start of starts) {
+    if (start.index < coveredUntil) continue;
+    if (/\b(?:plaza|corrida)\s+de\s*$/i.test(block.slice(0, start.index))) continue;
+    const tail = block.slice(start.index + start[0].length);
+    const match = tail.match(/^(.+?)(?=\s+para\s*:?\s|\s+Cartel por confirmar|[📜🐂🏟📺🗓]|$)/iu);
+    if (match?.[1]) {
       const breeding = cleanBreeding(match[1]);
 
       if (
-        breeding.length <= 180 &&
-        !/servicio gratis|me gusta responder|comentarios?/i.test(breeding)
+        breeding.length > 0 && breeding.length <= 180 &&
+        !/servicio gratis|me gusta responder|comentarios?|\bplaza\b|\bmaestranza\b|\bferia\b|\bcorrida\b|\bnovillada\b|\btelevisi[oó]n\b/i.test(breeding)
       ) {
-        return breeding;
+        candidates.push(breeding);
+        coveredUntil = start.index + start[0].length + match[1].length;
       }
     }
   }
 
-  return "";
+  const distinct = [...new Map(candidates.map(value => [normalizeText(value), value])).values()];
+  return distinct.length === 1 ? distinct[0] : "";
 }
 
 function extractParticipants(text = "") {
@@ -560,7 +566,7 @@ async function main() {
   );
 }
 
-main().catch(
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main().catch(
   error => {
     console.error(error);
     process.exit(1);
