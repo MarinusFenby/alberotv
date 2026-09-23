@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-23T21:05:37.482Z",
-  "throughDate": "2026-09-23",
-  "eventCount": 502,
+  "generatedAt": "2026-09-23T23:52:13.541Z",
+  "throughDate": "2026-09-24",
+  "eventCount": 503,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -20338,6 +20338,64 @@
       },
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "mundotoro-7f9b93646d6ff5",
+      "date": "2026-09-23",
+      "time": "18:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Logroño \"La Ribera\" (La Rioja) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Fuente Ymbro",
+      "participants": [
+        "Borja Jiménez",
+        "Daniel Luque",
+        "Diego San Román"
+      ],
+      "name": "Logroño \"La Ribera\" (La Rioja) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-23T21:05:18.381Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro",
+        "time": "Verificación documental de hora de inicio"
+      },
+      "confidence": 90,
+      "status": "probable",
+      "timeEvidence": {
+        "id": "mundotoro-7f9b93646d6ff5",
+        "date": "2026-09-23",
+        "location": "Logroño \"La Ribera\" (La Rioja) España",
+        "type": "Corrida de toros",
+        "participants": [
+          "Borja Jiménez",
+          "Daniel Luque",
+          "Diego San Román"
+        ],
+        "time": "18:00",
+        "timezone": "Europe/Madrid",
+        "sourceUrl": "https://www.bmftoros.com/noticias/presentada-la-feria-de-san-mateo-2026/",
+        "verifiedOn": "2026-09-21",
+        "previousTime": null,
+        "reason": "Hora de inicio explícita contrastada con fecha, plaza y terna; completa agenda sin horario.",
+        "appliedAt": "2026-09-23T21:05:36.268Z"
+      }
     }
   ]
 }
