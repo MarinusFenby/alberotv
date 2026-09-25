@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-25T19:26:43.725Z",
-  "throughDate": "2026-09-25",
-  "eventCount": 506,
+  "generatedAt": "2026-09-25T22:40:04.660Z",
+  "throughDate": "2026-09-26",
+  "eventCount": 510,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -20507,6 +20507,175 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-09-24T21:58:19.314Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "canalsur-2026-09-25-la-maestranza-de-sevilla",
+      "date": "2026-09-25",
+      "time": "18:00",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "La Maestranza de Sevilla",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Puerto de San Lorenzo y La Ventana del Puerto",
+      "participants": [
+        "José María Manzanares",
+        "Alejandro Talavante",
+        "Juan Ortega"
+      ],
+      "name": "Manzanares, Talavante y Juan Ortega en la primera corrida de la Feria de San Miguel",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
+      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/manzanares-talavante-juan-ortega-primera_1_1437753.html",
+      "sources": [
+        "El Muletazo",
+        "Canal Sur",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-09-25T19:25:41.299Z"
+        },
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/manzanares-talavante-juan-ortega-primera_1_1437753.html",
+          "fetchedAt": "2026-09-25T19:26:08.388Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-25T19:26:21.867Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-6ad251f1915a1f",
+      "date": "2026-09-25",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Algemesí (Valencia) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Mariano y Carmen Arroyo Martín",
+      "participants": [
+        "Gonzalo Capdevila",
+        "Marco Polope"
+      ],
+      "name": "Algemesí (Valencia) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-25T19:26:21.867Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-3cfe315ade7cfd",
+      "date": "2026-09-25",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Azuqueca de Henares (Guadalajara) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Yerbabuena",
+      "participants": [
+        "Emiliano Osornio",
+        "Jorge Hurtado",
+        "Rafael de la Cueva"
+      ],
+      "name": "Azuqueca de Henares (Guadalajara) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-25T19:26:21.867Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-d3b31736e5c67d",
+      "date": "2026-09-25",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Los Barrios (Cádiz) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "por designar",
+      "participants": [
+        "Borja Jiménez",
+        "David de Miranda",
+        "David Galván"
+      ],
+      "name": "Los Barrios (Cádiz) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-25T19:26:21.867Z"
         }
       ],
       "fieldSources": {
