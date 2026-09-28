@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-09-28T07:19:50.059Z",
+  "generatedAt": "2026-09-28T15:46:28.284Z",
   "degraded": true,
-  "eventCount": 585,
-  "bullfightingEventCount": 558,
-  "programCount": 27,
+  "eventCount": 588,
+  "bullfightingEventCount": 559,
+  "programCount": 29,
   "mergeStats": {
     "historicalCandidates": 1070,
     "historicalPreserved": 535,
     "historicalDuplicatesMerged": 535,
-    "added": 59,
-    "merged": 44,
+    "added": 62,
+    "merged": 33,
     "skippedUncorroborated": 22,
     "verifiedStartTimesApplied": 0,
     "reschedulesApplied": 0,
     "verifiedAlmendralejoDuplicateRemoved": 0
   },
   "sources": {
-    "elMuletazo": 8,
+    "elMuletazo": 9,
     "oneToro": 1,
     "programasTaurinos": 0,
     "canalSur": 0,
-    "cmm": 3,
-    "canalExtremadura": 2,
-    "mundoToro": 58,
+    "cmm": 5,
+    "canalExtremadura": 3,
+    "mundoToro": 46,
     "lasVentas": 12,
     "vaDeToros": 21,
     "aplausos": 0
@@ -31,8 +31,8 @@
     "elMuletazo": {
       "label": "El Muletazo",
       "status": "ok",
-      "eventCount": 8,
-      "fetchedAt": "2026-09-28T07:18:55.729Z",
+      "eventCount": 9,
+      "fetchedAt": "2026-09-28T15:45:38.661Z",
       "error": null
     },
     "oneToro": {
@@ -41,48 +41,48 @@
       "eventCount": 1,
       "fetchedAt": "2026-09-13T19:11:42.521Z",
       "error": "No se pudo verificar OneToro en este intento; los datos conservados no son una actualización nueva.",
-      "lastAttemptAt": "2026-09-28T07:19:50.141Z"
+      "lastAttemptAt": "2026-09-28T15:46:28.373Z"
     },
     "programasTaurinos": {
       "label": "Programas taurinos",
       "status": "ok",
       "eventCount": 0,
-      "fetchedAt": "2026-09-28T07:19:48.396Z",
+      "fetchedAt": "2026-09-28T15:46:26.149Z",
       "error": null
     },
     "canalSur": {
       "label": "Canal Sur",
       "status": "ok",
       "eventCount": 0,
-      "fetchedAt": "2026-09-28T07:19:18.076Z",
+      "fetchedAt": "2026-09-28T15:45:58.141Z",
       "error": null
     },
     "cmm": {
       "label": "CMM",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 5,
       "fetchedAt": null,
       "error": null
     },
     "canalExtremadura": {
       "label": "Canal Extremadura",
       "status": "ok",
-      "eventCount": 2,
-      "fetchedAt": "2026-09-28T07:19:25.557Z",
+      "eventCount": 3,
+      "fetchedAt": "2026-09-28T15:46:03.872Z",
       "error": null
     },
     "mundoToro": {
       "label": "Mundotoro",
       "status": "ok",
-      "eventCount": 58,
-      "fetchedAt": "2026-09-28T07:19:30.541Z",
+      "eventCount": 46,
+      "fetchedAt": "2026-09-28T15:46:08.638Z",
       "error": null
     },
     "lasVentas": {
       "label": "Las Ventas oficial",
       "status": "ok",
       "eventCount": 12,
-      "fetchedAt": "2026-09-28T07:19:46.463Z",
+      "fetchedAt": "2026-09-28T15:46:22.604Z",
       "error": null
     },
     "vaDeToros": {
@@ -21800,41 +21800,6 @@
       "status": "probable"
     },
     {
-      "id": "canal-extremadura-adfcadb9044a69",
-      "date": "2026-09-28",
-      "time": "01:15",
-      "channel": "Canal Extremadura",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Extremadura Tierra de Toros",
-      "title": "Extremadura Tierra de Toros",
-      "image": null,
-      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2021%20al%2027%20de%20septiembre%20de%202026.pdf",
-      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2021%20al%2027%20de%20septiembre%20de%202026.pdf",
-      "sources": [
-        "Canal Extremadura"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Extremadura",
-          "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2021%20al%2027%20de%20septiembre%20de%202026.pdf",
-          "fetchedAt": "2026-09-28T07:19:25.557Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "Canal Extremadura"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
       "id": "mundotoro-a9d0ddb402b4f5",
       "date": "2026-09-28",
       "time": null,
@@ -21864,7 +21829,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -21902,7 +21867,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -21941,7 +21906,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -21980,7 +21945,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22020,13 +21985,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         },
         {
           "name": "Las Ventas oficial",
           "confidence": 100,
           "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-          "fetchedAt": "2026-09-28T07:19:46.463Z"
+          "fetchedAt": "2026-09-28T15:46:22.604Z"
         }
       ],
       "fieldSources": {
@@ -22065,7 +22030,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22105,13 +22070,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         },
         {
           "name": "Las Ventas oficial",
           "confidence": 100,
           "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-          "fetchedAt": "2026-09-28T07:19:46.463Z"
+          "fetchedAt": "2026-09-28T15:46:22.604Z"
         }
       ],
       "fieldSources": {
@@ -22150,7 +22115,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22158,6 +22123,87 @@
       },
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "cmm-2026-10-03-1245-4",
+      "date": "2026-10-03",
+      "time": "12:45",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "TIEMPO DE TOROS",
+      "title": "TIEMPO DE TOROS",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+          "fetchedAt": null
+        }
+      ],
+      "fieldSources": {
+        "type": "CMM"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-8ada9e717f6e9e",
+      "date": "2026-10-03",
+      "time": "17:45",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Zafra (Badajoz)",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "Maria Guiomar Cortés de Moura",
+      "participants": [
+        "João Salgueiro",
+        "Diego Ventura",
+        "Leonardo Hernández"
+      ],
+      "name": "Zafra (Badajoz)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-09-28T15:45:38.661Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 96,
+      "status": "confirmed"
     },
     {
       "id": "lasventas-f5e1e099efdda5",
@@ -22190,13 +22236,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         },
         {
           "name": "Las Ventas oficial",
           "confidence": 100,
           "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-          "fetchedAt": "2026-09-28T07:19:46.463Z"
+          "fetchedAt": "2026-09-28T15:46:22.604Z"
         }
       ],
       "fieldSources": {
@@ -22240,7 +22286,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-28T07:18:55.729Z"
+          "fetchedAt": "2026-09-28T15:45:38.661Z"
         }
       ],
       "fieldSources": {
@@ -22278,7 +22324,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22317,7 +22363,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22354,7 +22400,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22362,6 +22408,52 @@
       },
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "canal-extremadura-f30514cbc90776",
+      "date": "2026-10-03",
+      "time": null,
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "TOROS – FERIA DE SAN MIGUEL ZAFRA 2026",
+      "title": "TOROS – FERIA DE SAN MIGUEL ZAFRA 2026",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2028%20de%20septiembre%20al%204%20de%20octubre%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2028%20de%20septiembre%20al%204%20de%20octubre%20de%202026.pdf",
+      "sources": [
+        "CMM",
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
+        },
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2028%20de%20septiembre%20al%204%20de%20octubre%20de%202026.pdf",
+          "fetchedAt": "2026-09-28T15:46:03.872Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
+      "status": "confirmed",
+      "channels": [
+        "CMM",
+        "Canal Extremadura"
+      ]
     },
     {
       "id": "mundotoro-542cb33a2dbd78",
@@ -22393,7 +22485,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22432,7 +22524,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22471,7 +22563,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22481,43 +22573,39 @@
       "status": "probable"
     },
     {
-      "id": "mundotoro-8ada9e717f6e9e",
-      "date": "2026-10-03",
-      "time": null,
-      "channel": "Sin TV",
+      "id": "canal-extremadura-7c9df71f0f49fc",
+      "date": "2026-10-04",
+      "time": "13:00",
+      "channel": "Canal Extremadura",
       "deferred": false,
-      "televised": false,
+      "televised": true,
       "televisionUnconfirmed": false,
-      "location": "Zafra (Badajoz) España",
-      "type": "Corrida de toros",
-      "contentType": "festejo",
-      "breeding": "María Guiomar Cortés Moura",
-      "participants": [
-        "Diego Ventura",
-        "João Salgueiro",
-        "Leonardo Hernández"
-      ],
-      "name": "Zafra (Badajoz) España",
-      "title": null,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
       "image": null,
-      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
-      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2028%20de%20septiembre%20al%204%20de%20octubre%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2028%20de%20septiembre%20al%204%20de%20octubre%20de%202026.pdf",
       "sources": [
-        "Mundotoro"
+        "Canal Extremadura"
       ],
       "sourceDetails": [
         {
-          "name": "Mundotoro",
-          "confidence": 86,
-          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2028%20de%20septiembre%20al%204%20de%20octubre%20de%202026.pdf",
+          "fetchedAt": "2026-09-28T15:46:03.872Z"
         }
       ],
       "fieldSources": {
-        "type": "Mundotoro"
+        "type": "Canal Extremadura"
       },
-      "confidence": 89,
-      "status": "probable"
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "lasventas-10bb8067c6ff35",
@@ -22550,13 +22638,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         },
         {
           "name": "Las Ventas oficial",
           "confidence": 100,
           "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-          "fetchedAt": "2026-09-28T07:19:46.463Z"
+          "fetchedAt": "2026-09-28T15:46:22.604Z"
         }
       ],
       "fieldSources": {
@@ -22595,7 +22683,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-28T07:18:55.729Z"
+          "fetchedAt": "2026-09-28T15:45:38.661Z"
         }
       ],
       "fieldSources": {
@@ -22634,7 +22722,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22673,7 +22761,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22712,7 +22800,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22750,7 +22838,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22788,7 +22876,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22827,7 +22915,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22866,7 +22954,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22905,7 +22993,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22913,6 +23001,41 @@
       },
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "canal-extremadura-3615ed22cb6f06",
+      "date": "2026-10-05",
+      "time": "01:15",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2028%20de%20septiembre%20al%204%20de%20octubre%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2028%20de%20septiembre%20al%204%20de%20octubre%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2028%20de%20septiembre%20al%204%20de%20octubre%20de%202026.pdf",
+          "fetchedAt": "2026-09-28T15:46:03.872Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
+      "status": "confirmed"
     },
     {
       "id": "mundotoro-d14c1b77e599c4",
@@ -22944,7 +23067,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -22979,7 +23102,7 @@
           "name": "Las Ventas oficial",
           "confidence": 100,
           "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-          "fetchedAt": "2026-09-28T07:19:46.463Z"
+          "fetchedAt": "2026-09-28T15:46:22.604Z"
         }
       ],
       "fieldSources": {
@@ -23018,7 +23141,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23057,19 +23180,19 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-28T07:18:55.729Z"
+          "fetchedAt": "2026-09-28T15:45:38.661Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         },
         {
           "name": "Las Ventas oficial",
           "confidence": 100,
           "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-          "fetchedAt": "2026-09-28T07:19:46.463Z"
+          "fetchedAt": "2026-09-28T15:46:22.604Z"
         }
       ],
       "fieldSources": {
@@ -23108,7 +23231,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23146,7 +23269,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23184,7 +23307,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23224,19 +23347,19 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-28T07:18:55.729Z"
+          "fetchedAt": "2026-09-28T15:45:38.661Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         },
         {
           "name": "Las Ventas oficial",
           "confidence": 100,
           "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-          "fetchedAt": "2026-09-28T07:19:46.463Z"
+          "fetchedAt": "2026-09-28T15:46:22.604Z"
         }
       ],
       "fieldSources": {
@@ -23275,7 +23398,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23313,7 +23436,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23352,7 +23475,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23391,7 +23514,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23432,19 +23555,19 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-28T07:18:55.729Z"
+          "fetchedAt": "2026-09-28T15:45:38.661Z"
         },
         {
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         },
         {
           "name": "Las Ventas oficial",
           "confidence": 100,
           "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
-          "fetchedAt": "2026-09-28T07:19:46.463Z"
+          "fetchedAt": "2026-09-28T15:46:22.604Z"
         }
       ],
       "fieldSources": {
@@ -23483,7 +23606,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23522,7 +23645,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23561,7 +23684,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23600,7 +23723,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23639,7 +23762,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23678,7 +23801,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-09-28T07:19:30.541Z"
+          "fetchedAt": "2026-09-28T15:46:08.638Z"
         }
       ],
       "fieldSources": {
@@ -23722,7 +23845,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-28T07:18:55.729Z"
+          "fetchedAt": "2026-09-28T15:45:38.661Z"
         }
       ],
       "fieldSources": {
@@ -23761,7 +23884,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-28T07:18:55.729Z"
+          "fetchedAt": "2026-09-28T15:45:38.661Z"
         }
       ],
       "fieldSources": {
@@ -23800,7 +23923,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-09-28T07:18:55.729Z"
+          "fetchedAt": "2026-09-28T15:45:38.661Z"
         }
       ],
       "fieldSources": {
