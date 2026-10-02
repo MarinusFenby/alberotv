@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-02T20:06:00.606Z",
-  "throughDate": "2026-10-02",
-  "eventCount": 542,
+  "generatedAt": "2026-10-02T23:57:25.809Z",
+  "throughDate": "2026-10-03",
+  "eventCount": 544,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -21956,6 +21956,91 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-10-01T19:16:39.070Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "lasventas-2f6f2db15dabba",
+      "date": "2026-10-02",
+      "time": "18:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": true,
+      "location": "Las Ventas (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Alcurrucén",
+      "participants": [
+        "Diego Urdiales",
+        "Fortes",
+        "Christian Parejo"
+      ],
+      "name": "Las Ventas (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sources": [
+        "Mundotoro",
+        "Las Ventas oficial"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-02T20:05:43.124Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-10-02T20:05:56.886Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Las Ventas oficial"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-b6357b185e133f",
+      "date": "2026-10-02",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Arnedo Arena (La Rioja) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "El Montecillo",
+      "participants": [
+        "Jorge Hurtado",
+        "Nacho Torrejón",
+        "Samuel Castrejón"
+      ],
+      "name": "Arnedo Arena (La Rioja) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-02T20:05:43.124Z"
         }
       ],
       "fieldSources": {
