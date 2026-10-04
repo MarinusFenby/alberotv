@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-04T20:20:55.536Z",
-  "throughDate": "2026-10-04",
-  "eventCount": 554,
+  "generatedAt": "2026-10-04T23:28:49.280Z",
+  "throughDate": "2026-10-05",
+  "eventCount": 566,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -22452,6 +22452,485 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-10-03T21:59:27.415Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "canal-extremadura-7c9df71f0f49fc",
+      "date": "2026-10-04",
+      "time": "13:00",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2028%20de%20septiembre%20al%204%20de%20octubre%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2028%20de%20septiembre%20al%204%20de%20octubre%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2028%20de%20septiembre%20al%204%20de%20octubre%20de%202026.pdf",
+          "fetchedAt": "2026-10-04T20:20:32.339Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "toros-para-todos-2026-10-04-1300",
+      "date": "2026-10-04",
+      "time": "13:00",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-10-04T20:20:54.461Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "canalsur-2026-10-04-toros-en-directo-desde-ubeda-jaen",
+      "date": "2026-10-04",
+      "time": "17:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Úbeda (Jaén)",
+      "type": "Rejones",
+      "contentType": "festejo",
+      "breeding": "Fermín Bohórquez",
+      "participants": [
+        "Rui Fernandes",
+        "Diego Ventura",
+        "Duarte Fernandes"
+      ],
+      "name": "Úbeda (Jaén)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Canal Sur",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-10-04T20:20:05.144Z"
+        },
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/toros-directo-ubeda-jaen_1_1440203.html",
+          "fetchedAt": "2026-10-04T20:20:25.887Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-04T20:20:36.684Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "lasventas-10bb8067c6ff35",
+      "date": "2026-10-04",
+      "time": "18:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": true,
+      "location": "Las Ventas (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Victorino Martín",
+      "participants": [
+        "Uceda Leal",
+        "Paco Ureña",
+        "Borja Jiménez"
+      ],
+      "name": "Las Ventas (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sources": [
+        "Mundotoro",
+        "Las Ventas oficial"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-04T20:20:36.684Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-10-04T20:20:51.527Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Las Ventas oficial"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "alberotv-2026-10-04-460aeebdb645d62a",
+      "date": "2026-10-04",
+      "time": "18:30",
+      "channel": "À Punt",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Villena (Alicante)",
+      "type": "Novillada con picadores",
+      "contentType": "festejo",
+      "breeding": "Aída Jovani",
+      "participants": [
+        "Javier Cuartero",
+        "Marco Polope",
+        "Ian Bermejo"
+      ],
+      "name": "Villena (Alicante)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-10-04T20:20:05.144Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 94,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-bc53df33d150f5",
+      "date": "2026-10-04",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Arcos de la Frontera (Cádiz) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Madroñiz",
+      "participants": [
+        "Ángel Pérez",
+        "Curro Díaz",
+        "David Galán"
+      ],
+      "name": "Arcos de la Frontera (Cádiz) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-04T20:20:36.684Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-8ceced7ffb4cfd",
+      "date": "2026-10-04",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Guadarrama (Madrid) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "El Retamar",
+      "participants": [
+        "Emiliano Osornio",
+        "Joel Ramírez",
+        "Salvador Herrero"
+      ],
+      "name": "Guadarrama (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-04T20:20:36.684Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-3d45431d484c17",
+      "date": "2026-10-04",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Hellín (Albacete) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Zalduendo",
+      "participants": [
+        "Cristian Pérez",
+        "José María Manzanares",
+        "Sebastián Castella"
+      ],
+      "name": "Hellín (Albacete) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-04T20:20:36.684Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-cf99137bd484c7",
+      "date": "2026-10-04",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Medina de Pomar (Burgos) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "La Glorieta",
+      "participants": [
+        "Javier Herrero",
+        "Jorge Isiegas"
+      ],
+      "name": "Medina de Pomar (Burgos) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-04T20:20:36.684Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-57204283478347",
+      "date": "2026-10-04",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Torre-Pacheco (Murcia) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "José Luis Pereda",
+      "participants": [
+        "Antonio Aparicio",
+        "Víctor Acebo"
+      ],
+      "name": "Torre-Pacheco (Murcia) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-04T20:20:36.684Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-02d4cd089f62d5",
+      "date": "2026-10-04",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Vila Franca de Xira (Lisboa) Portugal",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Carlos Fale Filipe, Hdros. de Sommer D\\ Andrade y Murteira Grave",
+      "participants": [
+        "Daniel Luque",
+        "Miguel Moura",
+        "Tristão Ribeiro Telles"
+      ],
+      "name": "Vila Franca de Xira (Lisboa) Portugal",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-04T20:20:36.684Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-e2964e7fc47a20",
+      "date": "2026-10-04",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Zafra (Badajoz) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Calejo Pires",
+      "participants": [
+        "David de Miranda",
+        "Ginés Marín",
+        "Morante de la Puebla"
+      ],
+      "name": "Zafra (Badajoz) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-04T20:20:36.684Z"
         }
       ],
       "fieldSources": {
