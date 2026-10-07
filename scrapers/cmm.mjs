@@ -301,8 +301,24 @@ function assignDates(events, dates) {
   });
 }
 
-function classifyBroadcast(title = "", description = "") {
+const MONTHS = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO",
+  "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+
+// Fecha de un festejo citado en la descripción: «La corrida del 23 de agosto de 2026».
+function describedFestejoDate(text = "") {
+  const match = text.match(/\b(\d{1,2}) DE (ENERO|FEBRERO|MARZO|ABRIL|MAYO|JUNIO|JULIO|AGOSTO|SE(?:P)?TIEMBRE|OCTUBRE|NOVIEMBRE|DICIEMBRE)(?: DE (20\d{2}))?\b/);
+  if (!match) return null;
+  const month = MONTHS.indexOf(match[2].replace("SETIEMBRE", "SEPTIEMBRE")) + 1;
+  if (!month || !match[3]) return null;
+  return `${match[3]}-${String(month).padStart(2, "0")}-${String(Number(match[1])).padStart(2, "0")}`;
+}
+
+export function classifyBroadcast(title = "", description = "", broadcastDate = "") {
   const text = `${title} ${description}`
+    .toUpperCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "");
+  const titleText = normalizeSpace(title)
     .toUpperCase()
     .normalize("NFD")
     .replace(/\p{Diacritic}/gu, "");
@@ -312,6 +328,24 @@ function classifyBroadcast(title = "", description = "") {
    * Debe aparecer igual que Toros para Todos, Tendido Cero o Grana y Oro.
    */
   if (text.includes("TIEMPO DE TOROS")) {
+    return "Programa taurino";
+  }
+
+  /*
+   * Resúmenes, reposiciones y documentales («TOROS: LO MEJOR DE LA TEMPORADA»)
+   * son programas aunque el título empiece por TOROS.
+   */
+  if (/\b(?:LO MEJOR|RESUMEN(?:ES)?|REPOSICION(?:ES)?|DOCUMENTAL|MAGAZINE|TERTULIA)\b/.test(titleText)) {
+    return "Programa taurino";
+  }
+
+  /*
+   * Una corrida grabada que se emite días después («Corrida del 20 de agosto
+   * de 2026» emitida en octubre) es una reposición, no un festejo de ese día.
+   * Sin una fecha anterior explícita se mantiene como retransmisión.
+   */
+  const festejoDate = describedFestejoDate(text);
+  if (festejoDate && /^\d{4}-\d{2}-\d{2}$/.test(broadcastDate) && festejoDate < broadcastDate) {
     return "Programa taurino";
   }
 
@@ -425,7 +459,8 @@ async function main() {
 
       const type = classifyBroadcast(
         event.title,
-        event.description
+        event.description,
+        event.date
       );
 
       if (!type) return null;
@@ -488,7 +523,7 @@ async function main() {
   console.log(`Archivo guardado en ${OUTPUT}.`);
 }
 
-main().catch(error => {
+if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) main().catch(error => {
   console.error(error);
   process.exit(1);
 });
