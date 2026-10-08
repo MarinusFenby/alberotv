@@ -2,6 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
+import { classifyBroadcast } from "./cmm.mjs";
 
 
 /* Horas de inicio verificadas del festejo, no horas de emisión.
@@ -1733,10 +1734,33 @@ function normalizeStoredEvent(event = {}) {
   return normalized;
 }
 
-function seedHistoricalEvents(collection, sources, todayKey) {
+/*
+ * Un programa de CMM guardado en el histórico que la clasificación actual del
+ * scraper ya no reconoce como taurino («LO MEJOR DEL OESTE», «LO MEJOR DE
+ * ANCHA ES CASTILLA LA MANCHA») no se conserva. Solo afecta a programas cuya
+ * única fuente es CMM: los festejos reales de CMM y el resto de fuentes no se
+ * tocan.
+ */
+export function isRetiredCmmProgramme(event = {}) {
+  if (!String(event.id || "").startsWith("cmm-")) return false;
+  const sources = Array.isArray(event.sources) ? event.sources.filter(Boolean) : [];
+  if (!sources.length || sources.some(source => normalizeChannel(source) !== "CMM")) return false;
+  const programme =
+    event.contentType === "programa" ||
+    normalizeType(event.type) === "Programa taurino";
+  if (!programme) return false;
+  return classifyBroadcast(
+    event.title || event.name || "",
+    event.description || event.sourceDescription || "",
+    event.date || ""
+  ) === null;
+}
+
+export function seedHistoricalEvents(collection, sources, todayKey) {
   let total = 0;
   let added = 0;
   let merged = 0;
+  let retired = 0;
 
   for (const source of sources) {
     const events =
@@ -1746,6 +1770,11 @@ function seedHistoricalEvents(collection, sources, todayKey) {
 
     for (const event of events) {
       if (!shouldPreserveHistoricalEvent(event, todayKey)) {
+        continue;
+      }
+
+      if (isRetiredCmmProgramme(event)) {
+        retired += 1;
         continue;
       }
 
@@ -1767,7 +1796,8 @@ function seedHistoricalEvents(collection, sources, todayKey) {
   return {
     total,
     added,
-    merged
+    merged,
+    retired
   };
 }
 
@@ -1978,6 +2008,7 @@ async function main() {
     historicalCandidates: historicalStats.total,
     historicalPreserved: historicalStats.added,
     historicalDuplicatesMerged: historicalStats.merged,
+    historicalRetiredCmmProgrammes: historicalStats.retired,
     added: 0,
     merged: 0,
     skippedUncorroborated: 0
