@@ -266,8 +266,10 @@ function cleanName(name = "") {
  * organización, pero no forma parte del nombre público de la plaza/localidad
  * y no debe llegar a la cabecera de la app.
  */
+// Una plaza nunca lleva emojis: lo que sigue al primero es texto de la ficha
+// (tipo, certamen, cartel), no parte del nombre visible.
 function cleanLocation(value = "") {
-  return cleanName(value)
+  return cleanName(String(value || "").split(/\p{Extended_Pictographic}/u)[0])
     .replace(
       /\s*\(\s*(?:(?:plaza|coso)\s+(?:de\s+toros\s+)?)?port[aá]til\s*\)\s*/gi,
       " "
@@ -763,6 +765,8 @@ function participantOverlap(first = [], second = []) {
   );
 }
 
+
+export { cleanLocation as cleanAgendaLocation };
 
 export function eventMatchScore(first, second) {
   if (!first?.date || first.date !== second?.date) return 0;

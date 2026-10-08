@@ -290,10 +290,13 @@ function parseTime(text = "") {
   return `${match[1].padStart(2, "0")}:${match[2]}`;
 }
 
-function extractLocation(text = "") {
+// La plaza termina en el primer punto o en el primer emoji de la ficha
+// («Brea de Tajo (Madrid)🐂Novillada sin picadores – … 📜 Novillos de…»):
+// tipo, cartel y ganadería ya se extraen por separado.
+export function extractLocation(text = "") {
   const patterns = [
-    /Toros desde\s+([^.]+)\./i,
-    /Desde\s+([^.]+)\./i
+    /Toros desde\s+(.+?)\s*(?=\.|\p{Extended_Pictographic})/iu,
+    /Desde\s+(.+?)\s*(?=\.|\p{Extended_Pictographic})/iu
   ];
 
   for (const pattern of patterns) {
