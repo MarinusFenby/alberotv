@@ -335,7 +335,10 @@ export function classifyBroadcast(title = "", description = "", broadcastDate = 
    * Resúmenes, reposiciones y documentales («TOROS: LO MEJOR DE LA TEMPORADA»)
    * son programas aunque el título empiece por TOROS.
    */
-  if (/\b(?:LO MEJOR|RESUMEN(?:ES)?|REPOSICION(?:ES)?|DOCUMENTAL|MAGAZINE|TERTULIA)\b/.test(titleText)) {
+  // Solo con contexto taurino en el título: «LO MEJOR DEL OESTE» es cine y
+  // «LO MEJOR DE ANCHA ES CASTILLA LA MANCHA», un programa regional.
+  const taurineTitle = /^TOROS\b|\bTAURIN|\bCORRIDAS?\b|\bNOVILLADAS?\b|\bREJONE/.test(titleText);
+  if (taurineTitle && /\b(?:LO MEJOR|RESUMEN(?:ES)?|REPOSICION(?:ES)?|DOCUMENTAL|MAGAZINE|TERTULIA)\b/.test(titleText)) {
     return "Programa taurino";
   }
 
