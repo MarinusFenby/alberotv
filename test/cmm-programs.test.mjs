@@ -28,3 +28,9 @@ test('un programa de CMM no se une a un festejo de Canal Extremadura en «Televi
  const festejo={id:'canal-extremadura-e49d671e5e1409',date:'2026-10-10',time:'15:15',contentType:'festejo',type:'Festejo taurino',location:'Televisión',name:'TOROS – ',title:'TOROS – ',channel:'Canal Extremadura',sources:['Canal Extremadura'],participants:[]};
  assert.equal(eventMatchScore(program,festejo),0);
 });
+test('los programas no taurinos de CMM con «LO MEJOR» siguen fuera de la agenda',()=>{
+ for (const title of ['LO MEJOR DEL OESTE : HOGUERA DE ODIOS','LO MEJOR DEL OESTE : COLORADO JIM','LO MEJOR DE ANCHA ES CASTILLA LA MANCHA']) {
+  assert.equal(classifyBroadcast(title,'','2026-10-05'),null,title);
+ }
+ assert.equal(classifyBroadcast('TOROS: LO MEJOR DE LA TEMPORADA','','2026-10-11'),'Programa taurino');
+});
