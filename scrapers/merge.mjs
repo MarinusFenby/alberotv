@@ -130,7 +130,8 @@ const SOURCE_FILES = {
   vaDeToros: path.join(DATA_DIR, "vadetoros.json"),
   aplausos: path.join(DATA_DIR, "aplausos.json"),
   sanseOficial: path.join(DATA_DIR, "sanse-oficial.json"),
-  servitoro: path.join(DATA_DIR, "servitoro.json")
+  servitoro: path.join(DATA_DIR, "servitoro.json"),
+  alToroMexico: path.join(DATA_DIR, "altoromexico.json")
 };
 
 const SOURCE_LABELS = {
@@ -145,7 +146,8 @@ const SOURCE_LABELS = {
   vaDeToros: "Va de Toros",
   aplausos: "Aplausos",
   sanseOficial: "Funtausa / Ayuntamiento de Sanse",
-  servitoro: "Servitoro"
+  servitoro: "Servitoro",
+  alToroMexico: "Al Toro México"
 };
 
 const SOURCE_CONFIDENCE = {
@@ -164,7 +166,8 @@ const SOURCE_CONFIDENCE = {
   CMM: 98,
   RTVE: 98,
   "La 7 CyL": 98,
-  "Toros en España Play": 94
+  "Toros en España Play": 94,
+  "Al Toro México": 92
 };
 
 /*
@@ -454,6 +457,9 @@ function typeSourceAuthority(sourceName = "") {
   }
 
   if (value.includes("servitoro")) return 250;
+  // Medio especializado de referencia para México: por encima del resto de
+  // medios, nunca por encima de una fuente oficial.
+  if (value.includes("al toro mexico")) return 200;
   // Todos los medios quedan en el mismo escalón. Su cantidad de contenido o
   // su orden de lectura nunca debe convertirlos en autoridad clasificatoria.
   return 100;
@@ -1069,6 +1075,7 @@ function normalizeGenericEvent(event, sourceName, fetchedAt = null) {
     image: event.image || null,
     eventUrl: event.eventUrl || event.sourceUrl || null,
     sourceUrl: event.sourceUrl || event.eventUrl || null,
+    ...localScheduleFields(event),
     sources: [sourceName],
     sourceDetails: [
       createSourceDetail(
@@ -1079,6 +1086,7 @@ function normalizeGenericEvent(event, sourceName, fetchedAt = null) {
     ],
     fieldSources: {
       ...(event.fieldSources || {}),
+      ...(localSchedule(event) ? { localTime: event.fieldSources?.localTime || sourceName } : {}),
       type: event.fieldSources?.type || sourceName
     }
   };
@@ -1206,6 +1214,98 @@ function chooseInformativeValue(firstValue, secondValue, preferSecond = false) {
   return preferSecond ? secondValue : firstValue;
 }
 
+/*
+ * Horario local de la plaza (hora publicada + zona IANA). Viaja como bloque:
+ * nunca se mezcla la fecha de una fuente con la hora o la zona de otra.
+ */
+const LOCAL_SCHEDULE_FIELDS = ["sourceLocalDate", "sourceLocalTime", "sourceTimeZone"];
+
+function validTimeZone(zone) {
+  try {
+    new Intl.DateTimeFormat("en", { timeZone: zone });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function localSchedule(event = {}) {
+  const [date, time, zone] = LOCAL_SCHEDULE_FIELDS.map(field => event[field]);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date || "") || !/^([01]\d|2[0-3]):[0-5]\d$/.test(time || "") ||
+      !zone || !validTimeZone(zone)) return null;
+  return { sourceLocalDate: date, sourceLocalTime: time, sourceTimeZone: zone };
+}
+
+function scheduleAuthority(event = {}) {
+  const source = event.fieldSources?.localTime || event.sources?.[0] || "";
+  return typeSourceAuthority(source);
+}
+
+function latestFetch(event = {}) {
+  return Math.max(0, ...(event.sourceDetails || []).map(detail => Date.parse(detail.fetchedAt || "") || 0));
+}
+
+// El horario local mejor respaldado: oficial > Al Toro México > resto; a igual
+// autoridad, la lectura más reciente.
+function chooseLocalSchedule(first, second) {
+  const candidates = [first, second]
+    .map(event => ({ event, schedule: localSchedule(event) }))
+    .filter(candidate => candidate.schedule);
+  if (!candidates.length) return null;
+  candidates.sort((a, b) => scheduleAuthority(b.event) - scheduleAuthority(a.event) ||
+    latestFetch(b.event) - latestFetch(a.event));
+  const { event, schedule } = candidates[0];
+  return { ...schedule, source: event.fieldSources?.localTime || event.sources?.[0] || null };
+}
+
+function localScheduleFields(event) {
+  const schedule = localSchedule(event);
+  const fields = {};
+  if (schedule) Object.assign(fields, schedule);
+  if (!schedule && event.localTimeReview) fields.localTimeReview = event.localTimeReview;
+  if (event.cattleCount) fields.cattleCount = event.cattleCount;
+  if (event.plaza) fields.plaza = event.plaza;
+  if (event.sourceDescription) fields.sourceDescription = event.sourceDescription;
+  return fields;
+}
+
+// Un ID ya publicado no cambia porque Al Toro México complete el evento.
+function stableMergedId(first, second, preferSecond) {
+  const chosen = chooseValue(first.id, second.id, preferSecond);
+  if (!String(chosen || "").startsWith("altoromexico-")) return chosen;
+  const other = chosen === first.id ? second.id : first.id;
+  return other || chosen;
+}
+
+const isAlToroSource = source => normalizeText(source) === "al toro mexico";
+const isOfficialSource = source => typeSourceAuthority(source) >= 300;
+
+// Solo decide cuando interviene Al Toro México: oficial > Al Toro > resto.
+// Devuelve 1 si manda el segundo, -1 si manda el primero y 0 si no aplica.
+function alToroPreference(first, second) {
+  const sources = [...(first.sources || []), ...(second.sources || [])];
+  if (!sources.some(isAlToroSource)) return 0;
+  const rank = event => (event.sources || []).some(isOfficialSource) ? 3
+    : (event.sources || []).some(isAlToroSource) ? 2 : 1;
+  return Math.sign(rank(second) - rank(first));
+}
+
+// El cartel de la fuente preferente manda; otra fuente solo puede completar un
+// nombre que es claramente el mismo («Luis David» → «Luis David Adame»). Nunca
+// añade actuantes ni cambia un nombre parecido («Gilio II» ≠ «Gilio III»).
+function refineParticipantNames(primary = [], secondary = []) {
+  return primary.map(name => {
+    const key = normalizeText(name);
+    if (key.split(" ").length < 2) return name;
+    const fuller = secondary.find(other => {
+      const otherKey = normalizeText(other);
+      return otherKey.length > key.length &&
+        (otherKey.startsWith(`${key} `) || otherKey.endsWith(` ${key}`));
+    });
+    return fuller || name;
+  });
+}
+
 function mergeParticipants(first = [], second = []) {
   const output = [...first];
 
@@ -1257,12 +1357,17 @@ export function mergeTwoEvents(first, second) {
   const firstInformation = informationScore(first);
   const secondInformation = informationScore(second);
 
-  const preferSecond =
-    secondInformation > firstInformation ||
-    (
-      secondInformation === firstInformation &&
-      secondConfidence > firstConfidence
-    );
+  const alToroRank = alToroPreference(first, second);
+  const preferSecond = alToroRank
+    ? alToroRank > 0
+    : (
+        secondInformation > firstInformation ||
+        (
+          secondInformation === firstInformation &&
+          secondConfidence > firstConfidence
+        )
+      );
+  const localScheduleChoice = chooseLocalSchedule(first, second);
 
   const authoritativeType = chooseAuthoritativeType(
     first,
@@ -1295,7 +1400,12 @@ export function mergeTwoEvents(first, second) {
 
   const merged = {
     ...first,
-    id: chooseValue(first.id, second.id, preferSecond),
+    ...(localScheduleChoice ? {
+      sourceLocalDate: localScheduleChoice.sourceLocalDate,
+      sourceLocalTime: localScheduleChoice.sourceLocalTime,
+      sourceTimeZone: localScheduleChoice.sourceTimeZone
+    } : {}),
+    id: stableMergedId(first, second, preferSecond),
     date: chooseValue(first.date, second.date, preferSecond),
     time: chooseEventTime(first, second, preferSecond),
     channel: mergedChannel,
@@ -1322,6 +1432,11 @@ export function mergeTwoEvents(first, second) {
       : chooseBullField(first, second, "breeding", preferSecond),
     participants: officialLasVentasEvent
       ? [...officialLasVentasEvent.participants]
+      : alToroRank && (preferSecond ? second : first).participants?.length
+      ? refineParticipantNames(
+          (preferSecond ? second : first).participants,
+          (preferSecond ? first : second).participants
+        )
       : (isTvGuideSource(first, "participants") !== isTvGuideSource(second, "participants")
           ? [...(isTvGuideSource(first, "participants") ? second.participants : first.participants)]
           : mergeParticipants(first.participants, second.participants)),
@@ -1351,6 +1466,7 @@ export function mergeTwoEvents(first, second) {
     fieldSources: {
       ...(first.fieldSources || {}),
       ...(second.fieldSources || {}),
+      ...(localScheduleChoice?.source ? { localTime: localScheduleChoice.source } : {}),
       type: authoritativeType.source
     }
   };
@@ -1951,7 +2067,8 @@ async function main() {
     vaDeToros,
     aplausos,
     sanseOficial,
-    servitoro
+    servitoro,
+    alToroMexico
   ] = await Promise.all([
     readSource("elMuletazo"),
     readSource("oneToro"),
@@ -1964,7 +2081,8 @@ async function main() {
     readSource("vaDeToros"),
     readSource("aplausos"),
     readSource("sanseOficial"),
-    readSource("servitoro")
+    readSource("servitoro"),
+    readSource("alToroMexico")
   ]);
 
   const sourceResults = [
@@ -1979,7 +2097,8 @@ async function main() {
     vaDeToros,
     aplausos,
     sanseOficial,
-    servitoro
+    servitoro,
+    alToroMexico
   ];
 
   if (!sourceResults.some(source => source.ok)) {
@@ -2138,6 +2257,23 @@ async function main() {
       normalizeMundoToroEvent(
         event,
         mundoToro.fetchedAt
+      )
+    );
+
+    mergeStats[
+      result.merged
+        ? "merged"
+        : "added"
+    ] += 1;
+  }
+
+  for (const event of alToroMexico.data.events || []) {
+    const result = addOrMergeEvent(
+      merged,
+      normalizeGenericEvent(
+        event,
+        "Al Toro México",
+        alToroMexico.fetchedAt
       )
     );
 
@@ -2356,7 +2492,10 @@ async function main() {
         vaDeToros.eventCount,
 
       aplausos:
-        aplausos.eventCount
+        aplausos.eventCount,
+
+      alToroMexico:
+        alToroMexico.eventCount
     },
 
     sourceHealth,

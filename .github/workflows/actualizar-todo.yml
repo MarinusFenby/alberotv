@@ -67,6 +67,10 @@ jobs:
         continue-on-error: true
         run: |
           node scrapers/mundotoro.mjs
+      - name: Actualizar Al Toro México
+        continue-on-error: true
+        run: |
+          node scrapers/altoromexico.mjs
       - name: Actualizar Servitoro
         continue-on-error: true
         run: |
@@ -114,6 +118,7 @@ jobs:
           test -f data/canalextremadura.json || true
           test -f data/mundotoro.json || true
           test -f data/servitoro.json || true
+          test -f data/altoromexico.json || true
           test -f data/lasventas.json || true
           test -f data/vadetoros.json || true
           test -f data/aplausos.json || true
