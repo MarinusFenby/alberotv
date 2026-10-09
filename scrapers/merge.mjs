@@ -821,6 +821,28 @@ function mergedPlazaCountry(first, second, location) {
   return countries[0] || locationCountry(location);
 }
 
+// Familia del festejo para decidir si dos fichas pueden ser el mismo acto.
+// Dentro de «plaza» las fuentes discrepan a menudo (corrida/rejones/mixto) y
+// esa discrepancia se resuelve por autoridad, no impide la fusión.
+export function festejoFamily(normalizedType = "") {
+  const value = normalizeText(normalizedType);
+  if (!value || value === "festejo taurino" || value === "toros") return null;
+  if (/encierro/.test(value)) return "encierro";
+  if (/recorte|recortador|concurso|roscadero|anilla/.test(value)) return "recortes";
+  if (/suelta|vaquilla|capea|embolado|ensogado|toro de fuego|desencajonamiento/.test(value)) return "suelta";
+  if (/corrida|novillada|rejon|festival|mixt|becerrada/.test(value)) return "plaza";
+  return null;
+}
+
+function minutesApart(a = "", b = "") {
+  const toMinutes = value => {
+    const match = String(value).match(/^(\d{1,2}):(\d{2})/);
+    return match ? Number(match[1]) * 60 + Number(match[2]) : null;
+  };
+  const left = toMinutes(a), right = toMinutes(b);
+  return left === null || right === null ? 0 : Math.abs(left - right);
+}
+
 export function eventMatchScore(first, second) {
   if (!first?.date || first.date !== second?.date) return 0;
   if (first.contentType !== second.contentType) return 0;
@@ -904,6 +926,13 @@ export function eventMatchScore(first, second) {
     return 0;
   }
 
+  // Festejos populares (encierro, recortes, suelta, vaquillas…) y festejos en
+  // plaza (corrida, novillada, rejones, festival, mixto) del mismo día y
+  // localidad son actos distintos: nunca se funden ni se pasan hora o canal.
+  const familyA = festejoFamily(typeA);
+  const familyB = festejoFamily(typeB);
+  if (familyA && familyB && familyA !== familyB) return 0;
+
   const exactTime =
     Boolean(first.time) &&
     Boolean(second.time) &&
@@ -937,6 +966,28 @@ export function eventMatchScore(first, second) {
 
   const firstGenericBroadcast = isGenericBroadcastListing(first);
   const secondGenericBroadcast = isGenericBroadcastListing(second);
+
+  // Entre dos fichas detalladas (no listados genéricos de parrilla): dos
+  // sesiones en directo separadas por más de hora y media, o dos carteles
+  // completos sin ningún nombre en común, son festejos distintos.
+  const detailedRecord = event => Boolean(event.location) && !isGenericLabel(event.location) && !isGenericBroadcastListing(event);
+  const bothDetailed = detailedRecord(first) && detailedRecord(second);
+  if (
+    bothDetailed &&
+    first.time && second.time &&
+    first.deferred !== true && second.deferred !== true &&
+    minutesApart(first.time, second.time) > 90
+  ) {
+    return 0;
+  }
+  if (
+    bothDetailed &&
+    (first.participants?.length || 0) >= 2 &&
+    (second.participants?.length || 0) >= 2 &&
+    participantScore === 0
+  ) {
+    return 0;
+  }
 
   if (
     first.contentType === "festejo" &&
