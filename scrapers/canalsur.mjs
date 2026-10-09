@@ -1115,7 +1115,7 @@ export function cleanLocation(value = "") {
 }
 
 
-function extractLocation(
+export function extractLocation(
   title,
   text
 ) {
@@ -1141,8 +1141,23 @@ function extractLocation(
     }
   }
 
+  // «… que se celebrará el sábado 31 de octubre en Sanlúcar»: la localidad
+  // cierra el titular. Si el cuerpo la da completa («Sanlúcar de Barrameda
+  // (Cádiz)»), se usa esa forma.
+  const celebration =
+    String(title).match(/\bse\s+celebrar(?:á|a|án|an)(?=\s).*\ben\s+([A-ZÁÉÍÓÚÜÑ][^|,:;.]{1,60}?)\s*$/);
+
+  if (celebration && isPlausiblePlace(celebration[1])) {
+    const short = cleanLocation(celebration[1]);
+    const full = fullerPlaceInText(short, text);
+
+    return full || short;
+  }
+
   const bodyPatterns = [
     /(?:la\s+)?plaza\s+de\s+toros\s+de\s+([A-ZÁÉÍÓÚÜÑ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s-]{2,60}?)(?:\s*\(|\s+acoge\b|\s+será\b|\s+sera\b|,|\.)/,
+
+    /\bse\s+celebrar(?:á|a)\s+en\s+([A-ZÁÉÍÓÚÜÑ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s-]{2,60}?(?:\s*\([A-ZÁÉÍÓÚÜÑ][^()]{1,30}\))?)(?=\s+(?:el|este|esta|a\s+las)\b|[,.])/,
 
     /(?:desde|en)\s+([A-ZÁÉÍÓÚÜÑ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s-]{2,60}?)\s+(?:este|el próximo|el proximo)\s+(?:lunes|martes|miércoles|miercoles|jueves|viernes|sábado|sabado|domingo)/
   ];
@@ -1151,7 +1166,7 @@ function extractLocation(
     const match =
       String(text).match(pattern);
 
-    if (match) {
+    if (match && isPlausiblePlace(match[1])) {
       const location =
         cleanLocation(match[1]);
 
@@ -1162,6 +1177,35 @@ function extractLocation(
   }
 
   return "";
+}
+
+/*
+ * Una localidad es un nombre propio: palabras en mayúscula unidas por
+ * conectores («Sanlúcar de Barrameda», «La Línea de la Concepción»), con
+ * provincia opcional entre paréntesis. Un fragmento de frase («Andalucía y ha
+ * sido presentado la tarde de») no lo es.
+ */
+const PLACE_CONNECTORS = new Set(["de", "del", "la", "las", "los", "el", "y", "e", "d"]);
+
+export function isPlausiblePlace(value = "") {
+  const words = String(value).replace(/\([^)]*\)/g, " ").split(/[\s-]+/).filter(Boolean);
+  if (!words.length || words.length > 7) return false;
+  if (!/^[A-ZÁÉÍÓÚÜÑ]/.test(words[0])) return false;
+  if (/^(?:y|e)$/i.test(words.at(-1)) || PLACE_CONNECTORS.has(words.at(-1))) return false;
+  return words.every(word => /^[A-ZÁÉÍÓÚÜÑ]/.test(word) || PLACE_CONNECTORS.has(word));
+}
+
+function fullerPlaceInText(place, text) {
+  const pattern = new RegExp(
+    `\\ben\\s+(${escapeRegExp(place)}(?:\\s+(?:de|del|de\\s+la|de\\s+los|de\\s+las)\\s+[A-ZÁÉÍÓÚÜÑ][\\wÁÉÍÓÚÜÑáéíóúüñ]+)*(?:\\s*\\([A-ZÁÉÍÓÚÜÑ][^()]{1,30}\\))?)`,
+    "g"
+  );
+  // El titular también forma parte del texto: se elige la mención más completa.
+  const candidates = [...String(text).matchAll(pattern)]
+    .map(match => match[1])
+    .filter(isPlausiblePlace)
+    .sort((a, b) => b.length - a.length);
+  return candidates.length ? cleanLocation(candidates[0]) : "";
 }
 
 
@@ -1300,10 +1344,11 @@ function extractParticipants(text = "") {
       String(text).match(pattern);
 
     if (match) {
+      // Un actuante empieza como un nombre propio; «con picadores”» no lo es.
       const participants =
         splitParticipants(
           match[1]
-        );
+        ).filter(name => /^[«"“]?[A-ZÁÉÍÓÚÜÑ]/.test(name));
 
       if (participants.length) {
         return participants;
@@ -1319,7 +1364,7 @@ function extractParticipants(text = "") {
    CREAR EVENTO
    ========================================================= */
 
-function buildEvent({
+export function buildEvent({
   html,
   finalUrl,
   rssTitle
