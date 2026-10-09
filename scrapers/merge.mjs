@@ -768,6 +768,53 @@ function participantOverlap(first = [], second = []) {
 
 export { cleanLocation as cleanAgendaLocation };
 
+/*
+ * País de la plaza, solo con evidencia en la localidad publicada. La app lo
+ * usa para la segunda hora («España: 17:30»). Una fuente puede publicar
+ * «Valencia» y otra «Valencia (Valencia) España»: al fusionarlas se conserva
+ * el país aunque la localidad elegida sea la corta.
+ */
+const LOCATION_COUNTRIES = [
+  ["espana", "España"], ["spain", "España"], ["francia", "Francia"], ["france", "Francia"],
+  ["portugal", "Portugal"], ["mexico", "México"], ["peru", "Perú"], ["colombia", "Colombia"],
+  ["venezuela", "Venezuela"], ["ecuador", "Ecuador"]
+];
+// Provincias con la hora de Madrid. Fuera: Canarias (otra zona horaria) y
+// nombres que también son provincias o departamentos americanos (Córdoba, La Rioja).
+const SPANISH_PROVINCES = new Set([
+  "a coruna", "la coruna", "coruna", "alava", "araba", "albacete", "alicante", "alacant", "almeria",
+  "asturias", "avila", "badajoz", "baleares", "illes balears", "islas baleares", "barcelona",
+  "bizkaia", "vizcaya", "burgos", "caceres", "cadiz", "cantabria", "castellon", "castello",
+  "ciudad real", "cuenca", "gipuzkoa", "guipuzcoa", "girona", "gerona", "granada", "guadalajara",
+  "huelva", "huesca", "jaen", "leon", "lleida", "lerida", "lugo", "madrid", "malaga", "murcia",
+  "navarra", "ourense", "orense", "palencia", "pontevedra", "salamanca", "segovia", "sevilla",
+  "soria", "tarragona", "teruel", "toledo", "valencia", "valladolid", "zamora", "zaragoza",
+  "ceuta", "melilla"
+]);
+
+export function locationCountry(location = "") {
+  const text = ` ${normalizeText(location)} `;
+  const found = new Set(LOCATION_COUNTRIES
+    .filter(([word]) => text.includes(` ${word} `))
+    .map(([, country]) => country));
+  if (found.size > 1) return null;
+  if (found.size === 1) return [...found][0];
+  const provinces = [...String(location).matchAll(/\(([^()]+)\)/g)]
+    .map(match => normalizeText(match[1]));
+  return provinces.some(province => SPANISH_PROVINCES.has(province)) ? "España" : null;
+}
+
+function plazaCountry(event = {}) {
+  if (event.contentType === "programa") return null;
+  return event.country || locationCountry(event.location || event.name);
+}
+
+function mergedPlazaCountry(first, second, location) {
+  const countries = [...new Set([plazaCountry(first), plazaCountry(second)].filter(Boolean))];
+  if (countries.length > 1) return null; // Fuentes contradictorias: no se elige.
+  return countries[0] || locationCountry(location);
+}
+
 export function eventMatchScore(first, second) {
   if (!first?.date || first.date !== second?.date) return 0;
   if (first.contentType !== second.contentType) return 0;
@@ -1083,6 +1130,9 @@ function normalizeGenericEvent(event, sourceName, fetchedAt = null) {
     }
   };
 
+  const country = plazaCountry({ ...normalized, country: event.country });
+  if (country) normalized.country = country;
+
   normalized.confidence = calculateConfidence(normalized);
   normalized.status = normalized.confidence >= 94 ? "confirmed" : "probable";
 
@@ -1354,6 +1404,10 @@ export function mergeTwoEvents(first, second) {
       type: authoritativeType.source
     }
   };
+
+  const country = mergedPlazaCountry(first, second, merged.location);
+  if (country) merged.country = country;
+  else delete merged.country;
 
   merged.confidence = calculateConfidence(merged);
   merged.status = merged.confidence >= 94 ? "confirmed" : "probable";
@@ -1721,6 +1775,9 @@ function normalizeStoredEvent(event = {}) {
       type: event.fieldSources?.type || storedSources[0]
     }
   };
+
+  const country = plazaCountry(normalized);
+  if (country) normalized.country = country;
 
   normalized.confidence =
     Number.isFinite(Number(event.confidence))
