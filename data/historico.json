@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-09T20:33:28.477Z",
-  "throughDate": "2026-10-09",
-  "eventCount": 568,
+  "generatedAt": "2026-10-10T00:29:49.104Z",
+  "throughDate": "2026-10-10",
+  "eventCount": 571,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -23530,6 +23530,143 @@
       "confidence": 89,
       "status": "probable",
       "country": "Portugal"
+    },
+    {
+      "id": "lasventas-c25696b075a4a2",
+      "date": "2026-10-09",
+      "time": "17:30",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": true,
+      "location": "Las Ventas (Madrid) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "Las Ventas (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sources": [
+        "Las Ventas oficial"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-10-09T20:33:25.508Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Las Ventas oficial"
+      },
+      "country": "España",
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-7cc2bbd8052c7f",
+      "date": "2026-10-09",
+      "time": "17:30",
+      "channel": "À Punt",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Valencia",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Álvaro Núñez",
+      "participants": [
+        "Morante de la Puebla",
+        "Roca Rey",
+        "Tomás Rufo"
+      ],
+      "name": "Valencia",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-10-09T20:32:39.985Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-09T20:33:09.998Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 96,
+      "status": "confirmed",
+      "country": "España"
+    },
+    {
+      "id": "mundotoro-01308aad2641e7",
+      "date": "2026-10-09",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Tlahuelilpan (Hidalgo) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "por designar",
+      "participants": [
+        "Christian Ortega",
+        "Valente Alanís",
+        "Manolo Zapata",
+        "Ricardo Leos",
+        "Luigi Mercuri",
+        "Ernesto Sánchez"
+      ],
+      "name": "Tlahuelilpan (Hidalgo) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-09T20:33:09.998Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-10-09T20:33:12.081Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-10-09",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mexico_City"
     }
   ]
 }
