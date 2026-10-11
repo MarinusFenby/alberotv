@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-11T18:18:39.483Z",
-  "throughDate": "2026-10-11",
-  "eventCount": 581,
+  "generatedAt": "2026-10-11T22:17:01.678Z",
+  "throughDate": "2026-10-12",
+  "eventCount": 591,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -24129,6 +24129,431 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-10-10T21:10:07.345Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "España",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "canal-extremadura-7bdf41991268b5",
+      "date": "2026-10-11",
+      "time": "13:00",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%205%20al%2011%20de%20octubre%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%205%20al%2011%20de%20octubre%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%205%20al%2011%20de%20octubre%20de%202026.pdf",
+          "fetchedAt": "2026-10-11T18:18:12.030Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "toros-para-todos-2026-10-11-1300",
+      "date": "2026-10-11",
+      "time": "13:00",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-10-11T18:18:37.242Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "cmm-2026-10-11-1700-3",
+      "date": "2026-10-11",
+      "time": "17:00",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "TOROS: LO MEJOR DE LA TEMPORADA",
+      "title": "TOROS: LO MEJOR DE LA TEMPORADA",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
+        }
+      ],
+      "fieldSources": {
+        "type": "CMM"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "canalsur-2026-10-11-toros-de-victorino-en-la-feria-de-san-lucas-de-jaen",
+      "date": "2026-10-11",
+      "time": "17:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Jaén",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Victorino Martín",
+      "participants": [
+        "el rejoneador Diego Ventura",
+        "los matadores «El Cid»",
+        "Manuel Escribano"
+      ],
+      "name": "Jaén",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Canal Sur",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-10-11T18:17:43.239Z"
+        },
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/toros-victorino-feria-san-lucas_1_1441904.html",
+          "fetchedAt": "2026-10-11T18:18:00.953Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-11T18:18:17.018Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 100,
+      "status": "confirmed",
+      "country": "España"
+    },
+    {
+      "id": "lasventas-5a89ba7f332a91",
+      "date": "2026-10-11",
+      "time": "17:30",
+      "channel": "Telemadrid",
+      "channels": [
+        "Telemadrid",
+        "À Punt"
+      ],
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Las Ventas (Madrid) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Adolfo Martín",
+      "participants": [
+        "Antonio Ferrera",
+        "Román"
+      ],
+      "name": "Las Ventas (Madrid) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+      "sources": [
+        "El Muletazo",
+        "Mundotoro",
+        "Las Ventas oficial"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-10-11T18:17:43.239Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-11T18:18:17.018Z"
+        },
+        {
+          "name": "Las Ventas oficial",
+          "confidence": 100,
+          "sourceUrl": "https://www.las-ventas.com/actualidad/proximos-festejos-plaza-toros-las-ventas",
+          "fetchedAt": "2026-10-11T18:18:34.302Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Las Ventas oficial"
+      },
+      "confidence": 100,
+      "status": "confirmed",
+      "country": "España"
+    },
+    {
+      "id": "mundotoro-33e8f772203e1a",
+      "date": "2026-10-11",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Guadalajara (Jalisco) México",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "San Charbel",
+      "participants": [
+        "Emilio Cano",
+        "Jairo López",
+        "Axel López"
+      ],
+      "name": "Guadalajara (Jalisco) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-11T18:18:17.018Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-10-11T18:18:18.825Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-10-11",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "mundotoro-fc9f3e99ce1b5d",
+      "date": "2026-10-11",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "La Peza (Granada) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Cortijo de la Sierra y S.L.",
+      "participants": [
+        "Antolín Jiménez",
+        "Cristian González"
+      ],
+      "name": "La Peza (Granada) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-11T18:18:17.018Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "España",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-4b8a3242c24a84",
+      "date": "2026-10-11",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Medina de Pomar (Burgos) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Antonio Bañuelos y Manuel Santiago Corvo (El Canario)",
+      "participants": [
+        "Paco Velasques",
+        "Roberto Armendáriz"
+      ],
+      "name": "Medina de Pomar (Burgos) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-11T18:18:17.018Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "España",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-8993fc66e11f4c",
+      "date": "2026-10-11",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Valencia (Valencia) España",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Casa de Los Toreros",
+      "participants": [
+        "Ignacio Garibay -hijo-",
+        "Javier Cuartero",
+        "Juan Alberto Torrijos"
+      ],
+      "name": "Valencia (Valencia) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-11T18:18:17.018Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "España",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-de8d3e4a001db3",
+      "date": "2026-10-11",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Zaragoza (Zaragoza) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "La Ventana del Puerto y Puerto de San Lorenzo",
+      "participants": [
+        "Alejandro Talavante",
+        "Cristiano Torres",
+        "José María Manzanares"
+      ],
+      "name": "Zaragoza (Zaragoza) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-11T18:18:17.018Z"
         }
       ],
       "fieldSources": {
