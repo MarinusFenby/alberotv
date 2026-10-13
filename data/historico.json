@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-13T01:07:25.223Z",
+  "generatedAt": "2026-10-13T08:05:54.178Z",
   "throughDate": "2026-10-13",
   "eventCount": 599,
   "events": [
@@ -24692,41 +24692,6 @@
       "country": "España"
     },
     {
-      "id": "cmm-2026-10-12-1730-4",
-      "date": "2026-10-12",
-      "time": "17:30",
-      "channel": "CMM",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Festejo taurino",
-      "contentType": "festejo",
-      "breeding": "",
-      "participants": [],
-      "name": "TOROS 2026",
-      "title": "TOROS 2026",
-      "image": null,
-      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-      "sources": [
-        "CMM"
-      ],
-      "sourceDetails": [
-        {
-          "name": "CMM",
-          "confidence": 98,
-          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
-          "fetchedAt": null
-        }
-      ],
-      "fieldSources": {
-        "type": "CMM"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
       "id": "mundotoro-d64b5f1d20febf",
       "date": "2026-10-12",
       "time": null,
@@ -24844,6 +24809,41 @@
       "country": "España",
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "cmm-2026-10-12-1730-4",
+      "date": "2026-10-12",
+      "time": null,
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Festejo taurino",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [],
+      "name": "TOROS 2026",
+      "title": "TOROS 2026",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
+        }
+      ],
+      "fieldSources": {
+        "type": "CMM"
+      },
+      "confidence": 99,
+      "status": "confirmed"
     },
     {
       "id": "mundotoro-0fb915370d8de6",
