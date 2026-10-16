@@ -69,6 +69,11 @@ function cleanParticipant(text = "") {
     .replace(/\s*o también\s*\(Pulsa aquí.*$/i, "")
     .replace(/\s*que tomará la alternativa.*$/i, "")
     .replace(/[.。]+$/, "")
+    // «para el rejoneador Diego Ventura, los matadores «El Cid» y …»: el
+    // artículo y el oficio no forman parte del nombre y rompen la identidad.
+    .replace(/^(?:(?:el|la|los|las)\s+)?(?:rejoneador(?:a|es|as)?|matador(?:a|es|as)?(?:\s+de\s+toros)?|noviller[oa]s?|diestr[oa]s?|espadas?)\s+/i, "")
+    // Un apodo entrecomillado completo («El Fandi») es el nombre en sí.
+    .replace(/^[«“"](.+)[»”"]$/u, "$1")
     .trim();
 }
 
@@ -435,7 +440,7 @@ export function extractBreeding(text = "") {
   return distinct.length === 1 ? distinct[0] : "";
 }
 
-function extractParticipants(text = "") {
+export function extractParticipants(text = "") {
   const withoutLinks = clean(text).split("🔗")[0];
 
   const mixedDetails = extractMixedDetails(withoutLinks);
