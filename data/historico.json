@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-16T19:39:07.958Z",
-  "throughDate": "2026-10-16",
-  "eventCount": 600,
+  "generatedAt": "2026-10-16T22:31:27.458Z",
+  "throughDate": "2026-10-17",
+  "eventCount": 602,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -24916,6 +24916,97 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-10-15T19:59:28.306Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "España",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-5d72b4bf14d4e9",
+      "date": "2026-10-16",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Guadalajara (Jalisco) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Ordaz",
+      "participants": [
+        "Ernesto Javier Calita",
+        "Sergio Flores",
+        "Víctor Hernández"
+      ],
+      "name": "Guadalajara (Jalisco) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-16T19:38:47.839Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-10-16T19:38:49.956Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-10-16",
+      "sourceLocalTime": "20:30",
+      "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "mundotoro-3a7be8aa5ff31b",
+      "date": "2026-10-16",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Zaragoza (Zaragoza) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Hnos. García Jiménez y Pilar Olga García Jiménez",
+      "participants": [
+        "Aarón Palacio",
+        "Morante de la Puebla",
+        "Sebastián Castella"
+      ],
+      "name": "Zaragoza (Zaragoza) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-16T19:38:47.839Z"
         }
       ],
       "fieldSources": {
