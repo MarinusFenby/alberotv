@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-17T21:36:23.764Z",
-  "throughDate": "2026-10-17",
-  "eventCount": 602,
+  "generatedAt": "2026-10-17T23:45:29.544Z",
+  "throughDate": "2026-10-18",
+  "eventCount": 611,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -24811,7 +24811,7 @@
       "status": "probable"
     },
     {
-      "id": "cmm-2026-10-12-1730-4",
+      "id": "cmm-2026-10-12-1730-2",
       "date": "2026-10-12",
       "time": null,
       "channel": "CMM",
@@ -25007,6 +25007,397 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-10-16T19:38:47.839Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "España",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "cmm-2026-10-17-1245-5",
+      "date": "2026-10-17",
+      "time": "12:45",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "TIEMPO DE TOROS",
+      "title": "TIEMPO DE TOROS",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/tiempo-de-toros",
+          "fetchedAt": null
+        }
+      ],
+      "fieldSources": {
+        "type": "CMM"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "alberotv-2026-10-17-2fdb1601ec557933",
+      "date": "2026-10-17",
+      "time": "17:00",
+      "channel": "Telemadrid",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Chinchón (Madrid)",
+      "type": "Festival",
+      "contentType": "festejo",
+      "breeding": "Victoriano del Río, El Pilar, Daniel Ruiz, La Cercada, Antonio Palla y José Vázquez",
+      "participants": [
+        "Paco Ureña",
+        "Fortes",
+        "Fernando Adrián",
+        "David Galván",
+        "Emiliano Osornio",
+        "Aitor Fernández",
+        "Álvaro Chinchón"
+      ],
+      "name": "Chinchón (Madrid)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-10-17T21:35:34.202Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "country": "España",
+      "confidence": 94,
+      "status": "confirmed"
+    },
+    {
+      "id": "cmm-2026-10-17-1700-6",
+      "date": "2026-10-17",
+      "time": "17:00",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "TOROS: LO MEJOR DE LA TEMPORADA",
+      "title": "TOROS: LO MEJOR DE LA TEMPORADA",
+      "image": null,
+      "eventUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+      "sources": [
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
+        }
+      ],
+      "fieldSources": {
+        "type": "CMM"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "canalsur-2026-10-17-toros-el-fandi-emilio-de-justo-y-david-de-miranda-rubrican-la-feria-de",
+      "date": "2026-10-17",
+      "time": "17:30",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Jaén",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "El Parralejo",
+      "participants": [
+        "El Fandi",
+        "Emilio de Justo",
+        "David de Miranda"
+      ],
+      "name": "Jaén",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Canal Sur",
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-10-17T21:35:34.202Z"
+        },
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/toros-fandi-emilio-justo-david_1_1443571.html",
+          "fetchedAt": "2026-10-17T21:35:50.315Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-17T21:36:01.189Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 100,
+      "status": "confirmed",
+      "country": "España"
+    },
+    {
+      "id": "mundotoro-7c7bdb8295359f",
+      "date": "2026-10-17",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Acho (Lima) Perú",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Camponuevo",
+      "participants": [
+        "Álvaro Serrano",
+        "Israel Flores",
+        "Jesús Herrera",
+        "Mario Vilau"
+      ],
+      "name": "Acho (Lima) Perú",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-17T21:36:01.189Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "Perú",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-01e727843ca396",
+      "date": "2026-10-17",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Arenas de San Pedro (Ávila) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Castillejo de Huebra y Garcigrande",
+      "participants": [
+        "Julio Méndez",
+        "Sebastián Castella",
+        "Tomás Rufo"
+      ],
+      "name": "Arenas de San Pedro (Ávila) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-17T21:36:01.189Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "España",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-8377a8a46a8599",
+      "date": "2026-10-17",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Huamantla (Tlaxcala) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "De Haro",
+      "participants": [
+        "Fermín Rivera",
+        "Fernando Plaza",
+        "José de Alejandría"
+      ],
+      "name": "Huamantla (Tlaxcala) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-17T21:36:01.189Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-10-17T21:36:04.288Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-10-17",
+      "sourceLocalTime": "19:00",
+      "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "mundotoro-25c50b108b12be",
+      "date": "2026-10-17",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Pachuca (Hidalgo) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Galindo",
+      "participants": [
+        "Ernesto Javier Calita",
+        "Román",
+        "Arturo Gilio II"
+      ],
+      "name": "Pachuca (Hidalgo) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-17T21:36:01.189Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-10-17T21:36:04.288Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-10-17",
+      "sourceLocalTime": "16:00",
+      "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "mundotoro-f69be5c67364f9",
+      "date": "2026-10-17",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Zaragoza (Zaragoza) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Alcurrucén, Carmen Lorenzo Carrasco, Garcigrande, José Vázquez Fernández, Victoriano del Río Cortés y Zalduendo",
+      "participants": [
+        "Diego Urdiales",
+        "El Mene",
+        "Morante de la Puebla"
+      ],
+      "name": "Zaragoza (Zaragoza) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-17T21:36:01.189Z"
         }
       ],
       "fieldSources": {
