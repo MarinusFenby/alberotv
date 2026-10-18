@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-18T21:16:02.828Z",
-  "throughDate": "2026-10-18",
-  "eventCount": 611,
+  "generatedAt": "2026-10-18T23:29:34.312Z",
+  "throughDate": "2026-10-19",
+  "eventCount": 620,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -24811,7 +24811,7 @@
       "status": "probable"
     },
     {
-      "id": "cmm-2026-10-12-1730-2",
+      "id": "cmm-2026-10-12-1730-1",
       "date": "2026-10-12",
       "time": null,
       "channel": "CMM",
@@ -25398,6 +25398,375 @@
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
           "fetchedAt": "2026-10-17T21:36:01.189Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "España",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "alberotv-2026-10-18-1106f895765881a7",
+      "date": "2026-10-18",
+      "time": "11:30",
+      "channel": "Toros en España Play",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Zaragoza",
+      "type": "Recortes",
+      "contentType": "festejo",
+      "breeding": "Hermanos Marcén",
+      "participants": [],
+      "name": "Zaragoza",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-10-18T21:15:15.536Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 93,
+      "status": "probable"
+    },
+    {
+      "id": "canal-extremadura-8315187f79049c",
+      "date": "2026-10-18",
+      "time": "13:00",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2012%20al%2018%20de%20octubre%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2012%20al%2018%20de%20octubre%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2012%20al%2018%20de%20octubre%20de%202026.pdf",
+          "fetchedAt": "2026-10-18T21:15:37.786Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "toros-para-todos-2026-10-18-1305",
+      "date": "2026-10-18",
+      "time": "13:05",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-10-18T21:16:00.550Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "cmm-2026-10-18-1730-5",
+      "date": "2026-10-18",
+      "time": "17:30",
+      "channel": "CMM",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Albacete",
+      "type": "Festival",
+      "contentType": "festejo",
+      "breeding": "Los Chospes , Castillo de Montizón, Garcigrande y San Isidro",
+      "participants": [
+        "Sergio Martínez",
+        "Abraham Barragán",
+        "Antón Cortés",
+        "César Jiménez",
+        "Andrés Palacios",
+        "el alumno de la escuela taurina de Albacete Neyzan Espin"
+      ],
+      "name": "Albacete",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "CMM"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-10-18T21:15:15.536Z"
+        },
+        {
+          "name": "CMM",
+          "confidence": 98,
+          "sourceUrl": "https://www.cmmedia.es/play/tv/toros",
+          "fetchedAt": null
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-26cf40676caac2",
+      "date": "2026-10-18",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Acho (Lima) Perú",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Montalvo",
+      "participants": [
+        "El Fandi",
+        "Ismael Martín",
+        "Jesús Enrique Colombo"
+      ],
+      "name": "Acho (Lima) Perú",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-18T21:15:42.596Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "Perú",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "altoromexico-7064a336ef9450",
+      "date": "2026-10-18",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Apizaco (Tlaxcala) México",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "De Haro",
+      "participants": [
+        "Enrique Mejorada El Penco",
+        "Gustavo García Solito",
+        "Omar Mora",
+        "Isaías López"
+      ],
+      "name": "Apizaco (Tlaxcala) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceLocalDate": "2026-10-18",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mexico_City",
+      "cattleCount": 6,
+      "sourceDescription": "Novillada Gran Final de la Copa Pana",
+      "sources": [
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-10-18T21:15:44.848Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 95,
+      "status": "confirmed"
+    },
+    {
+      "id": "altoromexico-a1b2ad260b78d5",
+      "date": "2026-10-18",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Guadalajara (Jalisco) México",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Marrón",
+      "participants": [],
+      "name": "Guadalajara (Jalisco) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceLocalDate": "2026-10-18",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mexico_City",
+      "cattleCount": 6,
+      "sourceDescription": "Novillada de triunfadores",
+      "sources": [
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-10-18T21:15:44.848Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 94,
+      "status": "confirmed"
+    },
+    {
+      "id": "altoromexico-ac97066de10346",
+      "date": "2026-10-18",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Pachuca (Hidalgo) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "José Julián Llaguno",
+      "participants": [
+        "Uriel Moreno El Zapata",
+        "Fermín Rivera",
+        "Luis Gallardo"
+      ],
+      "name": "Pachuca (Hidalgo) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceLocalDate": "2026-10-18",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mexico_City",
+      "cattleCount": 6,
+      "sourceDescription": "Cuarta corrida de feria",
+      "sources": [
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-10-18T21:15:44.848Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 95,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-1df9a0e0739f56",
+      "date": "2026-10-18",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Zaragoza (Zaragoza) España",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Hdros. de Ángel Sánchez y Sánchez",
+      "participants": [
+        "Diego Ventura",
+        "Duarte Fernandes",
+        "Rui Fernandes"
+      ],
+      "name": "Zaragoza (Zaragoza) España",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-18T21:15:42.596Z"
         }
       ],
       "fieldSources": {
