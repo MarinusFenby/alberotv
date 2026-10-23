@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-23T19:47:21.726Z",
-  "throughDate": "2026-10-23",
-  "eventCount": 620,
+  "generatedAt": "2026-10-23T22:54:00.026Z",
+  "throughDate": "2026-10-24",
+  "eventCount": 621,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -25773,6 +25773,46 @@
         "type": "Mundotoro"
       },
       "country": "España",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-ccb922ff5fc4f6",
+      "date": "2026-10-23",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Miguel de Allende (Guanajuato) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Arroyo Zarco y San Fernando",
+      "participants": [
+        "Isaac Fonseca",
+        "Javier Funtanet",
+        "Juan Ortega"
+      ],
+      "name": "San Miguel de Allende (Guanajuato) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-23T19:47:02.422Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "México",
       "confidence": 89,
       "status": "probable"
     }
