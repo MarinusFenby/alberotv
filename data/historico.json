@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-28T21:30:52.759Z",
-  "throughDate": "2026-10-28",
-  "eventCount": 642,
+  "generatedAt": "2026-10-29T01:12:31.856Z",
+  "throughDate": "2026-10-29",
+  "eventCount": 643,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -26716,6 +26716,56 @@
       "sourceLocalDate": "2026-10-25",
       "sourceLocalTime": "16:30",
       "sourceTimeZone": "America/Mazatlan"
+    },
+    {
+      "id": "mundotoro-ef58fb3e81c314",
+      "date": "2026-10-28",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Villanueva (Zacatecas) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Boquilla del Carmen",
+      "participants": [
+        "José Mauricio",
+        "Ernesto Javier Calita"
+      ],
+      "name": "Villanueva (Zacatecas) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-28T21:30:34.423Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-10-28T21:30:36.426Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-10-28",
+      "sourceLocalTime": "16:00",
+      "sourceTimeZone": "America/Mexico_City"
     }
   ]
 }
