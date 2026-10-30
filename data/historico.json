@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-29T20:04:35.949Z",
-  "throughDate": "2026-10-29",
-  "eventCount": 643,
+  "generatedAt": "2026-10-30T00:06:15.910Z",
+  "throughDate": "2026-10-30",
+  "eventCount": 644,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -26765,6 +26765,58 @@
       "status": "confirmed",
       "sourceLocalDate": "2026-10-28",
       "sourceLocalTime": "16:00",
+      "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "mundotoro-62777dcc25cb8f",
+      "date": "2026-10-29",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Atitalaquia (Hidalgo) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Joaquín Aguilar",
+      "participants": [
+        "Christian Ortega",
+        "Hilda Tenorio",
+        "Gerardo Hernández",
+        "César Ruiz"
+      ],
+      "name": "Atitalaquia (Hidalgo) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-29T20:04:15.002Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-10-29T20:04:16.757Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-10-29",
+      "sourceLocalTime": "19:00",
       "sourceTimeZone": "America/Mexico_City"
     }
   ]
