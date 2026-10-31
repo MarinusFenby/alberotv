@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-30T22:47:22.439Z",
-  "throughDate": "2026-10-30",
-  "eventCount": 644,
+  "generatedAt": "2026-10-31T02:01:25.749Z",
+  "throughDate": "2026-10-31",
+  "eventCount": 647,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -26818,6 +26818,147 @@
       "sourceLocalDate": "2026-10-29",
       "sourceLocalTime": "19:00",
       "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "mundotoro-2a00a110bb0fe2",
+      "date": "2026-10-30",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Ciudad Lerdo (Durango) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Pablo Moreno",
+      "participants": [
+        "Andy Cartagena",
+        "Diego San Román"
+      ],
+      "name": "Ciudad Lerdo (Durango) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-30T22:47:01.809Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-10-30T22:47:05.073Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-10-30",
+      "sourceLocalTime": "20:00",
+      "sourceTimeZone": "America/Monterrey"
+    },
+    {
+      "id": "mundotoro-b61f997a72d474",
+      "date": "2026-10-30",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Mangas (Hidalgo) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "por designar",
+      "participants": [
+        "Francisco Martínez",
+        "Juan Pedro Llaguno",
+        "Elizabeth Moreno"
+      ],
+      "name": "Mangas (Hidalgo) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-30T22:47:01.809Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-10-30T22:47:05.073Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-10-30",
+      "sourceLocalTime": "16:00",
+      "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "mundotoro-7c9e4f4fc877c5",
+      "date": "2026-10-30",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Monterrey (Nuevo León) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Felipe González",
+      "participants": [
+        "Guillermo Hermoso de Mendoza",
+        "Juan Fernando",
+        "Luis David Adame"
+      ],
+      "name": "Monterrey (Nuevo León) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-30T22:47:01.809Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "México",
+      "confidence": 89,
+      "status": "probable"
     }
   ]
 }
