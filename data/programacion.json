@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-31T15:01:50.387Z",
+  "generatedAt": "2026-10-31T19:27:22.463Z",
   "degraded": true,
   "eventCount": 706,
   "bullfightingEventCount": 645,
@@ -10,7 +10,7 @@
     "historicalDuplicatesMerged": 647,
     "historicalRetiredCmmProgrammes": 0,
     "added": 68,
-    "merged": 35,
+    "merged": 42,
     "skippedUncorroborated": 22,
     "verifiedStartTimesApplied": 0,
     "reschedulesApplied": 0,
@@ -23,7 +23,7 @@
     "canalSur": 2,
     "cmm": 6,
     "canalExtremadura": 2,
-    "mundoToro": 10,
+    "mundoToro": 17,
     "lasVentas": 12,
     "vaDeToros": 21,
     "aplausos": 0,
@@ -34,7 +34,7 @@
       "label": "El Muletazo",
       "status": "ok",
       "eventCount": 3,
-      "fetchedAt": "2026-10-31T15:00:53.018Z",
+      "fetchedAt": "2026-10-31T19:26:15.720Z",
       "error": null
     },
     "oneToro": {
@@ -43,20 +43,20 @@
       "eventCount": 1,
       "fetchedAt": "2026-10-25T23:26:11.070Z",
       "error": "No se pudo verificar OneToro en este intento; los datos conservados no son una actualización nueva.",
-      "lastAttemptAt": "2026-10-31T15:01:50.474Z"
+      "lastAttemptAt": "2026-10-31T19:27:22.544Z"
     },
     "programasTaurinos": {
       "label": "Programas taurinos",
       "status": "ok",
       "eventCount": 12,
-      "fetchedAt": "2026-10-31T15:01:48.125Z",
+      "fetchedAt": "2026-10-31T19:27:20.230Z",
       "error": null
     },
     "canalSur": {
       "label": "Canal Sur",
       "status": "ok",
       "eventCount": 2,
-      "fetchedAt": "2026-10-31T15:01:16.047Z",
+      "fetchedAt": "2026-10-31T19:26:42.927Z",
       "error": null
     },
     "cmm": {
@@ -70,14 +70,14 @@
       "label": "Canal Extremadura",
       "status": "ok",
       "eventCount": 2,
-      "fetchedAt": "2026-10-31T15:01:23.162Z",
+      "fetchedAt": "2026-10-31T19:26:48.788Z",
       "error": null
     },
     "mundoToro": {
       "label": "Mundotoro",
       "status": "ok",
-      "eventCount": 10,
-      "fetchedAt": "2026-10-31T15:01:28.327Z",
+      "eventCount": 17,
+      "fetchedAt": "2026-10-31T19:26:53.636Z",
       "error": null
     },
     "lasVentas": {
@@ -27117,6 +27117,42 @@
       "status": "confirmed"
     },
     {
+      "id": "canalsur-2026-10-31-sanlucar-de-barrameda-cadiz",
+      "date": "2026-10-31",
+      "time": "17:00",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Sanlúcar de Barrameda (Cádiz)",
+      "type": "Novillada con picadores",
+      "contentType": "festejo",
+      "breeding": "Fuente Ymbro",
+      "participants": [],
+      "name": "Canal Sur Televisión emitirá la Final de la Liga Nacional de Novilladas que se celebrará el sábado 31 de octubre en Sanlúcar",
+      "title": "Canal Sur Televisión emitirá la Final de la Liga Nacional de Novilladas que se celebrará el sábado 31 de octubre en Sanlúcar",
+      "image": null,
+      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
+      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/rtva/canal-sur-television-emitira-final_1_1442347.html",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/rtva/canal-sur-television-emitira-final_1_1442347.html",
+          "fetchedAt": "2026-10-31T19:26:42.927Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "country": "España",
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
       "id": "cmm-2026-10-31-1715-5",
       "date": "2026-10-31",
       "time": "17:15",
@@ -27182,7 +27218,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-10-31T15:01:28.327Z"
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
         }
       ],
       "fieldSources": {
@@ -27223,7 +27259,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-10-31T15:01:28.327Z"
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
         },
         {
           "name": "Al Toro México",
@@ -27242,55 +27278,6 @@
       "sourceLocalDate": "2026-10-31",
       "sourceLocalTime": "17:30",
       "sourceTimeZone": "America/Mexico_City"
-    },
-    {
-      "id": "canalsur-2026-10-31-sanlucar-de-barrameda-cadiz",
-      "date": "2026-10-31",
-      "time": null,
-      "channel": "Canal Sur",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Sanlúcar de Barrameda (Cádiz)",
-      "type": "Novillada con picadores",
-      "contentType": "festejo",
-      "breeding": "Fuente Ymbro",
-      "participants": [
-        "Jorge Oliva",
-        "Manuel Quintana",
-        "Marco Polope",
-        "Pepe Martínez",
-        "Sergio Rollón"
-      ],
-      "name": "Canal Sur Televisión emitirá la Final de la Liga Nacional de Novilladas que se celebrará el sábado 31 de octubre en Sanlúcar",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://www.canalsurmas.es/directo/canal-sur-tv/",
-      "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/rtva/canal-sur-television-emitira-final_1_1442347.html",
-      "sources": [
-        "Canal Sur",
-        "Mundotoro"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Sur",
-          "confidence": 98,
-          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/rtva/canal-sur-television-emitira-final_1_1442347.html",
-          "fetchedAt": "2026-10-31T15:01:16.047Z"
-        },
-        {
-          "name": "Mundotoro",
-          "confidence": 86,
-          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-10-31T15:01:28.327Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "Canal Sur"
-      },
-      "country": "España",
-      "confidence": 100,
-      "status": "confirmed"
     },
     {
       "id": "mundotoro-f15f838c9977b8",
@@ -27322,7 +27309,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-10-31T15:01:28.327Z"
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
         },
         {
           "name": "Al Toro México",
@@ -27374,7 +27361,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-10-31T15:01:28.327Z"
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
         },
         {
           "name": "Al Toro México",
@@ -27429,7 +27416,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-10-31T15:01:28.327Z"
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
         },
         {
           "name": "Al Toro México",
@@ -27523,7 +27510,7 @@
           "name": "Canal Extremadura",
           "confidence": 98,
           "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2026%20octubre%20al%201%20de%20noviembre%20de%202026.pdf",
-          "fetchedAt": "2026-10-31T15:01:23.162Z"
+          "fetchedAt": "2026-10-31T19:26:48.788Z"
         }
       ],
       "fieldSources": {
@@ -27558,7 +27545,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-10-31T15:01:48.125Z"
+          "fetchedAt": "2026-10-31T19:27:20.230Z"
         }
       ],
       "fieldSources": {
@@ -27593,20 +27580,27 @@
       "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
       "sources": [
         "El Muletazo",
-        "Canal Sur"
+        "Canal Sur",
+        "Mundotoro"
       ],
       "sourceDetails": [
         {
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-10-31T15:00:53.018Z"
+          "fetchedAt": "2026-10-31T19:26:15.720Z"
         },
         {
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/final-liga-nacional-novilladas-sanlucar_1_1447616.html",
-          "fetchedAt": "2026-10-31T15:01:16.047Z"
+          "fetchedAt": "2026-10-31T19:26:42.927Z"
+        },
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
         }
       ],
       "fieldSources": {
@@ -27680,7 +27674,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-10-31T15:01:28.327Z"
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
         }
       ],
       "fieldSources": {
@@ -27691,7 +27685,7 @@
       "status": "probable"
     },
     {
-      "id": "altoromexico-7693dedcfa0291",
+      "id": "mundotoro-24df99fc612c6a",
       "date": "2026-11-01",
       "time": null,
       "channel": "Sin TV",
@@ -27714,15 +27708,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-01",
-      "sourceLocalTime": "16:30",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 6,
-      "sourceDescription": "Novillada de Triunfadores",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -27735,11 +27731,14 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-01",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
-      "id": "altoromexico-bab2d2342b11e0",
+      "id": "mundotoro-9452a8de00e8bf",
       "date": "2026-11-01",
       "time": null,
       "channel": "Sin TV",
@@ -27760,15 +27759,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-01",
-      "sourceLocalTime": "20:00",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 6,
-      "sourceDescription": "Segunda corrida de feria",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -27781,8 +27782,11 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-01",
+      "sourceLocalTime": "20:00",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
       "id": "canal-extremadura-e4699ad409ccb8",
@@ -27810,7 +27814,7 @@
           "name": "Canal Extremadura",
           "confidence": 98,
           "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2026%20octubre%20al%201%20de%20noviembre%20de%202026.pdf",
-          "fetchedAt": "2026-10-31T15:01:23.162Z"
+          "fetchedAt": "2026-10-31T19:26:48.788Z"
         }
       ],
       "fieldSources": {
@@ -27820,7 +27824,7 @@
       "status": "confirmed"
     },
     {
-      "id": "altoromexico-b2fec5461c2c63",
+      "id": "mundotoro-60bbbff115ca7f",
       "date": "2026-11-02",
       "time": null,
       "channel": "Sin TV",
@@ -27841,15 +27845,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-02",
-      "sourceLocalTime": "17:00",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 6,
-      "sourceDescription": "Tercera corrida de feria",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -27862,8 +27868,11 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-02",
+      "sourceLocalTime": "17:00",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
       "id": "altoromexico-2d630349ccf574",
@@ -27913,7 +27922,7 @@
       "status": "confirmed"
     },
     {
-      "id": "altoromexico-895928bf9362cd",
+      "id": "mundotoro-d46c0ca500ed11",
       "date": "2026-11-06",
       "time": null,
       "channel": "Sin TV",
@@ -27935,15 +27944,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-06",
-      "sourceLocalTime": "20:00",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 7,
-      "sourceDescription": "Novillada Internacional de Feria",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -27956,8 +27967,11 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-06",
+      "sourceLocalTime": "20:00",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
       "id": "alberotv-2026-11-07-9548a077bd424c73",
@@ -27993,7 +28007,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-10-31T15:00:53.018Z"
+          "fetchedAt": "2026-10-31T19:26:15.720Z"
         }
       ],
       "fieldSources": {
@@ -28029,7 +28043,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-10-31T15:01:48.125Z"
+          "fetchedAt": "2026-10-31T19:27:20.230Z"
         }
       ],
       "fieldSources": {
@@ -28039,7 +28053,7 @@
       "status": "confirmed"
     },
     {
-      "id": "altoromexico-9fbe7442f80422",
+      "id": "mundotoro-5ba04846433bef",
       "date": "2026-11-08",
       "time": null,
       "channel": "Sin TV",
@@ -28052,7 +28066,7 @@
       "breeding": "Las Huertas",
       "participants": [
         "David de Miranda",
-        "Luis David",
+        "Luis David Adame",
         "Diego San Román"
       ],
       "name": "Guadalajara (Jalisco) México",
@@ -28060,15 +28074,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-08",
-      "sourceLocalTime": "16:30",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 6,
-      "sourceDescription": "Tercera corrida de temporada",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -28081,11 +28097,14 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-08",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
-      "id": "altoromexico-cb4949c4933cde",
+      "id": "mundotoro-31a2e1e986941d",
       "date": "2026-11-08",
       "time": null,
       "channel": "Sin TV",
@@ -28107,15 +28126,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-08",
-      "sourceLocalTime": "16:30",
-      "sourceTimeZone": "America/Mazatlan",
-      "cattleCount": 4,
-      "sourceDescription": "Segunda novillada de temporada",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -28128,11 +28149,14 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-08",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mazatlan"
     },
     {
-      "id": "altoromexico-c1644efc230a65",
+      "id": "mundotoro-a077c0ef6c49ea",
       "date": "2026-11-11",
       "time": null,
       "channel": "Sin TV",
@@ -28153,15 +28177,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-11",
-      "sourceLocalTime": "17:00",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 6,
-      "sourceDescription": "Corrida de feria",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -28174,8 +28200,11 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-11",
+      "sourceLocalTime": "17:00",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
       "id": "alberotv-2026-11-14-60b879da265189e7",
@@ -28212,7 +28241,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-10-31T15:00:53.018Z"
+          "fetchedAt": "2026-10-31T19:26:15.720Z"
         }
       ],
       "fieldSources": {
@@ -28294,7 +28323,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-10-31T15:01:48.125Z"
+          "fetchedAt": "2026-10-31T19:27:20.230Z"
         }
       ],
       "fieldSources": {
@@ -28334,7 +28363,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-10-31T15:01:28.327Z"
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
         },
         {
           "name": "Al Toro México",
@@ -28708,7 +28737,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-10-31T15:01:28.327Z"
+          "fetchedAt": "2026-10-31T19:26:53.636Z"
         },
         {
           "name": "Al Toro México",
@@ -28799,7 +28828,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-10-31T15:01:48.125Z"
+          "fetchedAt": "2026-10-31T19:27:20.230Z"
         }
       ],
       "fieldSources": {
@@ -28926,7 +28955,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-10-31T15:01:48.125Z"
+          "fetchedAt": "2026-10-31T19:27:20.230Z"
         }
       ],
       "fieldSources": {
@@ -29098,7 +29127,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-10-31T15:01:48.125Z"
+          "fetchedAt": "2026-10-31T19:27:20.230Z"
         }
       ],
       "fieldSources": {
@@ -29180,7 +29209,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-10-31T15:01:48.125Z"
+          "fetchedAt": "2026-10-31T19:27:20.230Z"
         }
       ],
       "fieldSources": {
@@ -29262,7 +29291,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-10-31T15:01:48.125Z"
+          "fetchedAt": "2026-10-31T19:27:20.230Z"
         }
       ],
       "fieldSources": {
@@ -29342,7 +29371,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-10-31T15:01:48.125Z"
+          "fetchedAt": "2026-10-31T19:27:20.230Z"
         }
       ],
       "fieldSources": {
@@ -29377,7 +29406,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-10-31T15:01:48.125Z"
+          "fetchedAt": "2026-10-31T19:27:20.230Z"
         }
       ],
       "fieldSources": {
@@ -29502,7 +29531,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-10-31T15:01:48.125Z"
+          "fetchedAt": "2026-10-31T19:27:20.230Z"
         }
       ],
       "fieldSources": {
@@ -29537,7 +29566,7 @@
           "name": "Canal Sur",
           "confidence": 98,
           "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
-          "fetchedAt": "2026-10-31T15:01:48.125Z"
+          "fetchedAt": "2026-10-31T19:27:20.230Z"
         }
       ],
       "fieldSources": {
