@@ -8,9 +8,15 @@ import { eventMatchScore, mergeTwoEvents } from "../scrapers/merge.mjs";
 // el 08/10 21:48Z con «Parrilla imposible» en Canal Sur el 31/10 a las 17:00.
 const url = "https://www.canalsur.es/rtva/comunicacion/rtva/canal-sur-television-emitira-final_1_1442347.html";
 const html = fs.readFileSync(new URL("./fixtures/canalsur-final-liga-novilladas-sanlucar-2026-10-08.html", import.meta.url), "utf8");
-const event = buildEvent({ html, finalUrl: url, rssTitle: "" });
+// La noticia es histórica: fijar el reloj dentro de cada test mantiene la
+// regresión reproducible sin cambiar el filtro de fechas de producción.
+function fixtureEvent(t, now = "2026-10-09T12:00:00Z") {
+  t.mock.timers.enable({ apis: ["Date"], now: new Date(now) });
+  return buildEvent({ html, finalUrl: url, rssTitle: "" });
+}
 
-test("la final de Sanlúcar: localidad completa, sin el fragmento de frase", () => {
+test("la final de Sanlúcar: localidad completa, sin el fragmento de frase", (t) => {
+  const event = fixtureEvent(t);
   assert.equal(event.location, "Sanlúcar de Barrameda (Cádiz)");
   assert.equal(event.id, "canalsur-2026-10-31-sanlucar-de-barrameda-cadiz");
   assert.equal(event.date, "2026-10-31");
@@ -55,7 +61,8 @@ test("los titulares que ya funcionaban dan la misma localidad que en main", () =
   for (const [title, location] of Object.entries(unchanged)) assert.equal(extractLocation(title, ""), location, title);
 });
 
-test("se fusiona con el festejo real de Sanlúcar: una sola ficha, sin conflicto de parrilla", () => {
+test("se fusiona con el festejo real de Sanlúcar: una sola ficha, sin conflicto de parrilla", (t) => {
+  const event = fixtureEvent(t);
   const muletazo = {
     id: "alberotv-muletazo-sanlucar", date: "2026-10-31", time: "17:00", channel: "Canal Sur", televised: true,
     location: "Sanlúcar de Barrameda (Cádiz)", name: "Sanlúcar de Barrameda (Cádiz)", type: "Novillada con picadores",
@@ -72,3 +79,9 @@ test("se fusiona con el festejo real de Sanlúcar: una sola ficha, sin conflicto
   assert.deepEqual(merged.participants, muletazo.participants);
   assert.deepEqual([...merged.sources].sort(), ["Canal Sur", "El Muletazo"]);
 });
+
+for (const now of ["2026-11-07T12:00:00Z", "2027-01-01T12:00:00Z"]) {
+  test(`la noticia histórica no vuelve a la agenda futura (${now})`, (t) => {
+    assert.equal(fixtureEvent(t, now), null);
+  });
+}
