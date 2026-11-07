@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-07T20:25:09.426Z",
-  "throughDate": "2026-11-07",
-  "eventCount": 667,
+  "generatedAt": "2026-11-07T23:48:21.857Z",
+  "throughDate": "2026-11-08",
+  "eventCount": 668,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -27851,6 +27851,57 @@
       "sourceLocalDate": "2026-11-06",
       "sourceLocalTime": "20:00",
       "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "canalsur-2026-11-07-la-linea-de-la-concepcion",
+      "date": "2026-11-07",
+      "time": "17:00",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "La Línea de la Concepción (Cádiz)",
+      "type": "Novillada sin picadores",
+      "contentType": "festejo",
+      "breeding": "Fermín Bohórquez",
+      "participants": [
+        "Lucas Rojas «El Gamboa» (Algeciras)",
+        "Francisco Rivera (La Línea)",
+        "Juanmi Vidal (Sanlúcar)",
+        "Álvaro Hernández (El Puerto)",
+        "Mario Torres (Ubrique)",
+        "Martín Marengo (Chiclana)",
+        "Pablo Galván (San Fernando)"
+      ],
+      "name": "La Línea de la Concepción (Cádiz)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo",
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-11-07T20:24:24.613Z"
+        },
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/rtva/comunicacion/novillada-tarde-sabado-canal-sur_1_1449732.html",
+          "fetchedAt": "2026-11-07T20:24:38.230Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "country": "España",
+      "confidence": 100,
+      "status": "confirmed"
     }
   ]
 }
