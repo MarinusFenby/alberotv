@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
 import { classifyBroadcast } from "./cmm.mjs";
+import { sourceHealth as describeSourceHealth } from "./source-health.mjs";
 
 
 /* Horas de inicio verificadas del festejo, no horas de emisión.
@@ -2530,37 +2531,17 @@ async function main() {
     merged.length -
     programCount;
 
-  const sourceHealth =
-    Object.fromEntries(
-      sourceResults.map(
-        source => [
-          source.key,
-          {
-            label: source.label,
-            status:
-              source.ok
-                ? "ok"
-                : "error",
-            eventCount:
-              source.eventCount,
-            fetchedAt:
-              source.fetchedAt,
-            error:
-              source.error
-          }
-        ]
-      )
-    );
+  const checkedAt = Date.now();
+  const sourceHealth = Object.fromEntries(
+    sourceResults.map(source => [source.key, describeSourceHealth(source, checkedAt)])
+  );
 
   const output = {
     generatedAt:
       new Date().toISOString(),
 
     degraded:
-      sourceResults.some(
-        source =>
-          !source.ok
-      ),
+      Object.values(sourceHealth).some(source => source.status !== "ok"),
 
     eventCount:
       merged.length,
