@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { preserveGuideOnFailure } from './guide-result.mjs';
 
 const SOURCE = "CMM";
 const GUIDE_URL = "https://www.cmmedia.es/play/programacion/tv";
@@ -432,7 +433,11 @@ async function fetchHtml(url) {
     throw new Error(`HTTP ${response.status} en ${url}`);
   }
 
-  return response.text();
+  const html = await response.text();
+  if (!/c-event__hour/.test(html)) {
+    throw new Error(`La respuesta no contiene una guía de emisiones verificable (destino: ${response.url}). No se interpreta como parrilla vacía.`);
+  }
+  return html;
 }
 
 async function main() {
@@ -499,7 +504,7 @@ async function main() {
     });
   }
 
-  const output = {
+  const current = {
     source: SOURCE,
     generatedAt,
     sourceUrl: GUIDE_URL,
@@ -512,6 +517,10 @@ async function main() {
     errors,
     events
   };
+
+  let previous = null;
+  try { previous = JSON.parse(await fs.readFile(OUTPUT, 'utf8')); } catch {}
+  const output = preserveGuideOnFailure(current, previous);
 
   await fs.mkdir(path.dirname(OUTPUT), { recursive: true });
   await fs.writeFile(
