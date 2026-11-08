@@ -1,18 +1,20 @@
 {
   "source": "CMM",
-  "generatedAt": "2026-11-08T17:12:18.913Z",
+  "generatedAt": null,
   "sourceUrl": "https://www.cmmedia.es/play/programacion/tv",
-  "status": "partial",
+  "status": "unavailable",
   "eventCount": 0,
-  "checkedPages": 1,
+  "checkedPages": 0,
   "discoveredDates": [],
   "detectedScheduleItems": 0,
   "errorCount": 1,
   "errors": [
     {
       "url": "https://www.cmmedia.es/play/programacion/tv",
-      "error": "No se pudo reconstruir la secuencia de fechas de la parrilla."
+      "error": "La respuesta no contiene una guía de emisiones verificable (destino: https://www.cmmplay.es/). No se interpreta como parrilla vacía."
     }
   ],
-  "events": []
+  "events": [],
+  "lastAttemptAt": "2026-11-08T20:18:17.694Z",
+  "lastSuccessfulAt": null
 }
