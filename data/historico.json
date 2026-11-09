@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-08T21:18:48.250Z",
-  "throughDate": "2026-11-08",
-  "eventCount": 668,
+  "generatedAt": "2026-11-09T01:07:39.126Z",
+  "throughDate": "2026-11-09",
+  "eventCount": 672,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -27902,6 +27902,179 @@
       "country": "España",
       "confidence": 100,
       "status": "confirmed"
+    },
+    {
+      "id": "canal-extremadura-f00b6476fc704c",
+      "date": "2026-11-08",
+      "time": "13:00",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%202%20al%208%20de%20noviembre%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%202%20al%208%20de%20noviembre%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%202%20al%208%20de%20noviembre%20de%202026.pdf",
+          "fetchedAt": "2026-11-08T21:18:20.098Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "toros-para-todos-2026-11-08-1310",
+      "date": "2026-11-08",
+      "time": "13:10",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Toros para Todos",
+      "title": "Toros para Todos",
+      "image": null,
+      "eventUrl": "https://www.canalsur.es/television/directo-television/",
+      "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+      "sources": [
+        "Canal Sur"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Sur",
+          "confidence": 98,
+          "sourceUrl": "https://www.canalsur.es/television/toros-para-todos/",
+          "fetchedAt": "2026-11-08T21:18:45.933Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-5ba04846433bef",
+      "date": "2026-11-08",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Guadalajara (Jalisco) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Las Huertas",
+      "participants": [
+        "David de Miranda",
+        "Luis David Adame",
+        "Diego San Román"
+      ],
+      "name": "Guadalajara (Jalisco) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-08T21:18:25.200Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-08T21:18:27.251Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-08",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "mundotoro-31a2e1e986941d",
+      "date": "2026-11-08",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Tepic (Nayarit) México",
+      "type": "Novillada",
+      "contentType": "festejo",
+      "breeding": "Chinampas",
+      "participants": [
+        "Axel López",
+        "Cristóbal Arenas",
+        "Emilio Ricaud",
+        "Gonzalo Guerra"
+      ],
+      "name": "Tepic (Nayarit) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-08T21:18:25.200Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-08T21:18:27.251Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-08",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mazatlan"
     }
   ]
 }
