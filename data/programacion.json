@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-11-09T08:25:14.161Z",
+  "generatedAt": "2026-11-09T19:01:11.111Z",
   "degraded": true,
-  "eventCount": 712,
-  "bullfightingEventCount": 659,
-  "programCount": 53,
+  "eventCount": 715,
+  "bullfightingEventCount": 661,
+  "programCount": 54,
   "mergeStats": {
     "historicalCandidates": 1344,
     "historicalPreserved": 672,
     "historicalDuplicatesMerged": 672,
     "historicalRetiredCmmProgrammes": 0,
-    "added": 49,
-    "merged": 29,
+    "added": 52,
+    "merged": 45,
     "skippedUncorroborated": 22,
     "verifiedStartTimesApplied": 0,
     "reschedulesApplied": 0,
@@ -23,7 +23,7 @@
     "canalSur": 0,
     "cmm": 0,
     "canalExtremadura": 2,
-    "mundoToro": 4,
+    "mundoToro": 23,
     "lasVentas": 12,
     "vaDeToros": 21,
     "aplausos": 0,
@@ -33,7 +33,7 @@
     "elMuletazo": {
       "label": "El Muletazo",
       "eventCount": 2,
-      "fetchedAt": "2026-11-09T08:24:28.337Z",
+      "fetchedAt": "2026-11-09T19:00:11.317Z",
       "status": "ok",
       "error": null
     },
@@ -43,19 +43,19 @@
       "fetchedAt": "2026-10-25T23:26:11.070Z",
       "status": "stale",
       "error": "No se pudo verificar OneToro en este intento; los datos conservados no son una actualización nueva.",
-      "lastAttemptAt": "2026-11-09T08:25:14.238Z"
+      "lastAttemptAt": "2026-11-09T19:01:11.196Z"
     },
     "programasTaurinos": {
       "label": "Programas taurinos",
       "eventCount": 0,
-      "fetchedAt": "2026-11-09T08:25:12.452Z",
+      "fetchedAt": "2026-11-09T19:01:08.855Z",
       "status": "ok",
       "error": null
     },
     "canalSur": {
       "label": "Canal Sur",
       "eventCount": 0,
-      "fetchedAt": "2026-11-09T08:24:43.922Z",
+      "fetchedAt": "2026-11-09T19:00:26.084Z",
       "status": "ok",
       "error": null
     },
@@ -71,14 +71,14 @@
     "canalExtremadura": {
       "label": "Canal Extremadura",
       "eventCount": 2,
-      "fetchedAt": "2026-11-09T08:24:50.159Z",
+      "fetchedAt": "2026-11-09T19:00:33.425Z",
       "status": "ok",
       "error": null
     },
     "mundoToro": {
       "label": "Mundotoro",
-      "eventCount": 4,
-      "fetchedAt": "2026-11-09T08:24:55.031Z",
+      "eventCount": 23,
+      "fetchedAt": "2026-11-09T19:00:39.899Z",
       "status": "ok",
       "error": null
     },
@@ -28200,41 +28200,6 @@
       "sourceTimeZone": "America/Mazatlan"
     },
     {
-      "id": "canal-extremadura-a100186a12ef3b",
-      "date": "2026-11-09",
-      "time": "01:15",
-      "channel": "Canal Extremadura",
-      "deferred": false,
-      "televised": true,
-      "televisionUnconfirmed": false,
-      "location": "Televisión",
-      "type": "Programa taurino",
-      "contentType": "programa",
-      "breeding": "",
-      "participants": [],
-      "name": "Extremadura Tierra de Toros",
-      "title": "Extremadura Tierra de Toros",
-      "image": null,
-      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%202%20al%208%20de%20noviembre%20de%202026.pdf",
-      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%202%20al%208%20de%20noviembre%20de%202026.pdf",
-      "sources": [
-        "Canal Extremadura"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Canal Extremadura",
-          "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%202%20al%208%20de%20noviembre%20de%202026.pdf",
-          "fetchedAt": "2026-11-09T08:24:50.159Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "Canal Extremadura"
-      },
-      "confidence": 100,
-      "status": "confirmed"
-    },
-    {
       "id": "mundotoro-a077c0ef6c49ea",
       "date": "2026-11-11",
       "time": null,
@@ -28265,7 +28230,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-09T08:24:55.031Z"
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
         },
         {
           "name": "Al Toro México",
@@ -28286,7 +28251,7 @@
       "sourceTimeZone": "America/Mexico_City"
     },
     {
-      "id": "altoromexico-f13e668fceec8f",
+      "id": "mundotoro-a4360029987ffc",
       "date": "2026-11-13",
       "time": null,
       "channel": "Sin TV",
@@ -28308,15 +28273,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-13",
-      "sourceLocalTime": "20:00",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 8,
-      "sourceDescription": "Corrida de toros extraordinaria",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -28329,8 +28296,11 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-13",
+      "sourceLocalTime": "20:00",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
       "id": "alberotv-2026-11-14-3a16b4192377d47f",
@@ -28367,7 +28337,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-11-09T08:24:28.337Z"
+          "fetchedAt": "2026-11-09T19:00:11.317Z"
         }
       ],
       "fieldSources": {
@@ -28378,7 +28348,7 @@
       "status": "confirmed"
     },
     {
-      "id": "altoromexico-4f575463c13c45",
+      "id": "mundotoro-7b0cad1b04f578",
       "date": "2026-11-14",
       "time": null,
       "channel": "Sin TV",
@@ -28399,15 +28369,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-14",
-      "sourceLocalTime": "17:00",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 6,
-      "sourceDescription": "Cuarta corrida de feria",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -28420,7 +28392,45 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-14",
+      "sourceLocalTime": "17:00",
+      "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "canal-extremadura-1c3e8368503645",
+      "date": "2026-11-15",
+      "time": "13:00",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%209%20al%2015%20de%20noviembre%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%209%20al%2015%20de%20noviembre%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%209%20al%2015%20de%20noviembre%20de%202026.pdf",
+          "fetchedAt": "2026-11-09T19:00:33.425Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
       "status": "confirmed"
     },
     {
@@ -28454,7 +28464,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-09T08:24:55.031Z"
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
         },
         {
           "name": "Al Toro México",
@@ -28521,7 +28531,7 @@
       "status": "confirmed"
     },
     {
-      "id": "altoromexico-73a0e7c8ed1bb5",
+      "id": "mundotoro-770c6e16e46b38",
       "date": "2026-11-15",
       "time": null,
       "channel": "Sin TV",
@@ -28542,15 +28552,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-15",
-      "sourceLocalTime": "16:30",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 6,
-      "sourceDescription": "Cuarta corrida de temporada",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -28563,11 +28575,14 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-15",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
-      "id": "altoromexico-70f10e0e0eecb1",
+      "id": "mundotoro-ecd3a4bcb18ff4",
       "date": "2026-11-15",
       "time": null,
       "channel": "Sin TV",
@@ -28581,22 +28596,24 @@
       "participants": [
         "Guillermo Hermoso de Mendoza",
         "Juan Fernando",
-        "Luis David"
+        "Luis David Adame"
       ],
       "name": "Monterrey (Nuevo León) México",
       "title": null,
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-15",
-      "sourceLocalTime": "16:30",
-      "sourceTimeZone": "America/Monterrey",
-      "cattleCount": 6,
-      "sourceDescription": "Corrida de Calaveras",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -28609,8 +28626,51 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-15",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Monterrey"
+    },
+    {
+      "id": "mundotoro-dd83ec2dd7f05f",
+      "date": "2026-11-15",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Santiago Cuautlapán (Cinco Villas) (Estado de México) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Caparica",
+      "participants": [
+        "Alejandro Talavante",
+        "Héctor Gutiérrez",
+        "Sergio Flores"
+      ],
+      "name": "Santiago Cuautlapán (Cinco Villas) (Estado de México) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "México",
+      "confidence": 89,
+      "status": "probable"
     },
     {
       "id": "altoromexico-b816f8db242ee8",
@@ -28662,7 +28722,7 @@
       "status": "confirmed"
     },
     {
-      "id": "altoromexico-f8540c6389b1cc",
+      "id": "mundotoro-6ff2a56e82c625",
       "date": "2026-11-15",
       "time": null,
       "channel": "Sin TV",
@@ -28682,15 +28742,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-15",
-      "sourceLocalTime": "16:30",
-      "sourceTimeZone": "America/Merida",
-      "cattleCount": 4,
-      "sourceDescription": "Primer festejo de feria",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -28703,11 +28765,49 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-15",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Merida"
+    },
+    {
+      "id": "canal-extremadura-2be008575b8ec8",
+      "date": "2026-11-16",
+      "time": "01:15",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%209%20al%2015%20de%20noviembre%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%209%20al%2015%20de%20noviembre%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%209%20al%2015%20de%20noviembre%20de%202026.pdf",
+          "fetchedAt": "2026-11-09T19:00:33.425Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
       "status": "confirmed"
     },
     {
-      "id": "altoromexico-8541b9b99d899d",
+      "id": "mundotoro-ac2f2eeda9cb44",
       "date": "2026-11-20",
       "time": null,
       "channel": "Sin TV",
@@ -28717,7 +28817,7 @@
       "location": "Durango (Durango) México",
       "type": "Corrida de toros",
       "contentType": "festejo",
-      "breeding": "",
+      "breeding": "por designar",
       "participants": [
         "Pablo Hermoso de Mendoza",
         "Arturo Gilio II"
@@ -28727,15 +28827,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-20",
-      "sourceLocalTime": "20:00",
-      "sourceTimeZone": "America/Monterrey",
-      "cattleCount": 4,
-      "sourceDescription": "Corrida Villista",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -28748,11 +28850,14 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 94,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-20",
+      "sourceLocalTime": "20:00",
+      "sourceTimeZone": "America/Monterrey"
     },
     {
-      "id": "altoromexico-cfb0bbdd92d310",
+      "id": "mundotoro-1f73f53516dfe4",
       "date": "2026-11-20",
       "time": null,
       "channel": "Sin TV",
@@ -28773,15 +28878,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-20",
-      "sourceLocalTime": "20:00",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 6,
-      "sourceDescription": "Corrida de la Revolución",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -28794,11 +28901,14 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-20",
+      "sourceLocalTime": "20:00",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
-      "id": "altoromexico-3529fcedee232c",
+      "id": "mundotoro-74b2db6d4aa90d",
       "date": "2026-11-20",
       "time": null,
       "channel": "Sin TV",
@@ -28819,15 +28929,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-20",
-      "sourceLocalTime": "20:30",
-      "sourceTimeZone": "America/Monterrey",
-      "cattleCount": 6,
-      "sourceDescription": "Corrida de la Revolución",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -28840,8 +28952,11 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-20",
+      "sourceLocalTime": "20:30",
+      "sourceTimeZone": "America/Monterrey"
     },
     {
       "id": "mundotoro-fd5f725a395367",
@@ -28874,7 +28989,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-09T08:24:55.031Z"
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
         },
         {
           "name": "Al Toro México",
@@ -28895,7 +29010,7 @@
       "sourceTimeZone": "America/Mexico_City"
     },
     {
-      "id": "altoromexico-e4e63da64c61cf",
+      "id": "mundotoro-578a4d69ffa3b7",
       "date": "2026-11-21",
       "time": null,
       "channel": "Sin TV",
@@ -28915,15 +29030,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-21",
-      "sourceLocalTime": "17:00",
-      "sourceTimeZone": "America/Monterrey",
-      "cattleCount": 4,
-      "sourceDescription": "Corrida Villista",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -28936,11 +29053,14 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-21",
+      "sourceLocalTime": "17:00",
+      "sourceTimeZone": "America/Monterrey"
     },
     {
-      "id": "altoromexico-6ffd46f3a2b4c0",
+      "id": "mundotoro-25a2b2691bd2f2",
       "date": "2026-11-22",
       "time": null,
       "channel": "Sin TV",
@@ -28961,15 +29081,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-22",
-      "sourceLocalTime": "16:30",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 6,
-      "sourceDescription": "Primerra corrida de temporada (Segunda parte)",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -28982,11 +29104,14 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-22",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
-      "id": "altoromexico-27f0719a3de558",
+      "id": "mundotoro-5978debbc75c3f",
       "date": "2026-11-22",
       "time": null,
       "channel": "Sin TV",
@@ -29008,15 +29133,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-22",
-      "sourceLocalTime": "16:30",
-      "sourceTimeZone": "America/Mazatlan",
-      "cattleCount": 4,
-      "sourceDescription": "Tercera novillada de temporada",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -29029,11 +29156,14 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-22",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mazatlan"
     },
     {
-      "id": "altoromexico-75fdbed48d94e3",
+      "id": "mundotoro-a70011d57dce08",
       "date": "2026-11-22",
       "time": null,
       "channel": "Sin TV",
@@ -29053,15 +29183,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-22",
-      "sourceLocalTime": "16:30",
-      "sourceTimeZone": "America/Merida",
-      "cattleCount": 4,
-      "sourceDescription": "Segunda corrida de feria",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -29074,11 +29206,14 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-22",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Merida"
     },
     {
-      "id": "altoromexico-db2563832b1be5",
+      "id": "mundotoro-54fa6234b467f9",
       "date": "2026-11-28",
       "time": null,
       "channel": "Sin TV",
@@ -29099,15 +29234,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-28",
-      "sourceLocalTime": "17:00",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 6,
-      "sourceDescription": "Corrida de toros extraordinaria",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -29120,11 +29257,14 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-28",
+      "sourceLocalTime": "17:00",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
-      "id": "altoromexico-fe68390b62c7db",
+      "id": "mundotoro-e34e9bbe3bf32b",
       "date": "2026-11-29",
       "time": null,
       "channel": "Sin TV",
@@ -29138,22 +29278,24 @@
       "participants": [
         "Sergio Flores",
         "Andrés Roca Rey",
-        "Luis David"
+        "Luis David Adame"
       ],
       "name": "Apizaco (Tlaxcala) México",
       "title": null,
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-29",
-      "sourceLocalTime": "16:30",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 6,
-      "sourceDescription": "Corrida de toros extraordinaria",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -29166,8 +29308,11 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-29",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
       "id": "altoromexico-c597ba47414f0c",
@@ -29216,7 +29361,46 @@
       "status": "confirmed"
     },
     {
-      "id": "altoromexico-2f2c9ab0767f84",
+      "id": "mundotoro-f3a0893d882512",
+      "date": "2026-11-29",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Cadereyta Jiménez (Nuevo León) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "El Saucillo",
+      "participants": [
+        "El Geno",
+        "otro"
+      ],
+      "name": "Cadereyta Jiménez (Nuevo León) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "México",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-3c1c7a950e7c08",
       "date": "2026-11-29",
       "time": null,
       "channel": "Sin TV",
@@ -29237,15 +29421,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-29",
-      "sourceLocalTime": "16:30",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 6,
-      "sourceDescription": "Segunda corrida de temporada (Segunda parte)",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -29258,11 +29444,14 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-29",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
-      "id": "altoromexico-6e32f60a537c91",
+      "id": "mundotoro-17a0e0d66541b2",
       "date": "2026-11-29",
       "time": null,
       "channel": "Sin TV",
@@ -29283,15 +29472,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-29",
-      "sourceLocalTime": "16:00",
-      "sourceTimeZone": "America/Mexico_City",
-      "cattleCount": 6,
-      "sourceDescription": "Corrida del 500° Aniversario de la Tauromaquia",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -29304,11 +29495,14 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-29",
+      "sourceLocalTime": "16:00",
+      "sourceTimeZone": "America/Mexico_City"
     },
     {
-      "id": "altoromexico-871ca3563c6e0a",
+      "id": "mundotoro-ea489145710246",
       "date": "2026-11-29",
       "time": null,
       "channel": "Sin TV",
@@ -29320,7 +29514,7 @@
       "contentType": "festejo",
       "breeding": "José Garfias",
       "participants": [
-        "Jussef Hernández",
+        "Jussef Hernández Medina",
         "Miriam Cabas"
       ],
       "name": "Xmatkuil (Yucatán) México",
@@ -29328,15 +29522,17 @@
       "image": null,
       "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
       "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceLocalDate": "2026-11-29",
-      "sourceLocalTime": "16:30",
-      "sourceTimeZone": "America/Merida",
-      "cattleCount": 4,
-      "sourceDescription": "Tercera corrida de feria (mixta)",
       "sources": [
+        "Mundotoro",
         "Al Toro México"
       ],
       "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-09T19:00:39.899Z"
+        },
         {
           "name": "Al Toro México",
           "confidence": 92,
@@ -29349,8 +29545,11 @@
         "localTime": "Al Toro México"
       },
       "country": "México",
-      "confidence": 95,
-      "status": "confirmed"
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-29",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Merida"
     },
     {
       "id": "altoromexico-57b14c910c0c14",
