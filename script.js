@@ -264,58 +264,220 @@ function isRealTelevisedChannel(channel = "") {
 }
 
 
+// Exact, documented arena aliases. Do not remove municipality/arena words.
+// Evidence: https://altoromexico.com/?acc=noticiad&id=53000
+const VERIFIED_DISPLAY_VENUES = [{
+  key: "mx:texcoco:cinco-villas", country: "mexico",
+  locations: [
+    "Cinco Villas (Estado de México) México",
+    "Santiago Cuautlapán (Cinco Villas) (Estado de México) México",
+    "Santiago Cuautlalpan (Cinco Villas) (Estado de México) México"
+  ]
+}];
+
+// This dated occurrence has independent identity evidence, allowing its source
+// without a start time to join it. Unknown times elsewhere are not wildcards.
+// https://www.alejandrotalavante.es/index.php/carteles/393-cinco-villas-mexico?date=2026-11-15-13-00
+const VERIFIED_DISPLAY_EVENTS = [{
+  canonicalId: "altoromexico-46f408395ca840",
+  sourceIds: ["altoromexico-46f408395ca840", "mundotoro-dd83ec2dd7f05f"],
+  localDate: "2026-11-15", venue: "mx:texcoco:cinco-villas",
+  type: "Corrida de toros", breeding: "Caparica", cattleCount: 6,
+  participants: ["Alejandro Talavante", "Sergio Flores", "Héctor Gutiérrez"],
+  start: "2026-11-15T19:00:00.000Z",
+  // Historical client keys, not keys inferred for other dates or local times.
+  legacyFavorites: [
+    {date: "2026-11-15", time: null, type: "Corrida de toros", location: "Cinco Villas (Estado de México) México"},
+    {date: "2026-11-15", time: null, type: "Corrida de toros", location: "Santiago Cuautlapán (Cinco Villas) (Estado de México) México"}
+  ]
+}];
+
+function displayIdentityText(value = "") {
+  return normalizeText(value).replace(/[()[\],.;:]/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function displayLocalDay(event = {}) {
+  const day = String(event.sourceLocalDate || event.date || "");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) return "";
+  const parsed = new Date(day + "T00:00:00Z");
+  return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0, 10) === day ? day : "";
+}
+
+function displayVenueIdentity(event = {}) {
+  const location = displayIdentityText(event.location || event.name || "");
+  const country = displayIdentityText(event.country || "");
+  const verified = VERIFIED_DISPLAY_VENUES.find(venue =>
+    (!country || country === venue.country) &&
+    venue.locations.some(value => displayIdentityText(value) === location));
+  return verified ? verified.key : location;
+}
+
+function displayParticipantKeys(event = {}) {
+  if (!Array.isArray(event.participants)) return [];
+  const names = event.participants.map(person =>
+    displayIdentityText(typeof person === "string" ? person : person?.name || ""));
+  if (!names.length || names.some(name => !name) || new Set(names).size !== names.length) return [];
+  return names.sort();
+}
+
+// Require a unique civil instant. Reject invalid zones/times, nonexistent and
+// ambiguous DST starts; never guess an origin time zone from a country.
+function displayCivilInstant(day, time, zone) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !/^([01]?\d|2[0-3]):[0-5]\d$/.test(time)) return null;
+  const [year, month, date] = day.split("-").map(Number);
+  const [hour, minute] = time.split(":").map(Number);
+  const wall = Date.UTC(year, month - 1, date, hour, minute);
+  if (new Date(wall).toISOString().slice(0, 10) !== day) return null;
+  try {
+    const format = new Intl.DateTimeFormat("en-GB", {
+      timeZone: zone, year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23"
+    });
+    const localParts = instant => Object.fromEntries(format.formatToParts(new Date(instant))
+      .filter(part => part.type !== "literal").map(part => [part.type, Number(part.value)]));
+    const offsets = new Set([-36, -24, -12, 0, 12, 24, 36].map(hours => {
+      const instant = wall + hours * 3600000, part = localParts(instant);
+      return Date.UTC(part.year, part.month - 1, part.day, part.hour, part.minute, part.second) - instant;
+    }));
+    const matches = [...offsets].map(offset => wall - offset).filter(instant => {
+      const part = localParts(instant);
+      return part.year === year && part.month === month && part.day === date &&
+        part.hour === hour && part.minute === minute;
+    });
+    return matches.length === 1 ? matches[0] : null;
+  } catch {
+    return null;
+  }
+}
+
+function displayScheduleEvidence(event = {}) {
+  const local = String(event.sourceLocalTime || "").trim();
+  const legacy = String(event.time || "").trim();
+  const instants = [];
+  if (local) {
+    if (!event.sourceTimeZone) return {invalid: true};
+    const instant = displayCivilInstant(displayLocalDay(event), local, event.sourceTimeZone);
+    if (instant === null) return {invalid: true};
+    instants.push(instant);
+  }
+  if (legacy) {
+    // Existing client contract: legacy "time" is Madrid, never venue-local.
+    const instant = displayCivilInstant(String(event.date || ""), legacy, "Europe/Madrid");
+    if (instant === null) return {invalid: true};
+    instants.push(instant);
+  }
+  if (new Set(instants).size > 1) return {invalid: true};
+  return {invalid: false, instant: instants[0] ?? null};
+}
+
+function verifiedDisplayEvent(event = {}) {
+  // Almost every calendar row is unrelated to this proof. Reject it before any
+  // civil-time conversion, especially while repainting many favorite buttons.
+  const proof = VERIFIED_DISPLAY_EVENTS.find(item => item.sourceIds.includes(String(event.id || "")));
+  if (!proof || displayLocalDay(event) !== proof.localDate ||
+      displayVenueIdentity(event) !== proof.venue ||
+      displayIdentityText(event.type) !== displayIdentityText(proof.type) ||
+      displayIdentityText(cleanBreedingDisplay(event.breeding)) !== displayIdentityText(proof.breeding) ||
+      JSON.stringify(displayParticipantKeys(event)) !== JSON.stringify(displayParticipantKeys(proof)) ||
+      (event.cattleCount && Number(event.cattleCount) !== proof.cattleCount)) return null;
+  const schedule = displayScheduleEvidence(event);
+  return !schedule.invalid && (schedule.instant === null || schedule.instant === Date.parse(proof.start)) ? proof : null;
+}
+
+function displayLifecycleEvidence(event = {}) {
+  const states = new Set();
+  for (const field of ["status", "eventStatus", "lifecycleStatus"]) {
+    const raw = event[field];
+    if (raw == null || (typeof raw === "string" && !raw.trim())) continue;
+    // An unrecognized or malformed state is uncertainty, not an absent state.
+    // Preserve its source record rather than silently folding it into active.
+    if (typeof raw !== "string") return {invalid: true, state: ""};
+    const status = displayIdentityText(raw);
+    if (/^(cancelled|canceled|cancelado|cancelada|anulado|anulada|suspendido|suspendida)$/.test(status)) states.add("cancelled");
+    else if (/^(suspended|suspension)$/.test(status)) states.add("suspended");
+    else if (/^(deleted|removed|tombstone|eliminado|eliminada|borrado|borrada)$/.test(status)) states.add("deleted");
+    else if (/^(archived|archivado|archivada)$/.test(status)) states.add("archived");
+    else if (/^(postponed|aplazado|aplazada|pospuesto|pospuesta)$/.test(status)) states.add("postponed");
+    else if (/^(rescheduled|reprogramado|reprogramada)$/.test(status)) states.add("rescheduled");
+    else if (/^(completed|finished|finalizado|finalizada|celebrado|celebrada)$/.test(status)) states.add("completed");
+    else if (/^(scheduled|planned|announced|confirmed|probable|programado|programada|confirmado|confirmada)$/.test(status)) states.add("active");
+    else return {invalid: true, state: ""};
+  }
+  for (const field of ["cancelled", "canceled", "isCancelled", "isCanceled"]) {
+    if (event[field] === true) states.add("cancelled");
+  }
+  if (event.suspended === true || event.isSuspended === true) states.add("suspended");
+  if (event.deleted === true || event.isDeleted === true || event.removed === true || event.tombstone === true) states.add("deleted");
+  if (event.archived === true) states.add("archived");
+  if (event.postponed === true) states.add("postponed");
+  if (event.rescheduled === true) states.add("rescheduled");
+  return {invalid: states.size > 1, state: [...states][0] || ""};
+}
+
+function displayBroadcastEvidence(event = {}) {
+  const channel = normalizeText(event.channel || "");
+  const none = event.televised === false || ["sin tv", "no tv", "no televisado", "no televisada", "sin television"].includes(channel);
+  const yes = event.televised === true || isRealTelevisedChannel(event.channel);
+  return {invalid: Boolean(none && yes), state: yes ? "televised" : none ? "none" : ""};
+}
+
+function displayExplicitIdentityConflict(first, second) {
+  // Human-readable labels never override contradictory explicit arena IDs.
+  for (const field of ["venueId", "arenaId", "bullringId", "plazaId"]) {
+    if (first[field] != null && second[field] != null &&
+        String(first[field]).trim() && String(second[field]).trim() &&
+        String(first[field]).trim() !== String(second[field]).trim()) return true;
+  }
+  for (const field of ["cancelled", "canceled", "isCancelled", "isCanceled", "postponed", "rescheduled", "deferred",
+    "suspended", "isSuspended", "deleted", "isDeleted", "removed", "tombstone", "archived"]) {
+    if ([first[field], second[field]].some(value => value != null && typeof value !== "boolean")) return true;
+    if ((first[field] === true || second[field] === true) && first[field] !== second[field]) return true;
+  }
+  for (const field of ["rescheduledFrom", "deletedAt", "cancelledAt", "canceledAt", "suspendedAt"]) {
+    if ((first[field] || second[field]) && first[field] !== second[field]) return true;
+  }
+  const tvA = displayBroadcastEvidence(first), tvB = displayBroadcastEvidence(second);
+  if (tvA.invalid || tvB.invalid || tvA.state !== tvB.state) return true;
+  const a = displayLifecycleEvidence(first), b = displayLifecycleEvidence(second);
+  if (a.invalid || b.invalid) return true;
+  if (a.state && b.state && a.state !== b.state) return true;
+  // Do not absorb a cancellation/postponement into an unclassified row.
+  return (a.state && a.state !== "active" && !b.state) ||
+    (b.state && b.state !== "active" && !a.state) || false;
+}
+
 function areSameBullfightingEvent(first = {}, second = {}) {
-  if (isProgram(first) || isProgram(second)) {
-    return false;
+  if (isProgram(first) || isProgram(second) || displayExplicitIdentityConflict(first, second)) return false;
+  if (!displayLocalDay(first) || displayLocalDay(first) !== displayLocalDay(second)) return false;
+  const countryA = displayIdentityText(first.country), countryB = displayIdentityText(second.country);
+  if (countryA && countryB && countryA !== countryB) return false;
+  const venue = displayVenueIdentity(first);
+  if (!venue || venue !== displayVenueIdentity(second)) return false;
+  const type = displayIdentityText(first.type);
+  if (!type || type !== displayIdentityText(second.type)) return false;
+  const peopleA = displayParticipantKeys(first), peopleB = displayParticipantKeys(second);
+  if (!peopleA.length || JSON.stringify(peopleA) !== JSON.stringify(peopleB)) return false;
+  const breedingA = displayIdentityText(cleanBreedingDisplay(first.breeding));
+  const breedingB = displayIdentityText(cleanBreedingDisplay(second.breeding));
+  if (!breedingA || breedingA !== breedingB) return false;
+  if (first.cattleCount && second.cattleCount && Number(first.cattleCount) !== Number(second.cattleCount)) return false;
+  if (isRealTelevisedChannel(first.channel) && isRealTelevisedChannel(second.channel) &&
+      normalizeText(first.channel) !== normalizeText(second.channel)) return false;
+  const timeA = displayScheduleEvidence(first), timeB = displayScheduleEvidence(second);
+  if (timeA.invalid || timeB.invalid) return false;
+  if (timeA.instant !== null && timeB.instant !== null) return timeA.instant === timeB.instant;
+  const proofA = verifiedDisplayEvent(first), proofB = verifiedDisplayEvent(second);
+  return Boolean(proofA && proofA === proofB);
+}
+
+function displayIdentityRecords(event = {}) {
+  const {displayDuplicateRecords, ...self} = event;
+  const records = [self];
+  for (const record of Array.isArray(displayDuplicateRecords) ? displayDuplicateRecords : []) {
+    if (record && areSameBullfightingEvent(self, record) &&
+        records.every(existing => areSameBullfightingEvent(existing, record))) records.push(record);
   }
-
-  if (
-    !first.date ||
-    !second.date ||
-    first.date !== second.date
-  ) {
-    return false;
-  }
-
-  const firstLocation = canonicalEventLocation(
-    first.location || first.name || first.title || ""
-  );
-
-  const secondLocation = canonicalEventLocation(
-    second.location || second.name || second.title || ""
-  );
-
-  if (
-    !firstLocation ||
-    !secondLocation ||
-    firstLocation !== secondLocation
-  ) {
-    return false;
-  }
-
-  const sameType =
-    normalizeText(first.type) === normalizeText(second.type);
-
-  if (!sameType) {
-    return false;
-  }
-
-  const participantsOverlap =
-    participantOverlapRatio(
-      first.participants,
-      second.participants
-    );
-
-  const breedingSimilarity =
-    stringSimilarity(
-      cleanBreedingDisplay(first.breeding),
-      cleanBreedingDisplay(second.breeding)
-    );
-
-  return (
-    participantsOverlap >= 0.5 ||
-    breedingSimilarity >= 0.72
-  );
+  return [...new Map(records.map(record => [JSON.stringify(record), record])).values()];
 }
 
 
@@ -344,103 +506,58 @@ function chooseMoreInformativeLocation(first = "", second = "") {
 
 
 function mergeDuplicateDisplayEvents(first = {}, second = {}) {
-  const televisedFirst =
-    !isNonTelevisedEvent(first);
-
-  const televisedSecond =
-    !isNonTelevisedEvent(second);
-
-  const preferred =
-    televisedFirst && !televisedSecond
-      ? first
-      : (
-          televisedSecond && !televisedFirst
-            ? second
-            : first
-        );
-
-  const secondary =
-    preferred === first
-      ? second
-      : first;
-
-  const mergedSources = [
-    ...new Set(
-      [
-        ...(Array.isArray(first.sources) ? first.sources : [first.source].filter(Boolean)),
-        ...(Array.isArray(second.sources) ? second.sources : [second.source].filter(Boolean))
-      ].filter(Boolean)
-    )
+  const proof = verifiedDisplayEvent(first);
+  const rank = event => [
+    proof && event.id === proof.canonicalId ? 1 : 0,
+    displayScheduleEvidence(event).instant !== null ? 1 : 0,
+    isRealTelevisedChannel(event.channel) ? 1 : 0,
+    Array.isArray(event.sourceDetails) ? event.sourceDetails.length : 0
   ];
-
-  const realChannel =
-    isRealTelevisedChannel(first.channel)
-      ? first.channel
-      : (
-          isRealTelevisedChannel(second.channel)
-            ? second.channel
-            : (preferred.channel || secondary.channel || null)
-        );
-
+  const order = (a, b) => {
+    const x = rank(a), y = rank(b);
+    for (let i = 0; i < x.length; i++) if (x[i] !== y[i]) return y[i] - x[i];
+    return String(a.id || "").localeCompare(String(b.id || "")) ||
+      JSON.stringify(a).localeCompare(JSON.stringify(b));
+  };
+  const [preferred, secondary] = [first, second].sort(order);
+  const unique = records => [...new Map(records.map(record => [JSON.stringify(record), record]))]
+    .sort(([a], [b]) => a.localeCompare(b)).map(([, record]) => record);
+  // Preserve material fields from the chosen source, including ID and location.
   return {
-    ...secondary,
     ...preferred,
-    location: chooseMoreInformativeLocation(
-      first.location,
-      second.location
-    ),
-    title: chooseMoreInformativeLocation(
-      first.title,
-      second.title
-    ),
-    name: chooseMoreInformativeLocation(
-      first.name,
-      second.name
-    ),
-    breeding: cleanBreedingDisplay(
-      preferred.breeding || secondary.breeding || ""
-    ),
-    participants:
-      (preferred.participants && preferred.participants.length)
-        ? preferred.participants
-        : (secondary.participants || []),
-    time:
-      preferred.time || secondary.time || "",
-    channel: realChannel,
-    televised:
-      televisedFirst || televisedSecond,
-    sources: mergedSources
+    sources: [...new Set([...(Array.isArray(first.sources) ? first.sources : []),
+      ...(Array.isArray(second.sources) ? second.sources : [])])].sort(),
+    sourceDetails: unique([...(first.sourceDetails || []), ...(second.sourceDetails || [])]),
+    displayDuplicateRecords: unique([
+      ...displayIdentityRecords(preferred), ...displayIdentityRecords(secondary)
+    ])
   };
 }
 
-
 function deduplicateDisplayEvents(events = []) {
-  const deduplicated = [];
-
+  const deduplicated = [], groups = new Map();
   for (const event of events) {
-    const current = {
-      ...event,
-      breeding: cleanBreedingDisplay(event.breeding || "")
-    };
-
-    const existingIndex =
-      deduplicated.findIndex(existing =>
-        areSameBullfightingEvent(existing, current)
-      );
-
-    if (existingIndex >= 0) {
-      deduplicated[existingIndex] =
-        mergeDuplicateDisplayEvents(
-          deduplicated[existingIndex],
-          current
-        );
-
-      continue;
+    const current = {...event, breeding: cleanBreedingDisplay(event.breeding || "")};
+    // Bucket only by necessary identity conditions. Pairwise safety still decides
+    // the merge, but the whole historical calendar is no longer scanned per row.
+    const key = JSON.stringify([
+      displayLocalDay(current), displayVenueIdentity(current),
+      displayIdentityText(current.type), displayParticipantKeys(current),
+      displayIdentityText(current.breeding)
+    ]);
+    const candidates = groups.get(key) || [];
+    const records = displayIdentityRecords(current);
+    const existingIndex = candidates.find(index =>
+      displayIdentityRecords(deduplicated[index]).every(a =>
+        records.every(b => areSameBullfightingEvent(a, b))));
+    if (existingIndex !== undefined) {
+      deduplicated[existingIndex] = mergeDuplicateDisplayEvents(deduplicated[existingIndex], current);
+    } else {
+      candidates.push(deduplicated.length);
+      groups.set(key, candidates);
+      deduplicated.push(current);
     }
-
-    deduplicated.push(current);
   }
-
   return deduplicated;
 }
 
@@ -5066,6 +5183,7 @@ const FAVORITE_NOTIFICATION_IDS_KEY =
   "alberotv-favorite-notification-ids-v1";
 
 let pendingFavoriteEvent = null;
+let favoritesMigrationCache = null;
 
 
 
@@ -5084,14 +5202,15 @@ function getEmptyFavorites() {
 
 function getFavorites() {
   try {
-    const stored =
-      JSON.parse(
-        localStorage.getItem(
-          FAVORITES_STORAGE_KEY
-        ) || "{}"
-      );
+    const storedRaw = localStorage.getItem(FAVORITES_STORAGE_KEY) || "{}";
+    if (favoritesMigrationCache?.events === loadedEvents &&
+        favoritesMigrationCache.storedRaw === storedRaw) {
+      // Callers edit the returned arrays. Never expose the cached object itself.
+      return JSON.parse(favoritesMigrationCache.resultRaw);
+    }
+    const stored = JSON.parse(storedRaw);
 
-    return {
+    const favorites = {
       events:
         Array.isArray(stored.events)
           ? stored.events
@@ -5122,6 +5241,21 @@ function getFavorites() {
           ? stored.programs
           : []
     };
+    const migrated = migrateFavoriteEvents(favorites);
+    const resultRaw = JSON.stringify(migrated);
+    let cacheRaw = storedRaw;
+    if (resultRaw !== JSON.stringify(favorites)) {
+      try {
+        saveFavorites(migrated);
+        cacheRaw = resultRaw;
+      } catch (error) {
+        console.warn("AlberoTV: se conserva la migración de favoritos en memoria", error);
+      }
+    }
+    // loadEvents replaces loadedEvents for every fresh snapshot. Storage changes
+    // and explicit saves invalidate this cache; repeated renders stay linear.
+    favoritesMigrationCache = {events: loadedEvents, storedRaw: cacheRaw, resultRaw};
+    return migrated;
   } catch (error) {
     console.error(
       "AlberoTV: error leyendo favoritos",
@@ -5134,6 +5268,7 @@ function getFavorites() {
 
 
 function saveFavorites(favorites) {
+  favoritesMigrationCache = null;
   localStorage.setItem(
     FAVORITES_STORAGE_KEY,
     JSON.stringify(favorites)
@@ -5203,6 +5338,81 @@ function getFavoriteEventKey(event) {
   ]
     .map(normalizeFavoriteValue)
     .join("|");
+}
+
+
+function getFavoriteEventKeys(event, events = loadedEvents) {
+  const keys = new Set(displayIdentityRecords(event).map(getFavoriteEventKey));
+  const proof = verifiedDisplayEvent(event);
+  const peers = proof && Array.isArray(events) ? events.filter(peer => proof.sourceIds.includes(String(peer.id || ""))) : [];
+  // Suspend alias recovery if the current data contains a contradictory peer.
+  if (proof && peers.every(peer => verifiedDisplayEvent(peer) === proof && areSameBullfightingEvent(event, peer))) {
+    for (const old of proof.legacyFavorites) keys.add(getFavoriteEventKey(old));
+  }
+  return [...keys];
+}
+
+function getFavoriteEventLocations(event) {
+  const locations = new Set(displayIdentityRecords(event).map(record => record.location || record.name || "").filter(Boolean));
+  const venue = VERIFIED_DISPLAY_VENUES.find(record => record.key === displayVenueIdentity(event));
+  if (venue) for (const location of venue.locations) locations.add(location);
+  return [...locations];
+}
+
+function favoriteLocationMatches(values, event) {
+  return getFavoriteEventLocations(event).some(location => includesFavorite(values, location));
+}
+
+function favoriteEventMatches(favorite, event, events = loadedEvents) {
+  const keys = getFavoriteEventKeys(event, events);
+  // A saved legacy key is provenance, not permanent identity authority. Only
+  // aliases revalidated against this snapshot may match the saved current key.
+  return keys.includes(favorite?.key);
+}
+
+function migrateFavoriteEvents(favorites, events = loadedEvents) {
+  if (!favorites.events?.length || !events?.length) return favorites;
+  const owners = new Map();
+  for (const event of events || []) {
+    for (const key of getFavoriteEventKeys(event, events)) {
+      if (!owners.has(key)) owners.set(key, new Set());
+      owners.get(key).add(getFavoriteEventKey(event));
+    }
+  }
+  return {
+    ...favorites,
+    events: (favorites.events || []).map(favorite => {
+      const candidates = owners.get(favorite?.key);
+      if (!candidates || candidates.size !== 1) return favorite;
+      const key = [...candidates][0];
+      if (key === favorite.key) return favorite;
+      // Keep each original favorite and label. Retain its previous key; do not
+      // discard even duplicate saved rows as a side effect of loading the agenda.
+      return {...favorite, key, legacyKeys: [...new Set([
+        ...(Array.isArray(favorite.legacyKeys) ? favorite.legacyKeys : []), favorite.key
+      ])].sort()};
+    })
+  };
+}
+
+function removeFavoriteEventByKey(favorites, key, events = loadedEvents) {
+  const matches = events.filter(event => getFavoriteEventKeys(event, events).includes(key));
+  if (matches.length === 1) return setEventFavorite(favorites, matches[0], false, events);
+  // With no unique live owner, an old alias must not erase a different current
+  // favorite. The manager may still remove the exact row it displays.
+  return {...favorites, events: favorites.events.filter(favorite => favorite?.key !== key)};
+}
+
+function setEventFavorite(favorites, event, selected, events = loadedEvents) {
+  const matching = favorites.events.filter(favorite => favoriteEventMatches(favorite, event, events));
+  const others = favorites.events.filter(favorite => !favoriteEventMatches(favorite, event, events));
+  if (!selected) return {...favorites, events: others};
+  const legacyKeys = [...new Set(matching.flatMap(favorite =>
+    [favorite.key, ...(Array.isArray(favorite.legacyKeys) ? favorite.legacyKeys : [])]))]
+    .filter(key => key !== getFavoriteEventKey(event)).sort();
+  const saved = {...(matching[0] || {}), key: getFavoriteEventKey(event), label: getFavoriteEventLabel(event)};
+  if (legacyKeys.length) saved.legacyKeys = legacyKeys;
+  return {...favorites, events: [...others, saved]};
 }
 
 
@@ -5300,13 +5510,10 @@ function eventMatchesFavorites(
 ) {
   const matches = [];
 
-  const eventKey =
-    getFavoriteEventKey(event);
-
   if (
     favorites.events.some(
       favorite =>
-        favorite?.key === eventKey
+        favoriteEventMatches(favorite, event)
     )
   ) {
     matches.push(
@@ -5323,10 +5530,7 @@ function eventMatchesFavorites(
 
   if (
     location &&
-    includesFavorite(
-      favorites.locations,
-      location
-    )
+    favoriteLocationMatches(favorites.locations, event)
   ) {
     matches.push(
       `la plaza de ${location}`
@@ -5644,7 +5848,7 @@ function openFavoritesSheet(
       checked:
         favorites.events.some(
           favorite =>
-            favorite?.key === eventKey
+            favoriteEventMatches(favorite, event)
         )
     })
   );
@@ -5707,10 +5911,7 @@ function openFavoritesSheet(
           `Plaza: ${location}`,
 
         checked:
-          includesFavorite(
-            favorites.locations,
-            location
-          )
+          favoriteLocationMatches(favorites.locations, event)
       })
     );
   }
@@ -5862,10 +6063,6 @@ async function saveFavoriteSelections() {
     )
   ];
 
-  const eventKey =
-    getFavoriteEventKey(
-      pendingFavoriteEvent
-    );
 
   /*
    * Festejo concreto
@@ -5878,25 +6075,9 @@ async function saveFavoriteSelections() {
           "events"
     );
 
-  favorites.events =
-    favorites.events.filter(
-      favorite =>
-        favorite?.key !== eventKey
-    );
-
-  if (
-    eventCheckbox?.checked
-  ) {
-    favorites.events.push({
-      key:
-        eventKey,
-
-      label:
-        getFavoriteEventLabel(
-          pendingFavoriteEvent
-        )
-    });
-  }
+  favorites.events = setEventFavorite(
+    favorites, pendingFavoriteEvent, Boolean(eventCheckbox?.checked)
+  ).events;
 
   /*
    * Plaza, canal y toreros
@@ -5926,6 +6107,12 @@ async function saveFavoriteSelections() {
           )
         ) {
           return;
+        }
+
+        if (category === "locations") {
+          for (const alias of getFavoriteEventLocations(pendingFavoriteEvent)) {
+            favorites.locations = removeFavoriteValue(favorites.locations, alias);
+          }
         }
 
         if (checkbox.checked) {
@@ -6915,11 +7102,7 @@ async function removeFavoriteFromManager(
     const eventKey =
       storedValue?.key;
 
-    favorites.events =
-      favorites.events.filter(
-        favorite =>
-          favorite?.key !== eventKey
-      );
+    favorites.events = removeFavoriteEventByKey(favorites, eventKey).events;
   } else {
     favorites[category] =
       removeFavoriteValue(
