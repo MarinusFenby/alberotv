@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-13T18:39:50.120Z",
-  "throughDate": "2026-11-13",
-  "eventCount": 673,
+  "generatedAt": "2026-11-14T00:10:02.551Z",
+  "throughDate": "2026-11-14",
+  "eventCount": 674,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -28125,6 +28125,58 @@
       "status": "confirmed",
       "sourceLocalDate": "2026-11-11",
       "sourceLocalTime": "17:00",
+      "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "mundotoro-a4360029987ffc",
+      "date": "2026-11-13",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Miguel de Allende (Guanajuato) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Marrón, Julián Hamdan",
+      "participants": [
+        "Guillermo Hermoso de Mendoza",
+        "Alejandro Talavante",
+        "Francisco Martínez",
+        "Isaac Fonseca"
+      ],
+      "name": "San Miguel de Allende (Guanajuato) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-13T18:39:28.106Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-13T18:39:30.204Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-13",
+      "sourceLocalTime": "20:00",
       "sourceTimeZone": "America/Mexico_City"
     }
   ]
