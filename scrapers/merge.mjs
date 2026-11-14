@@ -2,6 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
+import { splitParticipantList } from "./participant-names.mjs";
 import { classifyBroadcast } from "./cmm.mjs";
 import { sourceHealth as describeSourceHealth } from "./source-health.mjs";
 
@@ -326,12 +327,12 @@ function cleanBreeding(value = "") {
   return cleaned;
 }
 
-function cleanParticipants(values) {
+export function cleanParticipants(values) {
   if (!Array.isArray(values)) return [];
 
   return [...new Set(
     values
-      .map(value => cleanName(value))
+      .flatMap(value => splitParticipantList(cleanName(value), { splitConjunctions: false }))
       .filter(Boolean)
       .filter(value =>
         value.length <= 90 &&

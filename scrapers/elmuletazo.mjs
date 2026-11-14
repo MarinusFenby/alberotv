@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import {pathToFileURL} from "node:url";
+import { cleanParticipantName, splitParticipantList } from "./participant-names.mjs";
 
 const SOURCE_URL =
   "https://elmuletazo.com/agenda-de-toros-en-television/";
@@ -63,7 +64,7 @@ function cleanBreeding(text = "") {
 }
 
 function cleanParticipant(text = "") {
-  return clean(text)
+  return cleanParticipantName(clean(text))
     .replace(/[.。]?\s*🔗.*$/i, "")
     .replace(/\s*\(Pulsa aquí.*$/i, "")
     .replace(/\s*o también\s*\(Pulsa aquí.*$/i, "")
@@ -336,10 +337,7 @@ function extractMixedDetails(text = "") {
       "D. Victoriano del Río Cortés"
     );
   const rejoneador = cleanParticipant(match[3]);
-  const matadors = clean(match[4])
-    .replace(/\s+y\s+/gi, ", ")
-    .replace(/\s+e\s+/gi, ", ")
-    .split(",")
+  const matadors = splitParticipantList(match[4])
     .map(cleanParticipant)
     .filter(participant => !isJunkParticipant(participant));
 
@@ -469,12 +467,7 @@ export function extractParticipants(text = "") {
     .replace(/\s*\(Pulsa aquí.*$/i, "")
     .trim();
 
-  participantsText = participantsText
-    .replace(/\s+y\s+/gi, ", ")
-    .replace(/\s+e\s+/gi, ", ");
-
-  return participantsText
-    .split(",")
+  return splitParticipantList(participantsText)
     .map(cleanParticipant)
     .filter(participant => !isJunkParticipant(participant));
 }
