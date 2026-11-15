@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-14T22:55:11.287Z",
-  "throughDate": "2026-11-14",
-  "eventCount": 674,
+  "generatedAt": "2026-11-15T02:23:38.996Z",
+  "throughDate": "2026-11-15",
+  "eventCount": 676,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -28170,6 +28170,100 @@
       "status": "confirmed",
       "sourceLocalDate": "2026-11-13",
       "sourceLocalTime": "20:00",
+      "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "alberotv-2026-11-14-3a16b4192377d47f",
+      "date": "2026-11-14",
+      "time": "17:00",
+      "channel": "Canal Sur",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Ubrique (Cádiz)",
+      "type": "Novillada sin picadores",
+      "contentType": "festejo",
+      "breeding": "El Torero",
+      "participants": [
+        "Blas Márquez",
+        "Pablo Sánchez",
+        "Armando Rojo",
+        "Mario Torres",
+        "Rojas Ramírez",
+        "Juan Manuel Viruez"
+      ],
+      "name": "Ubrique (Cádiz)",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+      "sources": [
+        "El Muletazo"
+      ],
+      "sourceDetails": [
+        {
+          "name": "El Muletazo",
+          "confidence": 90,
+          "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
+          "fetchedAt": "2026-11-14T22:54:22.122Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "El Muletazo"
+      },
+      "country": "España",
+      "confidence": 94,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-7b0cad1b04f578",
+      "date": "2026-11-14",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Tlaxcala (Tlaxcala) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "La Almudena",
+      "participants": [
+        "Alejandro Talavante",
+        "Octavio García El Payo",
+        "Héctor Gutiérrez"
+      ],
+      "name": "Tlaxcala (Tlaxcala) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-14T22:54:50.316Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-14T22:54:52.478Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-14",
+      "sourceLocalTime": "17:00",
       "sourceTimeZone": "America/Mexico_City"
     }
   ]
