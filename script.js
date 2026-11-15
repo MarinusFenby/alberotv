@@ -577,43 +577,34 @@ function isProgram(event = {}) {
 const SOURCE_TIME_ZONE = "Europe/Madrid";
 const USER_TIME_ZONE = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
 
-function hasValidEventTime(event = {}) {
-  return /^\d{4}-\d{2}-\d{2}$/.test(String(event.date || "")) && /^\d{1,2}:\d{2}$/.test(String(event.time || ""));
-}
+// The legacy field is Madrid time. A source-local schedule is a separate,
+// indivisible evidence block; never guess a missing date/zone or change time.
+function resolveEventStartMilliseconds(event = {}) {
+  const localDate = String(event.sourceLocalDate || "").trim();
+  const localTime = String(event.sourceLocalTime || "").trim();
+  const localZone = String(event.sourceTimeZone || "").trim();
+  const legacyTime = String(event.time || "").trim();
+  const instants = [];
 
-function getTimeZoneOffsetMilliseconds(date, timeZone) {
-  const parts = new Intl.DateTimeFormat("en-GB", {
-    timeZone,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hourCycle: "h23"
-  }).formatToParts(date);
-  const values = {};
-  parts.forEach(part => {
-    if (part.type !== "literal") values[part.type] = Number(part.value);
-  });
-  return Date.UTC(values.year, values.month - 1, values.day, values.hour, values.minute, values.second) - date.getTime();
-}
-
-function madridDateTimeToUtc(dateKey, timeValue) {
-  const [year, month, day] = dateKey.split("-").map(Number);
-  const [hour, minute] = timeValue.split(":").map(Number);
-  const initialGuess = new Date(Date.UTC(year, month - 1, day, hour, minute, 0));
-  let utcMilliseconds = initialGuess.getTime();
-  for (let attempt = 0; attempt < 3; attempt++) {
-    const offset = getTimeZoneOffsetMilliseconds(new Date(utcMilliseconds), SOURCE_TIME_ZONE);
-    const corrected = initialGuess.getTime() - offset;
-    if (Math.abs(corrected - utcMilliseconds) < 1000) {
-      utcMilliseconds = corrected;
-      break;
-    }
-    utcMilliseconds = corrected;
+  if (localDate || localTime || localZone) {
+    if (!localDate || !localTime || !localZone) return null;
+    const instant = displayCivilInstant(localDate, localTime, localZone);
+    if (instant === null) return null;
+    instants.push(instant);
   }
-  return new Date(utcMilliseconds);
+
+  if (legacyTime) {
+    const instant = displayCivilInstant(String(event.date || ""), legacyTime, SOURCE_TIME_ZONE);
+    if (instant === null) return null;
+    instants.push(instant);
+  }
+
+  // Invalid/ambiguous civil times and contradictory sources stay unconfirmed.
+  return new Set(instants).size === 1 ? instants[0] : null;
+}
+
+function hasValidEventTime(event = {}) {
+  return resolveEventStartMilliseconds(event) !== null;
 }
 
 function getDatePartsInTimeZone(date, timeZone) {
@@ -642,10 +633,27 @@ function getDayDifferenceLabel(sourceDateKey, localDateKey) {
 }
 
 function getEventTimePresentation(event = {}) {
-  if (!hasValidEventTime(event)) {
-    return { main: event.time || "Hora por confirmar", original: "", dayShift: "", title: "" };
+  const instant = getEventStartInstant(event);
+  if (!instant) {
+    const hasLocalEvidence = [event.sourceLocalDate, event.sourceLocalTime, event.sourceTimeZone]
+      .some(value => String(value || "").trim());
+    const hadLegacyTimeShape = /^\d{4}-\d{2}-\d{2}$/.test(String(event.date || "")) &&
+      /^\d{1,2}:\d{2}$/.test(String(event.time || ""));
+    // Retain legacy informational text, but do not present conflicting or
+    // invalid civil-clock evidence as a confirmed time.
+    const main = !hasLocalEvidence && !hadLegacyTimeShape
+      ? event.time || "Hora por confirmar"
+      : "Hora por confirmar";
+    return { main, original: "", dayShift: "", title: "" };
   }
-  const instant = madridDateTimeToUtc(event.date, event.time);
+  // Preserve the existing legacy label; local-only evidence must first be
+  // converted to Madrid before it can be labelled "España".
+  const original = event.time || new Intl.DateTimeFormat("es-ES", {
+    timeZone: SOURCE_TIME_ZONE,
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23"
+  }).format(instant);
   const localTime = new Intl.DateTimeFormat("es-ES", {
     timeZone: USER_TIME_ZONE,
     hour: "2-digit",
@@ -660,9 +668,9 @@ function getEventTimePresentation(event = {}) {
   }).formatToParts(instant).find(part => part.type === "timeZoneName")?.value || USER_TIME_ZONE;
   return {
     main: localTime,
-    original: event.time,
+    original,
     dayShift,
-    title: `Hora local: ${localTime}${dayShift ? ` (${dayShift})` : ""}. Hora en España: ${event.time}. ${zoneName}.`
+    title: `Hora local: ${localTime}${dayShift ? ` (${dayShift})` : ""}. Hora en España: ${original}. ${zoneName}.`
   };
 }
 
@@ -716,16 +724,9 @@ function getEstimatedDurationMinutes(event = {}) {
 
 
 function getEventStartInstant(event = {}) {
-  if (!hasValidEventTime(event)) {
-    return null;
-  }
-
-  return madridDateTimeToUtc(
-    event.date,
-    event.time
-  );
+  const milliseconds = resolveEventStartMilliseconds(event);
+  return milliseconds === null ? null : new Date(milliseconds);
 }
-
 
 function getLocalCalendarDifference(startInstant, now = new Date()) {
   const startDateKey =
@@ -1910,20 +1911,8 @@ function getTodayCard() {
 
 
 function getEventInstant(event = {}) {
-  if (!hasValidEventTime(event)) {
-    return null;
-  }
-
-  const instant = madridDateTimeToUtc(
-    event.date,
-    event.time
-  );
-
-  return Number.isNaN(instant.getTime())
-    ? null
-    : instant;
+  return getEventStartInstant(event);
 }
-
 
 function getClosestEventIndexForToday(dayEvents = [], now = new Date()) {
   const timedEvents = dayEvents
@@ -4504,8 +4493,8 @@ function buildNotificationButtonMarkup(event) {
 
 function getEventStartDate(event) {
   /*
-   * La hora publicada del festejo corresponde a Madrid.
-   * La convertimos primero a un instante UTC real.
+   * Resolvemos el horario publicado (Madrid o bloque local con zona)
+   * a un instante UTC único, sin completar datos inciertos.
    *
    * El iPhone mostrará y programará ese instante
    * automáticamente en la hora local del usuario.
