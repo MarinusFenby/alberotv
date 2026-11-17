@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-16T18:46:52.842Z",
-  "throughDate": "2026-11-16",
-  "eventCount": 685,
+  "generatedAt": "2026-11-17T02:18:11.196Z",
+  "throughDate": "2026-11-17",
+  "eventCount": 686,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -28662,6 +28662,41 @@
       "country": "México",
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "canal-extremadura-2be008575b8ec8",
+      "date": "2026-11-16",
+      "time": "01:15",
+      "channel": "Canal Extremadura",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Extremadura Tierra de Toros",
+      "title": "Extremadura Tierra de Toros",
+      "image": null,
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%209%20al%2015%20de%20noviembre%20de%202026.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%209%20al%2015%20de%20noviembre%20de%202026.pdf",
+      "sources": [
+        "Canal Extremadura"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Canal Extremadura",
+          "confidence": 98,
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%209%20al%2015%20de%20noviembre%20de%202026.pdf",
+          "fetchedAt": "2026-11-16T18:46:28.264Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Canal Extremadura"
+      },
+      "confidence": 100,
+      "status": "confirmed"
     }
   ]
 }
