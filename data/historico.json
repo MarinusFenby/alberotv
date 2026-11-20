@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-20T17:07:50.679Z",
-  "throughDate": "2026-11-20",
-  "eventCount": 686,
+  "generatedAt": "2026-11-20T23:16:00.909Z",
+  "throughDate": "2026-11-21",
+  "eventCount": 690,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -28696,6 +28696,182 @@
         "type": "Canal Extremadura"
       },
       "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-ac2f2eeda9cb44",
+      "date": "2026-11-20",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Durango (Durango) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "por designar",
+      "participants": [
+        "Pablo Hermoso de Mendoza",
+        "Arturo Gilio II"
+      ],
+      "name": "Durango (Durango) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-20T17:07:30.647Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-20T17:07:33.025Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-20",
+      "sourceLocalTime": "20:00",
+      "sourceTimeZone": "America/Monterrey"
+    },
+    {
+      "id": "mundotoro-1f73f53516dfe4",
+      "date": "2026-11-20",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Irapuato (Guanajuato) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "José María Arturo Huerta",
+      "participants": [
+        "Diego San Román",
+        "Guillermo Hermoso de Mendoza",
+        "Isaac Fonseca"
+      ],
+      "name": "Irapuato (Guanajuato) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-20T17:07:30.647Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "México",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "mundotoro-74b2db6d4aa90d",
+      "date": "2026-11-20",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Monterrey (Nuevo León) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "El Junco",
+      "participants": [
+        "Bruno Aloi",
+        "El Payo",
+        "Roca Rey"
+      ],
+      "name": "Monterrey (Nuevo León) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-20T17:07:30.647Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "México",
+      "confidence": 89,
+      "status": "probable"
+    },
+    {
+      "id": "altoromexico-3529fcedee232c",
+      "date": "2026-11-20",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Monterrey (Nuevo León) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "El Junco",
+      "participants": [
+        "Octavio García El Payo",
+        "Andrés Roca Rey",
+        "Luis David"
+      ],
+      "name": "Monterrey (Nuevo León) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceLocalDate": "2026-11-20",
+      "sourceLocalTime": "20:30",
+      "sourceTimeZone": "America/Monterrey",
+      "cattleCount": 6,
+      "sourceDescription": "Corrida de la Revolución",
+      "sources": [
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-20T17:07:33.025Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 95,
       "status": "confirmed"
     }
   ]
