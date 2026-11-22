@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-21T19:56:27.816Z",
-  "throughDate": "2026-11-21",
-  "eventCount": 690,
+  "generatedAt": "2026-11-22T00:06:40.926Z",
+  "throughDate": "2026-11-22",
+  "eventCount": 692,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -28873,6 +28873,107 @@
       "country": "México",
       "confidence": 95,
       "status": "confirmed"
+    },
+    {
+      "id": "mundotoro-fd5f725a395367",
+      "date": "2026-11-21",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Aguascalientes (Aguascalientes) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Peñalba",
+      "participants": [
+        "Diego Sánchez",
+        "Andrés Roca Rey",
+        "Luis David Adame"
+      ],
+      "name": "Aguascalientes (Aguascalientes) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-21T19:56:04.439Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-21T19:56:07.946Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-21",
+      "sourceLocalTime": "17:30",
+      "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "mundotoro-578a4d69ffa3b7",
+      "date": "2026-11-21",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Ciudad Lerdo (Durango) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Los Encinos",
+      "participants": [
+        "Alejandro Talavante",
+        "Arturo Gilio II"
+      ],
+      "name": "Ciudad Lerdo (Durango) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-21T19:56:04.439Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-21T19:56:07.946Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-21",
+      "sourceLocalTime": "17:00",
+      "sourceTimeZone": "America/Monterrey"
     }
   ]
 }
