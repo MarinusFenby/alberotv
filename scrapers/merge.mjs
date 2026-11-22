@@ -214,6 +214,29 @@ function normalizeText(text = "") {
 // https://www.liganacionaldenovilladas.com/jesus-yglesias-david-gutierrez-y-pepe-martinez-el-cartel-de-la-gran-final-de-almendralejo/
 // La fila genérica de la guía no es otro programa. Solo se retira si
 // permanece la ficha completa del festejo exacto; no fusiona otros casos.
+// Cartel de Año Nuevo de Jalpa: la exhibición invitada no es un cuarto torero.
+export function removeJalpaNewYearGuest(events) {
+  const hits = events.map((event, index) => ({event, index}))
+    .filter(({event}) => event.id === "altoromexico-2ac5efb2387dcc" && event.date === "2027-01-01");
+  if (hits.length !== 1) return hits.length ? "needs_review" : "out_of_scope";
+  const [{event, index}] = hits;
+  const expected = ["Antonio Ferrera", "Antonio Romero", "Luis David"];
+  const rawCartel = [...expected, "Recortadores Mexicanos"];
+  const sameCartel = names => Array.isArray(event.participants) &&
+    event.participants.length === names.length && names.every((name, i) => name === event.participants[i]);
+  if (event.location !== "Jalpa (Zacatecas) México" || event.country !== "México" ||
+      event.type !== "Corrida de toros" || event.contentType !== "festejo" ||
+      event.sourceUrl !== "https://www.altoromexico.com/index.php?acc=carteleria" ||
+      event.sourceLocalDate !== "2027-01-01" || event.sourceLocalTime !== "16:30" ||
+      event.sourceTimeZone !== "America/Mexico_City" || event.breeding !== "José Julián Llaguno" ||
+      event.cattleCount !== 7 || event.collectiveParticipants != null)
+    return "needs_review";
+  if (sameCartel(expected)) return "already_current";
+  if (!sameCartel(rawCartel)) return "needs_review";
+  events[index] = {...event, participants: expected};
+  return "applied";
+}
+
 export function removeVerifiedAlmendralejoDuplicate(events) {
   const expected = ['jesus yglesias','david gutierrez','pepe martinez'];
   const confirmed = events.some(e => e.date === '2026-09-12' && e.time === '21:00' &&
@@ -2533,6 +2556,10 @@ async function main() {
 
   for (const event of merged) {
     event.id = stableEventId(event);
+  }
+
+  if (removeJalpaNewYearGuest(merged) === "needs_review") {
+    console.warn("El cartel de Año Nuevo de Jalpa requiere revisión; se deja según la fuente.");
   }
 
   mergeStats.verifiedAlmendralejoDuplicateRemoved = removeVerifiedAlmendralejoDuplicate(merged);
