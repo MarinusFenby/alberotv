@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T15:32:26.936Z",
+  "generatedAt": "2026-11-22T16:43:58.076Z",
   "degraded": true,
   "eventCount": 747,
   "bullfightingEventCount": 678,
@@ -29408,58 +29408,6 @@
       "sourceTimeZone": "America/Mexico_City"
     },
     {
-      "id": "mundotoro-e9a1ea459ea7f4",
-      "date": "2026-11-26",
-      "time": null,
-      "channel": "Sin TV",
-      "deferred": false,
-      "televised": false,
-      "televisionUnconfirmed": false,
-      "location": "Fábrica María (Estado de México) México",
-      "type": "Corrida de toros",
-      "contentType": "festejo",
-      "breeding": "La Estancia",
-      "participants": [
-        "Emiliano Gamero",
-        "Juan Pablo Sánchez",
-        "Jesús Sosa",
-        "Forcados Amadores de México"
-      ],
-      "name": "Fábrica María (Estado de México) México",
-      "title": null,
-      "image": null,
-      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-      "sources": [
-        "Mundotoro",
-        "Al Toro México"
-      ],
-      "sourceDetails": [
-        {
-          "name": "Mundotoro",
-          "confidence": 86,
-          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-22T15:32:06.532Z"
-        },
-        {
-          "name": "Al Toro México",
-          "confidence": 92,
-          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-22T15:32:09.252Z"
-        }
-      ],
-      "fieldSources": {
-        "type": "Al Toro México",
-        "localTime": "Al Toro México"
-      },
-      "country": "México",
-      "confidence": 97,
-      "status": "confirmed",
-      "sourceLocalDate": "2026-11-26",
-      "sourceLocalTime": "16:00",
-      "sourceTimeZone": "America/Mexico_City"
-    },
-    {
       "id": "mundotoro-faceb260332275",
       "date": "2026-11-27",
       "time": null,
@@ -31001,6 +30949,85 @@
       "country": "México",
       "confidence": 95,
       "status": "confirmed"
+    },
+    {
+      "id": "altoromexico-24b277d8421718",
+      "date": "2026-12-26",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Fábrica María (Estado de México) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "La Estancia",
+      "participants": [
+        "Emiliano Gamero",
+        "Juan Pablo Sánchez",
+        "Jesús Sosa"
+      ],
+      "name": "Fábrica María (Estado de México) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-22T15:32:06.532Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-22T15:32:09.252Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Cartel de organización, corroborado por Aplausos",
+        "date": "Cartel de organización, corroborado por Aplausos",
+        "participants": "Cartel de organización",
+        "collectiveParticipants": "Cartel de organización",
+        "cattleCount": "Cartel de organización",
+        "venue": "Cartel de organización"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-12-26",
+      "sourceLocalTime": "16:00",
+      "sourceTimeZone": "America/Mexico_City",
+      "venue": "Plaza de Toros Silverio Pérez",
+      "cattleCount": 6,
+      "collectiveParticipants": [
+        {
+          "id": "forcados-amadores-de-mexico",
+          "entityType": "collective",
+          "role": "forcados",
+          "participationStatus": "announced",
+          "displayName": "Forcados Amadores de México"
+        }
+      ],
+      "agendaDateCorrection": {
+        "sourceUrl": "https://www.altoromexico.com/?acc=noticiad&id=53137",
+        "corroboratingUrl": "https://www.aplausos.es/cartel/sabado-26-de-diciembre-de-2026/amp/",
+        "venue": "Plaza de Toros Silverio Pérez",
+        "formerPublishedDate": "2026-11-26",
+        "verifiedLocalDate": "2026-12-26",
+        "verifiedLocalTime": "16:00",
+        "sourceTimeZone": "America/Mexico_City",
+        "priorFallbackEventId": "mundotoro-e9a1ea459ea7f4",
+        "canonicalApiId": "altoromexico-24b277d8421718",
+        "checkedOn": "2026-11-22"
+      }
     },
     {
       "id": "toros-para-todos-2026-12-27-1305",

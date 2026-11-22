@@ -5,6 +5,7 @@ import crypto from "node:crypto";
 import { splitParticipantList } from "./participant-names.mjs";
 import { classifyBroadcast } from "./cmm.mjs";
 import { sourceHealth as describeSourceHealth } from "./source-health.mjs";
+import { projectFabricaMariaCorrection } from "./fabrica-maria-override.mjs";
 
 
 /* Horas de inicio verificadas del festejo, no horas de emisión.
@@ -2499,6 +2500,21 @@ async function main() {
 
   mergeStats.verifiedStartTimesApplied = applyVerifiedStartTimes(merged);
   mergeStats.reschedulesApplied = removeConfirmedReschedules(merged);
+  const fabricaMariaCorrection = projectFabricaMariaCorrection(merged);
+  if (fabricaMariaCorrection.status === "blocked") {
+    console.warn("Fábrica María requiere revisión; no se modifican otras fichas:", fabricaMariaCorrection.reason);
+  } else if (fabricaMariaCorrection.status === "applied") {
+    // Replace only the selected row objects even if another row reused a source identifier.
+    const retained = new Set(fabricaMariaCorrection.events);
+    for (let index = merged.length - 1; index >= 0; index -= 1) {
+      if (!retained.has(merged[index])) merged.splice(index, 1);
+    }
+    const present = new Set(merged);
+    for (const row of fabricaMariaCorrection.events) {
+      if (!present.has(row)) merged.push(row);
+    }
+  }
+
 
   if (!PUBLISH_ENCIERROS) {
     for (let index = merged.length - 1; index >= 0; index -= 1) {
