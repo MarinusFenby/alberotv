@@ -27,7 +27,9 @@ const knownFeeds=new Set(['https://www.altoromexico.com/index.php?acc=carteleria
 const allowedDates=new Set([prior,target]);
 const approvedNewFeed=e=>e.date===target&&/^(?:altoromexico|mundotoro)-[a-f0-9]{14}$/.test(e.id)&&knownFeeds.has(e.sourceUrl);
 const noneOr=(actual,expected)=>actual==null||actual===expected;
-const presented=e=>e.id===canonical&&e.date===target&&e.sourceLocalDate===target&&e.sourceLocalTime===hour&&e.sourceTimeZone===zone&&e.venue===venue&&e.cattleCount===6&&listEqual(e.participants,toreros)&&same(e.collectiveParticipants,[announce])&&same(e.agendaDateCorrection,evidence);
+const isReviewedProjection=e=>e.id===canonical&&e.date===target&&e.sourceLocalDate===target&&e.sourceLocalTime===hour&&e.sourceTimeZone===zone&&e.venue===venue&&e.cattleCount===6&&listEqual(e.participants,toreros)&&same(e.agendaDateCorrection,evidence);
+const presented=e=>isReviewedProjection(e)&&!Object.hasOwn(e,'collectiveParticipants')&&!Object.hasOwn(e.fieldSources??{},'collectiveParticipants');
+const reviewedBeforePresentation=e=>isReviewedProjection(e)&&(e.collectiveParticipants==null||same(e.collectiveParticipants,[announce]));
 const compatibleBase=e=>noneOr(e.sourceLocalDate,e.date)&&noneOr(e.sourceLocalTime,hour)&&noneOr(e.sourceTimeZone,zone)&&
   e.time==null&&(e.venue==null||norm(e.venue)===norm(venue))&&noneOr(e.cattleCount,6)&&
   (e.collectiveParticipants==null||same(e.collectiveParticipants,[announce]))&&e.agendaDateCorrection==null;
@@ -39,17 +41,21 @@ export function projectFabricaMariaCorrection(events) {
   if(twins.length<1||twins.length>2||ids.some(x=>!twins.includes(x)))return blocked(events,'identity_collision_or_drift');
   let current=twins[0], retired=[];
   if(twins.length===2){
-   const old=twins.filter(oldBound), dec=twins.filter(e=>presented(e)||approvedNewFeed(e)&&compatibleBase(e));
+   const old=twins.filter(oldBound), dec=twins.filter(e=>reviewedBeforePresentation(e)||approvedNewFeed(e)&&compatibleBase(e));
    if(old.length!==1||dec.length!==1||old[0]===dec[0])return blocked(events,'unproved_cross_date_pair');
    current=dec[0];retired=old;
   }
   if(presented(current)&&retired.length===0)return {events,status:'already_current'};
-  if(!(presented(current)||oldBound(current)||approvedNewFeed(current)&&compatibleBase(current)))return blocked(events,'unverified_source_or_fields');
+  if(!(reviewedBeforePresentation(current)||oldBound(current)||approvedNewFeed(current)&&compatibleBase(current)))return blocked(events,'unverified_source_or_fields');
   const next=presented(current)?current:{...current,id:canonical,date:target,sourceLocalDate:target,sourceLocalTime:hour,sourceTimeZone:zone,
-      venue,cattleCount:6,participants:[...toreros],collectiveParticipants:[{...announce}],agendaDateCorrection:{...evidence},
+      venue,cattleCount:6,participants:[...toreros],agendaDateCorrection:{...evidence},
       fieldSources:{...current.fieldSources,date:'Cartel de organización, corroborado por Aplausos',
        localTime:'Cartel de organización, corroborado por Aplausos',participants:'Cartel de organización',
-       collectiveParticipants:'Cartel de organización',cattleCount:'Cartel de organización',venue:'Cartel de organización'}};
+       cattleCount:'Cartel de organización',venue:'Cartel de organización'}};
+  if(next!==current){
+   delete next.collectiveParticipants;
+   if(next.fieldSources && Object.hasOwn(next.fieldSources,'collectiveParticipants'))delete next.fieldSources.collectiveParticipants;
+  }
   const nextRows=events.filter(e=>!retired.includes(e)).map(e=>e===current?next:e);
   if(nextRows.filter(e=>e.id===canonical).length!==1)return blocked(events,'public_id_collision');
   const retiredBefore=retired.map(row=>({index:events.indexOf(row),row:structuredClone(row),sha256:exactSha(row)}));
