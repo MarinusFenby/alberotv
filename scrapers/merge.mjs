@@ -7,6 +7,7 @@ import { classifyBroadcast } from "./cmm.mjs";
 import { sourceHealth as describeSourceHealth } from "./source-health.mjs";
 import { projectFabricaMariaCorrection } from "./fabrica-maria-override.mjs";
 import { applyEmilianoZapataCount } from "./emiliano-zapata-count-override.mjs";
+import { projectLateNovemberGuanajuato } from "./late-november-guanajuato-reviewed.mjs";
 
 
 /* Horas de inicio verificadas del festejo, no horas de emisión.
@@ -2560,6 +2561,10 @@ async function main() {
   }
 
   applyEmilianoZapataCount(merged);
+  const guanajuatoReview = projectLateNovemberGuanajuato(merged, alToroMexico.data.events || []);
+  for (let index = 0; index < merged.length; index++) merged[index] = guanajuatoReview.events[index];
+  for (const [id, status] of guanajuatoReview.audit)
+    if (status === "needs_review") console.warn("Guanajuato requiere revisión; no se cambia la ficha:", id);
 
   if (removeJalpaNewYearGuest(merged) === "needs_review") {
     console.warn("El cartel de Año Nuevo de Jalpa requiere revisión; se deja según la fuente.");
