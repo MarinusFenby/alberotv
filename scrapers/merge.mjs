@@ -6,6 +6,7 @@ import { splitParticipantList } from "./participant-names.mjs";
 import { classifyBroadcast } from "./cmm.mjs";
 import { sourceHealth as describeSourceHealth } from "./source-health.mjs";
 import { projectFabricaMariaCorrection } from "./fabrica-maria-override.mjs";
+import { applyEmilianoZapataCount } from "./emiliano-zapata-count-override.mjs";
 
 
 /* Horas de inicio verificadas del festejo, no horas de emisión.
@@ -2557,6 +2558,8 @@ async function main() {
   for (const event of merged) {
     event.id = stableEventId(event);
   }
+
+  applyEmilianoZapataCount(merged);
 
   if (removeJalpaNewYearGuest(merged) === "needs_review") {
     console.warn("El cartel de Año Nuevo de Jalpa requiere revisión; se deja según la fuente.");
