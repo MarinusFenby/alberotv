@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-11-24T06:45:21.362Z",
+  "generatedAt": "2026-11-24T18:38:57.595Z",
   "degraded": true,
-  "eventCount": 739,
-  "bullfightingEventCount": 680,
+  "eventCount": 742,
+  "bullfightingEventCount": 683,
   "programCount": 59,
   "mergeStats": {
-    "historicalCandidates": 1395,
+    "historicalCandidates": 1396,
     "historicalPreserved": 698,
-    "historicalDuplicatesMerged": 697,
+    "historicalDuplicatesMerged": 698,
     "historicalRetiredCmmProgrammes": 0,
-    "added": 50,
-    "merged": 40,
+    "added": 53,
+    "merged": 39,
     "skippedUncorroborated": 22,
     "verifiedStartTimesApplied": 0,
     "reschedulesApplied": 0,
@@ -23,17 +23,17 @@
     "canalSur": 0,
     "cmm": 0,
     "canalExtremadura": 2,
-    "mundoToro": 19,
+    "mundoToro": 18,
     "lasVentas": 12,
     "vaDeToros": 21,
     "aplausos": 0,
-    "alToroMexico": 35
+    "alToroMexico": 38
   },
   "sourceHealth": {
     "elMuletazo": {
       "label": "El Muletazo",
       "eventCount": 2,
-      "fetchedAt": "2026-11-24T06:44:28.684Z",
+      "fetchedAt": "2026-11-24T18:38:05.818Z",
       "status": "ok",
       "error": null
     },
@@ -43,19 +43,19 @@
       "fetchedAt": "2026-10-25T23:26:11.070Z",
       "status": "stale",
       "error": "No se pudo verificar OneToro en este intento; los datos conservados no son una actualización nueva.",
-      "lastAttemptAt": "2026-11-24T06:45:21.435Z"
+      "lastAttemptAt": "2026-11-24T18:38:57.652Z"
     },
     "programasTaurinos": {
       "label": "Programas taurinos",
       "eventCount": 0,
-      "fetchedAt": "2026-11-24T06:45:19.338Z",
+      "fetchedAt": "2026-11-24T18:38:56.030Z",
       "status": "ok",
       "error": null
     },
     "canalSur": {
       "label": "Canal Sur",
       "eventCount": 0,
-      "fetchedAt": "2026-11-24T06:44:46.966Z",
+      "fetchedAt": "2026-11-24T18:38:28.215Z",
       "status": "ok",
       "error": null
     },
@@ -71,14 +71,14 @@
     "canalExtremadura": {
       "label": "Canal Extremadura",
       "eventCount": 2,
-      "fetchedAt": "2026-11-24T06:44:53.610Z",
+      "fetchedAt": "2026-11-24T18:38:34.150Z",
       "status": "ok",
       "error": null
     },
     "mundoToro": {
       "label": "Mundotoro",
-      "eventCount": 19,
-      "fetchedAt": "2026-11-24T06:44:59.231Z",
+      "eventCount": 18,
+      "fetchedAt": "2026-11-24T18:38:39.470Z",
       "status": "ok",
       "error": null
     },
@@ -119,8 +119,8 @@
     },
     "alToroMexico": {
       "label": "Al Toro México",
-      "eventCount": 35,
-      "fetchedAt": "2026-11-24T06:45:03.754Z",
+      "eventCount": 38,
+      "fetchedAt": "2026-11-24T18:38:41.479Z",
       "status": "ok",
       "error": null
     }
@@ -29404,7 +29404,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         }
       ],
       "fieldSources": {
@@ -29445,13 +29445,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -29496,13 +29496,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -29532,8 +29532,8 @@
       "name": "Extremadura Tierra de Toros",
       "title": "Extremadura Tierra de Toros",
       "image": null,
-      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2023%20al%2029%20de%20noviembre%20de%202026.pdf",
-      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2023%20al%2029%20de%20noviembre%20de%202026.pdf",
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2023%20al%2029%20de%20noviembre%20de%202026.v2.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2023%20al%2029%20de%20noviembre%20de%202026.v2.pdf",
       "sources": [
         "Canal Extremadura"
       ],
@@ -29541,8 +29541,8 @@
         {
           "name": "Canal Extremadura",
           "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2023%20al%2029%20de%20noviembre%20de%202026.pdf",
-          "fetchedAt": "2026-11-24T06:44:53.610Z"
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2023%20al%2029%20de%20noviembre%20de%202026.v2.pdf",
+          "fetchedAt": "2026-11-24T18:38:34.150Z"
         }
       ],
       "fieldSources": {
@@ -29582,13 +29582,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -29637,7 +29637,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -29677,7 +29677,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         }
       ],
       "fieldSources": {
@@ -29718,13 +29718,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -29769,13 +29769,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -29819,13 +29819,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -29855,8 +29855,8 @@
       "name": "Extremadura Tierra de Toros",
       "title": "Extremadura Tierra de Toros",
       "image": null,
-      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2023%20al%2029%20de%20noviembre%20de%202026.pdf",
-      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2023%20al%2029%20de%20noviembre%20de%202026.pdf",
+      "eventUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2023%20al%2029%20de%20noviembre%20de%202026.v2.pdf",
+      "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2023%20al%2029%20de%20noviembre%20de%202026.v2.pdf",
       "sources": [
         "Canal Extremadura"
       ],
@@ -29864,8 +29864,8 @@
         {
           "name": "Canal Extremadura",
           "confidence": 98,
-          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2023%20al%2029%20de%20noviembre%20de%202026.pdf",
-          "fetchedAt": "2026-11-24T06:44:53.610Z"
+          "sourceUrl": "http://www.canalextremadura.es/sites/default/files/file/Programaci%C3%B3n%20Canal%20Extremadura%20TV%20del%2023%20al%2029%20de%20noviembre%20de%202026.v2.pdf",
+          "fetchedAt": "2026-11-24T18:38:34.150Z"
         }
       ],
       "fieldSources": {
@@ -29914,7 +29914,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -29958,7 +29958,7 @@
           "name": "El Muletazo",
           "confidence": 90,
           "sourceUrl": "https://elmuletazo.com/agenda-de-toros-en-television/",
-          "fetchedAt": "2026-11-24T06:44:28.684Z"
+          "fetchedAt": "2026-11-24T18:38:05.818Z"
         }
       ],
       "fieldSources": {
@@ -29999,13 +29999,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30059,7 +30059,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30104,7 +30104,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30146,13 +30146,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30197,13 +30197,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30255,7 +30255,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30296,13 +30296,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30352,7 +30352,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30400,7 +30400,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30442,13 +30442,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30492,13 +30492,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30547,7 +30547,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30589,13 +30589,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30640,13 +30640,13 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         },
         {
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30695,7 +30695,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30736,7 +30736,7 @@
           "name": "Mundotoro",
           "confidence": 86,
           "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
-          "fetchedAt": "2026-11-24T06:44:59.231Z"
+          "fetchedAt": "2026-11-24T18:38:39.470Z"
         }
       ],
       "fieldSources": {
@@ -30782,7 +30782,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30829,7 +30829,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30876,7 +30876,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30921,7 +30921,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -30968,7 +30968,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -31015,7 +31015,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -31061,7 +31061,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -31070,6 +31070,51 @@
       },
       "country": "México",
       "confidence": 95,
+      "status": "confirmed"
+    },
+    {
+      "id": "altoromexico-1be6d32444219a",
+      "date": "2027-01-03",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Tizimín (Yucatán) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "",
+      "participants": [
+        "Pablo Hermoso de Mendoza",
+        "Leo Valadez"
+      ],
+      "name": "Tizimín (Yucatán) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceLocalDate": "2027-01-03",
+      "sourceLocalTime": "16:00",
+      "sourceTimeZone": "America/Merida",
+      "cattleCount": 4,
+      "sourceDescription": "Primera corrida de feria",
+      "sources": [
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 94,
       "status": "confirmed"
     },
     {
@@ -31110,7 +31155,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -31155,7 +31200,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -31200,7 +31245,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -31242,7 +31287,7 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
@@ -31251,6 +31296,53 @@
       },
       "country": "México",
       "confidence": 94,
+      "status": "confirmed"
+    },
+    {
+      "id": "altoromexico-16a406962c5f70",
+      "date": "2027-01-17",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Tizimín (Yucatán) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "San Martín de Porres",
+      "participants": [
+        "Hernán Ondarza",
+        "Uriel Moreno El Zapata",
+        "Paco Rocha",
+        "Antonio García El Chihuahua"
+      ],
+      "name": "Tizimín (Yucatán) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceLocalDate": "2027-01-17",
+      "sourceLocalTime": "16:00",
+      "sourceTimeZone": "America/Merida",
+      "cattleCount": 4,
+      "sourceDescription": "Segunda corrida de feria",
+      "sources": [
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 95,
       "status": "confirmed"
     },
     {
@@ -31288,7 +31380,53 @@
           "name": "Al Toro México",
           "confidence": 92,
           "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
-          "fetchedAt": "2026-11-24T06:45:03.754Z"
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 95,
+      "status": "confirmed"
+    },
+    {
+      "id": "altoromexico-a83fc5d61411ee",
+      "date": "2027-01-31",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Villa Hidalgo (Jalisco) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Torreón de Cañas",
+      "participants": [
+        "José Mauricio",
+        "Fermín Espinosa Armillita IV",
+        "Diego Sánchez"
+      ],
+      "name": "Villa Hidalgo (Jalisco) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceLocalDate": "2027-01-31",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "America/Mexico_City",
+      "cattleCount": 6,
+      "sourceDescription": "Corrida de feria",
+      "sources": [
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-24T18:38:41.479Z"
         }
       ],
       "fieldSources": {
