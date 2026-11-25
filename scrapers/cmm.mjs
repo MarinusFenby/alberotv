@@ -3,7 +3,7 @@ import path from "node:path";
 import { preserveGuideOnFailure } from './guide-result.mjs';
 
 const SOURCE = "CMM";
-const GUIDE_URL = "https://www.cmmedia.es/play/programacion/tv";
+const GUIDE_URL = "https://www.cmmedia.es/programacion/tv";
 const OUTPUT = path.resolve("data/cmm.json");
 
 const USER_AGENT =
@@ -148,10 +148,9 @@ function extractDateHeaders(html) {
   return headers;
 }
 
-function resolveHeaderDates(headers) {
+function resolveHeaderDates(headers, now = new Date()) {
   if (!headers.length) return [];
 
-  const now = new Date();
   const today = new Date(Date.UTC(
     now.getUTCFullYear(),
     now.getUTCMonth(),
@@ -302,6 +301,84 @@ function assignDates(events, dates) {
   });
 }
 
+// The current broadcaster guide labels each civil-day panel explicitly.
+function getAttrs(tag) {
+  return Object.fromEntries([...tag.matchAll(/([^\s=<>]+)\s*=\s*["']([^"']*)["']/g)]
+    .map(([, key, value]) => [key.toLowerCase(), decodeHtml(value)]));
+}
+const hasClass = (attrs, name) => String(attrs.class || "").split(/\s+/).includes(name);
+function madridToday(now) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Madrid", year: "numeric", month: "2-digit", day: "2-digit"
+  }).formatToParts(now);
+  const fields = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+  return new Date(Date.UTC(+fields.year, +fields.month - 1, +fields.day));
+}
+function readModernGuide(html, now) {
+  const tabs = [...html.matchAll(/<a\b([^>]*)>([^<]*)<\/a>/gi)]
+    .map(([, tag, label]) => ({ attrs: getAttrs(tag), label: normalizeWeekday(stripHtml(label)) }))
+    .filter(({ attrs }) => hasClass(attrs, "js-date-tab"));
+  if (!tabs.length || tabs.length > 15) throw new Error("Pestañas CMM ausentes o fuera de alcance.");
+  const today = madridToday(now);
+  let explicitDates = 0;
+  const dates = tabs.map(({ attrs, label }, index) => {
+    if (attrs.role !== "tab" || attrs["data-date-target"] !== "schedule-day-" + index ||
+        attrs["aria-controls"] !== attrs["data-date-target"] || attrs.id !== "date-tab-" + index)
+      throw new Error("Vínculo pestaña/día CMM no verificable.");
+    const day = addUtcDays(today, index);
+    const named = label.match(/^(lunes|martes|miercoles|jueves|viernes|sabado|domingo)\s+(\d{1,2})$/);
+    if (named && weekdayNumber(named[1]) === day.getUTCDay() && Number(named[2]) === day.getUTCDate())
+      explicitDates++;
+    else if (!(index === 0 && label === "hoy") && !(index === 1 && label === "manana"))
+      throw new Error("Fecha de pestaña CMM no concuerda con la fecha local.");
+    return isoDate(day);
+  });
+  if (!explicitDates) throw new Error("CMM no aporta día explícito para verificar la fecha.");
+  const divTags = [...html.matchAll(/<\/?div\b[^>]*>/gi)];
+  const panels = new Map();
+  for (let i = 0; i < divTags.length; i++) {
+    const node = divTags[i], tag = node[0];
+    if (tag.startsWith("</")) continue;
+    const attrs = getAttrs(tag);
+    if (!hasClass(attrs, "schedule-day")) continue;
+    const j = Number((attrs.id || "").match(/^schedule-day-(\d+)$/)?.[1] ?? NaN);
+    if (!Number.isInteger(j) || j >= dates.length || panels.has(j) || attrs.role !== "tabpanel" ||
+        attrs["aria-labelledby"] !== "date-tab-" + j) throw new Error("Panel de día CMM no verificable.");
+    let depth = 1, end = i + 1;
+    for (; end < divTags.length && depth; end++) depth += divTags[end][0].startsWith("</") ? -1 : 1;
+    if (depth) throw new Error("Panel CMM incompleto.");
+    panels.set(j, html.slice(node.index + tag.length, divTags[end - 1].index));
+  }
+  if (panels.size !== dates.length) throw new Error("Faltan paneles en la guía CMM.");
+  const events = [];
+  for (const [index, panel] of [...panels].sort(([a], [b]) => a - b)) {
+    let slots = 0;
+    for (const [, tag, fragment] of panel.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
+      const attrs = getAttrs(tag);
+      if (!hasClass(attrs, "schedule-item")) continue;
+      const time = stripHtml(extractClassContent(fragment, "time", "div"));
+      const title = stripHtml(fragment.match(/<h3\b[^>]*>([\s\S]*?)<\/h3>/i)?.[1] || "");
+      if (!/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(time) || !title)
+        throw new Error("Emisión CMM con título u hora inválidos.");
+      slots++;
+      const description = stripHtml(fragment.match(/<p\b[^>]*>([\s\S]*?)<\/p>/i)?.[1] || "");
+      events.push({ date: dates[index], time, title, description,
+        sourceUrl: attrs.href ? absoluteUrl(attrs.href) : GUIDE_URL });
+    }
+    if (!slots) throw new Error("Panel CMM sin emisiones verificables.");
+  }
+  return { dates, events };
+}
+
+export function parseGuideHtml(html, now = new Date()) {
+  if (/js-date-tab|guide-schedule-wrapper/.test(html)) return readModernGuide(html, now);
+  if (!/c-event__hour/.test(html)) throw new Error("La respuesta no contiene una guía de emisiones verificable.");
+  const dates = resolveHeaderDates(extractDateHeaders(html), now);
+  const events = assignDates(extractEvents(html), dates);
+  if (!dates.length || !events.length) throw new Error("No se pudo reconstruir la parrilla CMM.");
+  return {dates, events};
+}
+
 const MONTHS = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO",
   "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
 
@@ -328,6 +405,8 @@ export function classifyBroadcast(title = "", description = "", broadcastDate = 
    * Programa taurino semanal de CMM.
    * Debe aparecer igual que Toros para Todos, Tendido Cero o Grana y Oro.
    */
+  if (/^(?:TOREROS, HISTORIA Y ARTE|NUESTRO CAMPO BRAVO)(?: \(20\d{2}\))?$/.test(titleText)) return "Programa taurino";
+
   if (text.includes("TIEMPO DE TOROS")) {
     return "Programa taurino";
   }
@@ -434,7 +513,7 @@ async function fetchHtml(url) {
   }
 
   const html = await response.text();
-  if (!/c-event__hour/.test(html)) {
+  if (!/c-event__hour|js-date-tab|guide-schedule-wrapper/.test(html)) {
     throw new Error(`La respuesta no contiene una guía de emisiones verificable (destino: ${response.url}). No se interpreta como parrilla vacía.`);
   }
   return html;
@@ -445,15 +524,12 @@ async function main() {
   const errors = [];
 
   let html = "";
-  let headers = [];
   let dates = [];
   let allEvents = [];
 
   try {
     html = await fetchHtml(GUIDE_URL);
-    headers = extractDateHeaders(html);
-    dates = resolveHeaderDates(headers);
-    allEvents = assignDates(extractEvents(html), dates);
+    ({ dates, events: allEvents } = parseGuideHtml(html, new Date(generatedAt)));
   } catch (error) {
     errors.push({
       url: GUIDE_URL,
