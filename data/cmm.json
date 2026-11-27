@@ -2,18 +2,22 @@
   "source": "CMM",
   "generatedAt": "2026-11-27T14:41:52.425Z",
   "sourceUrl": "https://www.cmmedia.es/programacion/tv",
-  "status": "ok",
+  "status": "stale",
   "eventCount": 10,
   "checkedPages": 1,
-  "discoveredDates": [
-    "2026-11-27",
-    "2026-11-28",
-    "2026-11-29",
-    "2026-11-30"
+  "discoveredDates": [],
+  "detectedScheduleItems": 0,
+  "errorCount": 2,
+  "errors": [
+    {
+      "url": "https://www.cmmedia.es/programacion/tv",
+      "error": "Fecha de pestaña CMM no concuerda con la fecha local."
+    },
+    {
+      "url": "https://www.cmmedia.es/programacion/tv",
+      "error": "No se pudo reconstruir la secuencia de fechas de la parrilla."
+    }
   ],
-  "detectedScheduleItems": 107,
-  "errorCount": 0,
-  "errors": [],
   "events": [
     {
       "id": "cmm-2026-11-28-0730-1",
@@ -155,5 +159,7 @@
       "description": "",
       "sourceUrl": "https://www.cmmplay.es/live/469"
     }
-  ]
+  ],
+  "lastAttemptAt": "2026-11-27T23:13:28.246Z",
+  "lastSuccessfulAt": "2026-11-27T14:41:52.425Z"
 }

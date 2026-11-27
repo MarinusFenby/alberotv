@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-27T14:42:27.799Z",
-  "throughDate": "2026-11-27",
-  "eventCount": 699,
+  "generatedAt": "2026-11-27T23:13:55.580Z",
+  "throughDate": "2026-11-28",
+  "eventCount": 701,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -29290,6 +29290,102 @@
       "country": "México",
       "confidence": 89,
       "status": "probable"
+    },
+    {
+      "id": "mundotoro-faceb260332275",
+      "date": "2026-11-27",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "San Miguel de Allende (Guanajuato) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Javier Garfias, Santín",
+      "participants": [
+        "Emiliano Gamero",
+        "Octavio García El Payo",
+        "Andrés Roca Rey"
+      ],
+      "name": "San Miguel de Allende (Guanajuato) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sources": [
+        "Mundotoro",
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-27T14:42:06.362Z"
+        },
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-27T14:42:08.969Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 97,
+      "status": "confirmed",
+      "sourceLocalDate": "2026-11-27",
+      "sourceLocalTime": "20:00",
+      "sourceTimeZone": "America/Mexico_City"
+    },
+    {
+      "id": "altoromexico-0f04be7e341984",
+      "date": "2026-11-27",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Xmatkuil (Yucatán) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "Barralva",
+      "participants": [
+        "Miguel Tendero",
+        "Ernesto Javier Calita"
+      ],
+      "name": "Xmatkuil (Yucatán) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+      "sourceLocalDate": "2026-11-27",
+      "sourceLocalTime": "08:00",
+      "sourceTimeZone": "America/Merida",
+      "cattleCount": 4,
+      "sourceDescription": "Corrida blanca",
+      "sources": [
+        "Al Toro México"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Al Toro México",
+          "confidence": 92,
+          "sourceUrl": "https://www.altoromexico.com/index.php?acc=carteleria",
+          "fetchedAt": "2026-11-27T14:42:08.969Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Al Toro México",
+        "localTime": "Al Toro México"
+      },
+      "country": "México",
+      "confidence": 95,
+      "status": "confirmed"
     }
   ]
 }
