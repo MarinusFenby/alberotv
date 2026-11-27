@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-26T22:48:53.314Z",
-  "throughDate": "2026-11-26",
-  "eventCount": 698,
+  "generatedAt": "2026-11-27T04:47:23.524Z",
+  "throughDate": "2026-11-27",
+  "eventCount": 699,
   "events": [
     {
       "id": "cmm-2026-07-25-1245-1",
@@ -29250,6 +29250,46 @@
       "sourceTimeZone": "America/Mexico_City",
       "cattleCount": 4,
       "description": "4 toros anunciados. Ganadería por designar."
+    },
+    {
+      "id": "mundotoro-e9a1ea459ea7f4",
+      "date": "2026-11-26",
+      "time": null,
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": false,
+      "location": "Fábrica María (Otzolotepec) (Estado de México) México",
+      "type": "Corrida de toros",
+      "contentType": "festejo",
+      "breeding": "La Estancia",
+      "participants": [
+        "Emiliano Gamero",
+        "Jesús Sosa",
+        "Juan Pablo Sánchez"
+      ],
+      "name": "Fábrica María (Otzolotepec) (Estado de México) México",
+      "title": null,
+      "image": null,
+      "eventUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+      "sources": [
+        "Mundotoro"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Mundotoro",
+          "confidence": 86,
+          "sourceUrl": "https://www.mundotoro.com/carteles-taurinos",
+          "fetchedAt": "2026-11-26T22:48:32.531Z"
+        }
+      ],
+      "fieldSources": {
+        "type": "Mundotoro"
+      },
+      "country": "México",
+      "confidence": 89,
+      "status": "probable"
     }
   ]
 }
