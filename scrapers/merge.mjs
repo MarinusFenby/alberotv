@@ -174,6 +174,41 @@ const SOURCE_CONFIDENCE = {
   "Al Toro México": 92
 };
 
+// Sustitución de encierro anunciada por la empresa. No es un sorteo.
+const TEXCOCO_REPLACEMENT_URL = "https://www.santajuliaespectaculos.com/cartel29noviembre2026";
+const TEXCOCO_2026_IDS = new Set(["mundotoro-17a0e0d66541b2", "altoromexico-6e32f60a537c91"]);
+
+export function applyVerifiedTexcocoReplacement(events) {
+  const location = "Texcoco (Estado de México) México";
+  const date = "2026-11-29";
+  const matches = events.filter(event => TEXCOCO_2026_IDS.has(event.id) ||
+    (event.date === date && event.location === location && event.contentType === "festejo"));
+  if (matches.length !== 1) return false;
+  const row = matches[0];
+  const breeder = "Torreón de Cañas";
+  const official = "Santa Julia Espectáculos";
+  if (!TEXCOCO_2026_IDS.has(row.id) || row.date !== date || row.location !== location ||
+      row.type !== "Corrida de toros" || row.contentType !== "festejo" ||
+      row.status !== "confirmed" || row.sourceLocalDate !== date || row.sourceLocalTime !== "16:00" ||
+      row.sourceTimeZone !== "America/Mexico_City" ||
+      JSON.stringify(row.participants) !== JSON.stringify(["José Mauricio", "Isaac Fonseca", "Víctor Hernández"]) ||
+      !["Fernando de la Mora", breeder].includes(row.breeding) ||
+      (row.cattleCount != null && row.cattleCount !== 6)) return false;
+  if (row.breeding === breeder && row.cattleCount === 6 && row.fieldSources?.breeding === official) return false;
+  events[events.indexOf(row)] = {
+    ...row,
+    breeding: breeder,
+    cattleCount: 6,
+    fieldSources: { ...row.fieldSources, breeding: official, cattleCount: official },
+    sources: [...new Set([...(row.sources || []), official])],
+    sourceDetails: [
+      ...(row.sourceDetails || []).filter(source => source.name !== official),
+      { name: official, confidence: 100, sourceUrl: TEXCOCO_REPLACEMENT_URL, fetchedAt: null }
+    ]
+  };
+  return true;
+}
+
 // Carteles fechados de Mugron publicados por Aplausos el 28/11/2026.
 const MUGRON_CARTELS_URL =
   "https://www.aplausos.es/mugron-cierra-los-carteles-de-su-tradicional-lunes-de-pascua/";
@@ -2607,6 +2642,7 @@ async function main() {
   }
 
   applyEmilianoZapataCount(merged);
+  applyVerifiedTexcocoReplacement(merged);
 
   if (removeJalpaNewYearGuest(merged) === "needs_review") {
     console.warn("El cartel de Año Nuevo de Jalpa requiere revisión; se deja según la fuente.");
