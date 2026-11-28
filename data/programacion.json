@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-11-28T13:53:20.839Z",
+  "generatedAt": "2026-11-28T15:30:42.423Z",
   "degraded": true,
-  "eventCount": 771,
-  "bullfightingEventCount": 690,
+  "eventCount": 773,
+  "bullfightingEventCount": 692,
   "programCount": 81,
   "mergeStats": {
     "historicalCandidates": 1402,
     "historicalPreserved": 701,
     "historicalDuplicatesMerged": 701,
     "historicalRetiredCmmProgrammes": 0,
-    "added": 79,
+    "added": 81,
     "merged": 38,
     "skippedUncorroborated": 22,
     "verifiedStartTimesApplied": 0,
@@ -32531,6 +32531,93 @@
       "fieldSources": {
         "type": "Canal Sur"
       },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mugron-2027-03-29-sin-picadores",
+      "date": "2027-03-29",
+      "time": "11:00",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": true,
+      "location": "Mugron \"Arènes de Condrette\" (Landes) Francia",
+      "type": "Novillada sin picadores",
+      "contentType": "festejo",
+      "breeding": "Alma Serena",
+      "participants": [
+        "Julio Martín",
+        "Maxence Alcaïde"
+      ],
+      "name": "Novillada sin picadores",
+      "title": "Novillada sin picadores",
+      "image": null,
+      "eventUrl": "https://www.aplausos.es/mugron-cierra-los-carteles-de-su-tradicional-lunes-de-pascua/",
+      "sourceUrl": "https://www.aplausos.es/mugron-cierra-los-carteles-de-su-tradicional-lunes-de-pascua/",
+      "sourceLocalDate": "2027-03-29",
+      "sourceLocalTime": "11:00",
+      "sourceTimeZone": "Europe/Paris",
+      "sources": [
+        "Aplausos"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Aplausos",
+          "confidence": 96,
+          "sourceUrl": "https://www.aplausos.es/mugron-cierra-los-carteles-de-su-tradicional-lunes-de-pascua/",
+          "fetchedAt": null
+        }
+      ],
+      "fieldSources": {
+        "localTime": "Aplausos",
+        "type": "Aplausos"
+      },
+      "country": "Francia",
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "mugron-2027-03-29-con-picadores",
+      "date": "2027-03-29",
+      "time": "16:30",
+      "channel": "Sin TV",
+      "deferred": false,
+      "televised": false,
+      "televisionUnconfirmed": true,
+      "location": "Mugron \"Arènes de Condrette\" (Landes) Francia",
+      "type": "Novillada con picadores",
+      "contentType": "festejo",
+      "breeding": "Hijos de Don Ignacio Pérez Tabernero",
+      "participants": [
+        "Manuel Quintana",
+        "Jorge Oliva",
+        "Fernando Vanegas"
+      ],
+      "name": "Novillada con picadores",
+      "title": "Novillada con picadores",
+      "image": null,
+      "eventUrl": "https://www.aplausos.es/mugron-cierra-los-carteles-de-su-tradicional-lunes-de-pascua/",
+      "sourceUrl": "https://www.aplausos.es/mugron-cierra-los-carteles-de-su-tradicional-lunes-de-pascua/",
+      "sourceLocalDate": "2027-03-29",
+      "sourceLocalTime": "16:30",
+      "sourceTimeZone": "Europe/Paris",
+      "sources": [
+        "Aplausos"
+      ],
+      "sourceDetails": [
+        {
+          "name": "Aplausos",
+          "confidence": 96,
+          "sourceUrl": "https://www.aplausos.es/mugron-cierra-los-carteles-de-su-tradicional-lunes-de-pascua/",
+          "fetchedAt": null
+        }
+      ],
+      "fieldSources": {
+        "localTime": "Aplausos",
+        "type": "Aplausos"
+      },
+      "country": "Francia",
       "confidence": 100,
       "status": "confirmed"
     }
