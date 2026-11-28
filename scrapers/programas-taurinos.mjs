@@ -12,6 +12,8 @@ const OUTPUT_FILE = path.resolve(
   "programas-taurinos.json"
 );
 
+const VERIFIED_FILE = new URL("../data/programas-taurinos-verificados.json", import.meta.url);
+
 const TITLE = "Toros para Todos";
 
 /*
@@ -321,6 +323,37 @@ async function main() {
         )
     );
 
+  // Las emisiones verificadas de otras cadenas no son salidas de Canal Sur.
+  // Son fechas concretas, nunca un patrón semanal. El histórico del
+  // fusionador conserva las emisiones pasadas después del cambio de fecha.
+  const verified = JSON.parse(await fs.readFile(VERIFIED_FILE, "utf8"));
+  if (!Array.isArray(verified.events)) {
+    throw new Error("Falta la lista de emisiones verificadas");
+  }
+  const ids = new Set(events.map(event => event.id));
+  const verifiedBySource = new Map();
+  for (const event of verified.events) {
+    if (!event || typeof event.id !== "string" || !event.id ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(event.date) ||
+        !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(event.time) ||
+        event.sourceLocalDate !== event.date || event.sourceLocalTime !== event.time ||
+        event.sourceTimeZone !== "Europe/Madrid" ||
+        event.contentType !== "programa" || event.status !== "confirmed" ||
+        event.televised !== true || !event.source || !event.channel ||
+        !event.sourceUrl?.startsWith("https://") || event.source === "Canal Sur") {
+      throw new Error("Emisión verificada no válida");
+    }
+    if (ids.has(event.id)) {
+      throw new Error(`Emisión verificada duplicada: ${event.id}`);
+    }
+    ids.add(event.id);
+    if (event.date < runDate) continue;
+    events.push(event);
+    const eventsForSource = verifiedBySource.get(event.source) || [];
+    eventsForSource.push(event.id);
+    verifiedBySource.set(event.source, eventsForSource);
+  }
+
   const output = {
     scraperVersion:
       VERSION,
@@ -376,7 +409,12 @@ async function main() {
 
         eventsCreated:
           events.length
-      }
+      },
+      ...Array.from(verifiedBySource, ([source, eventIds]) => ({
+        source,
+        publication: "emisiones verificadas por fecha",
+        eventIds
+      }))
     ],
 
     events
@@ -426,7 +464,7 @@ async function main() {
   );
 
   console.log(
-    `Domingos creados: ${events.length}`
+    `Domingos creados: ${sundayDates.length}`
   );
 
   for (const event of events) {
