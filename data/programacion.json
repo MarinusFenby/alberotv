@@ -1,9 +1,9 @@
 {
   "generatedAt": "2026-11-28T04:52:27.710Z",
   "degraded": true,
-  "eventCount": 772,
+  "eventCount": 775,
   "bullfightingEventCount": 690,
-  "programCount": 82,
+  "programCount": 85,
   "mergeStats": {
     "historicalCandidates": 1402,
     "historicalPreserved": 701,
@@ -32563,6 +32563,123 @@
       "fieldSources": {
         "localTime": "RTVE",
         "type": "RTVE"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "cyltv-la7-grana-y-oro-2026-11-28-1247",
+      "date": "2026-11-28",
+      "time": "12:47",
+      "channel": "La 7 CyL",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Grana y Oro",
+      "title": "Grana y Oro",
+      "image": null,
+      "eventUrl": "https://www.cyltvplay.es/player/d3badef6-d229-4a27-9609-03df3d17ca3/la7/la7",
+      "sourceUrl": "https://www.cyltv.es/guiatv",
+      "sourceLocalDate": "2026-11-28",
+      "sourceLocalTime": "12:47",
+      "sourceTimeZone": "Europe/Madrid",
+      "sources": [
+        "CyLTV"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CyLTV",
+          "confidence": 98,
+          "sourceUrl": "https://www.cyltv.es/guiatv",
+          "fetchedAt": "2026-11-28T07:45:46.340Z"
+        }
+      ],
+      "fieldSources": {
+        "localTime": "CyLTV",
+        "type": "CyLTV"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "cyltv-la8-grana-y-oro-2026-11-28-1525",
+      "date": "2026-11-28",
+      "time": "15:25",
+      "channel": "La 8 CyL",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Grana y Oro",
+      "title": "Grana y Oro",
+      "image": null,
+      "eventUrl": "https://www.cyltv.es/guiatv",
+      "sourceUrl": "https://www.cyltv.es/guiatv",
+      "sourceLocalDate": "2026-11-28",
+      "sourceLocalTime": "15:25",
+      "sourceTimeZone": "Europe/Madrid",
+      "sources": [
+        "CyLTV"
+      ],
+      "sourceDetails": [
+        {
+          "name": "CyLTV",
+          "confidence": 98,
+          "sourceUrl": "https://www.cyltv.es/guiatv",
+          "fetchedAt": "2026-11-28T07:45:46.341Z"
+        }
+      ],
+      "fieldSources": {
+        "localTime": "CyLTV",
+        "type": "CyLTV"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "rioja-la7-grana-y-oro-2026-11-29-1230",
+      "date": "2026-11-29",
+      "time": "12:30",
+      "channel": "La 7 Rioja",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Grana y Oro",
+      "title": "Grana y Oro",
+      "image": null,
+      "eventUrl": "https://www.7rioja.tv/Directo",
+      "sourceUrl": "https://www.7rioja.tv/GuiaTV",
+      "sourceLocalDate": "2026-11-29",
+      "sourceLocalTime": "12:30",
+      "sourceTimeZone": "Europe/Madrid",
+      "sources": [
+        "La 7 Rioja"
+      ],
+      "sourceDetails": [
+        {
+          "name": "La 7 Rioja",
+          "confidence": 98,
+          "sourceUrl": "https://www.7rioja.tv/GuiaTV",
+          "fetchedAt": "2026-11-28T07:45:46.341Z"
+        }
+      ],
+      "fieldSources": {
+        "localTime": "La 7 Rioja",
+        "type": "La 7 Rioja"
       },
       "confidence": 100,
       "status": "confirmed"
