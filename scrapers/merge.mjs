@@ -174,6 +174,49 @@ const SOURCE_CONFIDENCE = {
   "Al Toro México": 92
 };
 
+// Carteles fechados de Mugron publicados por Aplausos el 28/11/2026.
+const MUGRON_CARTELS_URL =
+  "https://www.aplausos.es/mugron-cierra-los-carteles-de-su-tradicional-lunes-de-pascua/";
+const VERIFIED_MUGRON_CARTELS = [
+  {
+    id: "mugron-2027-03-29-sin-picadores",
+    time: "11:00",
+    type: "Novillada sin picadores",
+    breeding: "Alma Serena",
+    participants: ["Julio Martín", "Maxence Alcaïde"]
+  },
+  {
+    // Hora y ganadería corroboradas por el comunicado de la Peña Taurine Mugronnaise:
+    // https://torofiesta.com/48030-mugron-53/
+    id: "mugron-2027-03-29-con-picadores",
+    time: "16:30",
+    type: "Novillada con picadores",
+    breeding: "Hijos de Don Ignacio Pérez Tabernero",
+    participants: ["Manuel Quintana", "Jorge Oliva", "Fernando Vanegas"]
+  }
+];
+
+export function mergeVerifiedMugronCartels(events) {
+  const date = "2027-03-29";
+  return VERIFIED_MUGRON_CARTELS.map(event => addOrMergeEvent(
+    events,
+    normalizeGenericEvent({
+      ...event,
+      date,
+      location: "Mugron \"Arènes de Condrette\" (Landes) Francia",
+      title: event.type,
+      country: "Francia",
+      channel: "Sin TV",
+      televised: false,
+      televisionUnconfirmed: true,
+      sourceLocalDate: date,
+      sourceLocalTime: event.time,
+      sourceTimeZone: "Europe/Paris",
+      sourceUrl: MUGRON_CARTELS_URL
+    }, "Aplausos")
+  ));
+}
+
 /*
  * Emisiones especiales confirmadas públicamente que OneToro anuncia
  * fuera de su contenedor habitual de próximos festejos. Se mantienen
@@ -2495,6 +2538,10 @@ async function main() {
         ? "merged"
         : "added"
     ] += 1;
+  }
+
+  for (const result of mergeVerifiedMugronCartels(merged)) {
+    mergeStats[result.merged ? "merged" : "added"] += 1;
   }
 
   for (const event of CONFIRMED_SPECIAL_PROGRAMS) {
