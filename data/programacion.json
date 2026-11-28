@@ -1,9 +1,9 @@
 {
   "generatedAt": "2026-11-28T04:52:27.710Z",
   "degraded": true,
-  "eventCount": 771,
+  "eventCount": 772,
   "bullfightingEventCount": 690,
-  "programCount": 81,
+  "programCount": 82,
   "mergeStats": {
     "historicalCandidates": 1402,
     "historicalPreserved": 701,
@@ -32524,6 +32524,45 @@
       ],
       "fieldSources": {
         "type": "Canal Sur"
+      },
+      "confidence": 100,
+      "status": "confirmed"
+    },
+    {
+      "id": "rtve-la2-tendido-cero-2026-11-28-1330",
+      "date": "2026-11-28",
+      "time": "13:30",
+      "channel": "RTVE",
+      "deferred": false,
+      "televised": true,
+      "televisionUnconfirmed": false,
+      "location": "Televisión",
+      "type": "Programa taurino",
+      "contentType": "programa",
+      "breeding": "",
+      "participants": [],
+      "name": "Tendido Cero",
+      "title": "Tendido Cero",
+      "image": null,
+      "eventUrl": "https://www.rtve.es/play/videos/directo/canales-lineales/la-2/",
+      "sourceUrl": "https://www.rtve.es/play/guia-tve/la2/ma%C3%B1ana",
+      "sourceLocalDate": "2026-11-28",
+      "sourceLocalTime": "13:30",
+      "sourceTimeZone": "Europe/Madrid",
+      "sources": [
+        "RTVE"
+      ],
+      "sourceDetails": [
+        {
+          "name": "RTVE",
+          "confidence": 98,
+          "sourceUrl": "https://www.rtve.es/play/guia-tve/la2/ma%C3%B1ana",
+          "fetchedAt": "2026-11-27T12:12:30.000Z"
+        }
+      ],
+      "fieldSources": {
+        "localTime": "RTVE",
+        "type": "RTVE"
       },
       "confidence": 100,
       "status": "confirmed"
